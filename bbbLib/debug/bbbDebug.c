@@ -12,7 +12,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int main ()  {
   printf("\n   --- bbbLib Debugging --- \n\n");
-  bbbLED();
+  //bbbLED();
   bbbGPIO();
   printf("   --- bbbLib Complete --- \n\n");
   return 0;
@@ -24,6 +24,8 @@ int main ()  {
 //  Debugs the bbbLED file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void bbbLED ( void )  {
+
+  // Start the LED demo
   printf("BBB LED functions \n");
 
   // Set trigger status
@@ -57,6 +59,7 @@ void bbbLED ( void )  {
   led_off(3);
   usleep(1000000);
 
+  // Exit the function
   printf("\n");
   return;
 }
@@ -67,12 +70,49 @@ void bbbLED ( void )  {
 //  Debugs the bbbGPIO file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void bbbGPIO ( void )  {
+
+  // Start the GPIO demo
   printf("BBB GPIO functions \n");
 
+  // Local variables
+  int i;
+  int gpio_led    = 60;    // P9_12  GPIO1[28] = (1x32)+28 = 60
+  int gpio_button = 15;    // P9_24  GPIO0[15] = (0x32)+15 = 15
+  unsigned int val;
 
+  // Export the pins
+  gpio_export( gpio_led );
+  gpio_export( gpio_button );
+    
+  // Set pin direction
+  gpio_set_dir( gpio_led,    OUTPUT_PIN );
+  gpio_set_dir( gpio_button, INPUT_PIN  );
+    
+  // Flash the LED
+  for( i=0; i<5; i++ ) {
+    printf("LED on... \n");
+    gpio_set_val( gpio_led, HIGH );
+    usleep(200000);
+    printf("LED off... \n");
+    gpio_set_val( gpio_led, LOW );
+    usleep(200000);
+  }
+    
+  // Demonstrate the push button
+  printf("Press the button! \n");
+  val = LOW;
+  do {
+    gpio_get_val( gpio_button, &val );
+    printf(".");
+    usleep(100);
+  } while ( val == LOW );
+  printf("\nButton was pressed!\n");
+    
+  // Unexport the pins
+  gpio_unexport( gpio_led );
+  gpio_unexport( gpio_button );
 
-
-
+  // Exit the function
   printf("\n");
   return;
 }
