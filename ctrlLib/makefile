@@ -7,18 +7,19 @@
 CC     = gcc
 CFLAGS = -Wall -g -c
 
-INC    = -I../matLib
-LIB    = libctrl.a
+LIBS   = -lm
+IDIR   = ../inc
+LDIR   = ../lib
 
 FILE := $(shell ls | grep -F ".c" )
 NAME := $(patsubst %.c, %, $(FILE) )
 OBJ  := $(foreach o, $(NAME), obj/$(o).o )
 
 all : $(OBJ)
-	ar -cvq $(LIB) obj/*.o  
+	ar -cvq $(LDIR)/libctrl.a obj/*.o  
 
-obj/%.o : %.c ctrlLib.h
-	$(CC) $(INC) $(CFLAGS) -o $@ $<
+obj/%.o : %.c ../inc/ctrlLib.h
+	$(CC) $(CFLAGS) -I$(IDIR) -o $@ $<
 
 clean :
 	rm $(OBJ) $(LIB)
