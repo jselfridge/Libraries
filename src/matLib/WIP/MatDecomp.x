@@ -7,47 +7,6 @@
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_LU
-//  Solves for the LU decomposition of a matrix.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
-
-  mat_err( *L != NULL || *U != NULL, "Error (mat_LU): Matricies L and U must be null. ");
-  mat_err( mat->rows != mat->cols, "Error (mat_LU): Matrix must be square. ");
-
-  int     n = mat->rows;
-  double  sum;
-
-  *L = mat_eye(n);
-  *U = mat_init(n,n);
-
-  double* data  = mat->data;
-  double* Ldata = (*L)->data;
-  double* Udata = (*U)->data;
-
-  // Loop through calculations
-  for ( int j=0; j<n; j++ ) {
-
-    // Derive upper matrix
-    for ( int i=0; i<=j; i++ ) {
-      sum = 0.0;
-      for ( int k=0; k<i; k++ ) {  sum += Ldata[i*n+k] * Udata[k*n+j];  }
-      Udata[i*n+j] = data[i*n+j] - sum;
-    }
-
-    // Derive lower matrix
-    for ( int i=j+1; i<n; i++ ) {
-      sum = 0.0;
-      for ( int k=0; k<j; k++ ) {  sum += Ldata[i*n+k] * Udata[k*n+j];  }
-      Ldata[i*n+j] = 1.0/Udata[j*n+j] * ( data[i*n+j] - sum );
-    }
-
-  }
-  return;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_QR
 //  Solves for the QR decomposition of a matrix.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,28 +37,6 @@ void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
   mat_clear(Acol);
   mat_clear(Qcol);
 
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_det
-//  Returns the determinant of a square matrix.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-double mat_det ( matrix* mat ) {
-
-  mat_err( mat->rows != mat->cols, "Error (mat_det): Matrix must be square.");
-
-  int     n = mat->rows;
-  double  product = 1.0;
-  matrix* L = NULL;
-  matrix* U = NULL;
-
-  mat_LU( mat, &L, &U );
-  for ( int i=1; i<=n; i++ )  product *=  mat_get(U,i,i);
-  mat_clear(L);
-  mat_clear(U);
-
-  return product;
 }
 
 
