@@ -6,7 +6,6 @@
 
 CC     = gcc
 CFLAGS = -Wall -g -c
-
 INC    = -I../matLib
 LIB    = librot.a
 
