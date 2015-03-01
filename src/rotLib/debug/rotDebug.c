@@ -12,8 +12,8 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int main ()  {
   printf("\n   --- RotLib Debugging --- \n\n");
-  RotConv();
-  RotEuler();
+  //RotConv();
+  //RotEuler();
   RotQuat();
   printf("   --- RotLib Complete --- \n\n");
   return 0;
@@ -179,23 +179,43 @@ void RotQuat ()  {
   mat_print(rot_eul(att));
   mat_print(rot_q2dcm(quat));
 
-  // Vector to quaternion
+  // Define sample vectors
   matrix* vecA = mat_init(3,1);
   mat_set( vecA,1,1,  1.2 );
   mat_set( vecA,2,1, -2.5 );
   mat_set( vecA,3,1,  0.4 );
+  printf("vecA: ");
   mat_print(vecA);
   matrix* vecB = mat_init(3,1);
   mat_set( vecB,1,1, -3.4 );
   mat_set( vecB,2,1,  2.1 );
   mat_set( vecB,3,1,  4.7 );
+  printf("vecB: ");
   mat_print(vecB);
+
+  // Vectors to quaternion
   matrix* VQ = rot_vec2q( vecA, vecB );
+  printf("VQ: ");
   mat_print(VQ);
-  matrix* vecC = mat_mul( (rot_q2dcm(VQ)), vecA );
-  mat_print(vecC);
+  matrix* vecQ = mat_mul( (rot_q2dcm(VQ)), vecA );
+  printf("vecQ: ");
+  mat_print(vecQ);
+  printf("unit vecB: ");
   mat_print( mat_uvec(vecB) );
-  mat_print( mat_uvec(vecC) );
+  printf("unit vecQ: ");
+  mat_print( mat_uvec(vecQ) );
+
+  // Vectors to Euler
+  matrix* VE = rot_vec2e( vecA, vecB );
+  printf("VE: ");
+  mat_print(VE);
+  matrix* vecE = mat_mul( (rot_eul(VE)), vecA );
+  printf("vecE: ");
+  mat_print(vecE);
+  printf("unit vecB: ");
+  mat_print( mat_uvec(vecB) );
+  printf("unit vecE: ");
+  mat_print( mat_uvec(vecE) );
 
   // Quaternion skew matrix
   mat_print( rot_qskew(quat) );
@@ -213,8 +233,10 @@ void RotQuat ()  {
   mat_clear(quat);
   mat_clear(vecA);
   mat_clear(vecB);
-  mat_clear(vecC);
+  mat_clear(vecQ);
+  mat_clear(vecE);
   mat_clear(VQ);
+  mat_clear(VE);
 
   printf("\n");
   return;

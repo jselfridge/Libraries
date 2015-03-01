@@ -137,6 +137,25 @@ matrix* rot_vec2q ( matrix* vecA, matrix* vecB )  {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_vec2e
+//  Returns Euler angles to rotate from VecA to VecB.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_vec2e ( matrix* vecA, matrix* vecB )  {
+
+  mat_err( vecA->rows!=3 || vecA->cols!=1, "Error (rot_vec2e): VecA must be a 3 element column vector." );
+  mat_err( vecB->rows!=3 || vecB->cols!=1, "Error (rot_vec2e): VecB must be a 3 element column vector." );
+
+  matrix* Q = rot_vec2q( vecA, vecB );
+  matrix* E = rot_q2e(Q);
+
+  rot_wrappi(E);
+
+  mat_clear(Q);
+  return E;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_qskew
 //  Takes a quaternion and returns a matrix for quat multiplication.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
