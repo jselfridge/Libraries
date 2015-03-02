@@ -61,6 +61,60 @@ matrix* mat_sub ( matrix* matA, matrix* matB )  {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_emul
+//  Element-wise multiplication of two matrices with identical dimensions.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* mat_emul ( matrix* matA, matrix* matB )  {
+
+  mat_err( matA->rows != matB->rows, "Error (mat_emul): Matrices must have same number of rows."     );
+  mat_err( matA->cols != matB->cols, "Error (mat_emul): Matrices must have same number of columns."  );
+
+  int i, j;
+  double a, b;
+  int r = matA->rows;
+  int c = matA->cols;
+  matrix* emul = mat_init(r,c);
+
+  for ( i=1; i<=r; i++ ) {
+    for ( j=1; j<=c; j++ ) {
+      a = mat_get(matA,i,j);
+      b = mat_get(matB,i,j);
+      mat_set( emul,i,j, a*b );
+    }
+  }
+
+  return emul;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_ediv
+//  Element-wise division of two matrices with identical dimensions.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* mat_ediv ( matrix* matA, matrix* matB )  {
+
+  mat_err( matA->rows != matB->rows, "Error (mat_ediv): Matrices must have same number of rows."     );
+  mat_err( matA->cols != matB->cols, "Error (mat_ediv): Matrices must have same number of columns."  );
+
+  int i, j;
+  double a, b;
+  int r = matA->rows;
+  int c = matA->cols;
+  matrix* ediv = mat_init(r,c);
+
+  for ( i=1; i<=r; i++ ) {
+    for ( j=1; j<=c; j++ ) {
+      a = mat_get(matA,i,j);
+      b = mat_get(matB,i,j);
+      mat_set( ediv,i,j, a/b );
+    }
+  }
+
+  return ediv;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_mul
 //  Multiplication of two matrices with proper dimensions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

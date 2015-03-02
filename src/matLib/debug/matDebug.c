@@ -12,15 +12,15 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
-  //InitMat(); 
-  //PrintMat();
+  InitMat(); 
+  PrintMat();
   //MatManip();
   //MatComplex();
   //MatVec();
-  //MatArith();
+  MatArith();
   //MatRoot();
-  MatDecomp();
-  //ClearMat();
+  //MatDecomp();
+  ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return 0;
 }
@@ -457,6 +457,18 @@ void MatArith() {
   mat_print(Vsub);  mat_clear(Vsub);
   matrix* Msub = mat_sub(M33a,M33b);
   mat_print(Msub);  mat_clear(Msub);
+
+  // Elem-wise multiplication
+  matrix* Vemul = mat_emul(M31a,M31b);
+  mat_print(Vemul);  mat_clear(Vemul);
+  matrix* Memul = mat_emul(M33a,M33b);
+  mat_print(Memul);  mat_clear(Memul);
+
+  // Elem-wise division
+  matrix* Vediv = mat_ediv(M31a,M31b);
+  mat_print(Vediv);  mat_clear(Vediv);
+  matrix* Mediv = mat_ediv(M33a,M33b);
+  mat_print(Mediv);  mat_clear(Mediv);
 
   // Multiplication
   matrix* Mmul33 = mat_mul(M33a,M33b);
