@@ -13,7 +13,7 @@
 int main ()  {
   printf("\n   --- bbbLib Debugging --- \n\n");
   bbbLED();
-  //bbbGPIO();
+  bbbGPIO();
   printf("   --- bbbLib Complete --- \n\n");
   return 0;
 }

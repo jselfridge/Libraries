@@ -8,18 +8,19 @@ EXEC   = debug
 CC     = gcc
 CFLAGS = -Wall -g -c
 
-INC    =  -I..           -I../../matLib            -I../../rotLib   
-LIB    =    ../libbbb.a    ../../matLib/libmat.a     ../../rotLib/librot.a
+LIBS   = -lbbb -lrot -lmat -lm 
+IDIR   = ../../inc
+LDIR   = ../../lib
 
 OBJ    = bbbDebug.o
 
 all : $(EXEC)
 
 $(EXEC) : $(OBJ)
-	$(CC) $(LIB) -o $@ $<
+	$(CC) -o $@ $< -L$(LDIR) $(LIBS)
 
 %.o : %.c %.h
-	$(CC) $(INC) $(CFLAGS) -o $@ $< 
+	$(CC) $(CFLAGS) -I$(IDIR) -o $@ $< 
 
 clean :
 	rm $(EXEC) $(OBJ)

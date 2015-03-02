@@ -13,8 +13,6 @@
 
 
 // Custom includes
-#include <matLib.h>
-#include <rotLib.h>
 #include <bbbLib.h>
 
 

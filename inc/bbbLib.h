@@ -16,7 +16,6 @@
 
 // Custom includes
 #include <matLib.h>
-#include <rotLib.h>
 
 
 // Custom definitions
