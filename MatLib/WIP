@@ -1,0 +1,81 @@
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  MatLib Library WIP Notes
+//  Justin M Selfridge
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+//double   mat_norm1   ( matrix* mat );
+//double   mat_norm2   ( matrix* mat );
+//double   mat_normI   ( matrix* mat );
+//double   mat_mean    ( matrix* mat );
+//matrix*  mat_meanr   ( matrix* mat );
+//matrix*  mat_meanc   ( matrix* mat );
+//matrix*  mat_eigval  ( matrix* mat );
+//matrix*  mat_eigvec  ( matrix* mat );
+//matrix*  mat_cov     ) matrix* mat );
+
+
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  L2_distance.h
+//matrix* L2_distance(matrix* a, matrix* b);        // NOT INTERESTED
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  eigen.h
+//double powerMethod(matrix* a);                    // NOT INTERESTED
+//matrix* francisQRstep(matrix* a);
+//matrix* eigenvec(matrix* a, double eigenval);
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  matrix.h
+//void assert(int assertion, char* message);        // COMPLETE 
+//matrix* readMatrix(char* filename);               // COMPLETE
+//matrix* makeMatrix(int width, int height);        // COMPLETE
+//matrix* copyMatrix(matrix* m);                    // COMPLETE
+//void freeMatrix(matrix* m);                       // COMPLETE
+//void writeMatrix(matrix* m, char* filename);      // COMPLETE
+//void printMatrix(matrix* m);                      // COMPLETE
+//matrix* eyeMatrix(int n);                         // COMPLETE
+//double traceMatrix(matrix* m);                    // COMPLETE
+//matrix* transposeMatrix(matrix* m);               // COMPLETE
+//matrix* meanMatrix(matrix* m);                    // NOT INTERSTED
+//matrix* multiplyMatrix(matrix* a, matrix* b);     // COMPLETE
+//matrix* scaleMatrix(matrix* m, double value);     // COMPLETE
+//matrix* covarianceMatrix(matrix* m);              // NOT INTERSETED
+//void rowSwap(matrix* a, int p, int q);
+//matrix* dotProdMatrix(matrix* a, matrix* b);      // NOT INTERESTED
+//matrix* dotDiagMatrix(matrix* a, matrix* b);      // NOT INTERSETED
+//matrix* L2_distance(matrix* a, matrix* b);        // NOT INTERESTED
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  matrixadv.h
+//void LUdecomp(mat* a, mat** l, mat** u);          // COMPLETE
+//double determinantMatrix(matrix* a);              // COMPLETE
+//matrix* matrixInverse(matrix* a);                 // COMPLETE
+//matrix* solver(matrix* a, matrix* b);             // COMPLETE
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  qr.h
+//void gram_schmidt(mat* a, mat** q, mat** r);      // NOT INTERSETED
+//matrix* unitVectorRows(matrix* a);                // NOT INTERSETED
+//matrix* unitVectorColumns(matrix* a);             // NOT INTERSETED
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  qsort.h
+//void quicksort(double *a, int start, int end);    // NOT INTERSETED
+//int partition(double *a, int start, int end);     // NOT INTERESTED
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  svd.h
+//void svd(matrix* a);                              // NOT INTERESTED
+
+
+
+
+#endif
+
+
+
