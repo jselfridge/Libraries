@@ -4,7 +4,7 @@
 ##  Justin M Selfridge
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-EXEC   = DemoMatLib
+EXEC   = Debug
 CC     = gcc
 CFLAGS = -c -Wall
 DEP    = MatLib.h

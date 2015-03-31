@@ -148,7 +148,7 @@ void MatIO() {
   printf("Matrix input and output \n");
   matrix* M = mat_init(5,2);
   mat_print(M);
-  mat_write(M,"matM");
+  mat_write(M,"testfile");
   matrix* N = mat_read("matM");
   mat_print(N);
   mat_clear(M); 
