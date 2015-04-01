@@ -13,11 +13,11 @@
 void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
-  //MatIO();
-  //MatManip();
-  //MatArith();
+  MatIO();
+  MatManip();
+  MatArith();
   MatProp();
-  //MatDecomp();
+  MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;

@@ -14,6 +14,7 @@ NAME := $(patsubst %.c, %, $(FILE) )
 OBJ  := $(foreach o, $(NAME), $(o).o )
 
 all : $(OBJ)
+	rm $(LIB); \
 	ar -cvq $(LIB) *.o
 
 %.o : %.c $(INC)
