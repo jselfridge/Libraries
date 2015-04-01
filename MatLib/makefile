@@ -6,20 +6,18 @@
 
 CC     = gcc
 CFLAGS = -c -Wall
-HEAD   = MatLib.h
+INC    = MatLib.h
 LIB    = libMat.a
 
 FILE := $(shell ls | grep -F ".c" )
 NAME := $(patsubst %.c, %, $(FILE) )
 OBJ  := $(foreach o, $(NAME), $(o).o )
 
-all : $(OBJ) $(LIB)
-
-%.o : %.c $(HEAD)
-	$(CC) $(CFLAGS) -c -o $@ $< 
-
-$(LIB) :
+all : $(OBJ)
 	ar -cvq $(LIB) *.o
+
+%.o : %.c $(INC)
+	$(CC) $(CFLAGS) -o $@ $< 
 
 clean :
 	rm $(OBJ)

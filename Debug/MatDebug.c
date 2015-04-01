@@ -13,11 +13,11 @@
 void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
-  MatIO();
-  MatManip();
-  MatArith();
+  //MatIO();
+  //MatManip();
+  //MatArith();
   MatProp();
-  MatDecomp();
+  //MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -43,10 +43,10 @@ void InitMat() {
   
   //  Define 4x1 vector
   V4 = mat_init(4,1);
-  mat_set(V4,1,1,5);
-  mat_set(V4,2,1,2);
-  mat_set(V4,3,1,7);
-  mat_set(V4,4,1,1);
+  mat_set(V4,1,1,-2);
+  mat_set(V4,2,1, 7);
+  mat_set(V4,3,1,-9);
+  mat_set(V4,4,1, 5);
   
   //  Define 2x2 matrix
   M22 = mat_init(2,2);
@@ -293,6 +293,17 @@ void MatProp() {
   double T33 = mat_trace(M33a);  printf( "Trace of M33a: %f \n", T33 );
   double T34 = mat_trace(M34);   printf( "Trace of M34:  %f \n", T34 );
   double T43 = mat_trace(M43);   printf( "Trace of M43:  %f \n", T43 );
+
+  // Norm
+  mat_print(V4);
+  double NI = mat_norm(V4,0);
+  double N1 = mat_norm(V4,1);
+  double N2 = mat_norm(V4,2);
+  double N3 = mat_norm(V4,3);
+  printf("NormI: %f \n", NI);
+  printf("Norm1: %f \n", N1);
+  printf("Norm2: %f \n", N2);
+  printf("Norm3: %f \n", N3);
 
   printf("\n");
 }

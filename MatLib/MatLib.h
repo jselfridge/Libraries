@@ -8,6 +8,7 @@
 
 
 //  Standard includes
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -54,9 +55,7 @@ double   mat_dot    ( matrix* vecA, matrix* vecB );
 
 //  MatProp functions
 double   mat_trace   ( matrix* mat );
-//double   mat_norm1   ( matrix* mat );
-//double   mat_norm2   ( matrix* mat );
-//double   mat_normI   ( matrix* mat );
+double   mat_norm    ( matrix* vec, int p );
 //double   mat_mean    ( matrix* mat );
 //matrix*  mat_meanr   ( matrix* mat );
 //matrix*  mat_meanc   ( matrix* mat );
