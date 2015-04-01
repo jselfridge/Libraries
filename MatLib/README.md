@@ -1,7 +1,7 @@
 libMat
 ======
 
-This directory C code for a static library that 
+This directory is C code for a static library that 
 delivers linear algebra functionality.  The 
 functions are grouped in the following categories:
 
@@ -13,16 +13,13 @@ functions are grouped in the following categories:
 
 The primary intention is to keep this as a static 
 library that can be referenced throughout multiple
-projects.  While developing the library, there are 
-additional files named "DebugScript.*" with a 
-"makefile" which create an executable called 
-"Debug".  This can be used to evaluate the library
-code locally.  To compile the library run the command:
+projects.  The command:
 
     ar -cvq libMat.a *.o
 
-to generate the static library named "libMat.a".  This
-file can be referenced in other program makefiles.
+is used to generate the static library.  It is
+included in the 'makefile' and places the 
+library in the appropriate folder.
 
 Functions for future development:
 double   mat_norm1   ( matrix* mat );

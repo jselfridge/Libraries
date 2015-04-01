@@ -8,3 +8,9 @@ The MatLib Library is currently the first and only library
 under development.  It implements a variety of linear algebra 
 functions in the C language so it is particularly applicable to
 embedded systems architecture.
+
+The Debug directory contains code to test the various libraries
+while they are under development.
+
+
+

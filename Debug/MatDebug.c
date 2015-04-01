@@ -1,56 +1,32 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  TestMatLib.c
+//  MatDebug.c
 //  Justin M Selfridge
-//  Script to test the MatLib Library
+//  Script to debug the MatLib Library
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include "MatLib.h"
-
-
-// Function prototypes
-void InitMat();
-void MatIO();
-void MatManip();
-void MatArith();
-void MatProp();
-void MatDecomp();
-void ClearMat();
-
-
-// Global variables
-matrix* V3a;
-matrix* V3b;
-matrix* V4;
-matrix* M22;
-matrix* M23;
-matrix* M32;
-matrix* M33a;
-matrix* M33b;
-matrix* M34;
-matrix* M43;
-matrix* M44;
+#include "MatDebug.h"
 
 
 
 
-// Main program 
-int main() {
-  printf("\nRunning Matlib demo \n\n\n");
-  InitMat();
+// Debugging function 
+void DebugMatLib() {
+  printf("\n   --- MatLib Debugging --- \n\n");
+  InitMat(); 
   MatIO();
   MatManip();
   MatArith();
   MatProp();
   MatDecomp();
   ClearMat();
-  printf("Program complete\n\n");
-  return 0 ;
+  printf("   --- MatLib Complete --- \n\n");
+  return;
 }
 
 
 
 
-// InitMat (initialize the matrices for demo)
+// InitMat (initialize the matrices)
 void InitMat() {
 
   //  Define first 3x1 vector
@@ -153,7 +129,7 @@ void MatIO() {
   mat_print(N);
   mat_clear(M); 
   mat_clear(N);
-  printf("\n\n");
+  printf("\n");
 }
 
 
@@ -230,7 +206,7 @@ void MatManip() {
   mat_clear(P); 
   mat_clear(Q);
 
-  printf("\n\n");
+  printf("\n");
 }
 
 
@@ -303,7 +279,7 @@ void MatArith() {
   dot = mat_dot(V3a,V3a);
   printf("dot: %f \n", dot);
 
-  printf("\n\n");
+  printf("\n");
 }
 
 
@@ -318,7 +294,7 @@ void MatProp() {
   double T34 = mat_trace(M34);   printf( "Trace of M34:  %f \n", T34 );
   double T43 = mat_trace(M43);   printf( "Trace of M43:  %f \n", T43 );
 
-  printf("\n\n");
+  printf("\n");
 }
 
 
@@ -396,7 +372,7 @@ void MatDecomp() {
   mat_print( mat_mul(xR14,M44) );
   mat_clear(xR14);
 
-  printf("\n\n");
+  printf("\n");
 }
 
 

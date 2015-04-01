@@ -4,26 +4,23 @@
 ##  Justin M Selfridge
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-EXEC   = DebugMatLib
 CC     = gcc
 CFLAGS = -c -Wall
-DEP    = MatLib.h
+HEAD   = MatLib.h
 LIB    = libMat.a
 
 FILE := $(shell ls | grep -F ".c" )
 NAME := $(patsubst %.c, %, $(FILE) )
 OBJ  := $(foreach o, $(NAME), $(o).o )
 
-all : $(EXEC) $(LIB)
+all : $(OBJ) $(LIB)
 
-$(EXEC) : $(OBJ)
-	$(CC) $(OBJ) -o $@
-
-%.o : %.c $(DEP)
+%.o : %.c $(HEAD)
 	$(CC) $(CFLAGS) -c -o $@ $< 
 
 $(LIB) :
 	ar -cvq $(LIB) *.o
 
 clean :
-	rm $(OBJ) $(EXEC)
+	rm $(OBJ)
+
