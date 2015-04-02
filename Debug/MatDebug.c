@@ -13,11 +13,12 @@
 void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
-  MatIO();
-  MatManip();
-  MatArith();
-  MatProp();
-  MatDecomp();
+  //MatIO();
+  //MatManip();
+  MatVec();
+  //MatArith();
+  //MatProp();
+  //MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -212,6 +213,50 @@ void MatManip() {
 
 
 
+// Matrix Vector
+void MatVec() {
+  printf("Matrix Vector Operations \n");
+
+  //  Skew Symmetric
+  matrix* skew = mat_skew(V3a);
+  mat_print(skew);  mat_clear(skew);
+
+  //  Double Skew Symmetric
+  matrix* sskew = mat_sskew(V3a);
+  mat_print(sskew);  mat_clear(sskew);
+  
+  //  Cross product
+  matrix* cross;
+  cross = mat_cross(V3a,V3b);
+  mat_print(cross);
+  cross = mat_cross(V3a,V3a);
+  mat_print(cross);  
+  mat_clear(cross);
+  
+  //  Dot product
+  double dot;
+  dot = mat_dot(V3a,V3b);
+  printf("dot: %f \n", dot);
+  dot = mat_dot(V3a,V3a);
+  printf("dot: %f \n", dot);
+
+  // Norm
+  mat_print(V4);
+  double NI = mat_norm(V4,0);
+  double N1 = mat_norm(V4,1);
+  double N2 = mat_norm(V4,2);
+  double N3 = mat_norm(V4,3);
+  printf("NormI: %f \n", NI);
+  printf("Norm1: %f \n", N1);
+  printf("Norm2: %f \n", N2);
+  printf("Norm3: %f \n", N3);
+
+  printf("\n");
+}
+
+
+
+
 // Matrix Arithmetic
 void MatArith() {
   printf("Matrix Arithmetic \n");
@@ -260,25 +305,6 @@ void MatArith() {
   matrix* T4 = mat_trans(M33a);
   mat_print(T4);  mat_clear(T4);
 
-  //  Skew Symmetric
-  matrix* skew = mat_skew(V3a);
-  mat_print(skew);  mat_clear(skew);
-  
-  //  Cross product
-  matrix* cross;
-  cross = mat_cross(V3a,V3b);
-  mat_print(cross);
-  cross = mat_cross(V3a,V3a);
-  mat_print(cross);  
-  mat_clear(cross);
-  
-  //  Dot product
-  double dot;
-  dot = mat_dot(V3a,V3b);
-  printf("dot: %f \n", dot);
-  dot = mat_dot(V3a,V3a);
-  printf("dot: %f \n", dot);
-
   printf("\n");
 }
 
@@ -293,17 +319,6 @@ void MatProp() {
   double T33 = mat_trace(M33a);  printf( "Trace of M33a: %f \n", T33 );
   double T34 = mat_trace(M34);   printf( "Trace of M34:  %f \n", T34 );
   double T43 = mat_trace(M43);   printf( "Trace of M43:  %f \n", T43 );
-
-  // Norm
-  mat_print(V4);
-  double NI = mat_norm(V4,0);
-  double N1 = mat_norm(V4,1);
-  double N2 = mat_norm(V4,2);
-  double N3 = mat_norm(V4,3);
-  printf("NormI: %f \n", NI);
-  printf("Norm1: %f \n", N1);
-  printf("Norm2: %f \n", N2);
-  printf("Norm3: %f \n", N3);
 
   printf("\n");
 }

@@ -42,20 +42,24 @@ void     mat_swapr   ( matrix* mat, int p, int q );
 void     mat_swapc   ( matrix* mat, int n, int m );
 
 
+//  MatVec functions
+matrix*  mat_skew   ( matrix* vec );
+matrix*  mat_sskew  ( matrix* vec );
+matrix*  mat_cross  ( matrix* vecA, matrix* vecB );
+double   mat_dot    ( matrix* vecA, matrix* vecB );
+double   mat_norm   ( matrix* vec, int p );
+
+
 //  MatArith functions
 matrix*  mat_add    ( matrix* matA, matrix* matB );
 matrix*  mat_sub    ( matrix* matA, matrix* matB );
 matrix*  mat_mul    ( matrix* matA, matrix* matB );
 matrix*  mat_pow    ( matrix* mat, int power );
 matrix*  mat_trans  ( matrix* mat );
-matrix*  mat_skew   ( matrix* vec );
-matrix*  mat_cross  ( matrix* vecA, matrix* vecB );
-double   mat_dot    ( matrix* vecA, matrix* vecB );
 
 
 //  MatProp functions
 double   mat_trace   ( matrix* mat );
-double   mat_norm    ( matrix* vec, int p );
 //double   mat_mean    ( matrix* mat );
 //matrix*  mat_meanr   ( matrix* mat );
 //matrix*  mat_meanc   ( matrix* mat );
