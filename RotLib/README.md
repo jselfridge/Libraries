@@ -1,5 +1,41 @@
-libMat
+RotLib
 ======
+
+This directory is C code for a static library that 
+contains fuctions which pertain to rotations, such
+as Euler angles and Quaternions. The functions are 
+grouped in the following categories:
+
+    RotConv     - Used to convert scales and units
+
+
+
+
+--- RotConv ---
+Deg2Rad
+Rad2Deg
+Wrap2Pi
+WraPi
+
+--- Quaternions ---
+Eul2Q
+Q2DCM
+Q2Eul
+QDeriv
+QMat
+Vec2Q
+
+--- Euler --
+RotX
+RotY
+RotZ
+EulRot
+
+
+
+
+COPED FROM MATLIB:
+------------------
 
 This directory is C code for a static library that 
 delivers linear algebra functionality.  The 
@@ -28,10 +64,8 @@ matrix*  mat_meanc   ( matrix* mat );
 matrix*  mat_eigval  ( matrix* mat );
 matrix*  mat_eigvec  ( matrix* mat );
 matrix*  mat_cov     ( matrix* mat );
-
-Functions from MatLab:
 double   mat_mag     ( matrix* mat );
 matrix*  mat_sskew   ( matrix* mat );
-matrix*  mat_uvec    ( matrix* mat );
-void     mat_rmtiny  ( matrix* mat );
+matrix*  mat_unit    ( matrix* mat );
+
 
