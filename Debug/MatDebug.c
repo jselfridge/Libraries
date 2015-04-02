@@ -251,6 +251,9 @@ void MatVec() {
   printf("Norm2: %f \n", N2);
   printf("Norm3: %f \n", N3);
 
+  // Magnitude
+  printf("Mag: %f \n", mat_mag(V3a));
+
   printf("\n");
 }
 

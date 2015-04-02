@@ -111,4 +111,14 @@ double mat_norm ( matrix* vec, int p ) {
 }
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_mag
+//  Returns the magnitude (Euclidean norm) of a column vector.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+double mat_mag ( matrix* vec ) {
+  mat_err( vec->cols!=1, "Error (mat_mag): Input must be a column vector." );
+  return mat_norm(vec,2);
+}
+
+
 
