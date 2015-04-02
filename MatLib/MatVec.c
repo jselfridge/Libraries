@@ -121,4 +121,29 @@ double mat_mag ( matrix* vec ) {
 }
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_uvec
+//  Takes a column vector input and returns a unit vector.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* mat_uvec ( matrix* vec ) {
+
+  mat_err( vec->cols!=1, "Error (mat_uvec): Input must be a column vector." );
+
+  int     n     = vec->rows;
+  matrix* uvec  = mat_init(n,1);
+  double* vdata = vec->data;
+  double* udata = uvec->data;
+  double  mag   = mat_mag(vec);
+
+  for ( int i=0; i<n; i++ ) {
+    *udata = *vdata / mag;
+    vdata++;
+    udata++;
+  }
+
+  return uvec;
+}
+
+
+
 
