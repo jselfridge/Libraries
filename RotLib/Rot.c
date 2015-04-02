@@ -10,7 +10,7 @@
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //  RotConv
-//  Rotation functions that perform soem type of conversion.
+//  Rotation functions that perform some type of conversion.
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -24,9 +24,7 @@ matrix* rot_d2r ( matrix* deg ) {
   int c = deg->cols;
   int n = r*c;
 
-  mat_err( r<1 || c<1 , "Error (rot_d2r): Input matrix must have positive width and height." );
-  matrix* rad = mat_init(r,c);
-
+  matrix* rad   = mat_init(r,c);
   double* ddata = deg->data;
   double* rdata = rad->data;
 
@@ -50,9 +48,7 @@ matrix* rot_r2d ( matrix* rad ) {
   int c = rad->cols;
   int n = r*c;
 
-  mat_err( r<1 || c<1 , "Error (rot_r2d): Input matrix must have positive width and height." );
-  matrix* deg = mat_init(r,c);
-
+  matrix* deg   = mat_init(r,c);
   double* ddata = deg->data;
   double* rdata = rad->data;
 
@@ -76,9 +72,7 @@ matrix* rot_wrappi ( matrix* rad ) {
   int c = rad->cols;
   int n = r*c;
 
-  mat_err( r<1 || c<1 , "Error (rot_wrappi): Input matrix must have positive width and height." );
-  matrix* wrap = mat_init(r,c);
-
+  matrix* wrap  = mat_init(r,c);
   double* rdata = rad->data;
   double* wdata = wrap->data;
 
@@ -105,9 +99,7 @@ matrix* rot_wrap2pi ( matrix* rad ) {
   int c = rad->cols;
   int n = r*c;
 
-  mat_err( r<1 || c<1 , "Error (rot_wrap2pi): Input matrix must have positive width and height." );
-  matrix* wrap = mat_init(r,c);
-
+  matrix* wrap  = mat_init(r,c);
   double* rdata = rad->data;
   double* wdata = wrap->data;
 
@@ -121,6 +113,91 @@ matrix* rot_wrap2pi ( matrix* rad ) {
   }
 
   return wrap;
+}
+
+
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//  RotEuler
+//  Functions that perform Euler rotations.
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_xaxis
+//  Generates a rotation matrix around the X-axis.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_xaxis ( double angle ) {
+
+  matrix* R = mat_init(3,3);
+  double  S = sin(angle);
+  double  C = cos(angle);
+
+  mat_set( R,1,1, 1.0 );  mat_set( R,1,2, 0.0 );  mat_set( R,1,3, 0.0 );
+  mat_set( R,2,1, 0.0 );  mat_set( R,2,2,  C  );  mat_set( R,2,3, -S  );
+  mat_set( R,3,1, 0.0 );  mat_set( R,3,2,  S  );  mat_set( R,3,3,  C  );
+
+  return R;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_yaxis
+//  Generates a rotation matrix around the Y-axis.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_yaxis ( double angle ) {
+
+  matrix* R = mat_init(3,3);
+  double  S = sin(angle);
+  double  C = cos(angle);
+
+  mat_set( R,1,1,  C  );  mat_set( R,1,2, 0.0 );  mat_set( R,1,3,  S );
+  mat_set( R,2,1, 0.0 );  mat_set( R,2,2, 1.0 );  mat_set( R,2,3, 0.0 );
+  mat_set( R,3,1, -S  );  mat_set( R,3,2, 0.0 );  mat_set( R,3,3,  C  );
+
+  return R;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_zaxis
+//  Generates a rotation matrix around the Z-axis.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_zaxis ( double angle ) {
+
+  matrix* R = mat_init(3,3);
+  double  S = sin(angle);
+  double  C = cos(angle);
+
+  mat_set( R,1,1,  C  );  mat_set( R,1,2, -S  );  mat_set( R,1,3, 0.0 );
+  mat_set( R,2,1,  S  );  mat_set( R,2,2,  C  );  mat_set( R,2,3, 0.0 );
+  mat_set( R,3,1, 0.0 );  mat_set( R,3,2, 0.0 );  mat_set( R,3,3, 1.0 );
+
+  return R;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_eul
+//  Rotation matrix that transforms from local (body) frame to 
+//  global (inertial) frame.  The transpose of this matrix 
+//  reverses the relationship.
+//  Xi = R * Xb , Xb = R' * Xi
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_eul ( matrix* att ) {
+
+  mat_err( att->rows!=3 || att->cols!=1, "Error (rot_eul): Attitude must be a 3 element column vector." );
+
+  matrix* R = mat_init(3,3);
+  double  X = mat_get(att,1,1);
+  double  Y = mat_get(att,2,1);
+  double  Z = mat_get(att,3,1);
+
+  R =  mat_mul( rot_zaxis(Z), rot_yaxis(Y) ); 
+  R =  mat_mul( R, rot_xaxis(X) ); 
+
+  return R;
 }
 
 

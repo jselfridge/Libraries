@@ -19,7 +19,7 @@
 
 
 // Precompiled define
-#define PI  (22.0/7.0)
+#define PI  M_PI
 #define PI2 (2.0*PI)
 #define PIH (PI/2.0)
 #define PIQ (PI/4.0)
@@ -35,10 +35,10 @@ matrix*  rot_wrap2pi( matrix* rad );
 
 
 // RotEuler functions
-//RotX();
-//RotY();
-//RotZ();
-//RotEul();
+matrix* rot_xaxis  ( double angle );
+matrix* rot_yaxis  ( double angle );
+matrix* rot_zaxis  ( double angle );
+matrix* rot_eul    ( matrix* att );
 
 
 // RotQuat functions

@@ -12,6 +12,9 @@
 // Debugging function 
 void DebugRotLib() {
   printf("\n   --- RotLib Debugging --- \n\n");
+  RotConv();
+  RotEuler();
+
   /*
   InitMat(); 
   MatIO();
@@ -23,14 +26,25 @@ void DebugRotLib() {
   */
 
 
+
+  printf("   --- RotLib Complete --- \n\n");
+  return;
+}
+
+
+
+
+
+
+// RotConv (Rotation conversions)
+void RotConv() {
   printf("Rotation Conversions \n");
 
-  //matrix* deg  = mat_init(1,1);
-  //matrix* rad  = mat_init(1,1);
-  //matrix* degv = mat_init(1,4);
+  matrix* deg  = mat_init(1,1);
+  matrix* rad  = mat_init(1,1);
+  matrix* degv = mat_init(1,4);
   matrix* radv = mat_init(1,4);
 
-  /*
   mat_set(deg,1,1,0); 
   rad = rot_d2r(deg);
   mat_print(rad);
@@ -68,8 +82,7 @@ void DebugRotLib() {
   mat_set(radv,1,4,PIE); 
   degv = rot_r2d(radv);
   mat_print(degv);
-  */
-  
+
   mat_set(radv,1,1, -3.5 );
   mat_set(radv,1,2, -PI  );
   mat_set(radv,1,3, -2.5 );
@@ -98,20 +111,52 @@ void DebugRotLib() {
   radv = rot_wrap2pi(radv);
   mat_print(radv);
 
-
-  //mat_clear(deg);
-  //mat_clear(rad);
-  //mat_clear(degv);
+  mat_clear(deg);
+  mat_clear(rad);
+  mat_clear(degv);
   mat_clear(radv);
 
   printf("\n");
-
-
-
-
-  printf("   --- RotLib Complete --- \n\n");
-  return;
 }
+
+
+
+
+//  RotEuler (Euler type rotations)
+void RotEuler() {
+  printf("Euler type rotations \n");
+
+  matrix* R = mat_init(3,3);
+  matrix* att = mat_init(3,1);
+
+  mat_set(att,1,1, PIQ );
+  mat_set(att,2,1, PIE );
+  mat_set(att,3,1, PIS );
+
+  R = rot_xaxis(PIE);
+  mat_print(R);
+  R = rot_xaxis(PIH);
+  mat_print(R);
+
+  R = rot_yaxis(PIE);
+  mat_print(R);
+  R = rot_yaxis(PIH);
+  mat_print(R);
+
+  R = rot_zaxis(PIE);
+  mat_print(R);
+  R = rot_zaxis(PIH);
+  mat_print(R);
+
+  R = rot_eul(att);
+  mat_print(R);
+
+  mat_clear(R);
+  mat_clear(att);
+
+  printf("\n");
+}
+
 
 
 

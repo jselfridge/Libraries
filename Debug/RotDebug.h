@@ -18,6 +18,8 @@
 
 // Function prototypes
 void DebugRotLib();
+void RotConv();
+void RotEuler();
 /*
 void InitMat();
 void MatIO();
