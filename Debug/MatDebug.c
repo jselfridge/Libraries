@@ -14,8 +14,8 @@ void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
   //MatIO();
-  //MatManip();
-  MatVec();
+  MatManip();
+  //MatVec();
   //MatArith();
   //MatProp();
   //MatDecomp();
@@ -201,11 +201,20 @@ void MatManip() {
   mat_print(M43);
   mat_swapc(M43,3,2);
 
+  // Remove tiny
+  matrix* R = mat_init(2,2);
+  mat_set(R,1,1, 0.1000 );  mat_set(R,1,2, 0.0100 );
+  mat_set(R,2,1, 0.0010 );  mat_set(R,2,2, 0.0001 );
+  mat_print(R);
+  R = mat_rmtiny(R,0.0020);
+  mat_print(R);
+
   // Clear completed matrices 
   mat_clear(M); 
   mat_clear(N); 
   mat_clear(P); 
   mat_clear(Q);
+  mat_clear(R);
 
   printf("\n");
 }

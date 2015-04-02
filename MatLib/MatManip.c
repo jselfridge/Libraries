@@ -185,4 +185,28 @@ void mat_swapc ( matrix* mat, int p, int q ) {
 }
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_rmtiny
+//  Removes nearly zero entries within a matrix.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* mat_rmtiny ( matrix* mat, double tol ) {
+
+  int     r     = mat->rows;
+  int     c     = mat->cols;
+  int     n     = r*c;
+  matrix* tiny  = mat_init(r,c);
+  double* mdata = mat->data;
+  double* tdata = tiny->data;
+
+  for ( int i=0; i<n; i++ ) {
+    if ( *mdata < tol ) { *tdata = 0.0; }
+    else { *tdata = *mdata; }
+    mdata++;
+    tdata++;
+  }
+
+  return tiny;
+}
+
+
 
