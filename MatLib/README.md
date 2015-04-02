@@ -7,6 +7,7 @@ functions are grouped in the following categories:
 
     MatIO     - Input and output capabilities
     MatManip  - Manipulations and matrix modifications
+    MatVec    - Operations with vectors
     MatArith  - Arithmetic and matrix math functions
     MatProp   - Properties of a matrix
     MatDecomp - Decompositions for det() and inv()
