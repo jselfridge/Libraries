@@ -66,6 +66,63 @@ matrix* rot_r2d ( matrix* rad ) {
 }
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_wrappi
+//  Places the elements of a matrix within the range (-pi,pi].
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_wrappi ( matrix* rad ) {
+
+  int r = rad->rows;
+  int c = rad->cols;
+  int n = r*c;
+
+  mat_err( r<1 || c<1 , "Error (rot_wrappi): Input matrix must have positive width and height." );
+  matrix* wrap = mat_init(r,c);
+
+  double* rdata = rad->data;
+  double* wdata = wrap->data;
+
+  for ( int i=0; i<n; i++ ) {
+    double elem = *rdata;
+    while ( elem >   PI ) { elem -= PI2; }
+    while ( elem <= -PI ) { elem += PI2; }
+    *wdata = elem;
+    rdata++;
+    wdata++;
+  }
+
+  return wrap;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_wrap2pi
+//  Places the elements of a matrix within the range [0,2pi).
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_wrap2pi ( matrix* rad ) {
+
+  int r = rad->rows;
+  int c = rad->cols;
+  int n = r*c;
+
+  mat_err( r<1 || c<1 , "Error (rot_wrap2pi): Input matrix must have positive width and height." );
+  matrix* wrap = mat_init(r,c);
+
+  double* rdata = rad->data;
+  double* wdata = wrap->data;
+
+  for ( int i=0; i<n; i++ ) {
+    double elem = *rdata;
+    while ( elem >= PI2 ) { elem -= PI2; }
+    while ( elem <   0  ) { elem += PI2; }
+    *wdata = elem;
+    rdata++;
+    wdata++;
+  }
+
+  return wrap;
+}
+
 
 
 

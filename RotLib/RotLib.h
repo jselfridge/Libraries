@@ -30,8 +30,8 @@
 // RotConv functions
 matrix*  rot_d2r( matrix* deg );
 matrix*  rot_r2d( matrix* rad );
-//matrix*  rot_wrap( double angle );
-//matrix*  rot_wrap2( double angle );
+matrix*  rot_wrappi( matrix* rad );
+matrix*  rot_wrap2pi( matrix* rad );
 
 
 // RotEuler functions
