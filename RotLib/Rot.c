@@ -8,24 +8,73 @@
 
 
 
-void rot_test () {
-  printf("Tetsing\n");
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//  RotConv
+//  Rotation functions that perform soem type of conversion.
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_d2r
+//  Converts the angles of a matrix from degrees into radians.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_d2r ( matrix* deg ) {
+
+  int r = deg->rows;
+  int c = deg->cols;
+  int n = r*c;
+
+  mat_err( r<1 || c<1 , "Error (rot_d2r): Input matrix must have positive width and height." );
+  matrix* rad = mat_init(r,c);
+
+  double* ddata = deg->data;
+  double* rdata = rad->data;
+
+  for ( int i=0; i<n; i++ ) {
+    *rdata = *ddata * (PI/180.0);
+    ddata++;
+    rdata++;
+  }
+
+  return rad;
 }
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_r2d
+//  Converts the angles of matrix from radians into degrees.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_r2d ( matrix* rad ) {
+
+  int r = rad->rows;
+  int c = rad->cols;
+  int n = r*c;
+
+  mat_err( r<1 || c<1 , "Error (rot_r2d): Input matrix must have positive width and height." );
+  matrix* deg = mat_init(r,c);
+
+  double* ddata = deg->data;
+  double* rdata = rad->data;
+
+  for ( int i=0; i<n; i++ ) {
+    *ddata = *rdata * (180.0/PI);
+    ddata++;
+    rdata++;
+  }
+
+  return deg;
+}
+
+
+
+
+
+
+
+
 
 
 /*
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_err
-//  If error condition is true, prints a warning and exits.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void mat_err ( int cond, char* msg ) {
-  if (cond) {
-    fprintf( stderr, "%s\n\n", msg );
-    exit(1);
-  }
-}
-
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_init
 //  Initializes a new matrix with the specified dimensions, and
