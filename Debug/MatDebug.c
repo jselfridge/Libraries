@@ -254,6 +254,10 @@ void MatVec() {
   // Magnitude
   printf("Mag: %f \n", mat_mag(V3a));
 
+  // Unit vector
+  printf("Unit vector: ");
+  mat_print(mat_uvec(V3a));
+
   printf("\n");
 }
 
