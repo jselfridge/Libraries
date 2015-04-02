@@ -42,6 +42,7 @@ matrix* rot_eul    ( matrix* att );
 
 
 // RotQuat functions
+matrix* rot_e2q ( matrix* att );
 //Eul2Q();
 //Q2DCM();
 //Q2Eul();

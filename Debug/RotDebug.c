@@ -12,26 +12,36 @@
 // Debugging function 
 void DebugRotLib() {
   printf("\n   --- RotLib Debugging --- \n\n");
-  RotConv();
-  RotEuler();
+
+  /*
+  printf("PI2: %f \n", PI2 );
+  printf("PI:  %f \n", PI  );
+  printf("PIH: %f \n", PIH );
+  printf("PIQ: %f \n", PIQ );
+  printf("PIE: %f \n", PIE );
+  printf("PIS: %f \n", PIS );
+  */
+  
+  //RotConv();
+  //RotEuler();
 
   /*
   InitMat(); 
-  MatIO();
-  MatManip();
-  MatArith();
-  MatProp();
-  MatDecomp();
   ClearMat();
   */
 
-
+  // Euler to Quaternion
+  matrix* quat = mat_init(4,1);
+  matrix* att = mat_init(3,1);
+  mat_set( att,1,1, PIE );
+  mat_set( att,2,1, PIE );
+  mat_set( att,3,1, PIE );
+  quat = rot_e2q(att);
+  mat_print(quat);
 
   printf("   --- RotLib Complete --- \n\n");
   return;
 }
-
-
 
 
 
@@ -45,18 +55,16 @@ void RotConv() {
   matrix* degv = mat_init(1,4);
   matrix* radv = mat_init(1,4);
 
+  // Degree to radian
   mat_set(deg,1,1,0); 
   rad = rot_d2r(deg);
   mat_print(rad);
-
   mat_set(deg,1,1,90); 
   rad = rot_d2r(deg);
   mat_print(rad);
-
   mat_set(deg,1,1,60); 
   rad = rot_d2r(deg);
   mat_print(rad);
-
   mat_set(degv,1,1,360); 
   mat_set(degv,1,2,180); 
   mat_set(degv,1,3,45); 
@@ -64,18 +72,16 @@ void RotConv() {
   radv = rot_d2r(degv);
   mat_print(radv);
 
+  // Radian to degree
   mat_set(rad,1,1,0.0); 
   deg = rot_r2d(rad);
   mat_print(deg);
-
   mat_set(rad,1,1,PI); 
   deg = rot_r2d(rad);
   mat_print(deg);
-
   mat_set(rad,1,1,2.5); 
   deg = rot_r2d(rad);
   mat_print(deg);
-
   mat_set(radv,1,1,PI2); 
   mat_set(radv,1,2,PIH); 
   mat_set(radv,1,3,PIQ); 
@@ -83,13 +89,13 @@ void RotConv() {
   degv = rot_r2d(radv);
   mat_print(degv);
 
+  // Wrap pi
   mat_set(radv,1,1, -3.5 );
   mat_set(radv,1,2, -PI  );
   mat_set(radv,1,3, -2.5 );
   mat_set(radv,1,4,  0.0 );
   radv = rot_wrappi(radv);
   mat_print(radv);
-
   mat_set(radv,1,1, 0.0 );
   mat_set(radv,1,2, 2.5 );
   mat_set(radv,1,3, PI  );
@@ -97,13 +103,13 @@ void RotConv() {
   radv = rot_wrappi(radv);
   mat_print(radv);
 
+  // Wrap 2pi
   mat_set(radv,1,1, -7.0 );
   mat_set(radv,1,2, -PI2 );
   mat_set(radv,1,3, -5.0 );
   mat_set(radv,1,4,  0.0 );
   radv = rot_wrap2pi(radv);
   mat_print(radv);
-
   mat_set(radv,1,1, 0.0 );
   mat_set(radv,1,2, 5.0 );
   mat_set(radv,1,3, PI2 );
@@ -111,6 +117,7 @@ void RotConv() {
   radv = rot_wrap2pi(radv);
   mat_print(radv);
 
+  // Clear matrices
   mat_clear(deg);
   mat_clear(rad);
   mat_clear(degv);
@@ -126,36 +133,44 @@ void RotConv() {
 void RotEuler() {
   printf("Euler type rotations \n");
 
+  // Define matrices
   matrix* R = mat_init(3,3);
   matrix* att = mat_init(3,1);
-
   mat_set(att,1,1, PIQ );
   mat_set(att,2,1, PIE );
   mat_set(att,3,1, PIS );
 
+  // X axis rotaions
   R = rot_xaxis(PIE);
   mat_print(R);
   R = rot_xaxis(PIH);
   mat_print(R);
 
+  // Y axis rotations
   R = rot_yaxis(PIE);
   mat_print(R);
   R = rot_yaxis(PIH);
   mat_print(R);
 
+  // Z axis rotations
   R = rot_zaxis(PIE);
   mat_print(R);
   R = rot_zaxis(PIH);
   mat_print(R);
 
+  // Euler rotation
   R = rot_eul(att);
   mat_print(R);
 
+  // Clear matrices
   mat_clear(R);
   mat_clear(att);
 
   printf("\n");
 }
+
+
+
 
 
 

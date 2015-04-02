@@ -14,7 +14,7 @@ void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
   //MatIO();
-  MatManip();
+  //MatManip();
   //MatVec();
   //MatArith();
   //MatProp();
@@ -262,10 +262,23 @@ void MatVec() {
 
   // Magnitude
   printf("Mag: %f \n", mat_mag(V3a));
+  matrix* unity = mat_init(4,1);
+  mat_set(unity,1,1,1);
+  mat_set(unity,2,1,1);
+  mat_set(unity,3,1,1);
+  mat_set(unity,4,1,1);
+  printf("Mag: %f \n", mat_mag(unity));
 
   // Unit vector
   printf("Unit vector: ");
+  matrix* quat = mat_init(4,1);
+  mat_set(quat,1,1,1);
+  mat_set(quat,2,1,1);
+  mat_set(quat,3,1,1);
+  mat_set(quat,4,1,1);
   mat_print(mat_uvec(V3a));
+  mat_print(mat_uvec(V4));
+  mat_print(mat_uvec(quat));
 
   printf("\n");
 }

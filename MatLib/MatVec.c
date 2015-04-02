@@ -91,7 +91,7 @@ double mat_norm ( matrix* vec, int p ) {
   // Infinity-norm
   if ( p==0 )  {
     for ( int i=0; i<n; i++ ) {
-      x = abs( vecdata[i] );
+      x = fabs( vecdata[i] );
       if (x>norm) { norm = x; }
     }
   }
@@ -99,7 +99,7 @@ double mat_norm ( matrix* vec, int p ) {
   // P-norm
   else {
     for ( int i=0; i<n; i++ ) {
-      x = abs( vecdata[i] );
+      x = fabs( vecdata[i] );
       x = pow( x, (double)p );
       norm += x;
     }
@@ -135,12 +135,14 @@ matrix* mat_uvec ( matrix* vec ) {
   double* udata = uvec->data;
   double  mag   = mat_mag(vec);
 
-  for ( int i=0; i<n; i++ ) {
-    *udata = *vdata / mag;
-    vdata++;
-    udata++;
+  if ( mag==0 ) { return uvec; }
+  else {
+    for ( int i=0; i<n; i++ ) {
+      *udata = *vdata / mag;
+      vdata++;
+      udata++;
+    }
   }
-
   return uvec;
 }
 

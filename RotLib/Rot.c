@@ -203,6 +203,39 @@ matrix* rot_eul ( matrix* att ) {
 
 
 
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//  RotQuat
+//  Functions that perform quaternion manipulations.
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_e2q
+//  Converts an Euler attitude vector to quaternion vector.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_e2q ( matrix* att ) {
+
+  mat_err( att->rows!=3 || att->cols!=1, "Error (rot_e2q): Attitude is a 3 element column vector." );
+
+  matrix* Q = mat_init(4,1);
+
+  double X = 0.5 * mat_get(att,1,1);
+  double Y = 0.5 * mat_get(att,2,1);
+  double Z = 0.5 * mat_get(att,3,1);
+
+  double Q1 = cos(X) * cos(Y) * cos(Z) + sin(X) * sin(Y) * sin(Z);
+  double Q2 = sin(X) * cos(Y) * cos(Z) - cos(X) * sin(Y) * sin(Z);
+  double Q3 = cos(X) * sin(Y) * cos(Z) + sin(X) * cos(Y) * sin(Z);
+  double Q4 = cos(X) * cos(Y) * sin(Z) - sin(X) * sin(Y) * cos(Z);
+
+  mat_set(Q,1,1,Q1);
+  mat_set(Q,2,1,Q2);
+  mat_set(Q,3,1,Q3);
+  mat_set(Q,4,1,Q4);
+
+  return mat_uvec(Q);
+}
+
 
 
 
