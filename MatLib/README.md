@@ -22,16 +22,12 @@ included in the 'makefile' and places the
 library in the appropriate folder.
 
 Functions for future development:
-double   mat_mean    ( matrix* mat );
-matrix*  mat_meanr   ( matrix* mat );
-matrix*  mat_meanc   ( matrix* mat );
-matrix*  mat_eigval  ( matrix* mat );
-matrix*  mat_eigvec  ( matrix* mat );
-matrix*  mat_cov     ( matrix* mat );
+double   mat_mean    ( matrix* mat );  
+matrix*  mat_meanr   ( matrix* mat );  
+matrix*  mat_meanc   ( matrix* mat );  
+matrix*  mat_eigval  ( matrix* mat );  
+matrix*  mat_eigvec  ( matrix* mat );  
+matrix*  mat_cov     ( matrix* mat );  
 
-Functions from MatLab:
-double   mat_mag     ( matrix* mat );
-matrix*  mat_sskew   ( matrix* mat );
-matrix*  mat_uvec    ( matrix* mat );
-void     mat_rmtiny  ( matrix* mat );
+
 
