@@ -50,6 +50,10 @@ void DebugRotLib() {
   // Quaternion skew matrix
   mat_print( rot_qskew(quat) );
 
+  // Quaternion Multiplication
+  mat_print(quat);
+  mat_print(VQ);
+  mat_print( rot_qmul( quat, VQ ) );
 
   printf("   --- RotLib Complete --- \n\n");
   return;

@@ -344,12 +344,28 @@ matrix* rot_qskew ( matrix* quat ) {
   double Z = mat_get(quat,4,1);
 
   mat_set( qskew,1,1, W );  mat_set( qskew,1,2, -X );  mat_set( qskew,1,3, -Y );  mat_set( qskew,1,4, -Z );
-  mat_set( qskew,2,1, X );  mat_set( qskew,2,2,  W );  mat_set( qskew,2,3,  Z );  mat_set( qskew,2,4, -Y );
-  mat_set( qskew,3,1, Y );  mat_set( qskew,3,2, -Z );  mat_set( qskew,3,3,  W );  mat_set( qskew,3,4,  X );
-  mat_set( qskew,4,1, Z );  mat_set( qskew,4,2,  Y );  mat_set( qskew,4,3, -X );  mat_set( qskew,4,4,  W );
+  mat_set( qskew,2,1, X );  mat_set( qskew,2,2,  W );  mat_set( qskew,2,3, -Z );  mat_set( qskew,2,4,  Y );
+  mat_set( qskew,3,1, Y );  mat_set( qskew,3,2,  Z );  mat_set( qskew,3,3,  W );  mat_set( qskew,3,4, -X );
+  mat_set( qskew,4,1, Z );  mat_set( qskew,4,2, -Y );  mat_set( qskew,4,3,  X );  mat_set( qskew,4,4,  W );
 
   return qskew;
 }
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_qmul
+//  Performs quaternion multiplication.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_qmul ( matrix* quatA, matrix* quatB ) {
+
+  mat_err( quatA->rows!=4 || quatA->cols!=1, "Error (rot_qmul): QuatA must be a 4 element column vector." );
+  mat_err( quatB->rows!=4 || quatB->cols!=1, "Error (rot_qmul): QuatB must be a 4 element column vector." );
+  matrix* Q = mat_init(4,1);
+  Q = mat_mul( rot_qskew(quatA), quatB );
+
+  return Q;
+}
+
 
 
 

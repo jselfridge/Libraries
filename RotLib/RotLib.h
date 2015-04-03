@@ -47,6 +47,7 @@ matrix* rot_q2e    ( matrix* quat );
 matrix* rot_q2dcm  ( matrix* quat );
 matrix* rot_vec2q  ( matrix* vecA, matrix* vecB );
 matrix* rot_qskew  ( matrix* quat );
+matrix* rot_qmul   ( matrix* quatA, matrix* quatB );
 
 //QDeriv();
 //QMat();
