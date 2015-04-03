@@ -47,6 +47,9 @@ void DebugRotLib() {
   mat_print(VQ);
   mat_print( mat_mul( (rot_q2dcm(VQ)), vecA ) );
 
+  // Quaternion skew matrix
+  mat_print( rot_qskew(quat) );
+
 
   printf("   --- RotLib Complete --- \n\n");
   return;

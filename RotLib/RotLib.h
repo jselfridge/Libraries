@@ -46,10 +46,11 @@ matrix* rot_e2q    ( matrix* att );
 matrix* rot_q2e    ( matrix* quat );
 matrix* rot_q2dcm  ( matrix* quat );
 matrix* rot_vec2q  ( matrix* vecA, matrix* vecB );
+matrix* rot_qskew  ( matrix* quat );
 
 //QDeriv();
 //QMat();
-//Vec2Q();
+
 
 
 /*

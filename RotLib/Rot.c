@@ -329,4 +329,27 @@ matrix* rot_vec2q ( matrix* vecA, matrix* vecB ) {
 }
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_qskew
+//  Takes a quaternion and returns a matrix for quat multiplication.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_qskew ( matrix* quat ) {
+
+  mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_qskew): Quaternion must be a 4 element column vector." );
+  matrix* qskew = mat_init(4,4);
+
+  double W = mat_get(quat,1,1);
+  double X = mat_get(quat,2,1);
+  double Y = mat_get(quat,3,1);
+  double Z = mat_get(quat,4,1);
+
+  mat_set( qskew,1,1, W );  mat_set( qskew,1,2, -X );  mat_set( qskew,1,3, -Y );  mat_set( qskew,1,4, -Z );
+  mat_set( qskew,2,1, X );  mat_set( qskew,2,2,  W );  mat_set( qskew,2,3,  Z );  mat_set( qskew,2,4, -Y );
+  mat_set( qskew,3,1, Y );  mat_set( qskew,3,2, -Z );  mat_set( qskew,3,3,  W );  mat_set( qskew,3,4,  X );
+  mat_set( qskew,4,1, Z );  mat_set( qskew,4,2,  Y );  mat_set( qskew,4,3, -X );  mat_set( qskew,4,4,  W );
+
+  return qskew;
+}
+
+
 
