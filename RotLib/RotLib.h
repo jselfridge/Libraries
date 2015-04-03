@@ -10,8 +10,6 @@
 //  Standard includes
 #include <math.h>
 #include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
 
 
 // Custom includes
@@ -48,23 +46,7 @@ matrix* rot_q2dcm  ( matrix* quat );
 matrix* rot_vec2q  ( matrix* vecA, matrix* vecB );
 matrix* rot_qskew  ( matrix* quat );
 matrix* rot_qmul   ( matrix* quatA, matrix* quatB );
-
-//QDeriv();
-//QMat();
-
-
-
-/*
-//  MatArith functions
-matrix*  mat_add    ( matrix* matA, matrix* matB );
-matrix*  mat_sub    ( matrix* matA, matrix* matB );
-matrix*  mat_mul    ( matrix* matA, matrix* matB );
-matrix*  mat_pow    ( matrix* mat, int power );
-matrix*  mat_trans  ( matrix* mat );
-matrix*  mat_skew   ( matrix* vec );
-matrix*  mat_cross  ( matrix* vecA, matrix* vecB );
-double   mat_dot    ( matrix* vecA, matrix* vecB );
-*/
+matrix* rot_qderiv ( matrix* quat );
 
 
 #endif

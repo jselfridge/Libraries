@@ -20,30 +20,8 @@
 void DebugRotLib();
 void RotConv();
 void RotEuler();
-/*
-void InitMat();
-void MatIO();
-void MatManip();
-void MatArith();
-void MatProp();
-void MatDecomp();
-void ClearMat();
-*/
+void RotQuat();
 
-/*
-// Global variables
-matrix* V3a;
-matrix* V3b;
-matrix* V4;
-matrix* M22;
-matrix* M23;
-matrix* M32;
-matrix* M33a;
-matrix* M33b;
-matrix* M34;
-matrix* M43;
-matrix* M44;
-*/
 
 #endif
 

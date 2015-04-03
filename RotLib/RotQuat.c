@@ -1,212 +1,11 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  Rot.c
+//  RotQuat.c
 //  Justin M Selfridge
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #include "RotLib.h"
 
 
-
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//  RotConv
-//  Rotation functions that perform some type of conversion.
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_d2r
-//  Converts the angles of a matrix from degrees into radians.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* rot_d2r ( matrix* deg ) {
-
-  int r = deg->rows;
-  int c = deg->cols;
-  int n = r*c;
-
-  matrix* rad   = mat_init(r,c);
-  double* ddata = deg->data;
-  double* rdata = rad->data;
-
-  for ( int i=0; i<n; i++ ) {
-    *rdata = *ddata * (PI/180.0);
-    ddata++;
-    rdata++;
-  }
-
-  return rad;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_r2d
-//  Converts the angles of matrix from radians into degrees.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* rot_r2d ( matrix* rad ) {
-
-  int r = rad->rows;
-  int c = rad->cols;
-  int n = r*c;
-
-  matrix* deg   = mat_init(r,c);
-  double* ddata = deg->data;
-  double* rdata = rad->data;
-
-  for ( int i=0; i<n; i++ ) {
-    *ddata = *rdata * (180.0/PI);
-    ddata++;
-    rdata++;
-  }
-
-  return deg;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_wrappi
-//  Places the elements of a matrix within the range (-pi,pi].
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* rot_wrappi ( matrix* rad ) {
-
-  int r = rad->rows;
-  int c = rad->cols;
-  int n = r*c;
-
-  matrix* wrap  = mat_init(r,c);
-  double* rdata = rad->data;
-  double* wdata = wrap->data;
-
-  for ( int i=0; i<n; i++ ) {
-    double elem = *rdata;
-    while ( elem >   PI ) { elem -= PI2; }
-    while ( elem <= -PI ) { elem += PI2; }
-    *wdata = elem;
-    rdata++;
-    wdata++;
-  }
-
-  return wrap;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_wrap2pi
-//  Places the elements of a matrix within the range [0,2pi).
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* rot_wrap2pi ( matrix* rad ) {
-
-  int r = rad->rows;
-  int c = rad->cols;
-  int n = r*c;
-
-  matrix* wrap  = mat_init(r,c);
-  double* rdata = rad->data;
-  double* wdata = wrap->data;
-
-  for ( int i=0; i<n; i++ ) {
-    double elem = *rdata;
-    while ( elem >= PI2 ) { elem -= PI2; }
-    while ( elem <   0  ) { elem += PI2; }
-    *wdata = elem;
-    rdata++;
-    wdata++;
-  }
-
-  return wrap;
-}
-
-
-
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//  RotEuler
-//  Functions that perform Euler rotations.
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_xaxis
-//  Generates a rotation matrix around the X-axis.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* rot_xaxis ( double angle ) {
-
-  matrix* R = mat_init(3,3);
-  double  S = sin(angle);
-  double  C = cos(angle);
-
-  mat_set( R,1,1, 1.0 );  mat_set( R,1,2, 0.0 );  mat_set( R,1,3, 0.0 );
-  mat_set( R,2,1, 0.0 );  mat_set( R,2,2,  C  );  mat_set( R,2,3, -S  );
-  mat_set( R,3,1, 0.0 );  mat_set( R,3,2,  S  );  mat_set( R,3,3,  C  );
-
-  return R;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_yaxis
-//  Generates a rotation matrix around the Y-axis.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* rot_yaxis ( double angle ) {
-
-  matrix* R = mat_init(3,3);
-  double  S = sin(angle);
-  double  C = cos(angle);
-
-  mat_set( R,1,1,  C  );  mat_set( R,1,2, 0.0 );  mat_set( R,1,3,  S );
-  mat_set( R,2,1, 0.0 );  mat_set( R,2,2, 1.0 );  mat_set( R,2,3, 0.0 );
-  mat_set( R,3,1, -S  );  mat_set( R,3,2, 0.0 );  mat_set( R,3,3,  C  );
-
-  return R;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_zaxis
-//  Generates a rotation matrix around the Z-axis.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* rot_zaxis ( double angle ) {
-
-  matrix* R = mat_init(3,3);
-  double  S = sin(angle);
-  double  C = cos(angle);
-
-  mat_set( R,1,1,  C  );  mat_set( R,1,2, -S  );  mat_set( R,1,3, 0.0 );
-  mat_set( R,2,1,  S  );  mat_set( R,2,2,  C  );  mat_set( R,2,3, 0.0 );
-  mat_set( R,3,1, 0.0 );  mat_set( R,3,2, 0.0 );  mat_set( R,3,3, 1.0 );
-
-  return R;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_eul
-//  Rotation matrix that transforms from local (body) frame to 
-//  global (inertial) frame.  The transpose of this matrix 
-//  reverses the relationship.
-//  Xi = R * Xb , Xb = R' * Xi
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* rot_eul ( matrix* att ) {
-
-  mat_err( att->rows!=3 || att->cols!=1, "Error (rot_eul): Attitude must be a 3 element column vector." );
-
-  matrix* R = mat_init(3,3);
-  double  X = mat_get(att,1,1);
-  double  Y = mat_get(att,2,1);
-  double  Z = mat_get(att,3,1);
-
-  R =  mat_mul( rot_zaxis(Z), rot_yaxis(Y) ); 
-  R =  mat_mul( R, rot_xaxis(X) ); 
-
-  return R;
-}
-
-
-
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//  RotQuat
-//  Functions that perform quaternion manipulations.
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -366,6 +165,29 @@ matrix* rot_qmul ( matrix* quatA, matrix* quatB ) {
   return Q;
 }
 
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_qderiv
+//  Matrix to determine quat derivatives given angular rate.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_qderiv ( matrix* quat ) {
+
+  //  IF THE DERIVATIVE LOOK WEIRD CHECK HERE FIRST!!!
+  mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_qderiv): Quaternion must be a 4 element column vector." );
+  matrix* mat = mat_init(4,3);
+
+  double W = mat_get(quat,1,1);
+  double X = mat_get(quat,2,1);
+  double Y = mat_get(quat,3,1);
+  double Z = mat_get(quat,4,1);
+
+  mat_set( mat,1,1, -X );  mat_set( mat,1,2, -Y );  mat_set( mat,1,3, -Z );
+  mat_set( mat,2,1,  W );  mat_set( mat,2,2,  Z );  mat_set( mat,2,3, -Y );
+  mat_set( mat,3,1, -Z );  mat_set( mat,3,2,  W );  mat_set( mat,3,3,  X );
+  mat_set( mat,4,1,  Y );  mat_set( mat,4,2, -X );  mat_set( mat,4,3,  W );
+
+  return mat_scale(mat,0.5);
+}
 
 
 

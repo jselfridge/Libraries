@@ -12,49 +12,9 @@
 // Debugging function 
 void DebugRotLib() {
   printf("\n   --- RotLib Debugging --- \n\n");
-
-  //RotConv();
-  //RotEuler();
-
-  // Euler to Quaternion
-  matrix* quat = mat_init(4,1);
-  matrix* att = mat_init(3,1);
-  mat_set( att,1,1, PIQ );
-  mat_set( att,2,1, PIE );
-  mat_set( att,3,1, PIS );
-  quat = rot_e2q(att);
-  mat_print(quat);
-
-  // Quaternion to Euler
-  mat_print(rot_q2e(quat));
-
-  // Quaternion to DCM
-  mat_print(rot_eul(att));
-  mat_print(rot_q2dcm(quat));
-
-  // Vector to Quaternion
-  matrix* vecA = mat_init(3,1);
-  mat_set( vecA,1,1,  1.2 );
-  mat_set( vecA,2,1, -2.5 );
-  mat_set( vecA,3,1,  0.4 );
-  mat_print(vecA);
-  matrix* vecB = mat_init(3,1);
-  mat_set( vecB,1,1, -3.4 );
-  mat_set( vecB,2,1,  2.1 );
-  mat_set( vecB,3,1,  4.7 );
-  mat_print(vecB);
-  matrix* VQ = rot_vec2q( vecA, vecB );
-  mat_print(VQ);
-  mat_print( mat_mul( (rot_q2dcm(VQ)), vecA ) );
-
-  // Quaternion skew matrix
-  mat_print( rot_qskew(quat) );
-
-  // Quaternion Multiplication
-  mat_print(quat);
-  mat_print(VQ);
-  mat_print( rot_qmul( quat, VQ ) );
-
+  RotConv();
+  RotEuler();
+  RotQuat();
   printf("   --- RotLib Complete --- \n\n");
   return;
 }
@@ -189,6 +149,65 @@ void RotEuler() {
   mat_clear(Ri);
 
   printf("\n");
+}
+
+
+
+
+void RotQuat() {
+  printf("Quaternion functions \n");
+
+  // Euler to Quaternion
+  matrix* att = mat_init(3,1);
+  mat_set( att,1,1, PIQ );
+  mat_set( att,2,1, PIE );
+  mat_set( att,3,1, PIS );
+  matrix* quat = mat_init(4,1);
+  quat = rot_e2q(att);
+  mat_print(quat);
+
+  // Quaternion to Euler
+  mat_print(rot_q2e(quat));
+
+  // Quaternion to DCM
+  mat_print(rot_eul(att));
+  mat_print(rot_q2dcm(quat));
+
+  // Vector to Quaternion
+  matrix* vecA = mat_init(3,1);
+  mat_set( vecA,1,1,  1.2 );
+  mat_set( vecA,2,1, -2.5 );
+  mat_set( vecA,3,1,  0.4 );
+  mat_print(vecA);
+  matrix* vecB = mat_init(3,1);
+  mat_set( vecB,1,1, -3.4 );
+  mat_set( vecB,2,1,  2.1 );
+  mat_set( vecB,3,1,  4.7 );
+  mat_print(vecB);
+  matrix* VQ = rot_vec2q( vecA, vecB );
+  mat_print(VQ);
+  mat_print( mat_mul( (rot_q2dcm(VQ)), vecA ) );
+
+  // Quaternion skew matrix
+  mat_print( rot_qskew(quat) );
+
+  // Quaternion Multiplication
+  mat_print(quat);
+  mat_print(VQ);
+  mat_print( rot_qmul( quat, VQ ) );
+
+  // Quaternion Derivative
+  mat_print( rot_qderiv(quat) );
+
+  // Clear matrices
+  mat_clear(att);
+  mat_clear(quat);
+  mat_clear(vecA);
+  mat_clear(vecB);
+  mat_clear(VQ);
+  
+  printf("\n");
+
 }
 
 
