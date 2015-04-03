@@ -42,10 +42,11 @@ matrix* rot_eul    ( matrix* att );
 
 
 // RotQuat functions
-matrix* rot_e2q ( matrix* att );
-matrix* rot_q2e ( matrix* quat );
+matrix* rot_e2q    ( matrix* att );
+matrix* rot_q2e    ( matrix* quat );
+matrix* rot_q2dcm  ( matrix* quat );
+
 //Q2DCM();
-//Q2Eul();
 //QDeriv();
 //QMat();
 //Vec2Q();

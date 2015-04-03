@@ -19,14 +19,18 @@ void DebugRotLib() {
   // Euler to Quaternion
   matrix* quat = mat_init(4,1);
   matrix* att = mat_init(3,1);
-  mat_set( att,1,1, PIH );
-  mat_set( att,2,1, PIQ );
-  mat_set( att,3,1, PIE );
+  mat_set( att,1,1, PIQ );
+  mat_set( att,2,1, PIE );
+  mat_set( att,3,1, PIS );
   quat = rot_e2q(att);
   mat_print(quat);
 
   // Quaternion to Euler
   mat_print(rot_q2e(quat));
+
+  // Quaternion to DCM
+  mat_print(rot_eul(att));
+  mat_print(rot_q2dcm(quat));
 
   printf("   --- RotLib Complete --- \n\n");
   return;
@@ -150,10 +154,16 @@ void RotEuler() {
   // Euler rotation
   R = rot_eul(att);
   mat_print(R);
+  matrix* Rt = mat_trans(R);
+  mat_print(Rt);
+  matrix* Ri = mat_inv(R);
+  mat_print(Ri);
 
   // Clear matrices
-  mat_clear(R);
   mat_clear(att);
+  mat_clear(R);
+  mat_clear(Rt);
+  mat_clear(Ri);
 
   printf("\n");
 }

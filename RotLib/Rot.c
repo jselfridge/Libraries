@@ -264,4 +264,40 @@ matrix* rot_q2e ( matrix* quat ) {
 }
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_q2dcm
+//  Converts a quaternion vector into Direction Cosine Matrix (DCM).
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_q2dcm ( matrix* quat ) {
+
+  mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_q2dcm): Quaternion is a 4 element column vector." );
+
+  matrix* R = mat_init(3,3);
+
+  double W = mat_get(quat,1,1);
+  double X = mat_get(quat,2,1);
+  double Y = mat_get(quat,3,1);
+  double Z = mat_get(quat,4,1);
+
+  double W2 = pow(W,2);
+  double X2 = pow(X,2);
+  double Y2 = pow(Y,2);
+  double Z2 = pow(Z,2);
+
+  double R11 =  W2 + X2 - Y2 - Z2;  mat_set(R,1,1,R11);
+  double R12 =  2 * ( X*Y - Z*W );  mat_set(R,1,2,R12);
+  double R13 =  2 * ( X*Z + Y*W );  mat_set(R,1,3,R13);
+
+  double R21 =  2 * ( Y*X + Z*W );  mat_set(R,2,1,R21);
+  double R22 =  W2 - X2 + Y2 - Z2;  mat_set(R,2,2,R22);
+  double R23 =  2 * ( Y*Z - X*W );  mat_set(R,2,3,R23);
+
+  double R31 =  2 * ( Z*X - Y*W );  mat_set(R,3,1,R31);
+  double R32 =  2 * ( Z*Y + X*W );  mat_set(R,3,2,R32);
+  double R33 =  W2 - X2 - Y2 + Z2;  mat_set(R,3,3,R33);
+
+  return R;
+}
+
+
 
