@@ -43,7 +43,7 @@ matrix* rot_eul    ( matrix* att );
 
 // RotQuat functions
 matrix* rot_e2q ( matrix* att );
-//Eul2Q();
+matrix* rot_q2e ( matrix* quat );
 //Q2DCM();
 //Q2Eul();
 //QDeriv();

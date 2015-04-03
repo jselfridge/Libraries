@@ -211,7 +211,7 @@ matrix* rot_eul ( matrix* att ) {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_e2q
-//  Converts an Euler attitude vector to quaternion vector.
+//  Converts an Euler attitude vector to a quaternion vector.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* rot_e2q ( matrix* att ) {
 
@@ -237,143 +237,31 @@ matrix* rot_e2q ( matrix* att ) {
 }
 
 
-
-
-
-
-/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_init
-//  Initializes a new matrix with the specified dimensions, and
-//  sets the elements to values of zero.
+//  rot_q2e
+//  Converts a quaternion vector to Euler attitude vector.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* mat_init ( int rows, int cols ) {
+matrix* rot_q2e ( matrix* quat ) {
 
-  matrix* out;
-  mat_err( ( rows<1 || cols<1 ), "Error (mat_init): Matrix dimensions must be positive." ); 
+  mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_q2e): Quaternion is a 4 element column vector." );
 
-  out = (matrix*) malloc( sizeof(matrix) );
-  mat_err( out == NULL, "Error (mat_init): Matrix returned NULL." );
+  matrix* E = mat_init(3,1);
 
-  out->rows = rows;
-  out->cols = cols;
-  out->data = (double*) malloc( sizeof(double) * rows * cols );
+  double W = mat_get(quat,1,1);
+  double X = mat_get(quat,2,1);
+  double Y = mat_get(quat,3,1);
+  double Z = mat_get(quat,4,1);
 
-  mat_err( out->data == NULL, "Error (mat_init): Matrix data returned NULL." );
-  memset( out->data, 0.0, rows * cols * sizeof(double) );
+  double E1 = atan2( ( 2*(W*X+Y*Z) ), ( 1-2*(pow(X,2)+pow(Y,2)) ) );
+  double E2 = asin ( 2*(W*Y-Z*X) );
+  double E3 = atan2( ( 2*(W*Z+X*Y) ), ( 1-2*(pow(Y,2)+pow(Z,2)) ) );
 
-  return out;
+  mat_set(E,1,1,E1);
+  mat_set(E,2,1,E2);
+  mat_set(E,3,1,E3);
+
+  return E;
 }
 
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_read
-//  Reads a matrix from a file.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* mat_read ( char* file ) {
-
-  FILE*    f;
-  int      i, elem;
-  int      rows, cols;
-  int      scan;
-  float    val;
-  matrix*  out;
-  double*  outdata;
-
-  if ( ( f= fopen( file, "r" ) ) == NULL ) {
-    fprintf( stderr, "Error (mat_read): Cannot open '%s'.\n", file );
-    exit(1);
-  }
-
-  scan = fscanf( f, "%d", &rows );
-  mat_err( scan==EOF, "Error (mat_read): Failed to read 'rows' from file." );
-
-  scan = fscanf( f, "%d", &cols );
-  mat_err( scan==EOF, "Error (mat_read): Failed to read 'col' from file." );
-
-  out = mat_init( rows, cols );
-  elem = rows * cols; 
-  outdata = out->data;
-
-  for ( i=0; i<elem; i++ ) {
-    scan = fscanf( f, "%f", &val );
-    mat_err( scan==EOF, "Error (mat_read): Matrix is missing elements." );
-    *(outdata++) = val;
-  }
-
-  scan = fscanf( f, "%f", &val );
-  mat_err( scan!=EOF, "Error (mat_read): Matrix has extra elements." );
-
-  fclose(f);
-  return out;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_print
-//  Display a matrix in the terminal.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void mat_print( matrix* mat ) {
-
-  double* matdata = mat->data;
-  printf( "[%dx%d]\n", mat->rows, mat->cols );
-
-  for ( int i=0; i< mat->rows; i++ ) {
-    for ( int j=0; j< mat->cols; j++ ) {
-      printf( " %9.6f", *(matdata++) );
-    }
-    printf("\n");
-  }
-
-  return;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_write
-//  Writes a matrix to a file.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void mat_write ( matrix* mat, char* file ) {
-
-  FILE* f;
-  double* matdata = mat->data;
-
-  if ( ( f= fopen( file, "w" ) ) == NULL ) {
-    fprintf( stderr, "Error (mat_write): Cannot open '%s'.\n", file );
-    exit(1);
-  }
-
-  fprintf( f, "%d %d\n", mat->rows, mat->cols );
-
-  for ( int i=0; i< mat->rows; i++ ) {
-    for ( int j=0; j< mat->cols; j++ ) {
-      fprintf( f, " %2.5f", *(matdata++) );
-    }
-    fprintf( f, "\n" );
-  }
-
-  fclose(f);  
-  return;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_clear
-//  Destroys an existing matrix and frees the memory.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void mat_clear( matrix* mat ) {
-
-  if ( mat != NULL ) {
-    if ( mat->data != NULL ) {
-      free( mat->data );
-      mat->data = NULL;
-    }
-    free(mat);
-    mat = NULL;
-  }
-
-  return;
-}
-*/
 
 
