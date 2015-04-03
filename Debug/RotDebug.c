@@ -32,6 +32,22 @@ void DebugRotLib() {
   mat_print(rot_eul(att));
   mat_print(rot_q2dcm(quat));
 
+  // Vector to Quaternion
+  matrix* vecA = mat_init(3,1);
+  mat_set( vecA,1,1,  1.2 );
+  mat_set( vecA,2,1, -2.5 );
+  mat_set( vecA,3,1,  0.4 );
+  mat_print(vecA);
+  matrix* vecB = mat_init(3,1);
+  mat_set( vecB,1,1, -3.4 );
+  mat_set( vecB,2,1,  2.1 );
+  mat_set( vecB,3,1,  4.7 );
+  mat_print(vecB);
+  matrix* VQ = rot_vec2q( vecA, vecB );
+  mat_print(VQ);
+  mat_print( mat_mul( (rot_q2dcm(VQ)), vecA ) );
+
+
   printf("   --- RotLib Complete --- \n\n");
   return;
 }

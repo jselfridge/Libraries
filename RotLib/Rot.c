@@ -300,4 +300,33 @@ matrix* rot_q2dcm ( matrix* quat ) {
 }
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  rot_vec2q
+//  Returns quaternion to rotate from VecA to VecB.
+//  VecB = rot_q2dcm(VecA)
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* rot_vec2q ( matrix* vecA, matrix* vecB ) {
+
+  mat_err( vecA->rows!=3 || vecA->cols!=1, "Error (rot_vec2q): VecA is a 3 element column vector." );
+  mat_err( vecB->rows!=3 || vecB->cols!=1, "Error (rot_vec2q): VecB is a 3 element column vector." );
+
+  matrix* Q = mat_init(4,1);
+
+  vecA = mat_uvec(vecA);
+  vecB = mat_uvec(vecB);
+
+  matrix* axis = mat_init(3,1);
+  axis = mat_mul( mat_skew(vecA), vecB );
+
+  double angle = 1.0 + mat_dot( vecA, vecB );
+
+  mat_set( Q,1,1, angle );
+  mat_set( Q,2,1, mat_get(axis,1,1) );
+  mat_set( Q,3,1, mat_get(axis,2,1) );
+  mat_set( Q,4,1, mat_get(axis,3,1) );
+
+  return mat_uvec(Q);
+}
+
+
 
