@@ -12,22 +12,17 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_add ( matrix* matA, matrix* matB ) {
 
-  matrix* out;
-  double* outdata;
-  double* Adata;
-  double* Bdata;
-  int     elem = matA->rows * matA->cols;
+  mat_err( matA->rows != matB->rows, "Error (mat_add): Matrices must have same number of rows." );
+  mat_err( matA->cols != matB->cols, "Error (mat_add): Matrices must have same number of columns." );
 
-  mat_err( matA->rows != matB->rows, "Error (mat_add): matrices must have same number of rows" );
-  mat_err( matA->cols != matB->cols, "Error (mat_add): matrices must have same number of columns" );
+  matrix* out   = mat_init( matA->rows, matA->cols );
+  double* odata = out->data;
+  double* Adata = matA->data;
+  double* Bdata = matB->data;
+  int     n     = matA->rows * matA->cols;
 
-  out = mat_init( matA->rows, matA->cols );
-  outdata = out->data;
-  Adata = matA->data;
-  Bdata = matB->data;
-
-  for ( int i=0; i<elem; i++ ) {
-    *(outdata++) = *(Adata++) + *(Bdata++);
+  for ( int i=0; i<n; i++ ) {
+    *(odata++) = *(Adata++) + *(Bdata++);
   }
 
   return out;
@@ -40,22 +35,17 @@ matrix* mat_add ( matrix* matA, matrix* matB ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_sub ( matrix* matA, matrix* matB ) {
 
-  matrix* out;
-  double* outdata;
-  double* Adata;
-  double* Bdata;
-  int     elem = matA->rows * matA->cols;
+  mat_err( matA->rows != matB->rows, "Error (mat_sub): Matrices must have same number of rows." );
+  mat_err( matA->cols != matB->cols, "Error (mat_sub): Matrices must have same number of columns." );
 
-  mat_err( matA->rows != matB->rows, "Error (mat_sub): matrices must have same number of rows" );
-  mat_err( matA->cols != matB->cols, "Error (mat_sub): matrices must have same number of columns" );
+  matrix* out   = mat_init( matA->rows, matA->cols );
+  double* odata = out->data;
+  double* Adata = matA->data;
+  double* Bdata = matB->data;
+  int     n     = matA->rows * matA->cols;
 
-  out = mat_init( matA->rows, matA->cols );
-  outdata = out->data;
-  Adata = matA->data;
-  Bdata = matB->data;
-
-  for ( int i=0; i<elem; i++ ) {
-    *(outdata++) = *(Adata++) - *(Bdata++);
+  for ( int i=0; i<n; i++ ) {
+    *(odata++) = *(Adata++) - *(Bdata++);
   }
 
   return out;
@@ -64,34 +54,30 @@ matrix* mat_sub ( matrix* matA, matrix* matB ) {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_mul
-//  Matrix multiplication on two matrices with proper dimension.
+//  Matrix multiplication on two matrices of proper dimension.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_mul ( matrix* matA, matrix* matB ) {
 
-  matrix* out;
-  double* outdata;
-  double* Adata;
-  double* Bdata;
+  int Ar = matA->rows;  int Ac = matA->cols;
+  int Br = matB->rows;  int Bc = matB->cols;
 
-  mat_err( matA->cols != matB->rows, "Error (mat_mul): matrix dimensions do not agree" );
+  mat_err( Ac!=Br, "Error (mat_mul): Matrix dimensions do not agree." );
 
-  out = mat_init( matA->rows, matB->cols );
-  outdata = out->data;
+  matrix* out   = mat_init(Ar,Bc);
+  double* odata = out->data;
+  double* Adata = matA->data;
+  double* Bdata = matB->data;
 
-  for ( int i=0; i< matA->rows; i++ ) {
-    for ( int j=0; j< matB->cols; j++ ) {
-
-      Adata = &matA->data[ i * matA->cols ];
-      Bdata = &matB->data[j];
-      *outdata = 0;
-
-      for ( int k=0; k< matA->cols; k++ ) {
-        *outdata += (*Adata) * (*Bdata);
-        Adata++;
-        Bdata += matB->cols;
+  for ( int i=0; i<Ar; i++ ) {
+    for ( int j=0; j<Bc; j++ ) {
+      double val = 0.0;
+      for ( int k=0; k<Ac; k++ ) {
+	double Aval = *( Adata + (i*Ac) + k );
+	double Bval = *( Bdata + (k*Bc) + j );
+        val += Aval * Bval;
       }
-      outdata++;
-
+      *odata = val;
+      odata++;
     }
   }
 
@@ -105,24 +91,21 @@ matrix* mat_mul ( matrix* matA, matrix* matB ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_pow ( matrix* mat, int power ) {
 
+  mat_err( mat->rows != mat->cols, "Error (mat_pow): Matrix must be square." );
+  mat_err( power<0, "Error (mat_pow): Exponent must be nonnegative." );
+
+  int n = mat->rows;
   matrix* out;
 
-  mat_err( mat->rows != mat->cols, "Error (mat_pow): matrix must be square to raise to a power" );
-  mat_err( power<0, "Error (mat_pow): power must be nonnegative" );
-
-  if      ( power==0 )  {  out = mat_eye(mat->rows);  return out;  }
-  else if ( power==1 )  {  out = mat_copy(mat);       return out;  }
+  if      ( power == 0 )  {  out = mat_eye(n);     return out;  }
+  else if ( power == 1 )  {  out = mat_copy(mat);  return out;  }
   else {
-
-    out = mat_init( mat->rows, mat->cols );
+    out = mat_init(n,n);
     for ( int i=0; i< power-1; i++ ) {
-      if ( i==0 )  { out = mat_mul( mat, mat ); }
-      else         { out = mat_mul( out, mat ); }
-    }
-
+      if ( i == 0 )  { out = mat_mul( mat, mat ); }
+      else           { out = mat_mul( out, mat ); }
+    } return out;
   }
-
-  return out;
 }
 
 
@@ -132,16 +115,17 @@ matrix* mat_pow ( matrix* mat, int power ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_trans ( matrix* mat ) {
 
-  matrix*  out      = mat_init( mat->cols, mat->rows );
+  int      r        = mat->rows;
+  int      c        = mat->cols;
+  matrix*  out      = mat_init(c,r);
   double*  outdata  = out->data;
   double*  matdata  = mat->data;
 
-  for ( int i=0; i< mat->rows; i++ ) {
-    outdata = &out->data[i];
-    for ( int j=0; j< mat->cols; j++ ) {
-      *outdata = *matdata;
+  for ( int i=0; i<r; i++ ) {
+    for ( int j=0; j<c; j++ ) {
+      int offset = (j*r)+i;
+      *( outdata + offset ) = *matdata;
       matdata++;
-      outdata += out->cols;
     }
   }
 

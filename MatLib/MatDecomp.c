@@ -17,16 +17,13 @@ void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
 
   int     n = mat->rows;
   double  sum;
-  double* data;
-  double* Ldata;
-  double* Udata;
 
   *L = mat_eye(n);
   *U = mat_init(n,n);
 
-  data  = mat->data;
-  Ldata = (*L)->data;
-  Udata = (*U)->data;
+  double* data  = mat->data;
+  double* Ldata = (*L)->data;
+  double* Udata = (*U)->data;
 
   // Loop through calculations
   for ( int j=0; j<n; j++ ) {
@@ -57,12 +54,12 @@ void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 double mat_det ( matrix* mat ) {
 
+  mat_err( mat->rows != mat->cols, "Error (mat_det): Matrix must be square.");
+
   int     n = mat->rows;
   double  product = 1.0;
   matrix* L = NULL;
   matrix* U = NULL;
-
-  mat_err( mat->rows != mat->cols, "Error (mat_det): Matrix A must be square.");
 
   mat_LU( mat, &L, &U );
   for ( int i=0; i<n; i++ ) {  product *= U->data[i*n+i];  }

@@ -19,6 +19,7 @@
 // Function prototypes
 void DebugMatLib();
 void InitMat();
+void PrintMat();
 void MatIO();
 void MatManip();
 void MatVec();

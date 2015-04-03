@@ -25,8 +25,8 @@ void mat_err ( int cond, char* msg ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_init ( int rows, int cols ) {
 
-  matrix* out;
   mat_err( ( rows<1 || cols<1 ), "Error (mat_init): Matrix dimensions must be positive." ); 
+  matrix* out;
 
   out = (matrix*) malloc( sizeof(matrix) );
   mat_err( out == NULL, "Error (mat_init): Matrix returned NULL." );
@@ -65,7 +65,7 @@ matrix* mat_read ( char* file ) {
   mat_err( scan==EOF, "Error (mat_read): Failed to read 'rows' from file." );
 
   scan = fscanf( f, "%d", &cols );
-  mat_err( scan==EOF, "Error (mat_read): Failed to read 'col' from file." );
+  mat_err( scan==EOF, "Error (mat_read): Failed to read 'cols' from file." );
 
   out = mat_init( rows, cols );
   elem = rows * cols; 
@@ -91,11 +91,13 @@ matrix* mat_read ( char* file ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_print( matrix* mat ) {
 
+  int     r       = mat->rows;
+  int     c       = mat->cols;
   double* matdata = mat->data;
-  printf( "[%dx%d]\n", mat->rows, mat->cols );
 
-  for ( int i=0; i< mat->rows; i++ ) {
-    for ( int j=0; j< mat->cols; j++ ) {
+  printf( "[%dx%d]\n", r, c );
+  for ( int i=0; i<r; i++ ) {
+    for ( int j=0; j<c; j++ ) {
       printf( " %9.6f", *(matdata++) );
     }
     printf("\n");
@@ -111,7 +113,9 @@ void mat_print( matrix* mat ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_write ( matrix* mat, char* file ) {
 
-  FILE* f;
+  FILE*   f;
+  int     r       = mat->rows;
+  int     c       = mat->cols;
   double* matdata = mat->data;
 
   if ( ( f= fopen( file, "w" ) ) == NULL ) {
@@ -119,10 +123,9 @@ void mat_write ( matrix* mat, char* file ) {
     exit(1);
   }
 
-  fprintf( f, "%d %d\n", mat->rows, mat->cols );
-
-  for ( int i=0; i< mat->rows; i++ ) {
-    for ( int j=0; j< mat->cols; j++ ) {
+  fprintf( f, "%d %d\n", r, c );
+  for ( int i=0; i<r; i++ ) {
+    for ( int j=0; j<c; j++ ) {
       fprintf( f, " %2.5f", *(matdata++) );
     }
     fprintf( f, "\n" );
@@ -139,10 +142,12 @@ void mat_write ( matrix* mat, char* file ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_clear( matrix* mat ) {
 
+  double* data = mat->data;
+
   if ( mat != NULL ) {
-    if ( mat->data != NULL ) {
-      free( mat->data );
-      mat->data = NULL;
+    if ( data != NULL ) {
+      free( data );
+      data = NULL;
     }
     free(mat);
     mat = NULL;

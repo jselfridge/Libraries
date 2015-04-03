@@ -13,12 +13,13 @@
 void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
-  //MatIO();
-  //MatManip();
-  //MatVec();
-  //MatArith();
-  //MatProp();
-  //MatDecomp();
+  PrintMat();  
+  MatIO();
+  MatManip();
+  MatVec();
+  MatArith();
+  MatProp();
+  MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -32,71 +33,91 @@ void InitMat() {
 
   //  Define first 3x1 vector
   V3a = mat_init(3,1);
-  mat_set(V3a,1,1,6);
-  mat_set(V3a,2,1,2);
-  mat_set(V3a,3,1,9);
+  mat_set(V3a,1,1,6.0);
+  mat_set(V3a,2,1,2.1);
+  mat_set(V3a,3,1,0.3);
 
   //  Define second 3x1 vector
   V3b = mat_init(3,1);
-  mat_set(V3b,1,1,4);
-  mat_set(V3b,2,1,8);
-  mat_set(V3b,3,1,3);
+  mat_set(V3b,1,1,-4.2);
+  mat_set(V3b,2,1, 8.7);
+  mat_set(V3b,3,1,-3.9);
   
   //  Define 4x1 vector
   V4 = mat_init(4,1);
-  mat_set(V4,1,1,-2);
-  mat_set(V4,2,1, 7);
-  mat_set(V4,3,1,-9);
-  mat_set(V4,4,1, 5);
+  mat_set(V4,1,1,-2.2);
+  mat_set(V4,2,1, 7.4);
+  mat_set(V4,3,1,-9.1);
+  mat_set(V4,4,1, 5.8);
   
   //  Define 2x2 matrix
   M22 = mat_init(2,2);
-  mat_set(M22,1,1,3);  mat_set(M22,1,2,5);
-  mat_set(M22,2,1,7);  mat_set(M22,2,2,9);
+  mat_set(M22,1,1, 3.4);  mat_set(M22,1,2,-5.3);
+  mat_set(M22,2,1,-7.2);  mat_set(M22,2,2, 9.2);
 
   //  Define 2x3 matrix
   M23 = mat_init(2,3);
-  mat_set(M23,1,1,6);  mat_set(M23,1,2,1);  mat_set(M23,1,3,2);
-  mat_set(M23,2,1,9);  mat_set(M23,2,2,7);  mat_set(M23,2,3,4);
+  mat_set(M23,1,1,6.6);  mat_set(M23,1,2, 1.9);  mat_set(M23,1,3,-0.4);
+  mat_set(M23,2,1,9.4);  mat_set(M23,2,2,-7.1);  mat_set(M23,2,3, 0.8);
 
   //  Define 3x2 matrix
   M32 = mat_init(3,2);
-  mat_set(M32,1,1,6);  mat_set(M32,1,2,7);
-  mat_set(M32,2,1,2);  mat_set(M32,2,2,5);
-  mat_set(M32,3,1,9);  mat_set(M32,3,2,4);
+  mat_set(M32,1,1, 6.8);  mat_set(M32,1,2,-0.1);
+  mat_set(M32,2,1, 0.4);  mat_set(M32,2,2, 5.4);
+  mat_set(M32,3,1,-9.3);  mat_set(M32,3,2, 4.2);
   
   // Define first 3x3 matrix
   M33a = mat_init(3,3);
-  mat_set(M33a,1,1,3);  mat_set(M33a,1,2,5);  mat_set(M33a,1,3,8);
-  mat_set(M33a,2,1,7);  mat_set(M33a,2,2,9);  mat_set(M33a,2,3,4);
-  mat_set(M33a,3,1,1);  mat_set(M33a,3,2,6);  mat_set(M33a,3,3,2);
+  mat_set(M33a,1,1,3.4);  mat_set(M33a,1,2,0.5);  mat_set(M33a,1,3,8.2);
+  mat_set(M33a,2,1,7.7);  mat_set(M33a,2,2,-9.3);  mat_set(M33a,2,3,-4.6);
+  mat_set(M33a,3,1,-1.8);  mat_set(M33a,3,2,0.2);  mat_set(M33a,3,3,-2.9);
 
   // Define second 3x3 matrix
   M33b = mat_init(3,3);
-  mat_set(M33b,1,1,3);  mat_set(M33b,1,2,1);  mat_set(M33b,1,3,2);
-  mat_set(M33b,2,1,5);  mat_set(M33b,2,2,8);  mat_set(M33b,2,3,6);
-  mat_set(M33b,3,1,7);  mat_set(M33b,3,2,4);  mat_set(M33b,3,3,9);
+  mat_set(M33b,1,1, 3.4);  mat_set(M33b,1,2,-1.9);  mat_set(M33b,1,3, 0.2);
+  mat_set(M33b,2,1, 0.5);  mat_set(M33b,2,2,-0.8);  mat_set(M33b,2,3, 6.3);
+  mat_set(M33b,3,1,-7.2);  mat_set(M33b,3,2, 4.5);  mat_set(M33b,3,3,-9.5);
 
   // Define 3x4 matrix
   M34 = mat_init(3,4);
-  mat_set(M34,1,1,3);  mat_set(M34,1,2,7);  mat_set(M34,1,3,6);  mat_set(M34,1,4,7);
-  mat_set(M34,2,1,5);  mat_set(M34,2,2,4);  mat_set(M34,2,3,2);  mat_set(M34,2,4,3);
-  mat_set(M34,3,1,1);  mat_set(M34,3,2,8);  mat_set(M34,3,3,5);  mat_set(M34,3,4,9);
+  mat_set(M34,1,1,-3.3);  mat_set(M34,1,2, 7.6);  mat_set(M34,1,3,-0.6);  mat_set(M34,1,4,-7.3);
+  mat_set(M34,2,1, 0.5);  mat_set(M34,2,2, 4.2);  mat_set(M34,2,3, 3.2);  mat_set(M34,2,4, 3.4);
+  mat_set(M34,3,1, 1.6);  mat_set(M34,3,2,-0.8);  mat_set(M34,3,3, 5.8);  mat_set(M34,3,4,-9.1);
 
   // Define 4x3 matrix
   M43 = mat_init(4,3);
-  mat_set(M43,1,1,8);  mat_set(M43,1,2,1);  mat_set(M43,1,3,5);
-  mat_set(M43,2,1,2);  mat_set(M43,2,2,3);  mat_set(M43,2,3,6);
-  mat_set(M43,3,1,4);  mat_set(M43,3,2,7);  mat_set(M43,3,3,8);
-  mat_set(M43,4,1,8);  mat_set(M43,4,2,9);  mat_set(M43,4,3,1);
+  mat_set(M43,1,1,-0.8);  mat_set(M43,1,2,-1.2);  mat_set(M43,1,3, 5.9);
+  mat_set(M43,2,1, 1.2);  mat_set(M43,2,2, 0.3);  mat_set(M43,2,3,-6.4);
+  mat_set(M43,3,1, 4.9);  mat_set(M43,3,2, 7.4);  mat_set(M43,3,3, 0.8);
+  mat_set(M43,4,1,-8.3);  mat_set(M43,4,2, 9.3);  mat_set(M43,4,3,-1.8);
 
   // Define 4x4 matrix
   M44 = mat_init(4,4);
-  mat_set(M44,1,1,3);  mat_set(M44,1,2,1);  mat_set(M44,1,3,2);  mat_set(M44,1,4,7);
-  mat_set(M44,2,1,5);  mat_set(M44,2,2,8);  mat_set(M44,2,3,6);  mat_set(M44,2,4,3);
-  mat_set(M44,3,1,7);  mat_set(M44,3,2,4);  mat_set(M44,3,3,9);  mat_set(M44,3,4,9);
-  mat_set(M44,4,1,4);  mat_set(M44,4,2,8);  mat_set(M44,4,3,1);  mat_set(M44,4,4,2);
+  mat_set(M44,1,1, 3.1);  mat_set(M44,1,2,-0.1);  mat_set(M44,1,3,-2.7);  mat_set(M44,1,4, 7.2);
+  mat_set(M44,2,1, 5.4);  mat_set(M44,2,2, 8.2);  mat_set(M44,2,3,-6.4);  mat_set(M44,2,4, 3.2);
+  mat_set(M44,3,1, 0.7);  mat_set(M44,3,2, 4.7);  mat_set(M44,3,3, 9.9);  mat_set(M44,3,4,-9.3);
+  mat_set(M44,4,1,-4.5);  mat_set(M44,4,2,-8.1);  mat_set(M44,4,3, 0.1);  mat_set(M44,4,4, 2.7);
 
+}
+
+
+
+
+// ClearMat (clear the matrices used in demo)
+void PrintMat() {
+  printf("General purpose matrices \n");
+  mat_print(V3a);
+  mat_print(V3b);
+  mat_print(V4);
+  mat_print(M22);
+  mat_print(M23);
+  mat_print(M32);
+  mat_print(M33a);
+  mat_print(M33b);
+  mat_print(M34);
+  mat_print(M43);
+  mat_print(M44);
+  printf("\n");
 }
 
 
@@ -233,7 +254,7 @@ void MatVec() {
   //  Double Skew Symmetric
   matrix* sskew = mat_sskew(V3a);
   mat_print(sskew);  mat_clear(sskew);
-  
+
   //  Cross product
   matrix* cross;
   cross = mat_cross(V3a,V3b);
@@ -241,7 +262,7 @@ void MatVec() {
   cross = mat_cross(V3a,V3a);
   mat_print(cross);  
   mat_clear(cross);
-  
+
   //  Dot product
   double dot;
   dot = mat_dot(V3a,V3b);
@@ -265,18 +286,18 @@ void MatVec() {
   matrix* unity = mat_init(4,1);
   mat_set(unity,1,1,1);
   mat_set(unity,2,1,1);
-  mat_set(unity,3,1,1);
-  mat_set(unity,4,1,1);
+  mat_set(unity,3,1,0);
+  mat_set(unity,4,1,0);
   printf("Mag: %f \n", mat_mag(unity));
 
   // Unit vector
   printf("Unit vector: ");
   matrix* quat = mat_init(4,1);
   mat_set(quat,1,1,1);
-  mat_set(quat,2,1,1);
+  mat_set(quat,2,1,0);
   mat_set(quat,3,1,1);
-  mat_set(quat,4,1,1);
-  mat_print(mat_uvec(V3a));
+  mat_set(quat,4,1,0);
+  mat_print(mat_uvec(V3b));
   mat_print(mat_uvec(V4));
   mat_print(mat_uvec(quat));
 
@@ -289,12 +310,6 @@ void MatVec() {
 // Matrix Arithmetic
 void MatArith() {
   printf("Matrix Arithmetic \n");
-
-  // Display matrices
-  mat_print(V3a);
-  mat_print(V3b);
-  mat_print(M33a);
-  mat_print(M33b);
 
   //  Addition
   matrix* Vadd = mat_add(V3a,V3b);
@@ -318,7 +333,7 @@ void MatArith() {
 
   //  Power
   matrix* Mpow;
-  for ( int i=0; i<=2; i++ ) {
+  for ( int i=0; i<4; i++ ) {
     Mpow= mat_pow(M33a,i);
     mat_print(Mpow);
   }

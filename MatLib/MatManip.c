@@ -12,13 +12,11 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_set ( matrix* mat, int row, int col, double val ) {
 
-  double* matdata;
-  int     offset;
-
   mat_err( ( row > mat->rows ) || ( col > mat->cols ), "Error (mat_set): Index exceeds matrix dimensions." );
 
-  matdata = mat->data;
-  offset = (row-1) * (mat->cols) + (col-1);
+  double* matdata = mat->data;
+  int     offset = (row-1) * (mat->cols) + (col-1);
+
   matdata += offset;
   *matdata = val;
 
@@ -31,14 +29,12 @@ void mat_set ( matrix* mat, int row, int col, double val ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 double mat_get ( matrix* mat, int row, int col ) {
 
-  double* matdata;
-  int     offset;
-  double  val;
-
   mat_err( ( row > mat->rows ) || ( col > mat->cols ), "Error (mat_get): Index exceeds matrix dimensions." );
 
-  matdata = mat->data;
-  offset = (row-1) * (mat->cols) + (col-1);
+  double* matdata = mat->data;
+  int     offset  = (row-1) * (mat->cols) + (col-1);
+  double  val;
+
   matdata += offset;
   val = *matdata;
 
@@ -61,13 +57,10 @@ matrix* mat_copy ( matrix* mat ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_eye ( int n ) {
 
-  matrix* out;
-  double* outdata;
-
   mat_err( n<1, "Error (mat_eye): Matrix dimension must be positive." );
 
-  out = mat_init( n, n );
-  outdata = out->data;
+  matrix* out     = mat_init(n,n);
+  double* outdata = out->data;
 
   for ( int i=0; i<n; i++ ) {
     *outdata = 1.0;
@@ -84,14 +77,11 @@ matrix* mat_eye ( int n ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_ones ( int rows, int cols ) {
 
-  matrix* out;
-  double* outdata;
-  int elem = rows * cols;
-
   mat_err(  rows<1 || cols<1, "Error (mat_ones): Matrix must have positive dimensions." );
 
-  out = mat_init( rows, cols );
-  outdata = out->data;
+  matrix* out     = mat_init( rows, cols );
+  double* outdata = out->data;
+  int     elem    = rows * cols;
 
   for ( int i=0; i<elem; i++ ) {
     *outdata = 1.0;
@@ -108,12 +98,12 @@ matrix* mat_ones ( int rows, int cols ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_scale ( matrix* mat, double scale ) {
 
-  int      elem     = mat->rows * mat->cols;
+  int      n        = mat->rows * mat->cols;
   matrix*  out      = mat_init( mat->rows, mat->cols );
   double*  outdata  = out->data;
   double*  matdata  = mat->data;
 
-  for ( int i=0; i<elem; i++ ) {
+  for ( int i=0; i<n; i++ ) {
     *(outdata++) = *(matdata++) * scale;
   }
 
@@ -127,14 +117,13 @@ matrix* mat_scale ( matrix* mat, double scale ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_swapr ( matrix* mat, int p, int q ) {
 
-  int     r = mat->rows;
+  mat_err( 2> mat->rows, "Error (mat_swapr): Matrix must have at least two rows.");
+  mat_err( p> mat->rows || q> mat->rows, "Error (mat_swapr): Row index exceeds matrix dimension.");
+
   int     c = mat->cols;
   double  temp;
   double* pRow;
   double* qRow;
-
-  mat_err( r<2, "Error (mat_swapr): Matrix must have at least two rows.");
-  mat_err( p>r || q>r, "Error (mat_swapr): Row index exceeds matrix dimension.");
 
   if ( p == q ) {  return;  }
 
@@ -159,14 +148,14 @@ void mat_swapr ( matrix* mat, int p, int q ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_swapc ( matrix* mat, int p, int q ) {
 
+  mat_err( 2> mat->cols, "Error (mat_swapc): Matrix must have at least two columns.");
+  mat_err( p> mat->cols || q> mat->cols, "Error (mat_swapc): Column index exceeds matrix dimension.");
+
   int     r = mat->rows;
   int     c = mat->cols;
   double  temp;
   double* pCol;
   double* qCol;
-
-  mat_err( c<2, "Error (mat_swapc): Matrix must have at least two columns.");
-  mat_err( p>c || q>c, "Error (mat_swapc): Column index exceeds matrix dimension.");
 
   if ( p == q ) {  return;  }
 
@@ -191,10 +180,8 @@ void mat_swapc ( matrix* mat, int p, int q ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_rmtiny ( matrix* mat, double tol ) {
 
-  int     r     = mat->rows;
-  int     c     = mat->cols;
-  int     n     = r*c;
-  matrix* tiny  = mat_init(r,c);
+  int     n     = mat->rows * mat->cols;
+  matrix* tiny  = mat_init( mat->rows, mat->cols );
   double* mdata = mat->data;
   double* tdata = tiny->data;
 
