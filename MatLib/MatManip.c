@@ -175,6 +175,46 @@ void mat_swapc ( matrix* mat, int p, int q ) {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_appr
+//  Appends two matrices - top to bottom.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* mat_appr ( matrix* matT, matrix* matB ) {
+
+  int tr = matT->rows;  int tc = matT->cols;  int tn = tr*tc;
+  int br = matB->rows;  int bc = matB->cols;  int bn = br*bc;
+
+  mat_err( tc != bc, "Error (mat_appr): Matrices must have same number of columns.");
+
+  matrix* mat   = mat_init( tr+br, tc ); 
+  double* data  = mat->data;
+  double* Tdata = matT->data;
+  double* Bdata = matB->data;
+
+  for ( int i=0; i<tn; i++ ) { 
+    *data = *Tdata;
+    data++;
+    Tdata++;
+  }
+  for ( int j=0; j<bn; j++ ) {
+    *data = *Bdata;
+    data++;
+    Bdata++;
+  }
+
+  return mat;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_appc
+//  Appends two matrices - side by side.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//void mat_appc ( matrix* matA, matrix* matB ) {
+
+//}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_rmtiny
 //  Removes nearly zero entries within a matrix.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

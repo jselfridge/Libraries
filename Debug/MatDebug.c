@@ -14,12 +14,12 @@ void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
   PrintMat();  
-  MatIO();
+  //MatIO();
   MatManip();
-  MatVec();
-  MatArith();
-  MatProp();
-  MatDecomp();
+  //MatVec();
+  //MatArith();
+  //MatProp();
+  //MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -160,7 +160,7 @@ void MatIO() {
 // Matrix Manipulation
 void MatManip() {
   printf("Matrix manipulation \n");
-
+  /*
   // Identity matrix
   matrix* M = mat_eye(4);
   mat_print(M);
@@ -236,6 +236,13 @@ void MatManip() {
   mat_clear(P); 
   mat_clear(Q);
   mat_clear(R);
+  */
+
+  // Append rows
+  mat_print( mat_appr(M33a,M33b) );
+  mat_print( mat_appr(mat_trans(V3a),M33a) );
+  mat_print( mat_appr(M44,mat_trans(V4)) );
+
 
   printf("\n");
 }
