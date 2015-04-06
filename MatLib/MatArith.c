@@ -110,6 +110,30 @@ matrix* mat_pow ( matrix* mat, int power ) {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_abs
+//  Applies absolute value to elements within a matrix or an array.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* mat_abs ( matrix* mat ) {
+
+  int r = mat->rows;
+  int c = mat->cols;
+  int n = r*c;
+
+  matrix* abs = mat_init(r,c);
+  double* adata = abs->data;
+  double* mdata = mat->data;
+
+  for ( int i=0; i<n; i++ ) {
+    *adata = fabs(*mdata);
+    mdata++;
+    adata++;
+  }
+
+  return abs;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_trans
 //  Returns the transpose of a rectangular matrix or an array.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

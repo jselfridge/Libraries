@@ -60,6 +60,7 @@ matrix*  mat_add     ( matrix* matA, matrix* matB );
 matrix*  mat_sub     ( matrix* matA, matrix* matB );
 matrix*  mat_mul     ( matrix* matA, matrix* matB );
 matrix*  mat_pow     ( matrix* mat, int power );
+matrix*  mat_abs     ( matrix* mat );
 matrix*  mat_trans   ( matrix* mat );
 
 

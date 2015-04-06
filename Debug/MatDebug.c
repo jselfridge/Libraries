@@ -349,6 +349,11 @@ void MatArith() {
   }
   mat_clear(Mpow);
 
+  // Absolute value
+  mat_print( mat_abs(M32) );
+  mat_print( mat_abs(M44) );
+  mat_print( mat_abs(mat_trans(V4)) );
+
   //  Transpose
   matrix* T1 = mat_trans(V4);
   mat_print(T1);  mat_clear(T1);
