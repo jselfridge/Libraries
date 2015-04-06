@@ -160,7 +160,7 @@ void MatIO() {
 // Matrix Manipulation
 void MatManip() {
   printf("Matrix manipulation \n");
-  /*
+
   // Identity matrix
   matrix* M = mat_eye(4);
   mat_print(M);
@@ -222,6 +222,16 @@ void MatManip() {
   mat_print(M43);
   mat_swapc(M43,3,2);
 
+  // Append rows
+  mat_print( mat_appr(M33a,M33b) );
+  mat_print( mat_appr(mat_trans(V3a),M33a) );
+  mat_print( mat_appr(M44,mat_trans(V4)) );
+
+  // Append columns
+  mat_print( mat_appc(mat_trans(M32),M22) );
+  mat_print( mat_appc(M33a,M33b) );
+  mat_print( mat_appc(M44,V4) );
+
   // Remove tiny
   matrix* R = mat_init(2,2);
   mat_set(R,1,1, 0.1000 );  mat_set(R,1,2, 0.0100 );
@@ -236,13 +246,6 @@ void MatManip() {
   mat_clear(P); 
   mat_clear(Q);
   mat_clear(R);
-  */
-
-  // Append rows
-  mat_print( mat_appr(M33a,M33b) );
-  mat_print( mat_appr(mat_trans(V3a),M33a) );
-  mat_print( mat_appr(M44,mat_trans(V4)) );
-
 
   printf("\n");
 }

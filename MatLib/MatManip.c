@@ -176,7 +176,7 @@ void mat_swapc ( matrix* mat, int p, int q ) {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_appr
-//  Appends two matrices - top to bottom.
+//  Appends two matrices - top and bottom.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_appr ( matrix* matT, matrix* matB ) {
 
@@ -207,11 +207,35 @@ matrix* mat_appr ( matrix* matT, matrix* matB ) {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_appc
-//  Appends two matrices - side by side.
+//  Appends two matrices - left and right.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//void mat_appc ( matrix* matA, matrix* matB ) {
+matrix* mat_appc ( matrix* matL, matrix* matR ) {
 
-//}
+  int lr = matL->rows;  int lc = matL->cols;
+  int rr = matR->rows;  int rc = matR->cols;
+
+  mat_err( lr != rr, "Error (mat_appc): Matrices must have same number of rows.");
+
+  matrix* mat   = mat_init( lr, lc+rc ); 
+  double* data  = mat->data;
+  double* Ldata = matL->data;
+  double* Rdata = matR->data;
+
+  for ( int i=0; i<lr; i++ ) {
+    for ( int j=0; j<lc; j++ ) { 
+      *data = *Ldata;
+      data++;
+      Ldata++;
+    }
+    for ( int k=0; k<rc; k++ ) {
+      *data = *Rdata;
+      data++;
+      Rdata++;
+    }
+  }
+
+  return mat;
+}
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
