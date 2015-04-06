@@ -61,6 +61,9 @@ matrix* mat_read ( char* file ) {
     exit(1);
   }
 
+  scan = fscanf( f, "#" );
+  mat_err( scan==EOF, "Error (mat_read): Failed to read 'header' from file." );
+
   scan = fscanf( f, "%d", &rows );
   mat_err( scan==EOF, "Error (mat_read): Failed to read 'rows' from file." );
 
@@ -123,7 +126,7 @@ void mat_write ( matrix* mat, char* file ) {
     exit(1);
   }
 
-  fprintf( f, "%d %d\n", r, c );
+  fprintf( f, "# %d %d \n", r, c );
   for ( int i=0; i<r; i++ ) {
     for ( int j=0; j<c; j++ ) {
       fprintf( f, " %2.5f", *(matdata++) );

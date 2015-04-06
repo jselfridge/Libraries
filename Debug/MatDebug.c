@@ -14,12 +14,12 @@ void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
   PrintMat();  
-  //MatIO();
+  MatIO();
   MatManip();
-  //MatVec();
-  //MatArith();
-  //MatProp();
-  //MatDecomp();
+  MatVec();
+  MatArith();
+  MatProp();
+  MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
