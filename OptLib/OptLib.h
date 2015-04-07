@@ -8,10 +8,8 @@
 
 
 //  Standard includes
-//#include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
 
 
 // Custom includes
@@ -19,6 +17,7 @@
 
 
 // Function Prototypes
+void  opt_grad ( matrix* F (matrix*), matrix** x, matrix* d, double tol, double gain, int max );
 
 
 #endif

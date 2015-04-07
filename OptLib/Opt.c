@@ -8,32 +8,39 @@
 
 
 
-
-
-/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_init
-//  Initializes a new matrix with the specified dimensions, and
-//  sets the elements to values of zero.
+//  opt_grad
+//  Performs a gradient method type of optimization.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* mat_init ( int rows, int cols ) {
+void opt_grad ( matrix* F ( matrix* ), matrix** x, matrix* d, double tol, double gain, int max ) {
 
-  mat_err( ( rows<1 || cols<1 ), "Error (mat_init): Matrix dimensions must be positive." ); 
-  matrix* out;
+  mat_err( (*x)->cols!=1, "Error (opt_grad): State (x) must be a column vector." );
+  mat_err( d->cols!=1, "Error (opt_grad): Target derivative (d) must be a column vector." );
 
-  out = (matrix*) malloc( sizeof(matrix) );
-  mat_err( out == NULL, "Error (mat_init): Matrix returned NULL." );
+  bool loop = true;
+  int  iter = 0;
 
-  out->rows = rows;
-  out->cols = cols;
-  out->data = (double*) malloc( sizeof(double) * rows * cols );
+  do {
 
-  mat_err( out->data == NULL, "Error (mat_init): Matrix data returned NULL." );
-  memset( out->data, 0.0, rows * cols * sizeof(double) );
+    matrix* f = F(*x);
+    float err = mat_norm( mat_sub(f,d), 1 );
 
-  return out;
+    if ( err > tol ) {
+      iter++;
+      *x = mat_sub( *x, mat_scale( mat_sub(f,d), gain ) );
+      loop = true;
+    }
+    else { loop = false; }
+
+  } while ( loop && iter < max );
+
+  mat_err( loop, "Error (opt_gard): Optimization exceeded maximum number of steps." );
+  printf( "\nOptimization completed in %d steps \n", iter );
+  printf("x: ");
+  mat_print(*x);
+  printf("\n");
+
 }
-*/
 
 
 

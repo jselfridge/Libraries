@@ -13,14 +13,14 @@
 
 
 // Custom includes
-#include "../MatLib/MatLib.h"
+#include "../OptLib/OptLib.h"
 
 
 // Function prototypes
 void    DebugOptLib();
+void    OptGrad();
 matrix* F( matrix* x );
 
+
 #endif
-
-
 
