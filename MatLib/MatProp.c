@@ -31,3 +31,13 @@ double mat_trace ( matrix* mat ) {
 
 
 
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_rank
+//  Returns the trace of a matrix (sum of main diagonal)
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+int mat_rank ( matrix* mat ) {
+
+  return 0;
+}
+

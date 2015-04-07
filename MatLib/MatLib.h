@@ -66,6 +66,7 @@ matrix*  mat_trans   ( matrix* mat );
 
 //  MatProp functions
 double   mat_trace   ( matrix* mat );
+int      mat_rank    ( matrix* mat );
 //double   mat_mean    ( matrix* mat );
 //matrix*  mat_meanr   ( matrix* mat );
 //matrix*  mat_meanc   ( matrix* mat );

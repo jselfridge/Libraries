@@ -14,12 +14,12 @@ void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
   PrintMat();  
-  MatIO();
-  MatManip();
-  MatVec();
-  MatArith();
+  //MatIO();
+  //MatManip();
+  //MatVec();
+  //MatArith();
   MatProp();
-  MatDecomp();
+  //MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -378,6 +378,10 @@ void MatProp() {
   double T33 = mat_trace(M33a);  printf( "Trace of M33a: %f \n", T33 );
   double T34 = mat_trace(M34);   printf( "Trace of M34:  %f \n", T34 );
   double T43 = mat_trace(M43);   printf( "Trace of M43:  %f \n", T43 );
+
+  // Rank
+  int rank = mat_rank(M44);
+  printf( "Rank: %d \n", rank );
 
   printf("\n");
 }
