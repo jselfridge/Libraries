@@ -17,7 +17,8 @@ int main() {
   
   //DebugMatLib();
   //DebugRotLib();
-  DebugOptLib();
+  //DebugOptLib();
+  DebugCtrlLib();
 
   printf("------ DEBUGGING COMPLETE ------ \n\n");
   return 0 ;

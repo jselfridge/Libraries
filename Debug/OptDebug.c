@@ -48,6 +48,7 @@ void OptGrad() {
   printf("F(x): ");
   mat_print(F(x));
 
+  printf("\n");
 }
 
 

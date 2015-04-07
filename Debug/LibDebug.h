@@ -16,6 +16,7 @@
 #include "MatDebug.h"
 #include "RotDebug.h"
 #include "OptDebug.h"
+#include "CtrlDebug.h"
 
 
 #endif
