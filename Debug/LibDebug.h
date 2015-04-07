@@ -15,6 +15,8 @@
 // Custom includes
 #include "MatDebug.h"
 #include "RotDebug.h"
+#include "OptDebug.h"
+
 
 #endif
 
