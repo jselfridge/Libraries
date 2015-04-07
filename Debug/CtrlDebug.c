@@ -7,26 +7,28 @@
 #include "CtrlDebug.h"
 
 
+
+
 // Debugging function 
 void DebugCtrlLib() {
   printf("\n   --- CtrlLib Debugging --- \n\n");
-  CtrlLin();
+  CtrlFunc();
   printf("   --- CtrlLib Complete --- \n\n");
   return;
 }
 
 
-// Linearization
-void CtrlLin() {
 
-  printf("Linearization \n");
+
+// Control functions
+void CtrlFunc() {
 
   // Define states
   matrix* x = mat_init(4,1);
-  mat_set(x,1,1,0.0);
-  mat_set(x,2,1,0.0);
-  mat_set(x,3,1,0.0);
-  mat_set(x,4,1,0.0);
+  mat_set(x,1,1,1.0);
+  mat_set(x,2,1,1.0);
+  mat_set(x,3,1,1.0);
+  mat_set(x,4,1,1.0);
   printf("x: ");  mat_print(x);
 
   // Define inputs
@@ -39,7 +41,8 @@ void CtrlLin() {
   matrix* A = mat_init(4,4);
   matrix* B = mat_init(4,2);
 
-  // Define perturbation
+  // Linearization
+  printf("Linearization \n");
   double d = 0.001;
 
   // First linearization
@@ -54,63 +57,23 @@ void CtrlLin() {
   printf("A: ");  mat_print(A);
   printf("B: ");  mat_print(B);
 
+  // Controllability
+  matrix* ctrb = ctrl_ctrb(A,B);
+  printf("\nCtrb: ");  mat_print(ctrb);
+  mat_clear(ctrb);
+
+  // Observability
+  matrix* obsv = ctrl_obsv(A,mat_trans(B));
+  printf("\nObsv: ");  mat_print(obsv);
+  mat_clear(obsv);
+
   printf("\n");
 }
 
 
 
 
-// Linearization function
-void ctrl_lin( matrix* f ( matrix*, matrix* ), matrix* x, matrix* u, matrix** A, matrix** B, double d ) {
-
-  int n = x->rows;
-  int m = u->rows;
-
-  mat_err( x->cols!=1, "Error (ctrl_lin): States (x) must be a column vector." );
-  mat_err( u->cols!=1, "Error (ctrl_lin): Inputs (u) must be a column vector." );
-  mat_err( (*A)->rows!=n || (*A)->cols!=n, "Error (ctrl_lin): State matrix (A) must be [nxn]." );
-  mat_err( (*B)->rows!=n || (*B)->cols!=m, "Error (ctrl_lin): Input matrix (B) must be [nxm]." );
-
-  matrix* xp = mat_init(n,1);
-  matrix* xn = mat_init(n,1);
-  matrix* up = mat_init(m,1);
-  matrix* un = mat_init(m,1);
-  matrix* fp = mat_init(n,1);
-  matrix* fn = mat_init(n,1);
-  matrix* C  = mat_init(n,1);
-
-  for ( int i=1; i<=n; i++ ) {
-    xp = mat_copy(x);  mat_set( xp,i,1, mat_get(x,i,1)+d );
-    xn = mat_copy(x);  mat_set( xn,i,1, mat_get(x,i,1)-d );
-    fp = f(xp,u);
-    fn = f(xn,u);
-    C = mat_scale( mat_sub(fp,fn), 1/(2*d));
-    for ( int j=1; j<=n; j++ ) {  mat_set( *A,j,i, mat_get(C,j,1) );  }
-  }
-
-  for ( int i=1; i<=m; i++ ) {
-    up = mat_copy(u);  mat_set( up,i,1, mat_get(u,i,1)+d );
-    un = mat_copy(u);  mat_set( un,i,1, mat_get(u,i,1)-d );
-    fp = f(x,up);
-    fn = f(x,un);
-    C = mat_scale( mat_sub(fp,fn), 1/(2*d));
-    for ( int j=1; j<=n; j++ ) {  mat_set( *B,j,i, mat_get(C,j,1) );  }
-  }
-
-  mat_clear(xp);
-  mat_clear(xn);
-  mat_clear(up);
-  mat_clear(un);
-  mat_clear(fp);
-  mat_clear(fn);
-  mat_clear(C);
-
-}
-
-
-
-
-// Derivative function
+// Derivative function 1
 matrix* Plant1 ( matrix* x, matrix* u ) {
 
   // Initialize derivative
@@ -141,7 +104,8 @@ matrix* Plant1 ( matrix* x, matrix* u ) {
 
 
 
-// Derivative function
+
+// Derivative function 2
 matrix* Plant2 ( matrix* x, matrix* u ) {
 
   // Initialize derivative

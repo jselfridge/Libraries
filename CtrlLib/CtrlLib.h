@@ -7,17 +7,14 @@
 #define _CTRLLIB_H
 
 
-//  Standard includes
-//#include <stdbool.h>
-//#include <stdio.h>
-
-
 // Custom includes
 #include "../MatLib/MatLib.h"
 
 
 // Function Prototypes
-//void  opt_grad ( matrix* F (matrix*), matrix** x, matrix* d, double tol, double gain, int max );
+void     ctrl_lin  ( matrix* f ( matrix*, matrix* ), matrix* x, matrix* u, matrix** A, matrix** B, double d );
+matrix*  ctrl_ctrb ( matrix* A, matrix* B );
+matrix*  ctrl_obsv ( matrix* A, matrix* C );
 
 
 #endif

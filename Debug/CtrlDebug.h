@@ -8,18 +8,14 @@
 #define _CTRLDEBUG_H
 
 
-// Standard include
-//#include <stdio.h>
-
-
 // Custom includes
 #include "../MatLib/MatLib.h"
+#include "../CtrlLib/CtrlLib.h"
 
 
 // Function prototypes
 void    DebugCtrlLib();
-void    CtrlLin();
-void    ctrl_lin ( matrix* f ( matrix*, matrix* ), matrix* x, matrix* u, matrix** A, matrix** B, double d );
+void    CtrlFunc();
 matrix* Plant1 ( matrix* x, matrix* u );
 matrix* Plant2 ( matrix* x, matrix* u );
 
