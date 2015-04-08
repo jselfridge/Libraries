@@ -57,87 +57,28 @@ void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
   int r = mat->rows;
   int c = mat->cols;
 
-  //mat_err( r!=c, "Error (mat_QR): Input matrix must be square (revision pending)." );
   mat_err( *Q!=NULL || *R!=NULL, "Error (mat_QR): Q and R matrices must be initialized as NULL." );
 
-  matrix* A = mat_copy(mat);
+  matrix* A    = mat_copy(mat);
   matrix* Acol = mat_init(r,1);
   matrix* Qcol = mat_init(r,1);
 
   *Q = mat_init(r,c);
   *R = mat_init(c,c);
 
-  // Loop through each column
-  for ( int i=1; i<=1; i++ ) {    // CHANGE BACK TO i<=c !!!
-
-    // Get current column from A
-    for ( int j=1; j<=r; j++ ) {
-      mat_set( Acol,j,1, mat_get(A,j,i) );
-    }
-    mat_print(Acol);
-
-    // Assign column to Q as starting point
+  for ( int i=1; i<=c; i++ ) {
+    Acol = mat_getc(A,i);
     Qcol = mat_copy(Acol);
-
+    for ( int j=1; j<i; j++ ) {  Qcol = mat_sub( Qcol, mat_proj( Acol, mat_getc(*Q,j) ) );  }
+    mat_setc(*Q,i,mat_uvec(Qcol));
   }
 
+  *R = mat_mul( mat_trans(*Q), A );
+
   mat_clear(A);
+  mat_clear(Acol);
+  mat_clear(Qcol);
 
-  /*
-
-  // Loop through columns
-  for ( int i=1; i<=c; i++ ) {  // CHANGE BACK TO i<=c !!!
-
-    // Generate column vector
-    matrix* col = mat_init(r,1);
-    for ( int j=1; j<=r; j++ ) {
-      mat_set( col, j,1, mat_get(A,j,i) );
-    }
-    //mat_print(col);
-
-    // Store vector mag on R diag
-    double mag = mat_mag(col);
-    //printf("mag: %f \n",mag);
-    mat_set(*R,i,i,mag);
-    //mat_print(*R);
-
-    // Normalize column and store in Q
-    col = mat_uvec(col);
-    //printf("unit col: ");  mat_print(col);
-    for ( int k=1; k<=r; k++ ) {
-      mat_set( *Q,k,i, mat_get(col,k,1) );
-    }
-    //mat_print(*Q);
-
-    // For subsequent columns
-    for ( int m=i+1; m<=c; m++ ) {
-      //printf("m:%d \n",m);
-
-      // Find A column vector
-      matrix* Acol = mat_init(r,1);
-      for ( int n=1; n<=r; n++ ) {
-	mat_set( Acol, n,1, mat_get(A,n,m) );
-      }
-      //mat_print(Acol);
-
-      // Dot product as element for R
-      double dot = mat_dot(col,Acol);
-      mat_set(*R,i,m,dot);
-      //mat_print(*R);
-
-      // Scale col vect and do some other stuff
-      col = mat_scale(col,dot);
-      Acol = mat_sub(col,Acol);
-
-      // Replace back into matrix
-      for ( int p=1; p<=r; p++ ) {
-	mat_set( A,p,m, mat_get(Acol,p,1) );
-      }      
-    }
-    mat_clear(col);
-  }
-  mat_clear(A);
-  */
 }
 
 
