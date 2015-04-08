@@ -16,10 +16,10 @@ void DebugMatLib() {
   PrintMat();  
   //MatIO();
   //MatManip();
-  //MatVec();
+  MatVec();
   //MatArith();
   //MatProp();
-  MatDecomp();
+  //MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -256,7 +256,7 @@ void MatManip() {
 // Matrix Vector
 void MatVec() {
   printf("Matrix Vector Operations \n");
-
+  /*
   //  Skew Symmetric
   matrix* skew = mat_skew(V3a);
   mat_print(skew);  mat_clear(skew);
@@ -310,6 +310,27 @@ void MatVec() {
   mat_print(mat_uvec(V3b));
   mat_print(mat_uvec(V4));
   mat_print(mat_uvec(quat));
+  */
+
+  // Projection
+  matrix* u = mat_init(3,1);
+  mat_set(u,1,1,7);
+  mat_set(u,2,1,14);
+  mat_set(u,3,1,4);
+  printf("u: ");
+  mat_print(u);
+  matrix* v = mat_init(3,1);
+  mat_set(v,1,1,-2);
+  mat_set(v,2,1,5);
+  mat_set(v,3,1,1);
+  printf("v: ");
+  mat_print(v);
+  matrix* proj = mat_proj(u,v);
+  printf("proj: ");
+  mat_print(proj);
+  mat_clear(u);
+  mat_clear(v);
+  mat_clear(proj);
 
   printf("\n");
 }

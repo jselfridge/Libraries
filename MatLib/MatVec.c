@@ -146,4 +146,27 @@ matrix* mat_uvec ( matrix* vec ) {
 }
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_proj
+//  Returns the projection of vector u onto vector v.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* mat_proj ( matrix* u, matrix* v ) {
+
+  mat_err( u->cols!=1 || v->cols!=1, "Error (mat_proj): Inputs must be column vectors." );
+  mat_err( u->rows != v->rows, "Error (mat_proj): Input vectors must be the same height." );
+
+  matrix* proj;
+  double  ratio;
+  double  mag = mat_mag(v);
+
+  if ( mag==0 )  { proj = mat_init(u->rows,1); }
+  else {
+    ratio = mat_dot(v,u) / pow(mag,2);
+    proj = mat_scale(v,ratio);
+  }
+
+  return proj;
+}
+
+
 

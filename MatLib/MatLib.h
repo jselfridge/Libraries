@@ -53,6 +53,7 @@ double   mat_dot     ( matrix* vecA, matrix* vecB );
 double   mat_norm    ( matrix* vec, int p );
 double   mat_mag     ( matrix* vec );
 matrix*  mat_uvec    ( matrix* vec );
+matrix*  mat_proj    ( matrix* u, matrix* v );
 
 
 //  MatArith functions
