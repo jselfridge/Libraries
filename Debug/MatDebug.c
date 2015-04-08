@@ -13,13 +13,13 @@
 void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
-  PrintMat();  
+  //PrintMat();  
   //MatIO();
   //MatManip();
-  MatVec();
+  //MatVec();
   //MatArith();
   //MatProp();
-  //MatDecomp();
+  MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -256,7 +256,7 @@ void MatManip() {
 // Matrix Vector
 void MatVec() {
   printf("Matrix Vector Operations \n");
-  /*
+
   //  Skew Symmetric
   matrix* skew = mat_skew(V3a);
   mat_print(skew);  mat_clear(skew);
@@ -310,7 +310,6 @@ void MatVec() {
   mat_print(mat_uvec(V3b));
   mat_print(mat_uvec(V4));
   mat_print(mat_uvec(quat));
-  */
 
   // Projection
   matrix* u = mat_init(3,1);
@@ -443,10 +442,22 @@ void MatDecomp() {
   // QR Decomposition
   matrix* Q = NULL;
   matrix* R = NULL;
-  mat_QR( M44, &Q, &R );
+  matrix* A = mat_init(4,3);
+  mat_set(A,1,1,1);  mat_set(A,1,2,0);  mat_set(A,1,3,-3);
+  mat_set(A,2,1,0);  mat_set(A,2,2,2);  mat_set(A,2,3,-1);
+  mat_set(A,3,1,1);  mat_set(A,3,2,0);  mat_set(A,3,3, 1);
+  mat_set(A,4,1,1);  mat_set(A,4,2,3);  mat_set(A,4,3, 5);
+  printf("A: ");  mat_print(A);
+
+  mat_QR( A, &Q, &R );
+
   //printf("Q: ");  mat_print(Q);
   //printf("R: ");  mat_print(R);
-  //printf("A: ");  mat_print(mat_mul(Q,R));
+  //printf("QR: ");  mat_print(mat_mul(Q,R));
+
+  mat_clear(A);
+  mat_clear(Q);
+  mat_clear(R);
 
 
 

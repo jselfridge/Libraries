@@ -54,17 +54,36 @@ void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
 
-  printf("Work in progress...\n");
-  /*
   int r = mat->rows;
   int c = mat->cols;
 
-  mat_err( r!=c, "Error (mat_QR): Input matrix must be square (revision pending)." );
+  //mat_err( r!=c, "Error (mat_QR): Input matrix must be square (revision pending)." );
   mat_err( *Q!=NULL || *R!=NULL, "Error (mat_QR): Q and R matrices must be initialized as NULL." );
 
   matrix* A = mat_copy(mat);
+  matrix* Acol = mat_init(r,1);
+  matrix* Qcol = mat_init(r,1);
+
   *Q = mat_init(r,c);
-  *R = mat_init(r,c);
+  *R = mat_init(c,c);
+
+  // Loop through each column
+  for ( int i=1; i<=1; i++ ) {    // CHANGE BACK TO i<=c !!!
+
+    // Get current column from A
+    for ( int j=1; j<=r; j++ ) {
+      mat_set( Acol,j,1, mat_get(A,j,i) );
+    }
+    mat_print(Acol);
+
+    // Assign column to Q as starting point
+    Qcol = mat_copy(Acol);
+
+  }
+
+  mat_clear(A);
+
+  /*
 
   // Loop through columns
   for ( int i=1; i<=c; i++ ) {  // CHANGE BACK TO i<=c !!!
