@@ -32,8 +32,12 @@ void     mat_clear   ( matrix* mat );
 
 
 //  MatManip functions
-void     mat_set     ( matrix* mat, int row, int col, double val );
 double   mat_get     ( matrix* mat, int row, int col );
+matrix*  mat_getr    ( matrix* mat, int row );
+matrix*  mat_getc    ( matrix* mat, int col );
+void     mat_set     ( matrix* mat, int row, int col, double val );
+void     mat_setr    ( matrix* mat, int row, matrix* vec );
+void     mat_setc    ( matrix* mat, int col, matrix* vec );
 matrix*  mat_copy    ( matrix* mat );
 matrix*  mat_eye     ( int n );
 matrix*  mat_ones    ( int rows, int cols );

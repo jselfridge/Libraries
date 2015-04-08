@@ -13,13 +13,13 @@
 void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
-  //PrintMat();  
+  PrintMat();  
   //MatIO();
-  //MatManip();
+  MatManip();
   //MatVec();
   //MatArith();
   //MatProp();
-  MatDecomp();
+  //MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -184,6 +184,26 @@ void MatManip() {
   printf( "Element value: %f\n", val );
   val = mat_get(P,3,2);
   printf( "Element value: %f\n", val );
+
+  // Get matrix row
+  mat_print(mat_getr(M22,2));
+  mat_print(mat_getr(M32,1));
+  mat_print(mat_getr(M33b,3));
+  mat_print(mat_getr(M44,4));
+
+  // Get matrix row
+  mat_print(mat_getc(M22,2));
+  mat_print(mat_getc(M32,1));
+  mat_print(mat_getc(M33b,3));
+  mat_print(mat_getc(M44,4));
+
+  // Set matrix row
+  mat_setr(M23,1,mat_trans(V3a));  mat_print(M23);
+  mat_setr(M44,4,mat_trans(V4));   mat_print(M44);
+
+  // Set matrix column
+  mat_setc(M32,2,V3a);  mat_print(M32);
+  mat_setc(M44,4,V4);   mat_print(M44);
 
   // Ones matrix
   matrix* Q = mat_ones(5,2);

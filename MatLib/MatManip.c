@@ -7,6 +7,66 @@
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_get
+//  Returns the value of a matrix element.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+double mat_get ( matrix* mat, int row, int col ) {
+
+  mat_err( row > mat->rows, "Error (mat_get): Row index exceeds matrix dimensions." );
+  mat_err( col > mat->cols, "Error (mat_get): Column index exceeds matrix dimensions." );
+  mat_err( row <1, "Error (mat_get): Row index must be positive." );
+  mat_err( col <1, "Error (mat_get): Column index must be positive." );
+
+  double* matdata = mat->data;
+  int     offset  = (row-1) * (mat->cols) + (col-1);
+  double  val;
+
+  matdata += offset;
+  val = *matdata;
+
+  return val;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_getr
+//  Returns the specified row of a matrix.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* mat_getr ( matrix* mat, int row ) {
+
+  matrix* out  = mat_init(1,mat->cols);
+
+  mat_err( row > mat->rows, "Error (mat_getr): Row index exceeds matrix dimensions." );
+  mat_err( row <1, "Error (mat_getr): Row index must be positive." );
+
+  for ( int i=1; i<= mat->cols; i++ ) {
+    mat_set( out,1,i, mat_get(mat,row,i) );
+  }
+
+  return out;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_getc
+//  Returns the specified column of a matrix.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* mat_getc ( matrix* mat, int col ) {
+
+  matrix* out  = mat_init(mat->rows,1);
+
+  mat_err( col > mat->cols, "Error (mat_getc): Column index exceeds matrix dimensions." );
+  mat_err( col <1, "Error (mat_getc): Column index must be positive." );
+
+  for ( int i=1; i<= mat->rows; i++ ) {
+    mat_set( out,i,1, mat_get(mat,i,col) );
+  }
+
+  return out;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_set
 //  Assigns a value into a matrix element
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -24,21 +84,36 @@ void mat_set ( matrix* mat, int row, int col, double val ) {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_get
-//  Returns the value of a matrix element.
+//  mat_setr
+//  Replaces a row of a matrix with the specified vector.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-double mat_get ( matrix* mat, int row, int col ) {
+void mat_setr ( matrix* mat, int row, matrix* vec ) {
 
-  mat_err( ( row > mat->rows ) || ( col > mat->cols ), "Error (mat_get): Index exceeds matrix dimensions." );
+  mat_err( row > mat->rows, "Error (mat_setr): Row index exceeds matrix dimensions." );
+  mat_err( row <1, "Error (mat_setr): Row index must be positive." );
+  mat_err( vec->rows !=1, "Error (mat_setr): Input array must be a row vector." );
+  mat_err( mat->cols != vec->cols, "Error(mat_setr): Input array and matrix must be the same width." );
 
-  double* matdata = mat->data;
-  int     offset  = (row-1) * (mat->cols) + (col-1);
-  double  val;
+  for ( int i=1; i<= mat->cols; i++ ) {
+    mat_set( mat,row,i, mat_get(vec,1,i) );
+  }
+}
 
-  matdata += offset;
-  val = *matdata;
 
-  return val;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_setc
+//  Replaces a column of a matrix with the specified vector.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void mat_setc ( matrix* mat, int col, matrix* vec ) {
+
+  mat_err( col > mat->cols, "Error (mat_setc): Column index exceeds matrix dimensions." );
+  mat_err( col <1, "Error (mat_setc): Column index must be positive." );
+  mat_err( vec->cols !=1, "Error (mat_setc): Input array must be a column vector." );
+  mat_err( mat->rows != vec->rows, "Error(mat_setc): Input array and matrix must be the same height." );
+
+  for ( int i=1; i<= mat->rows; i++ ) {
+    mat_set( mat,i,col, mat_get(vec,i,1) );
+  }
 }
 
 
