@@ -12,15 +12,16 @@
 // Debugging function 
 void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
-  InitMat(); 
-  PrintMat();  
+  //InitMat(); 
+  //PrintMat();  
   //MatIO();
   //MatManip();
   //MatVec();
   //MatArith();
-  MatProp();
+  //MatProp();
   //MatDecomp();
-  ClearMat();
+  MatRoot();
+  //ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
 }
@@ -413,6 +414,7 @@ void MatArith() {
 // Matrix Properties
 void MatProp() {
   printf("Matrix properties \n");
+
   /*
   // Trace
   double T33 = mat_trace(M33a);  printf( "Trace of M33a: %f \n", T33 );
@@ -424,10 +426,11 @@ void MatProp() {
   printf( "Rank: %d \n", rank );
   */
 
+  /*
   // Test eigenvalues
   double tol  = 0.0000001;
   int    iter = 10;
-  /*
+
   // First eigenvalue test
   matrix* A1 = mat_init(3,3);
   mat_set(A1,1,1, 1 );  mat_set(A1,1,2, 0 );  mat_set(A1,1,3, 0 );
@@ -445,7 +448,7 @@ void MatProp() {
   printf("A2: ");  mat_print(A2);
   mat_eigval(A2,tol,iter);
   mat_clear(A2);
-  */
+
   // Third eigenvalue test
   matrix* A3 = mat_init(3,3);
   mat_set(A3,1,1, 0 );  mat_set(A3,1,2, 1 );  mat_set(A3,1,3, 0 );
@@ -454,7 +457,7 @@ void MatProp() {
   printf("A3: ");  mat_print(A3);
   mat_eigval(A3,tol,iter);
   mat_clear(A3);
-  /*
+
   // Fourth eigenvalue test
   matrix* A4 = mat_init(3,3);
   mat_set(A4,1,1, 0 );  mat_set(A4,1,2, 1 );  mat_set(A4,1,3, 0 );
@@ -561,6 +564,33 @@ void MatDecomp() {
   mat_print(xR14);
   mat_print( mat_mul(xR14,M44) );
   mat_clear(xR14);
+
+  printf("\n");
+}
+
+
+
+
+// Matrix Root
+void MatRoot() {
+  printf("Matrix root \n");
+
+
+
+  // Define polynomial
+  matrix* poly = mat_init(1,4);
+  mat_set(poly,1,1,  1 );
+  mat_set(poly,1,2, 10 );
+  mat_set(poly,1,3, 31 );
+  mat_set(poly,1,4, 30 );
+  printf("poly: ");  mat_print(poly);
+
+  // Define complex matrix
+  matrixz* zeros = mat_initz(2,2);
+  mat_printz(zeros);
+
+
+  mat_root(poly);
 
   printf("\n");
 }

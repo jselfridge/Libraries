@@ -29,23 +29,29 @@ double mat_trace ( matrix* mat ) {
   return sum;
 }
 
-
+// WORK IN PROGRESS !!!
+// Need to find eigenvalues first
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_rank
 //  Returns the rank of a matrix.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int mat_rank ( matrix* mat ) {
 
-  printf("Work in progress... \n");
+  printf("mat_rank is a work in progress... \n");
+
   return 0;
 }
 
 
+// WORK IN PROGRESS !!!
+// Only works for real eigenvalues, not complex...
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_eigval
 //  Returns the eigenvalues of a matrix.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_eigval ( matrix* mat, double tol, int max ) {
+
+  printf("mat_eigval is a work in progress...\n");
 
   mat_err( mat->rows != mat->cols, "Error (mat_eigval): Matrix must be square." );
 

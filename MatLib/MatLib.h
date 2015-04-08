@@ -8,6 +8,7 @@
 
 
 //  Standard includes
+#include <complex.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -23,11 +24,21 @@ typedef struct _matrix {
 } matrix;
 
 
+//  Complex structure declaration
+typedef struct _matrixz {
+  int rows;
+  int cols;
+  double complex *data;
+} matrixz;
+
+
 //  MatIO functions
 void     mat_err     ( int cond, char* msg );
 matrix*  mat_init    ( int rows, int cols );
+matrixz* mat_initz   ( int rows, int cols );
 matrix*  mat_read    ( char* file );
 void     mat_print   ( matrix* mat );
+void     mat_printz  ( matrixz* mat );
 void     mat_write   ( matrix* mat, char* file );
 void     mat_clear   ( matrix* mat );
 
@@ -72,8 +83,8 @@ matrix*  mat_trans   ( matrix* mat );
 
 //  MatProp functions
 double   mat_trace   ( matrix* mat );
-int      mat_rank    ( matrix* mat );
-void     mat_eigval  ( matrix* mat, double tol, int max );
+int      mat_rank    ( matrix* mat );  // WIP
+void     mat_eigval  ( matrix* mat, double tol, int max );  // WIP
 //double   mat_mean    ( matrix* mat );
 //matrix*  mat_meanr   ( matrix* mat );
 //matrix*  mat_meanc   ( matrix* mat );
@@ -89,6 +100,15 @@ matrix*  mat_inv   ( matrix* mat );
 matrix*  mat_divL  ( matrix* A, matrix* B );
 matrix*  mat_divR  ( matrix* B, matrix* A );
 
+
+//  MatRoot function
+void     mat_root  ( matrix* poly );
+// scan();  // Not needed...
+// radius();
+// init();
+// dk();
+// f();
+// q();
 
 #endif
 

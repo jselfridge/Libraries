@@ -43,6 +43,30 @@ matrix* mat_init ( int rows, int cols ) {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_initz
+//  Initializes a new matrix with the specified dimensions, and
+//  sets the elements to complex values of zero.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrixz* mat_initz ( int rows, int cols ) {
+
+  mat_err( ( rows<1 || cols<1 ), "Error (mat_initz): Matrix dimensions must be positive." ); 
+  matrixz* out;
+
+  out = (matrixz*) malloc( sizeof(matrixz) );
+  mat_err( out == NULL, "Error (mat_initz): Matrix returned NULL." );
+
+  out->rows = rows;
+  out->cols = cols;
+  out->data = (double complex*) malloc( sizeof(double complex) * rows * cols );
+
+  mat_err( out->data == NULL, "Error (mat_initz): Matrix data returned NULL." );
+  memset( out->data, 0.0, rows * cols * sizeof(double complex) );
+
+  return out;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_read
 //  Reads a matrix from a file.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -102,6 +126,28 @@ void mat_print( matrix* mat ) {
   for ( int i=0; i<r; i++ ) {
     for ( int j=0; j<c; j++ ) {
       printf( " %9.6f", *(matdata++) );
+    }
+    printf("\n");
+  }
+
+  return;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_printz
+//  Display a complex matrix in the terminal.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void mat_printz( matrixz* mat ) {
+
+  int     r               = mat->rows;
+  int     c               = mat->cols;
+  double complex* matdata = mat->data;
+
+  printf( "[%dx%d]\n", r, c );
+  for ( int i=0; i<r; i++ ) {
+    for ( int j=0; j<c; j++ ) {
+      printf( " %9.6f + %9.6fj", creal(*(matdata++)), cimag(*(matdata++)) );
     }
     printf("\n");
   }

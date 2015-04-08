@@ -26,6 +26,7 @@ void MatVec();
 void MatArith();
 void MatProp();
 void MatDecomp();
+void MatRoot();
 void ClearMat();
 
 
