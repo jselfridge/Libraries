@@ -9,6 +9,7 @@
 
 //  Standard includes
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -72,10 +73,10 @@ matrix*  mat_trans   ( matrix* mat );
 //  MatProp functions
 double   mat_trace   ( matrix* mat );
 int      mat_rank    ( matrix* mat );
+void     mat_eigval  ( matrix* mat, double tol, int max );
 //double   mat_mean    ( matrix* mat );
 //matrix*  mat_meanr   ( matrix* mat );
 //matrix*  mat_meanc   ( matrix* mat );
-//matrix*  mat_eigval  ( matrix* mat );
 //matrix*  mat_eigvec  ( matrix* mat );
 //matrix*  mat_cov     ( matrix* mat );
 

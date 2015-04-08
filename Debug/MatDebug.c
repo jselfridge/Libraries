@@ -18,8 +18,8 @@ void DebugMatLib() {
   //MatManip();
   //MatVec();
   //MatArith();
-  //MatProp();
-  MatDecomp();
+  MatProp();
+  //MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -413,7 +413,7 @@ void MatArith() {
 // Matrix Properties
 void MatProp() {
   printf("Matrix properties \n");
-
+  /*
   // Trace
   double T33 = mat_trace(M33a);  printf( "Trace of M33a: %f \n", T33 );
   double T34 = mat_trace(M34);   printf( "Trace of M34:  %f \n", T34 );
@@ -422,6 +422,50 @@ void MatProp() {
   // Rank
   int rank = mat_rank(M44);
   printf( "Rank: %d \n", rank );
+  */
+
+  // Test eigenvalues
+  double tol  = 0.0000001;
+  int    iter = 10;
+  /*
+  // First eigenvalue test
+  matrix* A1 = mat_init(3,3);
+  mat_set(A1,1,1, 1 );  mat_set(A1,1,2, 0 );  mat_set(A1,1,3, 0 );
+  mat_set(A1,2,1, 4 );  mat_set(A1,2,2, 2 );  mat_set(A1,2,3, 0 );
+  mat_set(A1,3,1, 5 );  mat_set(A1,3,2, 6 );  mat_set(A1,3,3, 3 );
+  printf("A1: ");  mat_print(A1);
+  mat_eigval(A1,tol,iter);
+  mat_clear(A1);
+
+  // Second eigenvalue test
+  matrix* A2 = mat_init(3,3);
+  mat_set(A2,1,1, 0 );  mat_set(A2,1,2, 1 );  mat_set(A2,1,3, 0 );
+  mat_set(A2,2,1, 0 );  mat_set(A2,2,2, 0 );  mat_set(A2,2,3, 1 );
+  mat_set(A2,3,1,-30);  mat_set(A2,3,2,-31);  mat_set(A2,3,3,-10);
+  printf("A2: ");  mat_print(A2);
+  mat_eigval(A2,tol,iter);
+  mat_clear(A2);
+  */
+  // Third eigenvalue test
+  matrix* A3 = mat_init(3,3);
+  mat_set(A3,1,1, 0 );  mat_set(A3,1,2, 1 );  mat_set(A3,1,3, 0 );
+  mat_set(A3,2,1, 0 );  mat_set(A3,2,2, 0 );  mat_set(A3,2,3, 1 );
+  mat_set(A3,3,1, 1 );  mat_set(A3,3,2, 0 );  mat_set(A3,3,3, 0 );
+  printf("A3: ");  mat_print(A3);
+  mat_eigval(A3,tol,iter);
+  mat_clear(A3);
+  /*
+  // Fourth eigenvalue test
+  matrix* A4 = mat_init(3,3);
+  mat_set(A4,1,1, 0 );  mat_set(A4,1,2, 1 );  mat_set(A4,1,3, 0 );
+  mat_set(A4,2,1, 0 );  mat_set(A4,2,2, 0 );  mat_set(A4,2,3, 1 );
+  mat_set(A4,3,1,-4 );  mat_set(A4,3,2,-6 );  mat_set(A4,3,3, -4 );
+  printf("A4: ");  mat_print(A4);
+  mat_eigval(A4,tol,iter);
+  mat_clear(A4);
+*/
+
+
 
   printf("\n");
 }
