@@ -77,6 +77,7 @@ int      mat_rank    ( matrix* mat );
 
 //  MatDecomp functions
 void     mat_LU    ( matrix* mat, matrix** L, matrix** U );
+void     mat_QR    ( matrix* mat, matrix** Q, matrix** R ); 
 double   mat_det   ( matrix* mat );
 matrix*  mat_inv   ( matrix* mat );
 matrix*  mat_divL  ( matrix* A, matrix* B );

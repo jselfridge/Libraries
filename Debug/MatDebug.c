@@ -18,8 +18,8 @@ void DebugMatLib() {
   //MatManip();
   //MatVec();
   //MatArith();
-  MatProp();
-  //MatDecomp();
+  //MatProp();
+  MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -393,6 +393,7 @@ void MatProp() {
 void MatDecomp() {
   printf("Matrix decomposition \n");
 
+  /*
   // LU decomposition [3x3]
   matrix* L3 = NULL;
   matrix* U3 = NULL;
@@ -416,7 +417,19 @@ void MatDecomp() {
   mat_clear(LU4);
   mat_clear(L4);
   mat_clear(U4);
+*/
 
+  // QR Decomposition
+  matrix* Q = NULL;
+  matrix* R = NULL;
+  mat_QR( M44, &Q, &R );
+  //printf("Q: ");  mat_print(Q);
+  //printf("R: ");  mat_print(R);
+  //printf("A: ");  mat_print(mat_mul(Q,R));
+
+
+
+  /*
   // Determinant
   double det3 = mat_det(M33a);
   printf( "det3: %f \n", det3 );
@@ -460,6 +473,7 @@ void MatDecomp() {
   mat_print(xR14);
   mat_print( mat_mul(xR14,M44) );
   mat_clear(xR14);
+  */
 
   printf("\n");
 }

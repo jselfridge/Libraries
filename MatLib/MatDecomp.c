@@ -49,6 +49,80 @@ void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_QR
+//  Solves for the QR decomposition of a matrix.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
+
+  printf("Work in progress...\n");
+  /*
+  int r = mat->rows;
+  int c = mat->cols;
+
+  mat_err( r!=c, "Error (mat_QR): Input matrix must be square (revision pending)." );
+  mat_err( *Q!=NULL || *R!=NULL, "Error (mat_QR): Q and R matrices must be initialized as NULL." );
+
+  matrix* A = mat_copy(mat);
+  *Q = mat_init(r,c);
+  *R = mat_init(r,c);
+
+  // Loop through columns
+  for ( int i=1; i<=c; i++ ) {  // CHANGE BACK TO i<=c !!!
+
+    // Generate column vector
+    matrix* col = mat_init(r,1);
+    for ( int j=1; j<=r; j++ ) {
+      mat_set( col, j,1, mat_get(A,j,i) );
+    }
+    //mat_print(col);
+
+    // Store vector mag on R diag
+    double mag = mat_mag(col);
+    //printf("mag: %f \n",mag);
+    mat_set(*R,i,i,mag);
+    //mat_print(*R);
+
+    // Normalize column and store in Q
+    col = mat_uvec(col);
+    //printf("unit col: ");  mat_print(col);
+    for ( int k=1; k<=r; k++ ) {
+      mat_set( *Q,k,i, mat_get(col,k,1) );
+    }
+    //mat_print(*Q);
+
+    // For subsequent columns
+    for ( int m=i+1; m<=c; m++ ) {
+      //printf("m:%d \n",m);
+
+      // Find A column vector
+      matrix* Acol = mat_init(r,1);
+      for ( int n=1; n<=r; n++ ) {
+	mat_set( Acol, n,1, mat_get(A,n,m) );
+      }
+      //mat_print(Acol);
+
+      // Dot product as element for R
+      double dot = mat_dot(col,Acol);
+      mat_set(*R,i,m,dot);
+      //mat_print(*R);
+
+      // Scale col vect and do some other stuff
+      col = mat_scale(col,dot);
+      Acol = mat_sub(col,Acol);
+
+      // Replace back into matrix
+      for ( int p=1; p<=r; p++ ) {
+	mat_set( A,p,m, mat_get(Acol,p,1) );
+      }      
+    }
+    mat_clear(col);
+  }
+  mat_clear(A);
+  */
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_det
 //  Returns the determinant of a square matrix.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
