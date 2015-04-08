@@ -16,9 +16,9 @@ int main() {
   printf("--------------------------------- \n");
   
   DebugMatLib();
-  //DebugRotLib();
-  //DebugOptLib();
-  //DebugCtrlLib();
+  DebugRotLib();
+  DebugOptLib();
+  DebugCtrlLib();
 
   printf("------ DEBUGGING COMPLETE ------ \n\n");
   return 0 ;

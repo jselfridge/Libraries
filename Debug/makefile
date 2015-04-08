@@ -27,4 +27,3 @@ $(EXEC) : $(OBJ)
 
 clean :
 	rm $(OBJ) $(EXEC)
-

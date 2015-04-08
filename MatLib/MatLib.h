@@ -21,26 +21,28 @@ typedef struct _matrix {
   int rows;
   int cols;
   double* data;
+  char* name;
 } matrix;
 
-
+/*
 //  Complex structure declaration
 typedef struct _matrixz {
   int rows;
   int cols;
   double complex *data;
 } matrixz;
-
+*/
 
 //  MatIO functions
-void     mat_err     ( int cond, char* msg );
-matrix*  mat_init    ( int rows, int cols );
-matrixz* mat_initz   ( int rows, int cols );
-matrix*  mat_read    ( char* file );
-void     mat_print   ( matrix* mat );
-void     mat_printz  ( matrixz* mat );
-void     mat_write   ( matrix* mat, char* file );
-void     mat_clear   ( matrix* mat );
+void     mat_err     ( bool cond, char* msg );
+matrix*  mat_init    ( int rows, int cols );//
+matrix*  mat_read    ( char* file );//
+void     mat_print   ( matrix* mat );//
+void     mat_write   ( matrix* mat, char* file );//
+void     mat_clear   ( matrix* mat );//
+
+
+//  MatIOZ functions
 
 
 //  MatManip functions

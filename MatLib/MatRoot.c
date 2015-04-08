@@ -12,6 +12,8 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_root ( matrix* poly ) {
 
+  printf("mat_root is a work in progress... \n");
+  /*
   mat_err( poly->rows!=1, "Error(mat_root): Polynomial must be input as a row vector." );
 
   // Declare counters
@@ -32,7 +34,7 @@ void mat_root ( matrix* poly ) {
 
   // Clean up matrices
   mat_clear(c);
-
+  */
 
   // return;
 }

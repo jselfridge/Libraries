@@ -12,16 +12,16 @@
 // Debugging function 
 void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
-  //InitMat(); 
-  //PrintMat();  
-  //MatIO();
-  //MatManip();
-  //MatVec();
-  //MatArith();
-  //MatProp();
-  //MatDecomp();
+  InitMat(); 
+  PrintMat();  
+  MatIO();
+  MatManip();
+  MatVec();
+  MatArith();
+  MatProp();
+  MatDecomp();
   MatRoot();
-  //ClearMat();
+  ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
 }
@@ -104,7 +104,7 @@ void InitMat() {
 
 
 
-// ClearMat (clear the matrices used in demo)
+// PrintMat (prints the matrices used in demo)
 void PrintMat() {
   printf("General purpose matrices \n");
   mat_print(V3a);
@@ -124,7 +124,7 @@ void PrintMat() {
 
 
 
-// ClearMat (clear the matrices used in demo)
+// ClearMat (clears the matrices used in demo)
 void ClearMat() {
   mat_clear(V3a);
   mat_clear(V3b);
@@ -146,6 +146,8 @@ void ClearMat() {
 void MatIO() {
   printf("Matrix input and output \n");
   matrix* M = mat_init(5,2);
+  printf("Rows: %d \n", M->rows );
+  printf("Cols: %d \n", M->cols );
   mat_print(M);
   mat_write(M,"test");
   matrix* N = mat_read("test");
@@ -415,7 +417,6 @@ void MatArith() {
 void MatProp() {
   printf("Matrix properties \n");
 
-  /*
   // Trace
   double T33 = mat_trace(M33a);  printf( "Trace of M33a: %f \n", T33 );
   double T34 = mat_trace(M34);   printf( "Trace of M34:  %f \n", T34 );
@@ -424,7 +425,6 @@ void MatProp() {
   // Rank
   int rank = mat_rank(M44);
   printf( "Rank: %d \n", rank );
-  */
 
   /*
   // Test eigenvalues
@@ -466,10 +466,7 @@ void MatProp() {
   printf("A4: ");  mat_print(A4);
   mat_eigval(A4,tol,iter);
   mat_clear(A4);
-*/
-
-
-
+  */
   printf("\n");
 }
 
@@ -576,7 +573,7 @@ void MatRoot() {
   printf("Matrix root \n");
 
 
-
+  /*
   // Define polynomial
   matrix* poly = mat_init(1,4);
   mat_set(poly,1,1,  1 );
@@ -589,8 +586,8 @@ void MatRoot() {
   matrixz* zeros = mat_initz(2,2);
   mat_printz(zeros);
 
-
   mat_root(poly);
+  */
 
   printf("\n");
 }
