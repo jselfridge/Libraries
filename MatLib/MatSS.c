@@ -65,6 +65,43 @@ matrix* mat_obsv ( matrix* A, matrix* C ) {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_Tctrl
+//  Yields a controller canonical transformation.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void mat_Tctrl ( matrix* A, matrix* B, matrix** Tc, matrix** Ac ) {
+
+  mat_err( A->rows != A->cols, "Error (mat_Tctrl): State matrix (A) must be a square." );
+  mat_err( A->rows != B->rows, "Error (mat_Tctrl): State (A) and input (B) matrices must be same height." );
+  mat_err( *Tc != NULL, "Error (mat_Tctrl): Transformation matrix (T) must be NULL." );
+  mat_err( *Ac != NULL, "Error (mat_Tctrl): Canonical matrix (Ac) must be NULL." );
+
+  int n = B->rows;
+  //int m = B->cols;
+
+  *Tc = mat_init(n,n);
+  *Ac = mat_init(n,n);
+
+  matrix* ctrb = mat_ctrb(A,B);
+  printf("ctrb: ");  mat_print(ctrb);
+
+  matrix* L = NULL;
+  matrix* U = NULL;
+  mat_LU(ctrb,&L,&U);
+  printf("L: ");  mat_print(L);
+  printf("U: ");  mat_print(U);
+  printf("LU: ");  mat_print(mat_mul(L,U));
+
+  matrix* divL = mat_divL( ctrb, mat_eye(3) );
+  printf("divL: ");  mat_print(divL);
+
+  matrix* inv = mat_inv( ctrb );
+  printf("inv: ");  mat_print(inv);
+
+
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_lin
 //  Linearizes a plant into state space form.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

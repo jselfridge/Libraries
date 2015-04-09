@@ -133,9 +133,10 @@ double complex  D  ( matrixz* zero, int j );
 
 
 //  MatSS functions
-matrix* mat_ctrb ( matrix* A, matrix*B );
-matrix* mat_obsv ( matrix* A, matrix*C );
-void    mat_lin  ( matrix* dx ( matrix*, matrix* ), matrix* x, matrix* u, matrix** A, matrix** B, double d );
+matrix* mat_ctrb   ( matrix* A, matrix*B );
+matrix* mat_obsv   ( matrix* A, matrix*C );
+void    mat_Tctrl  ( matrix* A, matrix* B, matrix**Tc, matrix** Ac );
+void    mat_lin    ( matrix* dx ( matrix*, matrix* ), matrix* x, matrix* u, matrix** A, matrix** B, double d );
 
 
 #endif

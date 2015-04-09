@@ -686,26 +686,25 @@ void MatSS() {
 
   // Define system dimensions
   int n = 3;
-  int m = 2;
+  int m = 1;
 
   // Declare state matrix
   matrix* A = mat_init(n,n);
-  mat_set(A,1,1, 1.0 );  mat_set(A,1,2, 2.0 );  mat_set(A,1,3, 3.0 );
-  mat_set(A,2,1, 4.0 );  mat_set(A,2,2, 5.0 );  mat_set(A,2,3, 6.0 );
+  mat_set(A,1,1, 0.0 );  mat_set(A,1,2, 1.0 );  mat_set(A,1,3, 0.0 );
+  mat_set(A,2,1, 0.0 );  mat_set(A,2,2, 0.0 );  mat_set(A,2,3, 1.0 );
   mat_set(A,3,1, 7.0 );  mat_set(A,3,2, 8.0 );  mat_set(A,3,3, 9.0 );
   printf("A: ");  mat_print(A);
 
   // Declare input matrix
   matrix* B = mat_init(n,m);
-  mat_set(B,1,1, 1.0 );  mat_set(B,1,2, 2.0 );
-  mat_set(B,2,1, 3.0 );  mat_set(B,2,2, 4.0 );
-  mat_set(B,3,1, 5.0 );  mat_set(B,3,2, 6.0 );
+  mat_set(B,1,1, 0.0 );
+  mat_set(B,2,1, 0.0 );
+  mat_set(B,3,1, 5.0 );
   printf("B: ");  mat_print(B);
 
   // Declare output matrix
   matrix* C = mat_init(m,n);
   mat_set(C,1,1, 1.0 );  mat_set(C,1,2, 2.0 );  mat_set(C,1,3, 3.0 );
-  mat_set(C,2,1, 4.0 );  mat_set(C,2,2, 5.0 );  mat_set(C,2,3, 6.0 );
   printf("C: ");  mat_print(C);
 
   // Controllability and observability
@@ -713,6 +712,20 @@ void MatSS() {
   printf("Ctrb: ");  mat_print(ctrb);
   matrix* obsv = mat_obsv(A,C);
   printf("Obsv: ");  mat_print(obsv);
+
+  // Ctrl canonical transformation
+  matrix* Tc = NULL;
+  matrix* Ac = NULL;
+  mat_Tctrl (A,B,&Tc,&Ac);
+
+  //mat_print(mat_inv(Ac));
+
+
+
+  /*
+  // Linearization
+  printf("Linearization \n");
+  double d = 0.001;
 
   // Define states
   matrix* x = mat_init(4,1);
@@ -732,10 +745,6 @@ void MatSS() {
   matrix* Alin = mat_init(4,4);
   matrix* Blin = mat_init(4,2);
 
-  // Linearization
-  printf("Linearization \n");
-  double d = 0.001;
-
   // First linearization
   printf("\nPlant1 linearization \n");
   mat_lin( Plant1, x, u, &Alin, &Blin, d );
@@ -747,6 +756,7 @@ void MatSS() {
   mat_lin( Plant2, x, u, &Alin, &Blin, d );
   printf("Alin: ");  mat_print(Alin);
   printf("Blin: ");  mat_print(Blin);
+  */
 
   // Clear matrices
   mat_clear(A);
@@ -754,8 +764,12 @@ void MatSS() {
   mat_clear(C);
   mat_clear(ctrb);
   mat_clear(obsv);
-  mat_clear(Alin);
-  mat_clear(Blin);
+  //mat_clear(Ac);
+  //mat_clear(Bc);
+  //mat_clear(Tcc);
+  //mat_clear(Acc);
+  //mat_clear(Alin);
+  //mat_clear(Blin);
 
   printf("\n");
 }
