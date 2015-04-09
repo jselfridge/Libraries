@@ -37,10 +37,9 @@ matrixz* mat_initz ( int rows, int cols ) {
 matrixz* mat_readz ( char* file ) {
 
   FILE*    f;
-  int      i, elem;
-  int      rows, cols;
+  int      r, c, elem;
   int      scan;
-  double   real, imag;
+  double   re, im;
   char     sign;
   matrixz* out;
   double complex* d;
@@ -53,25 +52,25 @@ matrixz* mat_readz ( char* file ) {
   scan = fscanf( f, "#" );
   mat_err( scan==EOF, "Error (mat_readz): Failed to read 'header' from file." );
 
-  scan = fscanf( f, "%d", &rows );
+  scan = fscanf( f, "%d", &r );
   mat_err( scan==EOF, "Error (mat_readz): Failed to read 'rows' from file." );
 
-  scan = fscanf( f, "%d", &cols );
+  scan = fscanf( f, "%d", &c );
   mat_err( scan==EOF, "Error (mat_readz): Failed to read 'cols' from file." );
 
-  out = mat_initz( rows, cols );
-  elem = rows * cols; 
+  out = mat_initz(r,c);
+  elem = r*c;
   d = out->data;
 
-  for ( i=0; i<elem; i++ ) {
-    scan = fscanf( f, "%lf %c %lf", &real, &sign, &imag );
+  for ( int i=0; i<elem; i++ ) {
+    scan = fscanf( f, "%lf %c %lf i", &re, &sign, &im );
     mat_err( scan==EOF, "Error (mat_readz): Matrix is missing elements." );
-    if ( sign == '-' ) { imag *= -1.0; }
-    *d = real + imag*I;
+    if ( sign == '-' ) { im *= -1.0; }
+    *d = re + im*I;
     d++;
   }
 
-  scan = fscanf( f, "%lf %c %lf", &real, &sign, &imag );
+  scan = fscanf( f, "%lf %c %lf i", &re, &sign, &im );
   mat_err( scan!=EOF, "Error (mat_readz): Matrix has extra elements." );
 
   fclose(f);
@@ -87,14 +86,20 @@ void mat_printz( matrixz* mat ) {
 
   int r = mat->rows;
   int c = mat->cols;
-  double complex* d = mat->data;
+  //  double complex* d = mat->data;
+  char sign;
+  double re;
+  double im;
 
   printf( "[%dx%d]\n", r, c );
-  for ( int i=0; i<r; i++ ) {
-    for ( int j=0; j<c; j++ ) {
-      printf( " %9.6f  +%9.6f i\t", creal(*d), cimag(*d) );
+  for ( int i=1; i<=r; i++ ) {
+    for ( int j=1; j<=c; j++ ) {
+      re = mat_getre(mat,i,j);
+      im = mat_getim(mat,i,j);
+      if (im<0) {  sign = '-';  }
+      else      {  sign = '+';  }
+      printf( " %4.4f  %c%4.4f i\t", re, sign, fabs(im) );
     }
-    d++;
     printf("\n");
   }
 
@@ -108,7 +113,9 @@ void mat_printz( matrixz* mat ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_writez ( matrixz* mat, char* file ) {
 
-  FILE*   f;
+  FILE* f;
+  double re, im;
+  char sign;
   int r = mat->rows;
   int c = mat->cols;
   double complex* d = mat->data;
@@ -119,9 +126,13 @@ void mat_writez ( matrixz* mat, char* file ) {
   }
 
   fprintf( f, "# %d %d \n", r, c );
-  for ( int i=0; i<r; i++ ) {
-    for ( int j=0; j<c; j++ ) {
-      fprintf( f, " %4.6f  %4.6f \t", creal(*d), cimag(*d) );
+  for ( int i=1; i<=r; i++ ) {
+    for ( int j=1; j<=c; j++ ) {
+      re = mat_getre(mat,i,j);
+      im = mat_getim(mat,i,j);
+      if (im<0) {  sign = '-';  }
+      else      {  sign = '+';  }
+      fprintf( f, " %4.6f %c%4.6f i\t", re, sign, fabs(im) );
     }
     d++;
     fprintf( f, "\n" );
@@ -172,7 +183,6 @@ double mat_getre ( matrixz* mat, int row, int col ) {
   re = creal(*d);
 
   return re;
-
 }
 
 
@@ -195,10 +205,9 @@ double mat_getim ( matrixz* mat, int row, int col ) {
   im = cimag(*d);
 
   return im;
-
 }
 
-/* REVISE "mat_set" FIRST
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_getzr
 //  Returns the specified complex row vector of a matrix.
@@ -211,16 +220,13 @@ matrixz* mat_getzr ( matrixz* mat, int row ) {
   mat_err( row <1, "Error (mat_getzr): Row index must be positive." );
 
   for ( int i=1; i<= mat->cols; i++ ) {
-    mat_setre( out,1,i, mat_getre(mat,row,i) );
-    mat_setim( out,1,i, mat_getim(mat,row,i) );
+    mat_setz( out,1,i, mat_getre(mat,row,i), mat_getim(mat,row,i) );
   }
 
   return out;
 }
-*/
 
 
-/* REVISE 'mat_set' FIRST
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_getzc
 //  Returns the specified complex column vector of a matrix.
@@ -233,23 +239,21 @@ matrixz* mat_getzc ( matrixz* mat, int col ) {
   mat_err( col <1, "Error (mat_getzc): Column index must be positive." );
 
   for ( int i=1; i<= mat->rows; i++ ) {
-    mat_setre( out,i,1, mat_getre(mat,i,col) );
-    mat_setim( out,i,1, mat_getim(mat,i,col) );
+    mat_setz( out,i,1, mat_getre(mat,i,col), mat_getim(mat,i,col) );
   }
 
   return out;
 }
-*/
 
 
-/* SHOULD I PASS RE AND IM INTO FUNCTION?
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_setre
-//  Assigns real part of a complex number into a matrix element.
+//  mat_setz
+//  Assigns a complex number into a matrix element.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void mat_setre ( matrixz* mat, int row, int col, double real ) {
+void mat_setz ( matrixz* mat, int row, int col, double real, double imag ) {
 
-  mat_err( ( row > mat->rows ) || ( col > mat->cols ), "Error (mat_setre): Index exceeds matrix dimensions." );
+  mat_err( ( row > mat->rows ) || ( col > mat->cols ), "Error (mat_setz): Index exceeds matrix dimensions." );
+  mat_err( ( row <1 ) || ( col <1 ), "Error (mat_setz): Index must be positive." );
 
   double complex* d = mat->data;
   int offset = (row-1) * (mat->cols) + (col-1);
@@ -258,20 +262,8 @@ void mat_setre ( matrixz* mat, int row, int col, double real ) {
   *d = real + imag*I;
 
 }
-*/
 
 
-//  SAME AS ABOVE...
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_setim
-//  Assigns imaginary part of a complex number into a matrix element.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-/* REVISE mat_set FIRST
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_setzr
 //  Replaces a row of a complex matrix with the specified vector.
@@ -284,14 +276,11 @@ void mat_setzr ( matrixz* mat, int row, matrixz* vec ) {
   mat_err( mat->cols != vec->cols, "Error(mat_setzr): Input array and matrix must be the same width." );
 
   for ( int i=1; i<= mat->cols; i++ ) {
-    mat_setre( mat,row,i, mat_getre(vec,1,i) );
-    mat_setim( mat,row,i, mat_getim(vec,1,i) );
+    mat_setz( mat,row,i, mat_getre(vec,1,i), mat_getim(vec,1,i) );
   }
 }
-*/
 
 
-/*  REVISE mat_set FIRST
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_setzc
 //  Replaces a column of a complex matrix with the specified vector.
@@ -304,11 +293,9 @@ void mat_setzc ( matrixz* mat, int col, matrixz* vec ) {
   mat_err( mat->rows != vec->rows, "Error(mat_setzc): Input array and matrix must be the same height." );
 
   for ( int i=1; i<= mat->rows; i++ ) {
-    mat_setre( mat,i,col, mat_getre(vec,i,1) );
-    mat_setim( mat,i,col, mat_getim(vec,i,1) );
+    mat_setz( mat,i,col, mat_getre(vec,i,1), mat_getim(vec,i,1) );
   }
 }
-*/
 
 
 

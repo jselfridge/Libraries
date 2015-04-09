@@ -280,23 +280,47 @@ void MatManip() {
 // Complex Matrix Input and Output
 void MatComplex() {
   printf("Complex matrix input and output \n");
-  matrixz* Mz = mat_initz(5,2);
+
+  matrixz* Cz = mat_initz(4,1);
+  mat_setz( Cz,1,1,  1.0,  2.0 );
+  mat_setz( Cz,2,1,  0.3, -4.0 );
+  mat_setz( Cz,3,1, -1.4,  0.6 );
+  mat_setz( Cz,4,1, -3.1, -2.7 );
+  mat_printz(Cz);
+
+  matrixz* Rz = mat_initz(1,2);
+  mat_setz( Rz,1,1,  4.2,  1.5 );
+  mat_setz( Rz,1,2,  0.9, -3.7 );
+  mat_printz(Rz);
+
+  printf("%f \n", mat_getre(Cz,1,1) );
+  printf("%f \n", mat_getre(Cz,3,1) );
+  printf("%f \n", mat_getim(Cz,1,1) );
+  printf("%f \n", mat_getim(Cz,4,1) );
+  printf("%f \n", mat_getre(Rz,1,2) );
+  printf("%f \n", mat_getim(Rz,1,2) );
+
+  matrixz* Mz = mat_initz(4,2);
   printf("Rows: %d \n", Mz->rows );
   printf("Cols: %d \n", Mz->cols );
+
+  mat_setzc( Mz,2,Cz );
+  mat_setzr( Mz,1,Rz );
   mat_printz(Mz);
+
+  mat_printz(mat_getzc(Mz,2));
+  mat_printz(mat_getzr(Mz,1));
+
   mat_writez(Mz,"testz");
-  matrixz* Nz = mat_readz("testz");
-  mat_printz(Nz);
+  matrixz* Tz = mat_readz("testz");
+  mat_printz(Tz);
 
-  mat_getre(Mz,4,2);
-  mat_getim(Mz,4,2);
+  mat_clearz(Cz); 
+  mat_clearz(Rz); 
+  mat_clearz(Mz);
+  mat_clearz(Tz);
 
-  mat_clearz(Mz); 
-  mat_clearz(Nz);
   printf("\n");
-
-
-
 }
 
 

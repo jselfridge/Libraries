@@ -67,12 +67,11 @@ void     mat_writez  ( matrixz* mat, char* file );
 void     mat_clearz  ( matrixz* mat );
 double   mat_getre   ( matrixz* mat, int row, int col );
 double   mat_getim   ( matrixz* mat, int row, int col );
-//matrixz* mat_getzr   ( matrixz* mat, int row );
-//matrixz* mat_getzc   ( matrixz* mat, int col );
-//void     mat_setre   ( matrixz* mat, int row, int col, double real );
-//void     mat_setim   ( matrixz* mat, int row, int col, double imag );
-//void     mat_setzr   ( matrixz* mat, int row, matrixz* vec );
-//void     mat_setzc   ( matrixz* mat, int col, matrixz* vec );
+matrixz* mat_getzr   ( matrixz* mat, int row );
+matrixz* mat_getzc   ( matrixz* mat, int col );
+void     mat_setz    ( matrixz* mat, int row, int col, double real, double imag );
+void     mat_setzr   ( matrixz* mat, int row, matrixz* vec );
+void     mat_setzc   ( matrixz* mat, int col, matrixz* vec );
 
 
 //  MatVec functions
