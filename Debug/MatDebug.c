@@ -13,14 +13,15 @@
 void DebugMatLib() {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
-  PrintMat();  
-  MatIO();
-  MatManip();
-  MatVec();
-  MatArith();
-  MatProp();
-  MatDecomp();
-  MatRoot();
+  //PrintMat();  
+  //MatIO();
+  MatIOZ();
+  //MatManip();
+  //MatVec();
+  //MatArith();
+  //MatProp();
+  //MatDecomp();
+  //MatRoot();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -154,6 +155,24 @@ void MatIO() {
   mat_print(N);
   mat_clear(M); 
   mat_clear(N);
+  printf("\n");
+}
+
+
+
+
+// Complex Matrix Input and Output
+void MatIOZ() {
+  printf("Complex matrix input and output \n");
+  matrixz* Mz = mat_initz(5,2);
+  printf("Rows: %d \n", Mz->rows );
+  printf("Cols: %d \n", Mz->cols );
+  mat_printz(Mz);
+  mat_writez(Mz,"testz");
+  matrixz* Nz = mat_readz("testz");
+  mat_printz(Nz);
+  mat_clearz(Mz); 
+  mat_clearz(Nz);
   printf("\n");
 }
 

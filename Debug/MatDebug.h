@@ -21,6 +21,7 @@ void DebugMatLib();
 void InitMat();
 void PrintMat();
 void MatIO();
+void MatIOZ();
 void MatManip();
 void MatVec();
 void MatArith();

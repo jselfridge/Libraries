@@ -21,28 +21,32 @@ typedef struct _matrix {
   int rows;
   int cols;
   double* data;
-  char* name;
 } matrix;
 
-/*
+
 //  Complex structure declaration
 typedef struct _matrixz {
   int rows;
   int cols;
-  double complex *data;
+  double complex* data;
 } matrixz;
-*/
+
 
 //  MatIO functions
 void     mat_err     ( bool cond, char* msg );
-matrix*  mat_init    ( int rows, int cols );//
-matrix*  mat_read    ( char* file );//
-void     mat_print   ( matrix* mat );//
-void     mat_write   ( matrix* mat, char* file );//
-void     mat_clear   ( matrix* mat );//
+matrix*  mat_init    ( int rows, int cols );
+matrix*  mat_read    ( char* file );
+void     mat_print   ( matrix* mat );
+void     mat_write   ( matrix* mat, char* file );
+void     mat_clear   ( matrix* mat );
 
 
 //  MatIOZ functions
+matrixz* mat_initz   ( int rows, int cols );
+matrixz* mat_readz   ( char* file );
+void     mat_printz  ( matrixz* mat );
+void     mat_writez  ( matrixz* mat, char* file );
+void     mat_clearz  ( matrixz* mat );
 
 
 //  MatManip functions
@@ -87,10 +91,10 @@ matrix*  mat_trans   ( matrix* mat );
 double   mat_trace   ( matrix* mat );
 int      mat_rank    ( matrix* mat );  // WIP
 void     mat_eigval  ( matrix* mat, double tol, int max );  // WIP
+//matrix*  mat_eigvec  ( matrix* mat );
 //double   mat_mean    ( matrix* mat );
 //matrix*  mat_meanr   ( matrix* mat );
 //matrix*  mat_meanc   ( matrix* mat );
-//matrix*  mat_eigvec  ( matrix* mat );
 //matrix*  mat_cov     ( matrix* mat );
 
 
@@ -111,6 +115,7 @@ void     mat_root  ( matrix* poly );
 // dk();
 // f();
 // q();
+
 
 #endif
 

@@ -31,7 +31,6 @@ matrix* mat_init ( int rows, int cols ) {
   out = (matrix*) malloc( sizeof(matrix) );
   mat_err( out == NULL, "Error (mat_init): Matrix returned NULL." );
 
-  //  out->name = name;
   out->rows = rows;
   out->cols = cols;
   out->data = (double*) malloc( sizeof(double) * rows * cols );
