@@ -153,4 +153,162 @@ void mat_clearz ( matrixz* mat ) {
 }
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_getre
+//  Returns the real part of a complex matrix element.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+double mat_getre ( matrixz* mat, int row, int col ) {
+
+  mat_err( row > mat->rows, "Error (mat_getre): Row index exceeds matrix dimensions." );
+  mat_err( col > mat->cols, "Error (mat_getre): Column index exceeds matrix dimensions." );
+  mat_err( row <1, "Error (mat_getre): Row index must be positive." );
+  mat_err( col <1, "Error (mat_getre): Column index must be positive." );
+
+  double complex* d = mat->data;
+  int offset = (row-1) * (mat->cols) + (col-1);
+  double re;
+
+  d += offset;
+  re = creal(*d);
+
+  return re;
+
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_getim
+//  Returns the imaginary part of a complex matrix element.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+double mat_getim ( matrixz* mat, int row, int col ) {
+
+  mat_err( row > mat->rows, "Error (mat_getim): Row index exceeds matrix dimensions." );
+  mat_err( col > mat->cols, "Error (mat_getim): Column index exceeds matrix dimensions." );
+  mat_err( row <1, "Error (mat_getim): Row index must be positive." );
+  mat_err( col <1, "Error (mat_getim): Column index must be positive." );
+
+  double complex* d = mat->data;
+  int offset = (row-1) * (mat->cols) + (col-1);
+  double im;
+
+  d += offset;
+  im = cimag(*d);
+
+  return im;
+
+}
+
+/* REVISE "mat_set" FIRST
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_getzr
+//  Returns the specified complex row vector of a matrix.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrixz* mat_getzr ( matrixz* mat, int row ) {
+
+  matrixz* out  = mat_initz(1,mat->cols);
+
+  mat_err( row > mat->rows, "Error (mat_getzr): Row index exceeds matrix dimensions." );
+  mat_err( row <1, "Error (mat_getzr): Row index must be positive." );
+
+  for ( int i=1; i<= mat->cols; i++ ) {
+    mat_setre( out,1,i, mat_getre(mat,row,i) );
+    mat_setim( out,1,i, mat_getim(mat,row,i) );
+  }
+
+  return out;
+}
+*/
+
+
+/* REVISE 'mat_set' FIRST
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_getzc
+//  Returns the specified complex column vector of a matrix.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrixz* mat_getzc ( matrixz* mat, int col ) {
+
+  matrixz* out  = mat_initz(mat->rows,1);
+
+  mat_err( col > mat->cols, "Error (mat_getzc): Column index exceeds matrix dimensions." );
+  mat_err( col <1, "Error (mat_getzc): Column index must be positive." );
+
+  for ( int i=1; i<= mat->rows; i++ ) {
+    mat_setre( out,i,1, mat_getre(mat,i,col) );
+    mat_setim( out,i,1, mat_getim(mat,i,col) );
+  }
+
+  return out;
+}
+*/
+
+
+/* SHOULD I PASS RE AND IM INTO FUNCTION?
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_setre
+//  Assigns real part of a complex number into a matrix element.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void mat_setre ( matrixz* mat, int row, int col, double real ) {
+
+  mat_err( ( row > mat->rows ) || ( col > mat->cols ), "Error (mat_setre): Index exceeds matrix dimensions." );
+
+  double complex* d = mat->data;
+  int offset = (row-1) * (mat->cols) + (col-1);
+
+  d += offset;
+  *d = real + imag*I;
+
+}
+*/
+
+
+//  SAME AS ABOVE...
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_setim
+//  Assigns imaginary part of a complex number into a matrix element.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+/* REVISE mat_set FIRST
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_setzr
+//  Replaces a row of a complex matrix with the specified vector.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void mat_setzr ( matrixz* mat, int row, matrixz* vec ) {
+
+  mat_err( row > mat->rows, "Error (mat_setzr): Row index exceeds matrix dimensions." );
+  mat_err( row <1, "Error (mat_setzr): Row index must be positive." );
+  mat_err( vec->rows !=1, "Error (mat_setzr): Input array must be a row vector." );
+  mat_err( mat->cols != vec->cols, "Error(mat_setzr): Input array and matrix must be the same width." );
+
+  for ( int i=1; i<= mat->cols; i++ ) {
+    mat_setre( mat,row,i, mat_getre(vec,1,i) );
+    mat_setim( mat,row,i, mat_getim(vec,1,i) );
+  }
+}
+*/
+
+
+/*  REVISE mat_set FIRST
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_setzc
+//  Replaces a column of a complex matrix with the specified vector.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void mat_setzc ( matrixz* mat, int col, matrixz* vec ) {
+
+  mat_err( col > mat->cols, "Error (mat_setzc): Column index exceeds matrix dimensions." );
+  mat_err( col <1, "Error (mat_setzc): Column index must be positive." );
+  mat_err( vec->cols !=1, "Error (mat_setzc): Input array must be a column vector." );
+  mat_err( mat->rows != vec->rows, "Error(mat_setzc): Input array and matrix must be the same height." );
+
+  for ( int i=1; i<= mat->rows; i++ ) {
+    mat_setre( mat,i,col, mat_getre(vec,i,1) );
+    mat_setim( mat,i,col, mat_getim(vec,i,1) );
+  }
+}
+*/
+
+
 

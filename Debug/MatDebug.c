@@ -287,9 +287,16 @@ void MatComplex() {
   mat_writez(Mz,"testz");
   matrixz* Nz = mat_readz("testz");
   mat_printz(Nz);
+
+  mat_getre(Mz,4,2);
+  mat_getim(Mz,4,2);
+
   mat_clearz(Mz); 
   mat_clearz(Nz);
   printf("\n");
+
+
+
 }
 
 
