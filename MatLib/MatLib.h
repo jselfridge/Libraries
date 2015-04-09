@@ -16,6 +16,15 @@
 #include <string.h>
 
 
+// Precompiled define
+#define PI  M_PI
+#define PI2 (2.0*PI)
+#define PIH (PI/2.0)
+#define PIQ (PI/4.0)
+#define PIE (PI/8.0)
+#define PIS (PI/16.0)
+
+
 //  Matrix structure declaration
 typedef struct _matrix {
   int rows;
@@ -115,13 +124,12 @@ matrix*  mat_divR  ( matrix* B, matrix* A );
 
 
 //  MatRoot function
-void     mat_root  ( matrix* poly );
-// scan();  // Not needed...
-// radius();
-// init();
-// dk();
-// f();
-// q();
+matrixz* mat_root  ( matrix* poly, double tol, int max );
+double   B         ( matrix* coef );
+void     Z         ( matrixz* zero, double b );
+void     L         ( matrixz* zero, matrix* coef, double tol, int max );
+double complex  N  ( matrixz* zero, matrix* coef, int j );
+double complex  D  ( matrixz* zero, int j );
 
 
 #endif

@@ -39,14 +39,14 @@ void OptGrad() {
   mat_print(d);
 
   // Run optimization
-  opt_grad ( F, &x, d, tol, gain, max );
+  opt_grad ( Deriv, &x, d, tol, gain, max );
 
   // Summarize the results
   printf("Back in main function \n");
   printf("x: ");
   mat_print(x);
-  printf("F(x): ");
-  mat_print(F(x));
+  printf("Deriv(x): ");
+  mat_print(Deriv(x));
 
   printf("\n");
 }
@@ -55,7 +55,7 @@ void OptGrad() {
 
 
 // Derivative function
-matrix* F ( matrix* x ) {
+matrix* Deriv ( matrix* x ) {
 
   matrix* f = mat_init(2,1);
 

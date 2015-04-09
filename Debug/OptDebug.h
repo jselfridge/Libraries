@@ -19,7 +19,7 @@
 // Function prototypes
 void    DebugOptLib();
 void    OptGrad();
-matrix* F( matrix* x );
+matrix* Deriv( matrix* x );
 
 
 #endif

@@ -16,12 +16,12 @@ void DebugMatLib() {
   //PrintMat();  
   //MatIO();
   //MatManip();
-  MatComplex();
+  //MatComplex();
   //MatVec();
   //MatArith();
   //MatProp();
   //MatDecomp();
-  //MatRoot();
+  MatRoot();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -622,22 +622,56 @@ void MatDecomp() {
 void MatRoot() {
   printf("Matrix root \n");
 
+  // Routine values
+  double tol = 0.000002;
+  int max = 50000;
 
-  /*
-  // Define polynomial
-  matrix* poly = mat_init(1,4);
-  mat_set(poly,1,1,  1 );
-  mat_set(poly,1,2, 10 );
-  mat_set(poly,1,3, 31 );
-  mat_set(poly,1,4, 30 );
-  printf("poly: ");  mat_print(poly);
+  // First polynomial matrix
+  matrix* poly1 = mat_init(1,4);
+  mat_set(poly1,1,1,  1 );
+  mat_set(poly1,1,2, 10 );
+  mat_set(poly1,1,3, 31 );
+  mat_set(poly1,1,4, 30 );
+  printf("poly1: ");  mat_print(poly1);
+  matrixz* zero1 = mat_root(poly1,tol,max);
+  printf("zero1: ");  mat_printz(zero1);
 
-  // Define complex matrix
-  matrixz* zeros = mat_initz(2,2);
-  mat_printz(zeros);
+  // Second polynomial matrix
+  matrix* poly2 = mat_init(1,4);
+  mat_set(poly2,1,1, 1 );
+  mat_set(poly2,1,2, 4 );
+  mat_set(poly2,1,3, 6 );
+  mat_set(poly2,1,4, 4 );
+  printf("poly2: ");  mat_print(poly2);
+  matrixz* zero2 = mat_root(poly2,tol,max);
+  printf("zero2: ");  mat_printz(zero2);
 
-  mat_root(poly);
-  */
+  // Third polynomial matrix
+  matrix* poly3 = mat_init(1,13);
+  mat_set(poly3,1, 1,       1 );
+  mat_set(poly3,1, 2,       6 );
+  mat_set(poly3,1, 3,     -19 );
+  mat_set(poly3,1, 4,    -132 );
+  mat_set(poly3,1, 5,     115 );
+  mat_set(poly3,1, 6,     434 );
+  mat_set(poly3,1, 7,   -4449 );
+  mat_set(poly3,1, 8,   -8932 );
+  mat_set(poly3,1, 9,   34484 );
+  mat_set(poly3,1,10,  164720 );
+  mat_set(poly3,1,11,  296748 );
+  mat_set(poly3,1,12,  268704 );
+  mat_set(poly3,1,13,  112320 );
+  printf("poly3: ");  mat_print(poly3);
+  matrixz* zero3 = mat_root(poly3,tol,max);
+  printf("zero3: ");  mat_printz(zero3);
+
+  // Clear matrices
+  mat_clear(poly1);
+  mat_clear(poly2);
+  mat_clear(poly3);
+  mat_clearz(zero1);
+  mat_clearz(zero2);
+  mat_clearz(zero3);
 
   printf("\n");
 }
