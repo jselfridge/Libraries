@@ -16,8 +16,8 @@
 // Function prototypes
 void    DebugCtrlLib();
 void    CtrlFunc();
-matrix* Plant1 ( matrix* x, matrix* u );
-matrix* Plant2 ( matrix* x, matrix* u );
+//matrix* Plant1 ( matrix* x, matrix* u );
+//matrix* Plant2 ( matrix* x, matrix* u );
 
 
 #endif

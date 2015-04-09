@@ -714,14 +714,114 @@ void MatSS() {
   matrix* obsv = mat_obsv(A,C);
   printf("Obsv: ");  mat_print(obsv);
 
+  // Define states
+  matrix* x = mat_init(4,1);
+  mat_set(x,1,1,1.0);
+  mat_set(x,2,1,1.0);
+  mat_set(x,3,1,1.0);
+  mat_set(x,4,1,1.0);
+  printf("x: ");  mat_print(x);
+
+  // Define inputs
+  matrix* u = mat_init(2,1);
+  mat_set(u,1,1,0.0);
+  mat_set(u,2,1,0.0);
+  printf("u: ");  mat_print(u);
+
+  // Initialize martices
+  matrix* Alin = mat_init(4,4);
+  matrix* Blin = mat_init(4,2);
+
+  // Linearization
+  printf("Linearization \n");
+  double d = 0.001;
+
+  // First linearization
+  printf("\nPlant1 linearization \n");
+  mat_lin( Plant1, x, u, &Alin, &Blin, d );
+  printf("Alin: ");  mat_print(Alin);
+  printf("Blin: ");  mat_print(Blin);
+
+  // Second linearization
+  printf("\nPlant2 linearization \n");
+  mat_lin( Plant2, x, u, &Alin, &Blin, d );
+  printf("Alin: ");  mat_print(Alin);
+  printf("Blin: ");  mat_print(Blin);
+
   // Clear matrices
   mat_clear(A);
   mat_clear(B);
   mat_clear(C);
   mat_clear(ctrb);
   mat_clear(obsv);
+  mat_clear(Alin);
+  mat_clear(Blin);
 
   printf("\n");
+}
+
+
+
+
+// Derivative function 1
+matrix* Plant1 ( matrix* x, matrix* u ) {
+
+  // Initialize derivative
+  matrix* dx = mat_init(4,1);
+
+  // Collect states
+  double x1 = mat_get(x,1,1);
+  double x2 = mat_get(x,2,1);
+  double x3 = mat_get(x,3,1);
+  double x4 = mat_get(x,4,1);
+
+  // Collect inputs
+  double u1 = mat_get(u,1,1);
+  double u2 = mat_get(u,2,1);
+
+  double dx1 = x3;
+  double dx2 = x4;
+  double dx3 = -2*x1 -3*x3 + 4*u1;
+  double dx4 = -4*x2 -5*x4 + u2;
+
+  mat_set( dx,1,1,dx1 );
+  mat_set( dx,2,1,dx2 );
+  mat_set( dx,3,1,dx3 );
+  mat_set( dx,4,1,dx4 );
+
+  return dx;
+}
+
+
+
+
+// Derivative function 2
+matrix* Plant2 ( matrix* x, matrix* u ) {
+
+  // Initialize derivative
+  matrix* dx = mat_init(4,1);
+
+  // Collect states
+  double x1 = mat_get(x,1,1);
+  double x2 = mat_get(x,2,1);
+  double x3 = mat_get(x,3,1);
+  double x4 = mat_get(x,4,1);
+
+  // Collect inputs
+  double u1 = mat_get(u,1,1);
+  double u2 = mat_get(u,2,1);
+
+  double dx1 = x1*x2 -x1*x3 + 2*x1 - 3*x2 + x4 + 4*u1;
+  double dx2 = pow(x1,2) - pow(x2,2) + 3*x1*x2 + x2*x3 + - x2*x4 + 2*u2 - u1;
+  double dx3 = pow(x3,2) + 2*x1*x3 - 4*x2*x3 + x1*x2 + x1*x4 - 3*u2;
+  double dx4 = 3*x1 - 2*x3 + pow(x4,2) + 2*u1 - u2;
+
+  mat_set( dx,1,1,dx1 );
+  mat_set( dx,2,1,dx2 );
+  mat_set( dx,3,1,dx3 );
+  mat_set( dx,4,1,dx4 );
+
+  return dx;
 }
 
 

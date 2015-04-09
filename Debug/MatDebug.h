@@ -29,6 +29,8 @@ void MatProp();
 void MatDecomp();
 void MatRoot();
 void MatSS();
+matrix* Plant1 ( matrix* x, matrix* u );
+matrix* Plant2 ( matrix* x, matrix* u );
 void ClearMat();
 
 

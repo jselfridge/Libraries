@@ -22,7 +22,7 @@ void DebugCtrlLib() {
 
 // Control functions
 void CtrlFunc() {
-
+  /*
   // Define states
   matrix* x = mat_init(4,1);
   mat_set(x,1,1,1.0);
@@ -66,13 +66,13 @@ void CtrlFunc() {
   matrix* obsv = ctrl_obsv(A,mat_trans(B));
   printf("\nObsv: ");  mat_print(obsv);
   mat_clear(obsv);
-
+  */
   printf("\n");
 }
 
 
 
-
+/*
 // Derivative function 1
 matrix* Plant1 ( matrix* x, matrix* u ) {
 
@@ -101,10 +101,10 @@ matrix* Plant1 ( matrix* x, matrix* u ) {
 
   return f;
 }
+*/
 
 
-
-
+/*
 // Derivative function 2
 matrix* Plant2 ( matrix* x, matrix* u ) {
 
@@ -133,6 +133,6 @@ matrix* Plant2 ( matrix* x, matrix* u ) {
 
   return f;
 }
-
+*/
 
 
