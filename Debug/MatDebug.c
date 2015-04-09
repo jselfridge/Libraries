@@ -15,8 +15,8 @@ void DebugMatLib() {
   InitMat(); 
   //PrintMat();  
   //MatIO();
-  MatIOZ();
   //MatManip();
+  MatComplex();
   //MatVec();
   //MatArith();
   //MatProp();
@@ -161,24 +161,6 @@ void MatIO() {
 
 
 
-// Complex Matrix Input and Output
-void MatIOZ() {
-  printf("Complex matrix input and output \n");
-  matrixz* Mz = mat_initz(5,2);
-  printf("Rows: %d \n", Mz->rows );
-  printf("Cols: %d \n", Mz->cols );
-  mat_printz(Mz);
-  mat_writez(Mz,"testz");
-  matrixz* Nz = mat_readz("testz");
-  mat_printz(Nz);
-  mat_clearz(Mz); 
-  mat_clearz(Nz);
-  printf("\n");
-}
-
-
-
-
 // Matrix Manipulation
 void MatManip() {
   printf("Matrix manipulation \n");
@@ -289,6 +271,24 @@ void MatManip() {
   mat_clear(Q);
   mat_clear(R);
 
+  printf("\n");
+}
+
+
+
+
+// Complex Matrix Input and Output
+void MatComplex() {
+  printf("Complex matrix input and output \n");
+  matrixz* Mz = mat_initz(5,2);
+  printf("Rows: %d \n", Mz->rows );
+  printf("Cols: %d \n", Mz->cols );
+  mat_printz(Mz);
+  mat_writez(Mz,"testz");
+  matrixz* Nz = mat_readz("testz");
+  mat_printz(Nz);
+  mat_clearz(Mz); 
+  mat_clearz(Nz);
   printf("\n");
 }
 

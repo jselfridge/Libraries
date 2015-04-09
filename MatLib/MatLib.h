@@ -41,14 +41,6 @@ void     mat_write   ( matrix* mat, char* file );
 void     mat_clear   ( matrix* mat );
 
 
-//  MatIOZ functions
-matrixz* mat_initz   ( int rows, int cols );
-matrixz* mat_readz   ( char* file );
-void     mat_printz  ( matrixz* mat );
-void     mat_writez  ( matrixz* mat, char* file );
-void     mat_clearz  ( matrixz* mat );
-
-
 //  MatManip functions
 double   mat_get     ( matrix* mat, int row, int col );
 matrix*  mat_getr    ( matrix* mat, int row );
@@ -65,6 +57,22 @@ void     mat_swapc   ( matrix* mat, int n, int m );
 matrix*  mat_appr    ( matrix* matT, matrix* matB );
 matrix*  mat_appc    ( matrix* matL, matrix* matR );
 matrix*  mat_rmtiny  ( matrix* mat, double tol );
+
+
+//  MatComplex functions
+matrixz* mat_initz   ( int rows, int cols );
+matrixz* mat_readz   ( char* file );
+void     mat_printz  ( matrixz* mat );
+void     mat_writez  ( matrixz* mat, char* file );
+void     mat_clearz  ( matrixz* mat );
+//double   mat_getre   ( matrixz* mat, int row, int col );
+//double   mat_getim   ( matrixz* mat, int row, int col );
+//matrixz* mat_getzr   ( matrixz* mat, int row );
+//matrixz* mat_getzc   ( matrixz* mat, int col );
+//void     mat_setre   ( matrixz* mat, int row, int col, double real );
+//void     mat_setim   ( matrixz* mat, int row, int col, double imag );
+//void     mat_setzr   ( matrixz* mat, int row, matrixz* vec );
+//void     mat_setzc   ( matrixz* mat, int col, matrixz* vec );
 
 
 //  MatVec functions
