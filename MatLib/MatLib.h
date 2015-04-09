@@ -123,13 +123,19 @@ matrix*  mat_divL  ( matrix* A, matrix* B );
 matrix*  mat_divR  ( matrix* B, matrix* A );
 
 
-//  MatRoot function
+//  MatRoot functions
 matrixz* mat_root  ( matrix* poly, double tol, int max );
-double   B         ( matrix* coef );
-void     Z         ( matrixz* zero, double b );
-void     L         ( matrixz* zero, matrix* coef, double tol, int max );
+double          B  ( matrix* coef );
+void            Z  ( matrixz* zero, double b );
+void            L  ( matrixz* zero, matrix* coef, double tol, int max );
 double complex  N  ( matrixz* zero, matrix* coef, int j );
 double complex  D  ( matrixz* zero, int j );
+
+
+//  MatSS functions
+matrix* mat_ctrb ( matrix* A, matrix*B );
+matrix* mat_obsv ( matrix* A, matrix*C );
+//blah mat_lin ();
 
 
 #endif
