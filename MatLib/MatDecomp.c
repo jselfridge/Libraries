@@ -43,7 +43,6 @@ void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
     }
 
   }
-
   return;
 }
 
@@ -54,10 +53,10 @@ void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
 
+  mat_err( *Q!=NULL || *R!=NULL, "Error (mat_QR): Q and R matrices must be initialized as NULL." );
+
   int r = mat->rows;
   int c = mat->cols;
-
-  mat_err( *Q!=NULL || *R!=NULL, "Error (mat_QR): Q and R matrices must be initialized as NULL." );
 
   matrix* A    = mat_copy(mat);
   matrix* Acol = mat_init(r,1);
@@ -96,26 +95,11 @@ double mat_det ( matrix* mat ) {
   matrix* U = NULL;
 
   mat_LU( mat, &L, &U );
-  for ( int i=0; i<n; i++ ) {  product *= U->data[i*n+i];  }
-  mat_clear(L);  mat_clear(U);
+  for ( int i=1; i<=n; i++ )  product *=  mat_get(U,i,i);
+  mat_clear(L);
+  mat_clear(U);
 
   return product;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_inv
-//  Returns the inverse of a square matrix.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* mat_inv ( matrix* mat ) {
-
-  mat_err( mat->rows != mat->cols, "Error (mat_inv): Matrix must be square." );
-
-  matrix* eye = mat_eye( mat->rows );
-  matrix* inv = mat_divL( mat, eye );
-
-  mat_clear(eye);
-  return inv;
 }
 
 
@@ -196,5 +180,89 @@ matrix* mat_divR ( matrix* B, matrix* A ) {
   return X;
 }
 
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_inv
+//  Returns the inverse of a square matrix.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+matrix* mat_inv ( matrix* mat ) {
+
+  mat_err( mat->rows != mat->cols, "Error (mat_inv): Matrix must be square." );
+
+  matrix* eye = mat_eye( mat->rows );
+  matrix* inv = mat_divL( mat, eye );
+
+  mat_clear(eye);
+  return inv;
+}
+
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  Mat_DivL (temp replacement for mat_divL)
+//  Solves for X in B=AX, equivalent to X=A\B.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//matrix* Mat_DivL ( matrix* A, matrix* B ) {
+
+  //mat_err( A->rows != B->rows, "Error (mat_divL): A and B must be the same height." );
+
+  //matrix* x;
+  //return x;
+  
+//}
+
+  /*
+  int     n  = A->rows;  
+  int     r  = B->rows;
+  int     c  = B->cols;
+  double* Bd = B->data;
+
+  matrix* L = NULL;  
+  matrix* U = NULL;
+  mat_LU( A, &L, &U );
+  double* Ld = L->data;
+  double* Ud = U->data;
+
+  matrix* Y;
+  matrix* X;
+  Y = mat_init(1,n);
+  X = mat_init(r,c);
+  double* Yd = Y->data;
+  double* Xd = X->data;
+
+  double  sum;
+  double* row;
+
+  for ( int k=0; k<c; k++ ) {
+
+    // L backward subsitituion:  L * y = B
+    for ( int i=0; i<n; i++ ) {
+      row = Ld + i*n;
+      sum = 0;
+      for ( int j=0; j<i; j++ ) {
+	sum += Yd[j] * (*row++);
+      }
+      Yd[i] = ( Bd[i*c+k] - sum) / *row;
+    }
+
+    // U backward subsitituion:  U * x = y
+    for ( int i=n-1; i>=0; i-- ) {
+      row = Ud + (i*n) + (n-1);
+      sum = 0;
+      for ( int j=n-1; j>i; j-- ) {
+	sum += Xd[j*c+k] * (*row--);
+      }
+      Xd[i*c+k] = (Yd[i] - sum) / *row;
+    }
+
+  }
+
+  mat_clear(L);
+  mat_clear(U);
+  mat_clear(Y);
+
+  return X;
+  */
 
 

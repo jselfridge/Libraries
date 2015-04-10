@@ -21,8 +21,9 @@ void DebugMatLib() {
   //MatArith();
   //MatProp();
   //MatDecomp();
+  MatGauss();
   //MatRoot();
-  MatSS();
+  //MatSS();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return;
@@ -532,39 +533,41 @@ void MatDecomp() {
   matrix* L3 = NULL;
   matrix* U3 = NULL;
   mat_LU( M33a, &L3, &U3 );
+  matrix* LU3 = mat_mul( L3, U3 );
   mat_print(L3);
   mat_print(U3);
-  matrix* LU3 = mat_mul( L3, U3 );
   mat_print(LU3);
-  mat_clear(LU3);
   mat_clear(L3);
   mat_clear(U3);
+  mat_clear(LU3);
 
   // LU decomposition [4x4]
   matrix* L4 = NULL;
   matrix* U4 = NULL;
   mat_LU( M44, &L4, &U4 );
+  matrix* LU4 = mat_mul( L4, U4 );
   mat_print(L4);
   mat_print(U4);
-  matrix* LU4 = mat_mul( L4, U4 );
   mat_print(LU4);
-  mat_clear(LU4);
   mat_clear(L4);
   mat_clear(U4);
+  mat_clear(LU4);
 
   // QR Decomposition
   matrix* Q = NULL;
   matrix* R = NULL;
-  matrix* A = mat_init(4,4);
+  matrix* A = mat_init(2,4);
   mat_set(A,1,1,1);  mat_set(A,1,2,0);  mat_set(A,1,3,-3);  mat_set(A,1,4,0);
   mat_set(A,2,1,0);  mat_set(A,2,2,2);  mat_set(A,2,3,-1);  mat_set(A,2,4,1);
-  mat_set(A,3,1,1);  mat_set(A,3,2,0);  mat_set(A,3,3, 1);  mat_set(A,3,4,3);
-  mat_set(A,4,1,1);  mat_set(A,4,2,3);  mat_set(A,4,3, 5);  mat_set(A,4,4,2);
+  //mat_set(A,3,1,1);  mat_set(A,3,2,0);  mat_set(A,3,3, 1);  mat_set(A,3,4,3);
+  //mat_set(A,4,1,1);  mat_set(A,4,2,3);  mat_set(A,4,3, 5);  mat_set(A,4,4,2);
   printf("A: ");  mat_print(A);
   mat_QR( A, &Q, &R );
-  printf("Q: ");   mat_print(Q);
-  printf("R: ");   mat_print(R);
-  printf("QR: ");  mat_print(mat_mul(Q,R));
+  printf("Q:   ");  mat_print(Q);
+  printf("R:   ");  mat_print(R);
+  printf("Q'Q: ");  mat_print(mat_mul(mat_trans(Q),Q));
+  printf("QQ': ");  mat_print(mat_mul(Q,mat_trans(Q)));
+  printf("QR:  ");  mat_print(mat_mul(Q,R));
   mat_clear(A);
   mat_clear(Q);
   mat_clear(R);
@@ -575,16 +578,12 @@ void MatDecomp() {
   double det4 = mat_det(M44);
   printf( "det4: %f \n", det4 );
 
-  // Matrix inverse
-  matrix* Minv3 = mat_inv(M33a);
-  mat_print(Minv3);
-  mat_print( mat_mul( Minv3, M33a ) );
-  mat_print( mat_mul( M33a, Minv3 ) );
-  mat_clear(Minv3);
-  matrix* Minv4 = mat_inv(M44);
-  mat_print(Minv4);
-  mat_clear(Minv4);
 
+  // Left division
+  //Mat_DivL( M33a, V3a );
+
+
+  /*
   // Left division
   matrix* xL31 = mat_divL( M33a, V3a );
   mat_print(xL31);
@@ -598,7 +597,8 @@ void MatDecomp() {
   mat_print(xL41);
   mat_print( mat_mul(M44,xL41) );
   mat_clear(xL41);
-
+  */
+  /*
   // Right division
   matrix* xR33 = mat_divR( M33b, M33a );
   mat_print(xR33);
@@ -612,6 +612,60 @@ void MatDecomp() {
   mat_print(xR14);
   mat_print( mat_mul(xR14,M44) );
   mat_clear(xR14);
+  */
+  /*
+  // Matrix inverse
+  matrix* Minv3 = mat_inv(M33a);
+  mat_print(Minv3);
+  mat_print( mat_mul( Minv3, M33a ) );
+  mat_print( mat_mul( M33a, Minv3 ) );
+  mat_clear(Minv3);
+  matrix* Minv4 = mat_inv(M44);
+  mat_print(Minv4);
+  mat_clear(Minv4);
+  */
+
+  printf("\n");
+}
+
+
+
+
+// Matrix Gauss Elimination
+void MatGauss() {
+  printf("Gauss elimination \n");
+
+  int r = 4;
+  int c = 3;
+
+  matrix* X = mat_init(r,c);
+  mat_set(X,1,1, 1);  mat_set(X,1,2,-1);  mat_set(X,1,3, 1);
+  mat_set(X,2,1,-1);  mat_set(X,2,2, 1);  mat_set(X,2,3,-1);
+  mat_set(X,3,1, 0);  mat_set(X,3,2,10);  mat_set(X,3,3,25);
+  mat_set(X,4,1,20);  mat_set(X,4,2,10);  mat_set(X,4,3, 0);
+  printf("X: ");  mat_print(X);
+
+  // Start loop
+  for ( int i=1; i<=1; i++ ) { //c
+
+
+    // Find last non zero row (return 0 if NULL)
+    int last = findlast(&X);
+    printf("last: %d \n", last);
+    mat_err( last ==0, "Error (mat_gauss): Matrix returned NULL." );
+
+    // Reorder zeros
+    int row = reorder( &X, last );
+    printf("row: %d \nX: ", row);  mat_print(X);
+
+    // Eliminate column entries
+    elim( &X, row, i );
+
+  }
+
+
+  mat_clear(X);
+
 
   printf("\n");
 }

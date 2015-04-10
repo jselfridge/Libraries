@@ -37,8 +37,7 @@ matrixz* mat_initz ( int rows, int cols ) {
 matrixz* mat_readz ( char* file ) {
 
   FILE*    f;
-  int      r, c, elem;
-  int      scan;
+  int      r, c, n, scan;
   double   re, im;
   char     sign;
   matrixz* out;
@@ -59,10 +58,10 @@ matrixz* mat_readz ( char* file ) {
   mat_err( scan==EOF, "Error (mat_readz): Failed to read 'cols' from file." );
 
   out = mat_initz(r,c);
-  elem = r*c;
+  n = r*c;
   d = out->data;
 
-  for ( int i=0; i<elem; i++ ) {
+  for ( int i=0; i<n; i++ ) {
     scan = fscanf( f, "%lf %c %lf i", &re, &sign, &im );
     mat_err( scan==EOF, "Error (mat_readz): Matrix is missing elements." );
     if ( sign == '-' ) { im *= -1.0; }
@@ -86,10 +85,8 @@ void mat_printz( matrixz* mat ) {
 
   int r = mat->rows;
   int c = mat->cols;
-  //  double complex* d = mat->data;
   char sign;
-  double re;
-  double im;
+  double re, im;
 
   printf( "[%dx%d]\n", r, c );
   for ( int i=1; i<=r; i++ ) {

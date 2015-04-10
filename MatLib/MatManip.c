@@ -133,14 +133,8 @@ matrix* mat_copy ( matrix* mat ) {
 matrix* mat_eye ( int n ) {
 
   mat_err( n<1, "Error (mat_eye): Matrix dimension must be positive." );
-
-  matrix* out     = mat_init(n,n);
-  double* outdata = out->data;
-
-  for ( int i=0; i<n; i++ ) {
-    *outdata = 1.0;
-    outdata += n+1;
-  }
+  matrix* out = mat_init(n,n);
+  for ( int i=1; i<=n; i++ )  mat_set(out,i,i,1.0);
 
   return out;
 }
@@ -153,14 +147,11 @@ matrix* mat_eye ( int n ) {
 matrix* mat_ones ( int rows, int cols ) {
 
   mat_err(  rows<1 || cols<1, "Error (mat_ones): Matrix must have positive dimensions." );
-
-  matrix* out     = mat_init( rows, cols );
-  double* outdata = out->data;
-  int     elem    = rows * cols;
-
-  for ( int i=0; i<elem; i++ ) {
-    *outdata = 1.0;
-    outdata++;
+  matrix* out = mat_init( rows, cols );
+  for ( int i=1; i<=rows; i++ ) {
+    for ( int j=1; j<=cols; j++ ) {
+      mat_set(out,i,j,1.0);
+    }
   }
 
   return out;
@@ -173,13 +164,16 @@ matrix* mat_ones ( int rows, int cols ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_scale ( matrix* mat, double scale ) {
 
-  int      n        = mat->rows * mat->cols;
-  matrix*  out      = mat_init( mat->rows, mat->cols );
-  double*  outdata  = out->data;
-  double*  matdata  = mat->data;
+  int r = mat->rows;
+  int c = mat->cols;
+  double  val;
+  matrix* out = mat_init(r,c);
 
-  for ( int i=0; i<n; i++ ) {
-    *(outdata++) = *(matdata++) * scale;
+  for ( int i=1; i<=r; i++ ) {
+    for ( int j=1; j<=c; j++ ) {
+      val = mat_get(mat,i,j) * scale;
+      mat_set(out,i,j,val);
+    }
   }
 
   return out;

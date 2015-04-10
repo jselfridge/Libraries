@@ -118,9 +118,21 @@ void     mat_eigval  ( matrix* mat, double tol, int max );  // WIP
 void     mat_LU    ( matrix* mat, matrix** L, matrix** U );
 void     mat_QR    ( matrix* mat, matrix** Q, matrix** R ); 
 double   mat_det   ( matrix* mat );
-matrix*  mat_inv   ( matrix* mat );
 matrix*  mat_divL  ( matrix* A, matrix* B );
 matrix*  mat_divR  ( matrix* B, matrix* A );
+matrix*  mat_inv   ( matrix* mat );
+
+//matrix*  Mat_DivL  ( matrix* A, matrix* B );
+
+
+
+
+//  MatGauss functions
+void mat_gauss (  );
+int  findlast  ( matrix** X );
+int  reorder   ( matrix** X, int last );
+void elim      ( matrix** X, int row, int col );
+
 
 
 //  MatRoot functions
