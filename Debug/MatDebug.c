@@ -528,7 +528,7 @@ void MatProp() {
 // Matrix Decomposition
 void MatDecomp() {
   printf("Matrix decomposition \n");
-
+  /*
   // LU decomposition [3x3]
   matrix* L3 = NULL;
   matrix* U3 = NULL;
@@ -552,35 +552,49 @@ void MatDecomp() {
   mat_clear(L4);
   mat_clear(U4);
   mat_clear(LU4);
+*/
+
 
   // QR Decomposition
   matrix* Q = NULL;
   matrix* R = NULL;
+
   matrix* A = mat_init(2,4);
   mat_set(A,1,1,1);  mat_set(A,1,2,0);  mat_set(A,1,3,-3);  mat_set(A,1,4,0);
   mat_set(A,2,1,0);  mat_set(A,2,2,2);  mat_set(A,2,3,-1);  mat_set(A,2,4,1);
   //mat_set(A,3,1,1);  mat_set(A,3,2,0);  mat_set(A,3,3, 1);  mat_set(A,3,4,3);
   //mat_set(A,4,1,1);  mat_set(A,4,2,3);  mat_set(A,4,3, 5);  mat_set(A,4,4,2);
   printf("A: ");  mat_print(A);
+
   mat_QR( A, &Q, &R );
+
   printf("Q:   ");  mat_print(Q);
   printf("R:   ");  mat_print(R);
   printf("Q'Q: ");  mat_print(mat_mul(mat_trans(Q),Q));
   printf("QQ': ");  mat_print(mat_mul(Q,mat_trans(Q)));
   printf("QR:  ");  mat_print(mat_mul(Q,R));
+
   mat_clear(A);
   mat_clear(Q);
   mat_clear(R);
 
+
+
+
+  /*
   // Determinant
   double det3 = mat_det(M33a);
   printf( "det3: %f \n", det3 );
   double det4 = mat_det(M44);
   printf( "det4: %f \n", det4 );
+  */
+
 
 
   // Left division
   //Mat_DivL( M33a, V3a );
+
+
 
 
   /*
@@ -635,37 +649,29 @@ void MatDecomp() {
 void MatGauss() {
   printf("Gauss elimination \n");
 
-  int r = 4;
+  int r = 6;
   int c = 3;
-
   matrix* X = mat_init(r,c);
-  mat_set(X,1,1, 1);  mat_set(X,1,2,-1);  mat_set(X,1,3, 1);
-  mat_set(X,2,1,-1);  mat_set(X,2,2, 1);  mat_set(X,2,3,-1);
-  mat_set(X,3,1, 0);  mat_set(X,3,2,10);  mat_set(X,3,3,25);
-  mat_set(X,4,1,20);  mat_set(X,4,2,10);  mat_set(X,4,3, 0);
+  mat_set(X,1,1, 2);  mat_set(X,1,2, 4);  mat_set(X,1,3, 1);
+  mat_set(X,2,1, 3);  mat_set(X,2,2, 6);  mat_set(X,2,3, 1.5);
+  mat_set(X,3,1, 1);  mat_set(X,3,2, 2);  mat_set(X,3,3, 0.5);
+  mat_set(X,4,1, 4);  mat_set(X,4,2, 8);  mat_set(X,4,3, 2);
+  mat_set(X,5,1, 2);  mat_set(X,5,2, 4);  mat_set(X,5,3, 1);
+  mat_set(X,6,1, 3);  mat_set(X,6,2, 6);  mat_set(X,6,3, 1.5);
   printf("X: ");  mat_print(X);
 
-  // Start loop
-  for ( int i=1; i<=1; i++ ) { //c
-
-
-    // Find last non zero row (return 0 if NULL)
+  for ( int i=1; i<=c; i++ ) {
     int last = findlast(&X);
     printf("last: %d \n", last);
     mat_err( last ==0, "Error (mat_gauss): Matrix returned NULL." );
-
-    // Reorder zeros
     int row = reorder( &X, last );
-    printf("row: %d \nX: ", row);  mat_print(X);
-
-    // Eliminate column entries
+    shiftzero(&X, row, i );
+    printf("X: ");  mat_print(X);
     elim( &X, row, i );
 
   }
 
-
   mat_clear(X);
-
 
   printf("\n");
 }

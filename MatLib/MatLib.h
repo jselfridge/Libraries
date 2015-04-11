@@ -121,18 +121,15 @@ double   mat_det   ( matrix* mat );
 matrix*  mat_divL  ( matrix* A, matrix* B );
 matrix*  mat_divR  ( matrix* B, matrix* A );
 matrix*  mat_inv   ( matrix* mat );
-
-//matrix*  Mat_DivL  ( matrix* A, matrix* B );
-
+//matrix*  Mat_DivL  ( matrix* A, matrix* B );  // Alternative with QR
 
 
-
-//  MatGauss functions
+//  MatGauss functions (not finished yet)
 void mat_gauss (  );
 int  findlast  ( matrix** X );
 int  reorder   ( matrix** X, int last );
+void shiftzero ( matrix** X, int row, int col );
 void elim      ( matrix** X, int row, int col );
-
 
 
 //  MatRoot functions

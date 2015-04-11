@@ -47,10 +47,24 @@ int reorder ( matrix** X, int last ) {
 
   for ( int i= last-1; i>=1; i-- ) {
     val = 0.0;
-    for ( int j=1; j<=c; j++ )  {  val += mat_get(*X,i,j);  }
+    for ( int j=1; j<=c; j++ )  {  val += fabs( mat_get(*X,i,j) );  }
     if ( val == 0 )  {  mat_swapr(*X,i,row);  row--;  }
   }
   return row;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  Auxilliary function shifts rows to prevent divide by zero.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void shiftzero ( matrix** X, int row, int col ) {
+
+  int count = 0;
+  while ( !mat_get(*X,col,col) ) {
+    for ( int i=1; i<row; i++ )  mat_swapr(*X,i,i+1);
+    count++;
+    mat_err(count>row, "Error (mat_gauss): Column filled with zeros." );
+  }
 }
 
 
@@ -60,36 +74,32 @@ int reorder ( matrix** X, int last ) {
 void elim ( matrix** X, int row, int col ) {
 
   int c = (*X)->cols;
-  //double val;
-  //double num = mat_get(*X,col,col);
-  //printf("num: %f \n", num );
-
   for ( int i= col+1; i<= row; i++ ) {
-    printf("row: %d \n", i);
 
-    double scale = mat_get(*X,i,col);
-    printf("scale: %f \n", scale);
+    double num = mat_get(*X,i,col);
+    double den = mat_get(*X,col,col);
+    double ratio = num / den;
+    printf(" Row: %d   ", i);
+    printf("num: %f   ",num);
+    printf("den: %f   ",den);
+    printf("ratio: %f ",ratio);
+    printf("\n");
 
     for ( int j= col; j<=c; j++ ) {
-      printf("col: %d \n", j);
-      /*
-      double current = mat_get(*X,i,j);
-      printf("current: %f \n", current);
 
-      double base = mat_get(*X,col,j);
-      printf("base: %f \n", base);
-      
-      double val = current - scale * base;
-      printf("val: %f \n", val);      
-      */
-      double val = mat_get(*X,i,j) - scale * mat_get(*X,col,j);
-      printf("val: %f \n", val);      
+      double val = mat_get(*X,i,j) - ratio * mat_get(*X,col,j);
       mat_set(*X,i,j,val);
 
-
+      printf("  Col: %d   ",j);
+      printf("val: %f",val);
+      printf("\n");
     }
-
-    printf("X: ");  mat_print(*X);        
   }
+  printf("X: ");  mat_print(*X);        
+
 }
+
+
+
+
 
