@@ -27,7 +27,7 @@ void MatVec();
 void MatArith();
 void MatProp();
 void MatDecomp();
-void MatGauss();
+void MatEchelon();
 void MatRoot();
 void MatSS();
 matrix* Plant1 ( matrix* x, matrix* u );
@@ -50,6 +50,5 @@ matrix* M44;
 
 
 #endif
-
 
 

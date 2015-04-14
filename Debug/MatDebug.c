@@ -21,7 +21,7 @@ void DebugMatLib() {
   //MatArith();
   //MatProp();
   //MatDecomp();
-  MatGauss();
+  MatEchelon();
   //MatRoot();
   //MatSS();
   ClearMat();
@@ -645,33 +645,24 @@ void MatDecomp() {
 
 
 
-// Matrix Gauss Elimination
-void MatGauss() {
-  printf("Gauss elimination \n");
+// Rediced Echelon form of a matrix
+void MatEchelon() {
+  printf("Reduced row echelon form of a matrix \n");
 
-  int r = 6;
-  int c = 3;
+  int r = 4;
+  int c = 7;
   matrix* X = mat_init(r,c);
-  mat_set(X,1,1, 2);  mat_set(X,1,2, 4);  mat_set(X,1,3, 1);
-  mat_set(X,2,1, 3);  mat_set(X,2,2, 6);  mat_set(X,2,3, 1.5);
-  mat_set(X,3,1, 1);  mat_set(X,3,2, 2);  mat_set(X,3,3, 0.5);
-  mat_set(X,4,1, 4);  mat_set(X,4,2, 8);  mat_set(X,4,3, 2);
-  mat_set(X,5,1, 2);  mat_set(X,5,2, 4);  mat_set(X,5,3, 1);
-  mat_set(X,6,1, 3);  mat_set(X,6,2, 6);  mat_set(X,6,3, 1.5);
+  mat_set(X,1,1, 0);  mat_set(X,1,2, 0);  mat_set(X,1,3, 6);  mat_set(X,1,4, 0);  mat_set(X,1,5, 19);  mat_set(X,1,6, 11);  mat_set(X,1,7,-27);
+  mat_set(X,2,1, 3);  mat_set(X,2,2,12);  mat_set(X,2,3, 9);  mat_set(X,2,4,-6);  mat_set(X,2,5, 26);  mat_set(X,2,6, 31);  mat_set(X,2,7,-63);
+  mat_set(X,3,1, 1);  mat_set(X,3,2, 4);  mat_set(X,3,3, 3);  mat_set(X,3,4,-2);  mat_set(X,3,5, 10);  mat_set(X,3,6,  9);  mat_set(X,3,7,-17);
+  mat_set(X,4,1,-1);  mat_set(X,4,2,-4);  mat_set(X,4,3,-4);  mat_set(X,4,4, 2);  mat_set(X,4,5,-13);  mat_set(X,4,6,-11);  mat_set(X,4,7, 22);
   printf("X: ");  mat_print(X);
 
-  for ( int i=1; i<=c; i++ ) {
-    int last = findlast(&X);
-    printf("last: %d \n", last);
-    mat_err( last ==0, "Error (mat_gauss): Matrix returned NULL." );
-    int row = reorder( &X, last );
-    shiftzero(&X, row, i );
-    printf("X: ");  mat_print(X);
-    elim( &X, row, i );
-
-  }
-
+  matrix* Y = mat_echelon(X);
+  printf("Y: ");  mat_print(Y);
+  
   mat_clear(X);
+  mat_clear(Y);
 
   printf("\n");
 }

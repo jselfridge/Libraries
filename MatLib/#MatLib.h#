@@ -125,10 +125,10 @@ matrix*  mat_inv   ( matrix* mat );
 
 
 //  MatGauss functions (not finished yet)
-matrix* mat_echelon   ( matrix*  mat );  // WIP
-bool    ech_colzero   ( matrix*  X, int m );
-void    ech_reorder   ( matrix** X, int n, int m );
-
+matrix* mat_echelon   ( matrix* mat );
+int  findlast         ( matrix* X );
+//int  reorder       ( matrix* X, int last );
+//void elim          ( matrix** X, int row, int col );
 
 
 //  MatRoot functions
