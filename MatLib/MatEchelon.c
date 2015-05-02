@@ -1,4 +1,4 @@
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatEchelon.c
 //  Justin M Selfridge
@@ -94,7 +94,7 @@ matrix* mat_echelon ( matrix* mat ) {
 
 
   } while ( k<=r && k<=c && n<=r && m<=c );  // Keep going until
-
+*/
 
   /*
 
@@ -122,7 +122,7 @@ matrix* mat_echelon ( matrix* mat ) {
   }
   */
 
-
+/*
   return X;
 }
 
@@ -166,7 +166,7 @@ void ech_reorder ( matrix** X, int n, int m ) {
 
   }
 }
-
+*/
 
 /*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,4 +1,4 @@
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatLib.h
 //  Justin M Selfridge
@@ -151,3 +151,4 @@ void    mat_lin    ( matrix* dx ( matrix*, matrix* ), matrix* x, matrix* u, matr
 
 
 
+*/

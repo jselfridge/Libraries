@@ -1,12 +1,16 @@
+
 CtrlLib
 =======
 
-This directory is C code for a static library that
-contains functions for controls analysis and 
-development.  The only function currently under 
-development is a linearization algorithm which 
-takes a nonlinear system and linearizes around 
-and operating point.
+This directory is C code for a static library that contains functions 
+for controls analysis and development.  
+
+
+<!--
+
+The only function currently 
+under development is a linearization algorithm which takes a 
+nonlinear system and linearizes around and operating point.
 
 
 
@@ -33,3 +37,4 @@ is used to generate the static library.  It is
 included in the 'makefile' and places the 
 library in the appropriate folder.
 
+-->

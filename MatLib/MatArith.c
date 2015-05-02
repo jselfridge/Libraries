@@ -1,4 +1,4 @@
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatArith.c
 //  Justin M Selfridge
@@ -158,3 +158,4 @@ matrix* mat_trans ( matrix* mat ) {
 
 
 
+*/

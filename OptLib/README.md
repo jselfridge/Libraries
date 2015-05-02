@@ -1,8 +1,14 @@
+
 OptLib
 ======
 
-This directory is C code for a static library that
-contains optimization functions.  The only function
+This directory is C code for a static library that contains optimization 
+functions.  
+
+
+<!--
+
+The only function
 currently under development is the gradient method
 (or method of steepest descent) for solving an 
 unconstrained minimization problem.
@@ -44,3 +50,4 @@ matrix*  mat_cov     ( matrix* mat );
 
 
 
+-->

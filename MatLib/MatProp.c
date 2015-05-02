@@ -1,4 +1,4 @@
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatProp.c
 //  Justin M Selfridge
@@ -104,3 +104,4 @@ void mat_eigval ( matrix* mat, double tol, int max ) {
 
 
 
+*/

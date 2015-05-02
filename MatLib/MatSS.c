@@ -1,4 +1,4 @@
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatSS.c
 //  Justin M Selfridge
@@ -146,3 +146,4 @@ void mat_lin ( matrix* dx ( matrix*, matrix* ), matrix* x, matrix* u, matrix** A
 
 
 
+*/

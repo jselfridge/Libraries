@@ -1,4 +1,4 @@
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  RotLib.h
 //  Justin M Selfridge
@@ -53,3 +53,4 @@ matrix* rot_qderiv ( matrix* quat );
 
 
 
+*/

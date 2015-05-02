@@ -1,4 +1,4 @@
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Ctrl.c
 //  Justin M Selfridge
@@ -115,3 +115,4 @@ matrix* ctrl_obsv ( matrix* A, matrix* C ) {
 
 
 
+*/

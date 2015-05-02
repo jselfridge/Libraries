@@ -9,11 +9,11 @@ CFLAGS = -c -Wall
 INC    = CtrlLib.h
 LIB    = libCtrl.a
 
-FILE := $(shell ls | grep -F ".c" )
+FILE := $(shell ls | grep -F ".c" ) 
 NAME := $(patsubst %.c, %, $(FILE) )
 OBJ  := $(foreach o, $(NAME), $(o).o )
 
-all : $(OBJ)
+#all : $(OBJ)
 	rm $(LIB); \
 	ar -cvq $(LIB) *.o
 

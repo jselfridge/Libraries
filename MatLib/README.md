@@ -1,9 +1,13 @@
+
 MatLib
 ======
 
-This directory is C code for a static library that 
-delivers linear algebra functionality.  The 
-functions are grouped in the following categories:
+This directory is C code for a static library that delivers linear 
+algebra functionality.  The functions are grouped in the following 
+categories:
+
+
+<!--
 
     MatIO     - Input and output capabilities
     MatManip  - Manipulations and matrix modifications
@@ -32,3 +36,4 @@ matrix*  mat_cov     ( matrix* mat );
 
 
 
+-->

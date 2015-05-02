@@ -1,4 +1,4 @@
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatVec.c
 //  Justin M Selfridge
@@ -170,3 +170,4 @@ matrix* mat_proj ( matrix* u, matrix* v ) {
 
 
 
+*/

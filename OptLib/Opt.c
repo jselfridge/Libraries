@@ -1,4 +1,4 @@
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Opt.c
 //  Justin M Selfridge
@@ -44,3 +44,4 @@ void opt_grad ( matrix* F ( matrix* ), matrix** x, matrix* d, double tol, double
 
 
 
+*/

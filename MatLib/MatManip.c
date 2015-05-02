@@ -1,4 +1,4 @@
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatManip.c
 //  Justin M Selfridge
@@ -330,3 +330,4 @@ matrix* mat_rmtiny ( matrix* mat, double tol ) {
 
 
 
+*/

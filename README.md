@@ -2,7 +2,10 @@ Libraries
 =========
 
 This repository contains various libraries that are useful
-for a wide variety of coding projects.  
+for a wide variety of coding projects.  Some are for general 
+purpose programs, and others are specific to the BBB platform.
+
+<!--
 
 The 'MatLib' Library implements a variety of linear algebra 
 functions in the C language so it is particularly applicable to
@@ -15,5 +18,6 @@ for both simulations and hardware applications.
 The 'Debug' directory contains code to test the various libraries
 while they are under development.
 
+-->
 
 
