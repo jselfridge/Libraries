@@ -10,6 +10,7 @@ categories:
       MatComplex  - Similar to MatManip, but for complex matrices
       MatVec      - Operations appplied to vectors
       MatArith    - Arithmetic and matrix math functions
+      MatRoot     - Method to find complex roots of a polynomial
 
 The primary intention is to keep this as a static library which 
 can be referenced throughout multiple projects.  The command:
