@@ -11,23 +11,20 @@
 //  If error condition is true, prints a warning and exits.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_err ( bool cond, char* msg )  {
-  if (cond) {
-    fprintf( stderr, "%s\n\n", msg );
-    exit(1);
-  }
+  if (cond) {  fprintf( stderr, "%s\n\n", msg );  exit(1);  }
 }
 
-/*
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_init
 //  Initializes a new matrix with the specified dimensions, and
 //  sets the elements to values of zero.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* mat_init ( int rows, int cols ) {
+matrix* mat_init ( int rows, int cols )  {
 
-  mat_err( ( rows<1 || cols<1 ), "Error (mat_init): Matrix dimensions must be positive." ); 
+  mat_err( rows <1 || cols <1, "Error (mat_init): Matrix dimensions must be positive." ); 
+
   matrix* out;
-
   out = (matrix*) malloc( sizeof(matrix) );
   mat_err( out == NULL, "Error (mat_init): Matrix returned NULL." );
 
@@ -40,24 +37,22 @@ matrix* mat_init ( int rows, int cols ) {
 
   return out;
 }
-*/
-/*
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_read
 //  Reads a matrix from a file.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* mat_read ( char* file ) {
+matrix* mat_read ( char* file )  {
 
   FILE*    f;
-  int      i, n, r, c, scan;
+  int      i, r, c, n, scan;
   float    val;
   matrix*  out;
-  double*  outdata;
+  double*  data;
 
-  if ( ( f= fopen( file, "r" ) ) == NULL ) {
-    fprintf( stderr, "Error (mat_read): Cannot open '%s'.\n", file );
-    exit(1);
-  }
+  f = fopen( file, "r" );
+  mat_err( f==NULL, "Error (mat_read): Cannot open file." );
 
   scan = fscanf( f, "#" );
   mat_err( scan==EOF, "Error (mat_read): Failed to read 'header' from file." );
@@ -69,13 +64,13 @@ matrix* mat_read ( char* file ) {
   mat_err( scan==EOF, "Error (mat_read): Failed to read 'cols' from file." );
 
   out = mat_init(r,c);
-  n = r*c; 
-  outdata = out->data;
+  n = r * c; 
+  data = out->data;
 
   for ( i=0; i<n; i++ ) {
     scan = fscanf( f, "%f", &val );
     mat_err( scan==EOF, "Error (mat_read): Matrix is missing elements." );
-    *(outdata++) = val;
+    *(data++) = val;
   }
 
   scan = fscanf( f, "%f", &val );
@@ -84,75 +79,69 @@ matrix* mat_read ( char* file ) {
   fclose(f);
   return out;
 }
-*/
-/*
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_print
-//  Display a matrix in the terminal.
+//  Displays a matrix in the terminal.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void mat_print( matrix* mat ) {
+void mat_print( matrix* mat )  {
 
-  int r = mat->rows;
-  int c = mat->cols;
+  int r, c, i, j;
+
+  r = mat->rows;
+  c = mat->cols;
 
   printf( "[%dx%d]\n", r, c );
-  for ( int i=1; i<=r; i++ ) {
-    for ( int j=1; j<=c; j++ ) {
-      printf( " %9.6f", mat_get(mat,i,j) );
-    }
+  for ( i=1; i<=r; i++ ) {
+    for ( j=1; j<=c; j++ )  printf( " %9.6f", mat_get(mat,i,j) );
     printf("\n");
   }
 
   return;
 }
-*/
-/*
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_write
 //  Writes a matrix to a file.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void mat_write ( matrix* mat, char* file ) {
+void mat_write ( matrix* mat, char* file )  {
 
-  FILE*   f;
-  int r = mat->rows;
-  int c = mat->cols;
-  //double* matdata = mat->data;
+  FILE* f;
+  int r, c, i, j;
 
-  if ( ( f= fopen( file, "w" ) ) == NULL ) {
-    fprintf( stderr, "Error (mat_write): Cannot open '%s'.\n", file );
-    exit(1);
-  }
+  r = mat->rows;
+  c = mat->cols;
+
+  f = fopen( file, "w" );
+  mat_err( f==NULL, "Error (mat_write): Cannot open file.\n" );
 
   fprintf( f, "# %d %d \n", r, c );
-  for ( int i=1; i<=r; i++ ) {
-    for ( int j=1; j<=c; j++ ) {
-      fprintf( f, " %2.5f", mat_get(mat,i,j) );
-    }
+  for ( i=1; i<=r; i++ ) {
+    for ( j=1; j<=c; j++ )  fprintf( f, " %2.5f", mat_get(mat,i,j) );
     fprintf( f, "\n" );
   }
 
   fclose(f);  
   return;
 }
-*/
-/*
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_clear
 //  Destroys an existing matrix and frees the memory.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void mat_clear( matrix* mat ) {
+void mat_clear ( matrix* mat )  {
 
   double* data = mat->data;
   if ( mat != NULL ) {
-    if ( data != NULL ) {
-      free( data );
-      data = NULL;
-    }
+    if ( data != NULL ) {  free( data );  data = NULL;  }
     free(mat);
     mat = NULL;
   }
   return;
 }
-*/
+
 
 

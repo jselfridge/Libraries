@@ -41,32 +41,34 @@ typedef struct _matrixz {
 } matrixz;
 */
 
-//  MatIO functions
-void     mat_err     ( bool cond, char* msg );
-//matrix*  mat_init    ( int rows, int cols );
-//matrix*  mat_read    ( char* file );
-//void     mat_print   ( matrix* mat );
-//void     mat_write   ( matrix* mat, char* file );
-//void     mat_clear   ( matrix* mat );
 
-/*
+//  MatIO functions
+void      mat_err     ( bool cond, char* msg );
+matrix*   mat_init    ( int rows, int cols );
+matrix*   mat_read    ( char* file );
+void      mat_print   ( matrix* mat );
+void      mat_write   ( matrix* mat, char* file );
+void      mat_clear   ( matrix* mat );
+
+
 //  MatManip functions
-double   mat_get     ( matrix* mat, int row, int col );
-matrix*  mat_getr    ( matrix* mat, int row );
-matrix*  mat_getc    ( matrix* mat, int col );
-void     mat_set     ( matrix* mat, int row, int col, double val );
-void     mat_setr    ( matrix* mat, int row, matrix* vec );
-void     mat_setc    ( matrix* mat, int col, matrix* vec );
-matrix*  mat_copy    ( matrix* mat );
-matrix*  mat_eye     ( int n );
-matrix*  mat_ones    ( int rows, int cols );
-matrix*  mat_scale   ( matrix* mat, double scale );
-void     mat_swapr   ( matrix* mat, int p, int q );
-void     mat_swapc   ( matrix* mat, int n, int m );
-matrix*  mat_appr    ( matrix* matT, matrix* matB );
-matrix*  mat_appc    ( matrix* matL, matrix* matR );
-matrix*  mat_rmtiny  ( matrix* mat, double tol );
-*/
+double    mat_get     ( matrix* mat, int row, int col );
+matrix*   mat_getr    ( matrix* mat, int row );
+matrix*   mat_getc    ( matrix* mat, int col );
+void      mat_set     ( matrix* mat, int row, int col, double val );
+void      mat_setr    ( matrix* mat, int row, matrix* vec );
+void      mat_setc    ( matrix* mat, int col, matrix* vec );
+matrix*   mat_copy    ( matrix* mat );
+matrix*   mat_eye     ( int n );
+matrix*   mat_ones    ( int rows, int cols );
+matrix*   mat_scale   ( matrix* mat, double scale );
+void      mat_swapr   ( matrix* mat, int p, int q );
+void      mat_swapc   ( matrix* mat, int p, int q );
+matrix*   mat_appr    ( matrix* matT, matrix* matB );
+matrix*   mat_appc    ( matrix* matL, matrix* matR );
+matrix*   mat_rmtiny  ( matrix* mat, double tol );
+
+
 /*
 //  MatComplex functions
 matrixz* mat_initz   ( int rows, int cols );
