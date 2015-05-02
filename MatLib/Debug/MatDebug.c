@@ -1,18 +1,20 @@
-/*
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//============================================================
 //  MatDebug.c
 //  Justin M Selfridge
-//  Script to debug the MatLib Library
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//============================================================
 #include "MatDebug.h"
 
 
 
 
 // Debugging function 
-void DebugMatLib() {
+int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
-  InitMat(); 
+
+  mat_err( 1, "Error (main): Testing the function output." );
+
+  //InitMat(); 
   //PrintMat();  
   //MatIO();
   //MatManip();
@@ -21,17 +23,17 @@ void DebugMatLib() {
   //MatArith();
   //MatProp();
   //MatDecomp();
-  MatEchelon();
+  //MatEchelon();
   //MatRoot();
   //MatSS();
-  ClearMat();
+  //ClearMat();
   printf("   --- MatLib Complete --- \n\n");
-  return;
+  return 0;
 }
 
 
 
-
+/*
 // InitMat (initialize the matrices)
 void InitMat() {
 
@@ -478,6 +480,8 @@ void MatProp() {
   int rank = mat_rank(M44);
   printf( "Rank: %d \n", rank );
 
+*/
+
   /*
   // Test eigenvalues
   double tol  = 0.0000001;
@@ -530,6 +534,8 @@ void MatProp() {
 // Matrix Decomposition
 void MatDecomp() {
   printf("Matrix decomposition \n");
+*/
+
   /*
   // LU decomposition [3x3]
   matrix* L3 = NULL;
@@ -580,7 +586,7 @@ void MatDecomp() {
   mat_clear(Q);
   mat_clear(R);
 
-
+*/
 
 
   /*

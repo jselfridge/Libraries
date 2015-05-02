@@ -1,29 +1,22 @@
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##  makefile - Debug the library directory
+##============================================================
+##  makefile - Debug MatLib
 ##  Justin M Selfridge
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##============================================================
 
-EXEC   = Debug
+
 CC     = gcc
 CFLAGS = -c -Wall
 
-MATLIB  = ../MatLib/libMat.a
-ROTLIB  = ../RotLib/libRot.a
-OPTLIB  = ../OptLib/libOpt.a
-CTRLLIB = ../CtrlLib/libCtrl.a
 
-FILE := $(shell ls | grep -F ".c" )
-NAME := $(patsubst %.c, %, $(FILE) )
-OBJ  := $(foreach o, $(NAME), $(o).o )
+all : Debug
 
-#all : $(EXEC)
+Debug : MatDebug.o
+	$(CC) ../libMat.a -o $@ $<
 
-$(EXEC) : $(OBJ)
-	$(CC) $(OBJ) -o $@ $(MATLIB) $(ROTLIB) $(OPTLIB) $(CTRLLIB)
-
-%.o : %.c %.h
+MatDebug.o : MatDebug.c MatDebug.h
 	$(CC) $(CFLAGS) -o $@ $< 
 
 clean :
-	rm $(OBJ) $(EXEC)
+	rm MatDebug.o Debug
+
