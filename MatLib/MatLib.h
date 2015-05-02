@@ -42,16 +42,13 @@ typedef struct _matrixz {
 */
 
 
-//  MatIO functions
+//  MatManip functions
 void      mat_err     ( bool cond, char* msg );
 matrix*   mat_init    ( int rows, int cols );
 matrix*   mat_read    ( char* file );
 void      mat_print   ( matrix* mat );
 void      mat_write   ( matrix* mat, char* file );
 void      mat_clear   ( matrix* mat );
-
-
-//  MatManip functions
 double    mat_get     ( matrix* mat, int row, int col );
 matrix*   mat_getr    ( matrix* mat, int row );
 matrix*   mat_getc    ( matrix* mat, int col );

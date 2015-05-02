@@ -14,7 +14,6 @@ int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
   PrintMat();  
-  MatIO();
   MatManip();
   //MatComplex();
   //MatVec();
@@ -167,31 +166,22 @@ void ClearMat ()  {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  MatIO
-//  Debugs the MatIO file functions.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void MatIO ()  {
-  printf("Matrix input and output \n");
-  matrix* M = mat_init(5,2);
-  printf("Rows: %d \n", M->rows );
-  printf("Cols: %d \n", M->cols );
-  mat_print(M);
-  mat_write(M,"test");
-  matrix* N = mat_read("test");
-  mat_print(N);
-  mat_clear(M); 
-  mat_clear(N);
-  printf("\n");
-  return;
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatManip
 //  Debugs the MatManip file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void MatManip ()  {
   printf("Matrix manipulation \n");
+
+  // File operations
+  matrix* A = mat_init(5,2);
+  printf("Rows: %d \n", A->rows );
+  printf("Cols: %d \n", A->cols );
+  mat_print(A);
+  mat_write(A,"test");
+  matrix* B = mat_read("test");
+  mat_print(B);
+  mat_clear(A); 
+  mat_clear(B);
 
   // Identity matrix
   matrix* M = mat_eye(4);

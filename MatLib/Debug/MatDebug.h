@@ -19,7 +19,6 @@
 //void DebugMatLib();
 void InitMat();
 void PrintMat();
-void MatIO();
 void MatManip();
 //void MatComplex();
 //void MatVec();
