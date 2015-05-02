@@ -6,34 +6,26 @@ This directory is C code for a static library that delivers linear
 algebra functionality.  The functions are grouped in the following 
 categories:
 
+    MatManip    - Matrix input, output and general manipulations
+    MatComplex  - Similar to MatManip, but for complex matrices
 
-<!--
-
-    MatIO     - Input and output capabilities
-    MatManip  - Manipulations and matrix modifications
-    MatVec    - Operations with vectors
-    MatArith  - Arithmetic and matrix math functions
-    MatProp   - Properties of a matrix
-    MatDecomp - Decompositions for det() and inv()
-
-The primary intention is to keep this as a static 
-library that can be referenced throughout multiple
-projects.  The command:
+The primary intention is to keep this as a static library which 
+can be referenced throughout multiple projects.  The command:
 
     ar -cvq libMat.a *.o
 
-is used to generate the static library.  It is
-included in the 'makefile' and places the 
-library in the appropriate folder.
-
-Functions for future development:
-double   mat_mean    ( matrix* mat );  
-matrix*  mat_meanr   ( matrix* mat );  
-matrix*  mat_meanc   ( matrix* mat );  
-matrix*  mat_eigval  ( matrix* mat );  
-matrix*  mat_eigvec  ( matrix* mat );  
-matrix*  mat_cov     ( matrix* mat );  
+is run in the <code>makefile</code>, which generates a static 
+library that can be included in other projects.
 
 
+<!--
+
+    MatVec    - Operations that work with vectors
+    MatArith  - Arithmetic and matrix math functions
+    MatProp   - Properties of a matrix
+    MatDecomp - Useful matrix decompositions
 
 -->
+
+
+
