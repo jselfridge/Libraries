@@ -1,8 +1,8 @@
-/*
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//============================================================
 //  MatRoot.c
 //  Justin M Selfridge
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//============================================================
 #include "MatLib.h"
 
 
@@ -10,22 +10,28 @@
 //  mat_root
 //  Returns complex roots of a polynomial using Durand-Kerner method.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrixz* mat_root ( matrix* poly, double tol, int max ) {
+matrixz* mat_root ( matrix* poly, double tol, int max )  {
 
-  mat_err( poly->rows!=1, "Error(mat_root): Polynomial must be input as a row vector." );
+  mat_err( poly->rows !=1, "Error (mat_root): Polynomial must be a row vector." );
 
-  int c = poly->cols;
-  int z = c-1;
+  int i, j, c, z;
+  double m, b;
 
-  matrixz* zero = mat_initz(z,1);
+  c = poly->cols;
+  z = c-1;
+
   matrix*  coef = mat_init (c,1);
+  matrixz* zero = mat_initz(z,1);
 
-  for ( int i=1; i<=c; i++ ) {
-    int j = c+1-i;
+  m = mat_get(poly,1,1);
+  if ( m!=1.0 )  poly = mat_scale(poly,1/m);
+
+  for ( i=1; i<=c; i++ ) {
+    j = c+1-i;
     mat_set( coef,j,1, mat_get(poly,1,i) );
   }
 
-  double b = B(coef);
+  b = B(coef);
   Z(zero,b);
   L( zero, coef, tol, max );
 
@@ -37,12 +43,14 @@ matrixz* mat_root ( matrix* poly, double tol, int max ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Auxilliary function that bounds the coefficients.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-double B ( matrix* coef ) {
+double B ( matrix* coef )  {
 
-  int c = coef->rows;
-  double val, b = 0;
+  int i, c;
+  double val, b = 0.0;
 
-  for( int i=1; i<=c; i++ ) {
+  c = coef->rows;
+
+  for( i=1; i<=c; i++ ) {
     val = fabs( mat_get(coef,i,1) );
     if( val > b )  b = val;
   }
@@ -54,32 +62,38 @@ double B ( matrix* coef ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Auxilliary function initializes values of the complex zeros.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void Z ( matrixz* zero, double b ) {
+void Z ( matrixz* zero, double b )  {
 
-  int z = zero->rows;
+  int i, z;
   double re, im, ratio;
 
-  for( int i=1; i<=z; i++ ) {
+  z = zero->rows;
+
+  for( i=1; i<=z; i++ ) {
     ratio = (double)i / (double)z;
     re = cos( ratio * PI2 );
     im = sin( ratio * PI2 ) * b;
     mat_setz( zero, i, 1, re, im );
   }
+
+  return;
 }
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Auxilliary function loops through the numerical routine.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void L ( matrixz* zero, matrix* coef, double tol, int max ) {
+void L ( matrixz* zero, matrix* coef, double tol, int max )  {
 
-  int k, z = zero->rows;
-  double complex n, d, Q, Z;
+  int j, k, z;
   double  q, qmax;
+  double complex n, d, Q, Z;
+
+  z = zero->rows;
 
   for ( k=0; k<max; k++ ) {
     qmax = 0.0;
-    for( int j=1; j<=z; j++ ) {
+    for( j=1; j<=z; j++ ) {
       n = N( zero, coef, j );
       d = D( zero, j );
       Q = -n/d;
@@ -91,21 +105,27 @@ void L ( matrixz* zero, matrix* coef, double tol, int max ) {
     }
     if( qmax <= tol )  break;
   }
-  mat_err( k>=max, "Error (mat_root): Exceeded maximum iterations."  );
+
+  mat_err( k>=max, "Error (mat_root): Exceeded maximum iterations." );
+
+  return;
 }
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Auxilliary function generates the iterative numerator.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-double complex N ( matrixz* zero, matrix* coef, int j ) {
+double complex N ( matrixz* zero, matrix* coef, int j )  {
 
-  int c = coef->rows;
-  int z = zero->rows;
-  double complex C, Z, n = mat_get(coef,c,1);
+  int i, c, z;
   double re, im;
+  double complex C, Z, n;
 
-  for( int i=z; i>=1; i-- ) {
+  c = coef->rows;
+  z = zero->rows;
+  n = mat_get(coef,c,1);
+
+  for( i=z; i>=1; i-- ) {
     C = mat_get(coef,i,1);
     re = mat_getre(zero,j,1);
     im = mat_getim(zero,j,1);
@@ -120,12 +140,15 @@ double complex N ( matrixz* zero, matrix* coef, int j ) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Auxilliary function generates the iterative denominator.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-double complex D ( matrixz* zero, int j ) {
+double complex D ( matrixz* zero, int j )  {
 
-  int z = zero->rows;
-  double complex zi, zj, d = 1.0;
+  int i, z;
+  double complex zi, zj, d;
 
-  for( int i=1; i<=z; i++ ) {
+  z = zero->rows;
+  d = 1.0;
+
+  for( i=1; i<=z; i++ ) {
     zi = mat_getre(zero,i,1) + mat_getim(zero,i,1) *I;
     zj = mat_getre(zero,j,1) + mat_getim(zero,j,1) *I;
     if( i!=j )  d *= zj - zi;
@@ -136,4 +159,3 @@ double complex D ( matrixz* zero, int j ) {
 
 
 
-*/

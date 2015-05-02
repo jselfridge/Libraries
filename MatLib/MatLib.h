@@ -41,7 +41,7 @@ typedef struct _matrixz {
 } matrixz;
 
 
-//  MatManip functions
+// MatManip functions
 void      mat_err     ( bool cond, char* msg );
 matrix*   mat_init    ( int rows, int cols );
 matrix*   mat_read    ( char* file );
@@ -65,7 +65,7 @@ matrix*   mat_appc    ( matrix* matL, matrix* matR );
 void      mat_rmtiny  ( matrix** mat, double tol );
 
 
-//  MatComplex functions
+// MatComplex functions
 matrixz*  mat_initz   ( int rows, int cols );
 matrixz*  mat_readz   ( char* file );
 void      mat_printz  ( matrixz* mat );
@@ -80,7 +80,7 @@ void      mat_setzr   ( matrixz* mat, int row, matrixz* vec );
 void      mat_setzc   ( matrixz* mat, int col, matrixz* vec );
 
 
-//  MatVec functions
+// MatVec functions
 matrix*   mat_skew    ( matrix* vec );
 matrix*   mat_sskew   ( matrix* vec );
 matrix*   mat_cross   ( matrix* vecA, matrix* vecB );
@@ -91,7 +91,7 @@ matrix*   mat_uvec    ( matrix* vec );
 matrix*   mat_proj    ( matrix* u, matrix* v );
 
 
-//  MatArith functions
+// MatArith functions
 matrix*   mat_add     ( matrix* matA, matrix* matB );
 matrix*   mat_sub     ( matrix* matA, matrix* matB );
 matrix*   mat_mul     ( matrix* matA, matrix* matB );
@@ -100,51 +100,14 @@ matrix*   mat_abs     ( matrix* mat );
 matrix*   mat_trans   ( matrix* mat );
 
 
+// MatRoot functions
+matrixz*  mat_root    ( matrix* poly, double tol, int max );
+double           B    ( matrix* coef );
+void             Z    ( matrixz* zero, double b );
+void             L    ( matrixz* zero, matrix* coef, double tol, int max );
+double complex   N    ( matrixz* zero, matrix* coef, int j );
+double complex   D    ( matrixz* zero, int j );
 
-
-/*
-//  MatProp functions
-double   mat_trace   ( matrix* mat );
-int      mat_rank    ( matrix* mat );  // WIP
-void     mat_eigval  ( matrix* mat, double tol, int max );  // WIP
-//matrix*  mat_eigvec  ( matrix* mat );
-//double   mat_mean    ( matrix* mat );
-//matrix*  mat_meanr   ( matrix* mat );
-//matrix*  mat_meanc   ( matrix* mat );
-//matrix*  mat_cov     ( matrix* mat );
-*/
-/*
-//  MatDecomp functions
-void     mat_LU    ( matrix* mat, matrix** L, matrix** U );
-void     mat_QR    ( matrix* mat, matrix** Q, matrix** R ); 
-double   mat_det   ( matrix* mat );
-matrix*  mat_divL  ( matrix* A, matrix* B );
-matrix*  mat_divR  ( matrix* B, matrix* A );
-matrix*  mat_inv   ( matrix* mat );
-//matrix*  Mat_DivL  ( matrix* A, matrix* B );  // Alternative with QR
-*/
-/*
-//  MatGauss functions (not finished yet)
-matrix* mat_echelon   ( matrix*  mat );  // WIP
-bool    ech_colzero   ( matrix*  X, int m );
-void    ech_reorder   ( matrix** X, int n, int m );
-*/
-/*
-//  MatRoot functions
-matrixz* mat_root  ( matrix* poly, double tol, int max );
-double          B  ( matrix* coef );
-void            Z  ( matrixz* zero, double b );
-void            L  ( matrixz* zero, matrix* coef, double tol, int max );
-double complex  N  ( matrixz* zero, matrix* coef, int j );
-double complex  D  ( matrixz* zero, int j );
-*/
-/*
-//  MatSS functions
-matrix* mat_ctrb   ( matrix* A, matrix*B );
-matrix* mat_obsv   ( matrix* A, matrix*C );
-void    mat_Tctrl  ( matrix* A, matrix* B, matrix**Tc, matrix** Ac );
-void    mat_lin    ( matrix* dx ( matrix*, matrix* ), matrix* x, matrix* u, matrix** A, matrix** B, double d );
-*/
 
 #endif
 
