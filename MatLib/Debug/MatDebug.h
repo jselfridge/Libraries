@@ -17,10 +17,10 @@
 
 // Function prototypes
 //void DebugMatLib();
-//void InitMat();
-//void PrintMat();
-//void MatIO();
-//void MatManip();
+void InitMat();
+void PrintMat();
+void MatIO();
+void MatManip();
 //void MatComplex();
 //void MatVec();
 //void MatArith();
@@ -31,13 +31,15 @@
 //void MatSS();
 //matrix* Plant1 ( matrix* x, matrix* u );
 //matrix* Plant2 ( matrix* x, matrix* u );
-//void ClearMat();
+void ClearMat();
 
-/*
+
 // Global variables
-matrix* V3a;
-matrix* V3b;
-matrix* V4;
+matrix* M13;
+matrix* M14;
+matrix* M31a;
+matrix* M31b;
+matrix* M41;
 matrix* M22;
 matrix* M23;
 matrix* M32;
@@ -46,7 +48,7 @@ matrix* M33b;
 matrix* M34;
 matrix* M43;
 matrix* M44;
-*/
+
 
 #endif
 

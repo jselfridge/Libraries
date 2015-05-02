@@ -17,8 +17,8 @@ void mat_err ( bool cond, char* msg )  {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_init
-//  Initializes a new matrix with the specified dimensions, and
-//  sets the elements to values of zero.
+//  Initializes a new matrix with the specified dimensions,
+//  and sets the elements to values of zero.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 matrix* mat_init ( int rows, int cols )  {
 

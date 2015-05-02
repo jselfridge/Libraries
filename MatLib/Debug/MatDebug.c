@@ -6,18 +6,16 @@
 #include "MatDebug.h"
 
 
-
-
-// Debugging function 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  main
+//  Runs the main MatLib debugging program.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
-
-  mat_err( 1, "Error (main): Testing the function output." );
-
-  //InitMat(); 
-  //PrintMat();  
-  //MatIO();
-  //MatManip();
+  InitMat(); 
+  PrintMat();  
+  MatIO();
+  MatManip();
   //MatComplex();
   //MatVec();
   //MatArith();
@@ -26,47 +24,61 @@ int main ()  {
   //MatEchelon();
   //MatRoot();
   //MatSS();
-  //ClearMat();
+  ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return 0;
 }
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  InitMat
+//  Initializes the debugging matrices.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void InitMat ()  {
 
-/*
-// InitMat (initialize the matrices)
-void InitMat() {
+  // Define 1x3 vector
+  M13 = mat_init(1,3);
+  mat_set(M13,1,1,-0.1);
+  mat_set(M13,1,2,4.6);
+  mat_set(M13,1,3,7.3);
 
-  //  Define first 3x1 vector
-  V3a = mat_init(3,1);
-  mat_set(V3a,1,1,6.0);
-  mat_set(V3a,2,1,2.1);
-  mat_set(V3a,3,1,0.3);
+  // Define 1x4 vector
+  M14 = mat_init(1,4);
+  mat_set(M14,1,1,2.6);
+  mat_set(M14,1,2,5.9);
+  mat_set(M14,1,3,3.7);
+  mat_set(M14,1,4,1.4);
 
-  //  Define second 3x1 vector
-  V3b = mat_init(3,1);
-  mat_set(V3b,1,1,-4.2);
-  mat_set(V3b,2,1, 8.7);
-  mat_set(V3b,3,1,-3.9);
+  // Define first 3x1 vector
+  M31a = mat_init(3,1);
+  mat_set(M31a,1,1,6.0);
+  mat_set(M31a,2,1,2.1);
+  mat_set(M31a,3,1,0.3);
+
+  // Define second 3x1 vector
+  M31b = mat_init(3,1);
+  mat_set(M31b,1,1,-4.2);
+  mat_set(M31b,2,1, 8.7);
+  mat_set(M31b,3,1,-3.9);
   
-  //  Define 4x1 vector
-  V4 = mat_init(4,1);
-  mat_set(V4,1,1,-2.2);
-  mat_set(V4,2,1, 7.4);
-  mat_set(V4,3,1,-9.1);
-  mat_set(V4,4,1, 5.8);
+  // Define 4x1 vector
+  M41 = mat_init(4,1);
+  mat_set(M41,1,1,-2.2);
+  mat_set(M41,2,1, 7.4);
+  mat_set(M41,3,1,-9.1);
+  mat_set(M41,4,1, 5.8);
   
-  //  Define 2x2 matrix
+  // Define 2x2 matrix
   M22 = mat_init(2,2);
   mat_set(M22,1,1, 3.4);  mat_set(M22,1,2,-5.3);
   mat_set(M22,2,1,-7.2);  mat_set(M22,2,2, 9.2);
 
-  //  Define 2x3 matrix
+  // Define 2x3 matrix
   M23 = mat_init(2,3);
   mat_set(M23,1,1,6.6);  mat_set(M23,1,2, 1.9);  mat_set(M23,1,3,-0.4);
   mat_set(M23,2,1,9.4);  mat_set(M23,2,2,-7.1);  mat_set(M23,2,3, 0.8);
 
-  //  Define 3x2 matrix
+  // Define 3x2 matrix
   M32 = mat_init(3,2);
   mat_set(M32,1,1, 6.8);  mat_set(M32,1,2,-0.1);
   mat_set(M32,2,1, 0.4);  mat_set(M32,2,2, 5.4);
@@ -104,17 +116,21 @@ void InitMat() {
   mat_set(M44,3,1, 0.7);  mat_set(M44,3,2, 4.7);  mat_set(M44,3,3, 9.9);  mat_set(M44,3,4,-9.3);
   mat_set(M44,4,1,-4.5);  mat_set(M44,4,2,-8.1);  mat_set(M44,4,3, 0.1);  mat_set(M44,4,4, 2.7);
 
+  return;
 }
 
 
-
-
-// PrintMat (prints the matrices used in demo)
-void PrintMat() {
-  printf("General purpose matrices \n");
-  mat_print(V3a);
-  mat_print(V3b);
-  mat_print(V4);
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  PrintMat
+//  Prints the debugging matrices.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void PrintMat ()  {
+  printf("General purpose debugging matrices \n");
+  mat_print(M13);
+  mat_print(M14);
+  mat_print(M31a);
+  mat_print(M31b);
+  mat_print(M41);
   mat_print(M22);
   mat_print(M23);
   mat_print(M32);
@@ -124,16 +140,20 @@ void PrintMat() {
   mat_print(M43);
   mat_print(M44);
   printf("\n");
+  return;
 }
 
 
-
-
-// ClearMat (clears the matrices used in demo)
-void ClearMat() {
-  mat_clear(V3a);
-  mat_clear(V3b);
-  mat_clear(V4);
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  ClearMat
+//  Clears the debugging matrices.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void ClearMat ()  {
+  mat_clear(M13);
+  mat_clear(M14);
+  mat_clear(M31a);
+  mat_clear(M31b);
+  mat_clear(M41);
   mat_clear(M22);
   mat_clear(M23);
   mat_clear(M32);
@@ -142,13 +162,15 @@ void ClearMat() {
   mat_clear(M34);
   mat_clear(M43);
   mat_clear(M44);
+  return;
 }
 
 
-
-
-// Matrix Input and Output
-void MatIO() {
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  MatIO
+//  Debugs the MatIO file functions.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void MatIO ()  {
   printf("Matrix input and output \n");
   matrix* M = mat_init(5,2);
   printf("Rows: %d \n", M->rows );
@@ -160,13 +182,15 @@ void MatIO() {
   mat_clear(M); 
   mat_clear(N);
   printf("\n");
+  return;
 }
 
 
-
-
-// Matrix Manipulation
-void MatManip() {
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  MatManip
+//  Debugs the MatManip file functions.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void MatManip ()  {
   printf("Matrix manipulation \n");
 
   // Identity matrix
@@ -181,41 +205,45 @@ void MatManip() {
   matrix* P = mat_copy(N);
   mat_print(P);
 
-  // Set element value
-  mat_set(P,1,4,14.0);
-  mat_set(P,3,2,32.0);
+  // Set element values
+  mat_set( P,1,4, 14.0 );
+  mat_set( P,3,2, 32.0 );
   mat_print(P);
 
-  // Get element value
+  // Get element values
   double val;
   val = mat_get(P,1,4);
   printf( "Element value: %f\n", val );
   val = mat_get(P,3,2);
   printf( "Element value: %f\n", val );
 
-  // Get matrix row
-  mat_print(mat_getr(M22,2));
-  mat_print(mat_getr(M32,1));
-  mat_print(mat_getr(M33b,3));
-  mat_print(mat_getr(M44,4));
-
-  // Get matrix row
-  mat_print(mat_getc(M22,2));
-  mat_print(mat_getc(M32,1));
-  mat_print(mat_getc(M33b,3));
-  mat_print(mat_getc(M44,4));
-
-  // Set matrix row
-  mat_setr(M23,1,mat_trans(V3a));  mat_print(M23);
-  mat_setr(M44,4,mat_trans(V4));   mat_print(M44);
-
-  // Set matrix column
-  mat_setc(M32,2,V3a);  mat_print(M32);
-  mat_setc(M44,4,V4);   mat_print(M44);
-
   // Ones matrix
   matrix* Q = mat_ones(5,2);
   mat_print(Q);
+
+  // Get matrix row
+  mat_print( mat_getr(M22,2) );
+  mat_print( mat_getr(M32,1) );
+  mat_print( mat_getr(M33b,3) );
+  mat_print( mat_getr(M44,4) );
+
+  // Get matrix column
+  mat_print( mat_getc(M22,2) );
+  mat_print( mat_getc(M32,1) );
+  mat_print( mat_getc(M33b,3) );
+  mat_print( mat_getc(M44,4) );
+
+  // Set matrix row
+  mat_setr(M23,2,M13);
+  mat_print(M23);
+  mat_setr(M44,1,M14);
+  mat_print(M44);
+
+  // Set matrix column
+  mat_setc(M32,2,M31a);
+  mat_print(M32);
+  mat_setc(M44,1,M41);
+  mat_print(M44);
 
   // Swap Rows [2x2]
   mat_print(M22);
@@ -246,41 +274,43 @@ void MatManip() {
 
   // Swap col [4x3]
   mat_print(M43);
-  mat_swapc(M43,3,2);
+  mat_swapc(M43,1,1);
   mat_print(M43);
   mat_swapc(M43,3,2);
+  mat_print(M43);
+  mat_swapc(M43,2,3);
 
   // Append rows
   mat_print( mat_appr(M33a,M33b) );
-  mat_print( mat_appr(mat_trans(V3a),M33a) );
-  mat_print( mat_appr(M44,mat_trans(V4)) );
+  mat_print( mat_appr(M13,M33a) );
+  mat_print( mat_appr(M44,M14) );
 
   // Append columns
-  mat_print( mat_appc(mat_trans(M32),M22) );
   mat_print( mat_appc(M33a,M33b) );
-  mat_print( mat_appc(M44,V4) );
+  mat_print( mat_appc(M44,M41) );
 
   // Remove tiny
   matrix* R = mat_init(2,2);
-  mat_set(R,1,1, 0.1000 );  mat_set(R,1,2, 0.0100 );
-  mat_set(R,2,1, 0.0010 );  mat_set(R,2,2, 0.0001 );
+  mat_set(R,1,1, -0.1000 );  mat_set(R,1,2,  0.0100 );
+  mat_set(R,2,1,  0.0010 );  mat_set(R,2,2, -0.0001 );
   mat_print(R);
-  R = mat_rmtiny(R,0.0020);
+  mat_rmtiny(&R,0.0020);
   mat_print(R);
 
   // Clear completed matrices 
-  mat_clear(M); 
-  mat_clear(N); 
-  mat_clear(P); 
+  mat_clear(M);
+  mat_clear(N);
+  mat_clear(P);
   mat_clear(Q);
   mat_clear(R);
 
   printf("\n");
+  return;
 }
 
 
 
-
+/*
 // Complex Matrix Input and Output
 void MatComplex() {
   printf("Complex matrix input and output \n");

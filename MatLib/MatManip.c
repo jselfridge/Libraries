@@ -301,26 +301,24 @@ matrix* mat_appc ( matrix* matL, matrix* matR )  {
 //  mat_rmtiny
 //  Removes nearly zero entries within a matrix.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-matrix* mat_rmtiny ( matrix* mat, double tol )  {
+void mat_rmtiny ( matrix** mat, double tol )  {
 
   mat_err( tol<0, "Error (mat_rmtiny): Tolerance must be nonnegative." );
 
   int i, j, r, c;
   double val;
 
-  r = mat->rows;
-  c = mat->cols;
-
-  matrix* out = mat_init(r,c);
+  r = (*mat)->rows;
+  c = (*mat)->cols;
 
   for ( i=1; i<=r; i++ ) {
     for ( j=1; j<=c; j++ ) {
-      val = fabs( mat_get(mat,i,j) );
-      if ( val < tol )  mat_set( out,i,j, 0.0 );
+      val = fabs( mat_get(*mat,i,j) );
+      if ( val < tol )  mat_set( *mat,i,j, 0.0 );
     }
   }
 
-  return out;
+  return;
 }
 
 

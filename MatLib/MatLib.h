@@ -66,7 +66,7 @@ void      mat_swapr   ( matrix* mat, int p, int q );
 void      mat_swapc   ( matrix* mat, int p, int q );
 matrix*   mat_appr    ( matrix* matT, matrix* matB );
 matrix*   mat_appc    ( matrix* matL, matrix* matR );
-matrix*   mat_rmtiny  ( matrix* mat, double tol );
+void      mat_rmtiny  ( matrix** mat, double tol );
 
 
 /*
