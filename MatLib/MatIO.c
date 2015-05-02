@@ -1,8 +1,8 @@
-/*
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//============================================================
 //  MatIO.c
 //  Justin M Selfridge
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//============================================================
 #include "MatLib.h"
 
 
@@ -10,14 +10,14 @@
 //  mat_err
 //  If error condition is true, prints a warning and exits.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void mat_err ( bool cond, char* msg ) {
+void mat_err ( bool cond, char* msg )  {
   if (cond) {
     fprintf( stderr, "%s\n\n", msg );
     exit(1);
   }
 }
 
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_init
 //  Initializes a new matrix with the specified dimensions, and
@@ -40,8 +40,8 @@ matrix* mat_init ( int rows, int cols ) {
 
   return out;
 }
-
-
+*/
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_read
 //  Reads a matrix from a file.
@@ -84,8 +84,8 @@ matrix* mat_read ( char* file ) {
   fclose(f);
   return out;
 }
-
-
+*/
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_print
 //  Display a matrix in the terminal.
@@ -105,8 +105,8 @@ void mat_print( matrix* mat ) {
 
   return;
 }
-
-
+*/
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_write
 //  Writes a matrix to a file.
@@ -134,8 +134,8 @@ void mat_write ( matrix* mat, char* file ) {
   fclose(f);  
   return;
 }
-
-
+*/
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_clear
 //  Destroys an existing matrix and frees the memory.
@@ -153,7 +153,6 @@ void mat_clear( matrix* mat ) {
   }
   return;
 }
-
-
-
 */
+
+

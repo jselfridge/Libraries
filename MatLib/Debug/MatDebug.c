@@ -1,4 +1,4 @@
-
+/*
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatDebug.c
 //  Justin M Selfridge
@@ -519,6 +519,8 @@ void MatProp() {
   mat_eigval(A4,tol,iter);
   mat_clear(A4);
   */
+
+/*
   printf("\n");
 }
 
@@ -554,7 +556,7 @@ void MatDecomp() {
   mat_clear(LU4);
 */
 
-
+/*
   // QR Decomposition
   matrix* Q = NULL;
   matrix* R = NULL;
@@ -639,6 +641,7 @@ void MatDecomp() {
   mat_clear(Minv4);
   */
 
+/*
   printf("\n");
 }
 
@@ -771,7 +774,7 @@ void MatSS() {
 
   //mat_print(mat_inv(Ac));
 
-
+  */
 
   /*
   // Linearization
@@ -809,6 +812,7 @@ void MatSS() {
   printf("Blin: ");  mat_print(Blin);
   */
 
+/*
   // Clear matrices
   mat_clear(A);
   mat_clear(B);
@@ -891,3 +895,4 @@ matrix* Plant2 ( matrix* x, matrix* u ) {
 
 
 
+*/

@@ -1,13 +1,13 @@
-/*
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//============================================================
 //  MatLib.h
 //  Justin M Selfridge
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#ifndef _MATLIB_H
-#define _MATLIB_H
+//============================================================
+#ifndef _MATLIB_H_
+#define _MATLIB_H_
 
 
-//  Standard includes
+// Standard includes
 #include <complex.h>
 #include <math.h>
 #include <stdbool.h>
@@ -16,7 +16,7 @@
 #include <string.h>
 
 
-// Precompiled define
+// Define statements
 #define PI  M_PI
 #define PI2 (2.0*PI)
 #define PIH (PI/2.0)
@@ -32,24 +32,24 @@ typedef struct _matrix {
   double* data;
 } matrix;
 
-
+/*
 //  Complex structure declaration
 typedef struct _matrixz {
   int rows;
   int cols;
   double complex* data;
 } matrixz;
-
+*/
 
 //  MatIO functions
 void     mat_err     ( bool cond, char* msg );
-matrix*  mat_init    ( int rows, int cols );
-matrix*  mat_read    ( char* file );
-void     mat_print   ( matrix* mat );
-void     mat_write   ( matrix* mat, char* file );
-void     mat_clear   ( matrix* mat );
+//matrix*  mat_init    ( int rows, int cols );
+//matrix*  mat_read    ( char* file );
+//void     mat_print   ( matrix* mat );
+//void     mat_write   ( matrix* mat, char* file );
+//void     mat_clear   ( matrix* mat );
 
-
+/*
 //  MatManip functions
 double   mat_get     ( matrix* mat, int row, int col );
 matrix*  mat_getr    ( matrix* mat, int row );
@@ -66,8 +66,8 @@ void     mat_swapc   ( matrix* mat, int n, int m );
 matrix*  mat_appr    ( matrix* matT, matrix* matB );
 matrix*  mat_appc    ( matrix* matL, matrix* matR );
 matrix*  mat_rmtiny  ( matrix* mat, double tol );
-
-
+*/
+/*
 //  MatComplex functions
 matrixz* mat_initz   ( int rows, int cols );
 matrixz* mat_readz   ( char* file );
@@ -81,8 +81,8 @@ matrixz* mat_getzc   ( matrixz* mat, int col );
 void     mat_setz    ( matrixz* mat, int row, int col, double real, double imag );
 void     mat_setzr   ( matrixz* mat, int row, matrixz* vec );
 void     mat_setzc   ( matrixz* mat, int col, matrixz* vec );
-
-
+*/
+/*
 //  MatVec functions
 matrix*  mat_skew    ( matrix* vec );
 matrix*  mat_sskew   ( matrix* vec );
@@ -92,8 +92,8 @@ double   mat_norm    ( matrix* vec, int p );
 double   mat_mag     ( matrix* vec );
 matrix*  mat_uvec    ( matrix* vec );
 matrix*  mat_proj    ( matrix* u, matrix* v );
-
-
+*/
+/*
 //  MatArith functions
 matrix*  mat_add     ( matrix* matA, matrix* matB );
 matrix*  mat_sub     ( matrix* matA, matrix* matB );
@@ -101,8 +101,8 @@ matrix*  mat_mul     ( matrix* matA, matrix* matB );
 matrix*  mat_pow     ( matrix* mat, int power );
 matrix*  mat_abs     ( matrix* mat );
 matrix*  mat_trans   ( matrix* mat );
-
-
+*/
+/*
 //  MatProp functions
 double   mat_trace   ( matrix* mat );
 int      mat_rank    ( matrix* mat );  // WIP
@@ -112,8 +112,8 @@ void     mat_eigval  ( matrix* mat, double tol, int max );  // WIP
 //matrix*  mat_meanr   ( matrix* mat );
 //matrix*  mat_meanc   ( matrix* mat );
 //matrix*  mat_cov     ( matrix* mat );
-
-
+*/
+/*
 //  MatDecomp functions
 void     mat_LU    ( matrix* mat, matrix** L, matrix** U );
 void     mat_QR    ( matrix* mat, matrix** Q, matrix** R ); 
@@ -122,15 +122,14 @@ matrix*  mat_divL  ( matrix* A, matrix* B );
 matrix*  mat_divR  ( matrix* B, matrix* A );
 matrix*  mat_inv   ( matrix* mat );
 //matrix*  Mat_DivL  ( matrix* A, matrix* B );  // Alternative with QR
-
-
+*/
+/*
 //  MatGauss functions (not finished yet)
 matrix* mat_echelon   ( matrix*  mat );  // WIP
 bool    ech_colzero   ( matrix*  X, int m );
 void    ech_reorder   ( matrix** X, int n, int m );
-
-
-
+*/
+/*
 //  MatRoot functions
 matrixz* mat_root  ( matrix* poly, double tol, int max );
 double          B  ( matrix* coef );
@@ -138,17 +137,16 @@ void            Z  ( matrixz* zero, double b );
 void            L  ( matrixz* zero, matrix* coef, double tol, int max );
 double complex  N  ( matrixz* zero, matrix* coef, int j );
 double complex  D  ( matrixz* zero, int j );
-
-
+*/
+/*
 //  MatSS functions
 matrix* mat_ctrb   ( matrix* A, matrix*B );
 matrix* mat_obsv   ( matrix* A, matrix*C );
 void    mat_Tctrl  ( matrix* A, matrix* B, matrix**Tc, matrix** Ac );
 void    mat_lin    ( matrix* dx ( matrix*, matrix* ), matrix* x, matrix* u, matrix** A, matrix** B, double d );
-
+*/
 
 #endif
 
 
 
-*/
