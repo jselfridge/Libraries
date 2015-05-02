@@ -20,7 +20,7 @@
 void InitMat();
 void PrintMat();
 void MatManip();
-//void MatComplex();
+void MatComplex();
 //void MatVec();
 //void MatArith();
 //void MatProp();

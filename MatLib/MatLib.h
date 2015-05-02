@@ -32,14 +32,13 @@ typedef struct _matrix {
   double* data;
 } matrix;
 
-/*
+
 //  Complex structure declaration
 typedef struct _matrixz {
   int rows;
   int cols;
   double complex* data;
 } matrixz;
-*/
 
 
 //  MatManip functions
@@ -76,7 +75,7 @@ double    mat_getre   ( matrixz* mat, int row, int col );
 double    mat_getim   ( matrixz* mat, int row, int col );
 matrixz*  mat_getzr   ( matrixz* mat, int row );
 matrixz*  mat_getzc   ( matrixz* mat, int col );
-void      mat_setz    ( matrixz* mat, int row, int col, double real, double imag );
+void      mat_setz    ( matrixz* mat, int row, int col, double re, double im );
 void      mat_setzr   ( matrixz* mat, int row, matrixz* vec );
 void      mat_setzc   ( matrixz* mat, int col, matrixz* vec );
 
