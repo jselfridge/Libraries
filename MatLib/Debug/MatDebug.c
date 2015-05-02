@@ -12,18 +12,18 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
-  //InitMat(); 
+  InitMat(); 
   //PrintMat();
   //MatManip();
   //MatComplex();
   //MatVec();
-  //MatArith();
+  MatArith();
   //MatProp();
   //MatDecomp();
   //MatEchelon();
   //MatRoot();
   //MatSS();
-  //ClearMat();
+  ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return 0;
 }
@@ -356,14 +356,13 @@ void MatComplex() {
 }
 
 
-
-
-/*
-
-// Matrix Vector
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  MatVec
+//  Debugs the MatVec file functions.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void MatVec() {
-  printf("Matrix Vector Operations \n");
-
+  printf("Matrix vector operations \n");
+  /*
   //  Skew Symmetric
   matrix* skew = mat_skew(V3a);
   mat_print(skew);  mat_clear(skew);
@@ -437,25 +436,27 @@ void MatVec() {
   mat_clear(u);
   mat_clear(v);
   mat_clear(proj);
-
+  */
   printf("\n");
+  return;
 }
 
 
-
-
-// Matrix Arithmetic
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  MatArith
+//  Debugs the MatArith file functions.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void MatArith() {
-  printf("Matrix Arithmetic \n");
+  printf("Matrix arithmetic functions \n");
 
   //  Addition
-  matrix* Vadd = mat_add(V3a,V3b);
+  matrix* Vadd = mat_add(M31a,M31b);
   mat_print(Vadd);  mat_clear(Vadd);
   matrix* Madd = mat_add(M33a,M33b);
   mat_print(Madd);  mat_clear(Madd);
 
   //  Subtraction
-  matrix* Vsub = mat_sub(V3a,V3b);
+  matrix* Vsub = mat_sub(M31a,M31b);
   mat_print(Vsub);  mat_clear(Vsub);
   matrix* Msub = mat_sub(M33a,M33b);
   mat_print(Msub);  mat_clear(Msub);
@@ -465,7 +466,7 @@ void MatArith() {
   mat_print(Mmul33);  mat_clear(Mmul33);
   matrix* Mmul23 = mat_mul(M23,M33a);
   mat_print(Mmul23);  mat_clear(Mmul23);
-  matrix* Mmul4 = mat_mul(M44,V4);
+  matrix* Mmul4 = mat_mul(M44,M41);
   mat_print(Mmul4);  mat_clear(Mmul4);
 
   //  Power
@@ -479,10 +480,10 @@ void MatArith() {
   // Absolute value
   mat_print( mat_abs(M32) );
   mat_print( mat_abs(M44) );
-  mat_print( mat_abs(mat_trans(V4)) );
+  mat_print( mat_abs(M41) );
 
   //  Transpose
-  matrix* T1 = mat_trans(V4);
+  matrix* T1 = mat_trans(M41);
   mat_print(T1);  mat_clear(T1);
   matrix* T2 = mat_trans(M23);
   mat_print(T2);  mat_clear(T2);
@@ -492,11 +493,16 @@ void MatArith() {
   mat_print(T4);  mat_clear(T4);
 
   printf("\n");
+  return;
 }
 
 
 
 
+
+
+
+/*
 // Matrix Properties
 void MatProp() {
   printf("Matrix properties \n");

@@ -82,22 +82,21 @@ double mat_norm ( matrix* vec, int p )  {
   mat_err( p<0,          "Error (mat_norm): Degree of a norm must be positive."  );
   mat_err( vec->cols!=1, "Error (mat_norm): Input must be a column vector."      );
 
-  int      i;
-  double   norm  = 0.0;
-  double   val   = 0.0;
-  double*  data  = vec->data;
-  int      r     = vec->rows;
+  int i;
+  double  norm  = 0.0;
+  double  val   = 0.0;
+  int r = vec->rows;
 
   if ( p==0 ) {
     for ( i=1; i<=r; i++ ) {
-      val = fabs( mat_get(mat,i,1) );
+      val = fabs( mat_get(vec,i,1) );
       if ( val > norm )  norm = val;
     }
   }
 
   else {
     for ( i=1; i<=r; i++ ) {
-      val = fabs( mat_get(mat,i,1) );
+      val = fabs( mat_get(vec,i,1) );
       val = pow( val, p );
       norm += val;
     }
@@ -140,7 +139,7 @@ matrix* mat_uvec ( matrix* vec )  {
     for ( i=1; i<=r; i++ ) {
       val = mat_get(vec,i,1);
       val /= mag;
-      mat_set(uvec,i,1);
+      mat_set( uvec,i,1, val );
     }
   }
 

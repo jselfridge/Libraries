@@ -24,7 +24,7 @@ matrix* mat_add ( matrix* matA, matrix* matB )  {
   for ( i=1; i<=r; i++ ) {
     for ( j=1; j<=c; j++ ) {
       a = mat_get(matA,i,j);
-      b = mat_get(MatB,i,j);
+      b = mat_get(matB,i,j);
       mat_set( add,i,j, a+b );
     }
   }
@@ -51,7 +51,7 @@ matrix* mat_sub ( matrix* matA, matrix* matB )  {
   for ( i=1; i<=r; i++ ) {
     for ( j=1; j<=c; j++ ) {
       a = mat_get(matA,i,j);
-      b = mat_get(MatB,i,j);
+      b = mat_get(matB,i,j);
       mat_set( sub,i,j, a-b );
     }
   }
@@ -107,7 +107,7 @@ matrix* mat_pow ( matrix* mat, int power )  {
   else if ( power == 1 )  pow = mat_copy(mat);
   else {
     pow = mat_init(n,n);
-    for ( i=1; i<= power; i++ ) {
+    for ( i=1; i<= power-1; i++ ) {
       if (i==1)  pow = mat_mul( mat, mat );
       else       pow = mat_mul( pow, mat );
     }
@@ -150,7 +150,7 @@ matrix* mat_trans ( matrix* mat ) {
 
   int i, j, r, c;
   double val;
-  matrix trans;
+  matrix* trans;
 
   r = mat->rows;
   c = mat->cols;
