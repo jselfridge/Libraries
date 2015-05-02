@@ -16,8 +16,8 @@ int main ()  {
   //PrintMat();
   //MatManip();
   //MatComplex();
-  //MatVec();
-  MatArith();
+  MatVec();
+  //MatArith();
   //MatProp();
   //MatDecomp();
   //MatEchelon();
@@ -362,47 +362,47 @@ void MatComplex() {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void MatVec() {
   printf("Matrix vector operations \n");
-  /*
-  //  Skew Symmetric
-  matrix* skew = mat_skew(V3a);
+
+  //  Skew symmetric
+  matrix* skew = mat_skew(M31a);
   mat_print(skew);  mat_clear(skew);
 
-  //  Double Skew Symmetric
-  matrix* sskew = mat_sskew(V3a);
+  //  Double skew symmetric
+  matrix* sskew = mat_sskew(M31a);
   mat_print(sskew);  mat_clear(sskew);
 
   //  Cross product
   matrix* cross;
-  cross = mat_cross(V3a,V3b);
+  cross = mat_cross(M31a,M31b);
   mat_print(cross);
-  cross = mat_cross(V3a,V3a);
+  cross = mat_cross(M31a,M31a);
   mat_print(cross);  
   mat_clear(cross);
 
   //  Dot product
   double dot;
-  dot = mat_dot(V3a,V3b);
+  dot = mat_dot(M31a,M31b);
   printf("dot: %f \n", dot);
-  dot = mat_dot(V3a,V3a);
+  dot = mat_dot(M31a,M31a);
   printf("dot: %f \n", dot);
 
   // Norm
-  mat_print(V4);
-  double NI = mat_norm(V4,0);
-  double N1 = mat_norm(V4,1);
-  double N2 = mat_norm(V4,2);
-  double N3 = mat_norm(V4,3);
+  mat_print(M41);
+  double NI = mat_norm(M41,0);
+  double N1 = mat_norm(M41,1);
+  double N2 = mat_norm(M41,2);
+  double N3 = mat_norm(M41,3);
   printf("NormI: %f \n", NI);
   printf("Norm1: %f \n", N1);
   printf("Norm2: %f \n", N2);
   printf("Norm3: %f \n", N3);
 
   // Magnitude
-  printf("Mag: %f \n", mat_mag(V3a));
+  printf("Mag: %f \n", mat_mag(M31a));
   matrix* unity = mat_init(4,1);
   mat_set(unity,1,1,1);
-  mat_set(unity,2,1,1);
-  mat_set(unity,3,1,0);
+  mat_set(unity,2,1,0);
+  mat_set(unity,3,1,1);
   mat_set(unity,4,1,0);
   printf("Mag: %f \n", mat_mag(unity));
 
@@ -413,11 +413,11 @@ void MatVec() {
   mat_set(quat,2,1,0);
   mat_set(quat,3,1,1);
   mat_set(quat,4,1,0);
-  mat_print(mat_uvec(V3b));
-  mat_print(mat_uvec(V4));
+  mat_print(mat_uvec(M31b));
+  mat_print(mat_uvec(M41));
   mat_print(mat_uvec(quat));
 
-  // Projection
+  // Vector projection
   matrix* u = mat_init(3,1);
   mat_set(u,1,1,7);
   mat_set(u,2,1,14);
@@ -436,7 +436,7 @@ void MatVec() {
   mat_clear(u);
   mat_clear(v);
   mat_clear(proj);
-  */
+
   printf("\n");
   return;
 }
@@ -449,19 +449,19 @@ void MatVec() {
 void MatArith() {
   printf("Matrix arithmetic functions \n");
 
-  //  Addition
+  // Addition
   matrix* Vadd = mat_add(M31a,M31b);
   mat_print(Vadd);  mat_clear(Vadd);
   matrix* Madd = mat_add(M33a,M33b);
   mat_print(Madd);  mat_clear(Madd);
 
-  //  Subtraction
+  // Subtraction
   matrix* Vsub = mat_sub(M31a,M31b);
   mat_print(Vsub);  mat_clear(Vsub);
   matrix* Msub = mat_sub(M33a,M33b);
   mat_print(Msub);  mat_clear(Msub);
 
-  //  Multiplication
+  // Multiplication
   matrix* Mmul33 = mat_mul(M33a,M33b);
   mat_print(Mmul33);  mat_clear(Mmul33);
   matrix* Mmul23 = mat_mul(M23,M33a);
@@ -469,7 +469,7 @@ void MatArith() {
   matrix* Mmul4 = mat_mul(M44,M41);
   mat_print(Mmul4);  mat_clear(Mmul4);
 
-  //  Power
+  // Power
   matrix* Mpow;
   for ( int i=0; i<4; i++ ) {
     Mpow= mat_pow(M33a,i);
