@@ -80,17 +80,19 @@ void      mat_setzr   ( matrixz* mat, int row, matrixz* vec );
 void      mat_setzc   ( matrixz* mat, int col, matrixz* vec );
 
 
-/*
 //  MatVec functions
-matrix*  mat_skew    ( matrix* vec );
-matrix*  mat_sskew   ( matrix* vec );
-matrix*  mat_cross   ( matrix* vecA, matrix* vecB );
-double   mat_dot     ( matrix* vecA, matrix* vecB );
-double   mat_norm    ( matrix* vec, int p );
-double   mat_mag     ( matrix* vec );
-matrix*  mat_uvec    ( matrix* vec );
-matrix*  mat_proj    ( matrix* u, matrix* v );
-*/
+matrix*   mat_skew    ( matrix* vec );
+matrix*   mat_sskew   ( matrix* vec );
+matrix*   mat_cross   ( matrix* vecA, matrix* vecB );
+double    mat_dot     ( matrix* vecA, matrix* vecB );
+double    mat_norm    ( matrix* vec, int p );
+double    mat_mag     ( matrix* vec );
+matrix*   mat_uvec    ( matrix* vec );
+matrix*   mat_proj    ( matrix* u, matrix* v );
+
+
+
+
 /*
 //  MatArith functions
 matrix*  mat_add     ( matrix* matA, matrix* matB );
@@ -100,6 +102,10 @@ matrix*  mat_pow     ( matrix* mat, int power );
 matrix*  mat_abs     ( matrix* mat );
 matrix*  mat_trans   ( matrix* mat );
 */
+
+
+
+
 /*
 //  MatProp functions
 double   mat_trace   ( matrix* mat );
