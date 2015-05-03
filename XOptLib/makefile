@@ -1,25 +1,25 @@
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##============================================================
 ##  makefile - OptLib Library
 ##  Justin M Selfridge
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##============================================================
 
 CC     = gcc
-CFLAGS = -c -Wall
-INC    = OptLib.h
+CFLAGS = -Wall -g -c
+
+INC    = -I../MatLib
 LIB    = libOpt.a
 
 FILE := $(shell ls | grep -F ".c" )
 NAME := $(patsubst %.c, %, $(FILE) )
-OBJ  := $(foreach o, $(NAME), $(o).o )
+OBJ  := $(foreach o, $(NAME), Obj/$(o).o )
 
-#all : $(OBJ)
-	rm $(LIB); \
-	ar -cvq $(LIB) *.o
+all : $(OBJ)
+	ar -cvq $(LIB) Obj/*.o
 
-%.o : %.c $(INC)
-	$(CC) $(CFLAGS) -o $@ $< 
+Obj/%.o : %.c OptLib.h
+	$(CC) $(INC) $(CFLAGS) -o $@ $< 
 
 clean :
-	rm $(OBJ)
+	rm $(OBJ) $(LIB)
 

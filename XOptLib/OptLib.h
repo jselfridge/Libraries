@@ -1,10 +1,10 @@
-/*
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//============================================================
 //  OptLib.h
 //  Justin M Selfridge
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#ifndef _OPTLIB_H
-#define _OPTLIB_H
+//============================================================
+#ifndef _OPTLIB_H_
+#define _OPTLIB_H_
 
 
 //  Standard includes
@@ -13,13 +13,14 @@
 
 
 // Custom includes
-#include "../MatLib/MatLib.h"
+#include <MatLib.h>
 
 
 // Function Prototypes
-void  opt_grad ( matrix* F (matrix*), matrix** x, matrix* d, double tol, double gain, int max );
+void  opt_grad ( matrix* F (matrix*), matrix* x, matrix* d, double tol, double gain, int max );
 
 
 #endif
 
-*/
+
+
