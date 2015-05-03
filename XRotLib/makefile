@@ -1,8 +1,8 @@
 
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##============================================================
 ##  makefile - RotLib Library
 ##  Justin M Selfridge
-##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##============================================================
 
 CC     = gcc
 CFLAGS = -c -Wall
@@ -11,13 +11,12 @@ LIB    = libRot.a
 
 FILE := $(shell ls | grep -F ".c" )
 NAME := $(patsubst %.c, %, $(FILE) )
-OBJ  := $(foreach o, $(NAME), $(o).o )
+OBJ  := $(foreach o, $(NAME), Obj/$(o).o )
 
-#all : $(OBJ)
-	rm $(LIB); \
-	ar -cvq $(LIB) *.o
+all : $(OBJ)
+	ar -cvq $(LIB) Obj/*.o
 
-%.o : %.c $(INC)
+Obj/%.o : %.c $(INC)
 	$(CC) $(CFLAGS) -o $@ $< 
 
 clean :
