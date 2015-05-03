@@ -1,6 +1,6 @@
 
 ##============================================================
-##  makefile - Debug MatLib
+##  makefile - Debug RotLib
 ##  Justin M Selfridge
 ##============================================================
 
@@ -11,12 +11,12 @@ CFLAGS = -c -Wall
 
 all : Debug
 
-Debug : MatDebug.o
-	$(CC) ../libMat.a -o $@ $<
+Debug : RotDebug.o
+	$(CC) ../libRot.a -o $@ $<
 
-MatDebug.o : MatDebug.c MatDebug.h
+RotDebug.o : RotDebug.c RotDebug.h
 	$(CC) $(CFLAGS) -o $@ $< 
 
 clean :
-	rm MatDebug.o Debug
+	rm RotDebug.o Debug
 

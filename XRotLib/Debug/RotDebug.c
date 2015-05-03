@@ -1,31 +1,32 @@
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//============================================================
 //  RotDebug.c
 //  Justin M Selfridge
-//  Script to debug the RotLib Library
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//============================================================
 #include "RotDebug.h"
 
 
-
-
-// Debugging function 
-void DebugRotLib() {
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  main
+//  Runs the main RotLib debugging program.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+int main ()  {
   printf("\n   --- RotLib Debugging --- \n\n");
   RotConv();
   RotEuler();
   RotQuat();
   printf("   --- RotLib Complete --- \n\n");
-  return;
+  return 0;
 }
 
 
-
-
-// RotConv (Rotation conversions)
-void RotConv() {
-  printf("Rotation Conversions \n");
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  RotConv
+//  Debugs the RotConv file functions.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void RotConv ()  {
+  printf("Rotation conversions \n");
+  /*
   matrix* deg  = mat_init(1,1);
   matrix* rad  = mat_init(1,1);
   matrix* degv = mat_init(1,4);
@@ -98,17 +99,19 @@ void RotConv() {
   mat_clear(rad);
   mat_clear(degv);
   mat_clear(radv);
-
+  */
   printf("\n");
+  return;
 }
 
 
-
-
-//  RotEuler (Euler type rotations)
-void RotEuler() {
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  RotEuler
+//  Debugs the RotEuler file functions.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void RotEuler ()  {
   printf("Euler type rotations \n");
-
+  /*
   // Define matrices
   matrix* R = mat_init(3,3);
   matrix* att = mat_init(3,1);
@@ -147,16 +150,19 @@ void RotEuler() {
   mat_clear(R);
   mat_clear(Rt);
   mat_clear(Ri);
-
+  */
   printf("\n");
+  return;
 }
 
 
-
-
-void RotQuat() {
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  RotQuat
+//  Debugs the RotQuat file functions.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void RotQuat ()  {
   printf("Quaternion functions \n");
-
+  /*
   // Euler to Quaternion
   matrix* att = mat_init(3,1);
   mat_set( att,1,1, PIQ );
@@ -205,9 +211,9 @@ void RotQuat() {
   mat_clear(vecA);
   mat_clear(vecB);
   mat_clear(VQ);
-  
+  */  
   printf("\n");
-
+  return;
 }
 
 
