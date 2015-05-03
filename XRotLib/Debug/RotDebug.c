@@ -12,7 +12,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int main ()  {
   printf("\n   --- RotLib Debugging --- \n\n");
-  RotConv();
+  //RotConv();
   RotEuler();
   RotQuat();
   printf("   --- RotLib Complete --- \n\n");
@@ -111,7 +111,7 @@ void RotConv ()  {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void RotEuler ()  {
   printf("Euler type rotations \n");
-  /*
+
   // Define matrices
   matrix* R = mat_init(3,3);
   matrix* att = mat_init(3,1);
@@ -142,15 +142,15 @@ void RotEuler ()  {
   mat_print(R);
   matrix* Rt = mat_trans(R);
   mat_print(Rt);
-  matrix* Ri = mat_inv(R);
-  mat_print(Ri);
+  //matrix* Ri = mat_inv(R);
+  //mat_print(Ri);
 
   // Clear matrices
   mat_clear(att);
   mat_clear(R);
   mat_clear(Rt);
-  mat_clear(Ri);
-  */
+  //mat_clear(Ri);
+
   printf("\n");
   return;
 }
