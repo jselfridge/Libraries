@@ -12,8 +12,8 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int main ()  {
   printf("\n   --- RotLib Debugging --- \n\n");
-  //RotConv();
-  //RotEuler();
+  RotConv();
+  RotEuler();
   RotQuat();
   printf("   --- RotLib Complete --- \n\n");
   return 0;
