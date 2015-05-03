@@ -26,7 +26,7 @@ int main ()  {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void RotConv ()  {
   printf("Rotation conversions \n");
-  /*
+
   matrix* deg  = mat_init(1,1);
   matrix* rad  = mat_init(1,1);
   matrix* degv = mat_init(1,4);
@@ -71,13 +71,13 @@ void RotConv ()  {
   mat_set(radv,1,2, -PI  );
   mat_set(radv,1,3, -2.5 );
   mat_set(radv,1,4,  0.0 );
-  radv = rot_wrappi(radv);
+  rot_wrappi(radv);
   mat_print(radv);
   mat_set(radv,1,1, 0.0 );
   mat_set(radv,1,2, 2.5 );
   mat_set(radv,1,3, PI  );
   mat_set(radv,1,4, 3.5 );
-  radv = rot_wrappi(radv);
+  rot_wrappi(radv);
   mat_print(radv);
 
   // Wrap 2pi
@@ -85,13 +85,13 @@ void RotConv ()  {
   mat_set(radv,1,2, -PI2 );
   mat_set(radv,1,3, -5.0 );
   mat_set(radv,1,4,  0.0 );
-  radv = rot_wrap2pi(radv);
+  rot_wrap2pi(radv);
   mat_print(radv);
   mat_set(radv,1,1, 0.0 );
   mat_set(radv,1,2, 5.0 );
   mat_set(radv,1,3, PI2 );
   mat_set(radv,1,4, 7.0 );
-  radv = rot_wrap2pi(radv);
+  rot_wrap2pi(radv);
   mat_print(radv);
 
   // Clear matrices
@@ -99,7 +99,7 @@ void RotConv ()  {
   mat_clear(rad);
   mat_clear(degv);
   mat_clear(radv);
-  */
+
   printf("\n");
   return;
 }

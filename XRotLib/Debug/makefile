@@ -12,7 +12,7 @@ CFLAGS = -c -Wall
 all : Debug
 
 Debug : RotDebug.o
-	$(CC) ../libRot.a -o $@ $<
+	$(CC) ../libRot.a ../../MatLib/libMat.a  -o $@ $<
 
 RotDebug.o : RotDebug.c RotDebug.h
 	$(CC) $(CFLAGS) -o $@ $< 
