@@ -18,7 +18,7 @@ can be referenced throughout multiple projects.  The command:
       ar -cvq libMat.a *.o
 
 is run in the <code>makefile</code>, which generates a static 
-library that can be included in other projects.
+library that can be included in other projects. 
 
 
 <!--
