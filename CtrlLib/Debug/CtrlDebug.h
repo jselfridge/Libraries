@@ -8,7 +8,7 @@
 
 
 // Custom includes
-#include "../CtrlLib.h"
+#include <CtrlLib.h>
 
 
 // Function prototypes

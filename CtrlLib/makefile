@@ -6,7 +6,8 @@
 
 CC     = gcc
 CFLAGS = -Wall -g -c
-INC    = CtrlLib.h
+
+INC    = -I../MatLib
 LIB    = libCtrl.a
 
 FILE := $(shell ls | grep -F ".c" )
@@ -16,8 +17,8 @@ OBJ  := $(foreach o, $(NAME), Obj/$(o).o )
 all : $(OBJ)
 	ar -cvq $(LIB) Obj/*.o  
 
-Obj/%.o : %.c $(INC)
-	$(CC) $(CFLAGS) -o $@ $<
+Obj/%.o : %.c CtrlLib.h
+	$(CC) $(INC) $(CFLAGS) -o $@ $<
 
 clean :
 	rm $(OBJ) $(LIB)

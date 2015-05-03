@@ -4,19 +4,23 @@
 ##  Justin M Selfridge
 ##============================================================
 
-
+EXEC   = Debug
 CC     = gcc
-CFLAGS = -c -Wall
+CFLAGS = -Wall -g -c
 
+INC    =  -I..            -I../../MatLib
+LIB    =    ../libCtrl.a    ../../MatLib/libMat.a
 
-all : Debug
+OBJ    = CtrlDebug.o
 
-Debug : CtrlDebug.o
-	$(CC) -o $@ $< ../libCtrl.a ../../MatLib/libMat.a  
+all : $(EXEC)
 
-CtrlDebug.o : CtrlDebug.c CtrlDebug.h
-	$(CC) $(CFLAGS) -o $@ $< 
+$(EXEC) : $(OBJ)
+	$(CC) $(LIB) -o $@ $< 
+
+%.o : %.c %.h
+	$(CC) $(INC) $(CFLAGS) -o $@ $< 
 
 clean :
-	rm CtrlDebug.o Debug
+	rm $(EXEC) $(OBJ)
 
