@@ -17,7 +17,7 @@
 
 
 // Function Prototypes
-void  opt_grad ( matrix* F (matrix*), matrix* x, matrix* d, double tol, double gain, int max );
+void  opt_grad ( matrix* F (matrix*), matrix** x, matrix* d, double tol, double gain, int max );
 
 
 #endif
