@@ -13,7 +13,7 @@
 int main ()  {
   printf("\n   --- RotLib Debugging --- \n\n");
   //RotConv();
-  RotEuler();
+  //RotEuler();
   RotQuat();
   printf("   --- RotLib Complete --- \n\n");
   return 0;
@@ -162,8 +162,8 @@ void RotEuler ()  {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void RotQuat ()  {
   printf("Quaternion functions \n");
-  /*
-  // Euler to Quaternion
+
+  // Euler to quaternion
   matrix* att = mat_init(3,1);
   mat_set( att,1,1, PIQ );
   mat_set( att,2,1, PIE );
@@ -179,7 +179,7 @@ void RotQuat ()  {
   mat_print(rot_eul(att));
   mat_print(rot_q2dcm(quat));
 
-  // Vector to Quaternion
+  // Vector to quaternion
   matrix* vecA = mat_init(3,1);
   mat_set( vecA,1,1,  1.2 );
   mat_set( vecA,2,1, -2.5 );
@@ -192,7 +192,10 @@ void RotQuat ()  {
   mat_print(vecB);
   matrix* VQ = rot_vec2q( vecA, vecB );
   mat_print(VQ);
-  mat_print( mat_mul( (rot_q2dcm(VQ)), vecA ) );
+  matrix* vecC = mat_mul( (rot_q2dcm(VQ)), vecA );
+  mat_print(vecC);
+  mat_print( mat_uvec(vecB) );
+  mat_print( mat_uvec(vecC) );
 
   // Quaternion skew matrix
   mat_print( rot_qskew(quat) );
@@ -210,8 +213,9 @@ void RotQuat ()  {
   mat_clear(quat);
   mat_clear(vecA);
   mat_clear(vecB);
+  mat_clear(vecC);
   mat_clear(VQ);
-  */  
+
   printf("\n");
   return;
 }
