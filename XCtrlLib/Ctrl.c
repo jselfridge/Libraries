@@ -23,13 +23,7 @@ void ctrl_lin( matrix* f ( matrix*, matrix* ), matrix* x, matrix* u, matrix* A, 
   n = x->rows;
   m = u->rows;
 
-  //matrix* xp = mat_init(n,1);  matrix* xn = mat_init(n,1);
-  //matrix* up = mat_init(m,1);  matrix* un = mat_init(m,1);
-  //matrix* fp = mat_init(n,1);  matrix* fn = mat_init(n,1);
-  //matrix* C  = mat_init(n,1);
-
-  C = mat_init(n,1);
-
+  C  = mat_init(n,1);
   xp = mat_init(n,1);  xn = mat_init(n,1);
   up = mat_init(m,1);  un = mat_init(m,1);
   fp = mat_init(n,1);  fn = mat_init(n,1);
@@ -50,10 +44,10 @@ void ctrl_lin( matrix* f ( matrix*, matrix* ), matrix* x, matrix* u, matrix* A, 
     for ( j=1; j<=n; j++ )  mat_set( B,j,i, mat_get(C,j,1) );
   }
 
+  mat_clear(C);
   mat_clear(xp);  mat_clear(xn);
   mat_clear(up);  mat_clear(un);
   mat_clear(fp);  mat_clear(fn);
-  mat_clear(C);
 
   return;
 }

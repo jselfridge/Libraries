@@ -12,7 +12,7 @@ CFLAGS = -c -Wall
 all : Debug
 
 Debug : CtrlDebug.o
-	$(CC) ../libCtrl.a ../../MatLib/libMat.a  -o $@ $<
+	$(CC) -o $@ $< ../libCtrl.a ../../MatLib/libMat.a  
 
 CtrlDebug.o : CtrlDebug.c CtrlDebug.h
 	$(CC) $(CFLAGS) -o $@ $< 
