@@ -13,7 +13,7 @@
 
 
 // Custom includes
-#include "../MatLib/MatLib.h"
+#include <MatLib.h>
 
 
 // Define statements

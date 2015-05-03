@@ -5,8 +5,9 @@
 ##============================================================
 
 CC     = gcc
-CFLAGS = -c -Wall
-INC    = RotLib.h
+CFLAGS = -Wall -g -c
+
+INC    = -I../MatLib
 LIB    = libRot.a
 
 FILE := $(shell ls | grep -F ".c" )
@@ -16,8 +17,8 @@ OBJ  := $(foreach o, $(NAME), Obj/$(o).o )
 all : $(OBJ)
 	ar -cvq $(LIB) Obj/*.o  
 
-Obj/%.o : %.c $(INC)
-	$(CC) $(CFLAGS) -o $@ $< 
+Obj/%.o : %.c RotLib.h
+	$(CC) $(INC) $(CFLAGS) -o $@ $< 
 
 clean :
 	rm $(OBJ) $(LIB)

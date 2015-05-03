@@ -12,7 +12,7 @@
 
 
 // Custom includes
-#include "../RotLib.h"
+#include <RotLib.h>
 
 
 // Function prototypes
