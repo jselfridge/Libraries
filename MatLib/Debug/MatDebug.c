@@ -12,14 +12,14 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
-  //InitMat(); 
-  //PrintMat();
-  //MatManip();
-  //MatComplex();
-  //MatVec();
-  //MatArith();
+  InitMat(); 
+  PrintMat();
+  MatManip();
+  MatComplex();
+  MatVec();
+  MatArith();
   MatRoot();
-  //ClearMat();
+  ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return 0;
 }

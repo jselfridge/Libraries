@@ -5,7 +5,7 @@
 ##============================================================
 
 CC     = gcc
-CFLAGS = -c -Wall
+CFLAGS = -Wall -g -c
 INC    = MatLib.h
 LIB    = libMat.a
 

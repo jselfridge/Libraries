@@ -12,7 +12,7 @@
 
 
 // Custom includes
-#include "../MatLib.h"
+#include <MatLib.h>
 
 
 // Function prototypes
