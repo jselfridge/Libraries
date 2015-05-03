@@ -53,7 +53,7 @@ void rot_wrappi ( matrix* rad )  {
 //  rot_wrap2pi
 //  Places the elements of a matrix within the range [0,2pi).
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void* rot_wrap2pi ( matrix* rad )  {
+void rot_wrap2pi ( matrix* rad )  {
 
   int i, j, r, c;
   double val;
@@ -64,7 +64,7 @@ void* rot_wrap2pi ( matrix* rad )  {
   for ( i=1; i<=r; i++ ) {
     for ( j=1; j<=c; j++ ) {
       val = mat_get(rad,i,j);
-      while ( val >= 2PI )  val -= PI2;
+      while ( val >= PI2 )  val -= PI2;
       while ( val <   0  )  val += PI2;
       mat_set( rad,i,j, val );
     }

@@ -116,7 +116,8 @@ matrix* rot_vec2q ( matrix* vecA, matrix* vecB )  {
   mat_err( vecB->rows!=3 || vecB->cols!=1, "Error (rot_vec2q): VecB must be a 3 element column vector." );
 
   double angle;
-  matrix* Q, axis;
+  matrix* Q; 
+  matrix* axis;
 
   vecA = mat_uvec(vecA);
   vecB = mat_uvec(vecB);

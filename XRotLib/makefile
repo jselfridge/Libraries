@@ -14,11 +14,11 @@ NAME := $(patsubst %.c, %, $(FILE) )
 OBJ  := $(foreach o, $(NAME), Obj/$(o).o )
 
 all : $(OBJ)
-	ar -cvq $(LIB) Obj/*.o
+	ar -cvq $(LIB) Obj/*.o  
 
 Obj/%.o : %.c $(INC)
 	$(CC) $(CFLAGS) -o $@ $< 
 
 clean :
-	rm $(OBJ)
+	rm $(OBJ) $(LIB)
 
