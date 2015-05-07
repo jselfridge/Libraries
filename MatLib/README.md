@@ -15,15 +15,15 @@ categories:
 The primary intention is to keep this as a static library which 
 can be referenced throughout multiple projects.  The command:
 
-      ar -cvq libMat.a *.o
+      ar -cvq libmat.a *.o
 
 is run in the <code>makefile</code>, which generates a static 
 library that can be included in other projects. 
 
 
 <!--
-    MatProp   - Properties of a matrix
-    MatDecomp - Useful matrix decompositions
+    matProp   - Properties of a matrix
+    matDecomp - Useful matrix decompositions
 -->
 
 

@@ -4,7 +4,7 @@
 ##  Justin M Selfridge
 ##============================================================
 
-EXEC   = Debug
+EXEC   = debug
 CC     = gcc
 CFLAGS = -Wall -g -c
 
