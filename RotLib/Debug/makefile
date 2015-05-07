@@ -1,6 +1,6 @@
 
 ##============================================================
-##  makefile - Debug RotLib
+##  makefile - Debug rotLib
 ##  Justin M Selfridge
 ##============================================================
 
@@ -8,10 +8,10 @@ EXEC   = Debug
 CC     = gcc
 CFLAGS = -Wall -g -c
 
-INC    =  -I..           -I../../MatLib
-LIB    =    ../libRot.a    ../../MatLib/libMat.a
+INC    =  -I..           -I../../matLib
+LIB    =    ../librot.a    ../../matLib/libmat.a
 
-OBJ    = RotDebug.o
+OBJ    = rotDebug.o
 
 all : $(EXEC)
 

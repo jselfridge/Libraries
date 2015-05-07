@@ -1,22 +1,22 @@
 
 ##============================================================
-##  makefile - MatLib Library
+##  makefile - matLib Library
 ##  Justin M Selfridge
 ##============================================================
 
 CC     = gcc
 CFLAGS = -Wall -g -c
-INC    = MatLib.h
-LIB    = libMat.a
+INC    = matLib.h
+LIB    = libmat.a
 
 FILE := $(shell ls | grep -F ".c" )
 NAME := $(patsubst %.c, %, $(FILE) )
-OBJ  := $(foreach o, $(NAME), Obj/$(o).o )
+OBJ  := $(foreach o, $(NAME), obj/$(o).o )
 
 all : $(OBJ)
-	ar -cvq $(LIB) Obj/*.o
+	ar -cvq $(LIB) obj/*.o
 
-Obj/%.o : %.c $(INC)
+obj/%.o : %.c $(INC)
 	$(CC) $(CFLAGS) -o $@ $< 
 
 clean :

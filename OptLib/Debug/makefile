@@ -1,6 +1,6 @@
 
 ##============================================================
-##  makefile - Debug OptLib
+##  makefile - Debug optLib
 ##  Justin M Selfridge
 ##============================================================
 
@@ -8,10 +8,10 @@ EXEC   = Debug
 CC     = gcc
 CFLAGS = -Wall -g -c
 
-INC    =  -I..           -I../../MatLib
-LIB    =    ../libOpt.a    ../../MatLib/libMat.a
+INC    =  -I..           -I../../matLib
+LIB    =    ../libopt.a    ../../matLib/libmat.a
 
-OBJ    = OptDebug.o
+OBJ    = optDebug.o
 
 all : $(EXEC)
 

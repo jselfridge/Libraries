@@ -1,23 +1,23 @@
 
 ##============================================================
-##  makefile - CtrlLib Library
+##  makefile - ctrlLib Library
 ##  Justin M Selfridge
 ##============================================================
 
 CC     = gcc
 CFLAGS = -Wall -g -c
 
-INC    = -I../MatLib
-LIB    = libCtrl.a
+INC    = -I../matLib
+LIB    = libctrl.a
 
 FILE := $(shell ls | grep -F ".c" )
 NAME := $(patsubst %.c, %, $(FILE) )
-OBJ  := $(foreach o, $(NAME), Obj/$(o).o )
+OBJ  := $(foreach o, $(NAME), obj/$(o).o )
 
 all : $(OBJ)
 	ar -cvq $(LIB) Obj/*.o  
 
-Obj/%.o : %.c CtrlLib.h
+obj/%.o : %.c ctrlLib.h
 	$(CC) $(INC) $(CFLAGS) -o $@ $<
 
 clean :

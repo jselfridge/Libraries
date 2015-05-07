@@ -7,17 +7,17 @@
 CC     = gcc
 CFLAGS = -Wall -g -c
 
-INC    = -I../MatLib
-LIB    = libOpt.a
+INC    = -I../matLib
+LIB    = libopt.a
 
 FILE := $(shell ls | grep -F ".c" )
 NAME := $(patsubst %.c, %, $(FILE) )
-OBJ  := $(foreach o, $(NAME), Obj/$(o).o )
+OBJ  := $(foreach o, $(NAME), obj/$(o).o )
 
 all : $(OBJ)
-	ar -cvq $(LIB) Obj/*.o
+	ar -cvq $(LIB) obj/*.o
 
-Obj/%.o : %.c OptLib.h
+obj/%.o : %.c optLib.h
 	$(CC) $(INC) $(CFLAGS) -o $@ $< 
 
 clean :

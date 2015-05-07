@@ -1,6 +1,6 @@
 
 ##============================================================
-##  makefile - Debug CtrlLib
+##  makefile - Debug ctrlLib
 ##  Justin M Selfridge
 ##============================================================
 
@@ -8,10 +8,10 @@ EXEC   = Debug
 CC     = gcc
 CFLAGS = -Wall -g -c
 
-INC    =  -I..            -I../../MatLib
-LIB    =    ../libCtrl.a    ../../MatLib/libMat.a
+INC    =  -I..            -I../../matLib
+LIB    =    ../libctrl.a    ../../matLib/libmat.a
 
-OBJ    = CtrlDebug.o
+OBJ    = ctrlDebug.o
 
 all : $(EXEC)
 

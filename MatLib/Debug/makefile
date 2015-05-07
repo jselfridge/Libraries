@@ -8,10 +8,10 @@ EXEC   = Debug
 CC     = gcc
 CFLAGS = -Wall -g -c
 
-INC    = -I../../MatLib
-LIB    = ../libMat.a
+INC    = -I../../matLib
+LIB    = ../libmat.a
 
-OBJ    = MatDebug.o
+OBJ    = matDebug.o
 
 all : $(EXEC)
 

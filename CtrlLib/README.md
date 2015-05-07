@@ -1,5 +1,5 @@
 
-CtrlLib
+ctrlLib
 =======
 
 This directory is C code for a static library that contains functions 

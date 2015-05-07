@@ -1,6 +1,6 @@
 
 //============================================================
-//  CtrlLib.h
+//  ctrlLib.h
 //  Justin M Selfridge
 //============================================================
 #ifndef _CTRLLIB_H_
@@ -8,7 +8,7 @@
 
 
 // Custom includes
-#include <MatLib.h>
+#include <matLib.h>
 
 
 // Function Prototypes
