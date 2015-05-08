@@ -7,6 +7,13 @@ for a wide variety of coding projects.  Some are for general
 purpose programs, and others are specific to the BBB platform.
 
 
+bbbLib
+------
+The <code>bbbLib</code> library contains the collection of 
+functions used to add functionality to the BeagleBone Black
+processor.
+
+
 matLib
 ------
 The <code>matLib</code> library implements a variety of linear 
