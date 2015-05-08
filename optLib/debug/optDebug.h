@@ -12,7 +12,7 @@
 
 
 // Custom includes
-#include <OptLib.h>
+#include <optLib.h>
 
 
 // Function prototypes

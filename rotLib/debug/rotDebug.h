@@ -1,6 +1,6 @@
 
 //============================================================
-//  totDebug.h
+//  rotDebug.h
 //  Justin M Selfridge
 //============================================================
 #ifndef _ROTDEBUG_H_
@@ -12,7 +12,7 @@
 
 
 // Custom includes
-#include <RotLib.h>
+#include <rotLib.h>
 
 
 // Function prototypes

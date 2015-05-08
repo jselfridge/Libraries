@@ -1,6 +1,6 @@
 
 //============================================================
-//  CtrlDebug.h
+//  ctrlDebug.h
 //  Justin M Selfridge
 //============================================================
 #ifndef _CTRLDEBUG_H_
@@ -8,7 +8,7 @@
 
 
 // Custom includes
-#include <CtrlLib.h>
+#include <ctrlLib.h>
 
 
 // Function prototypes
