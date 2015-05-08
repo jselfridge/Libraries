@@ -466,8 +466,9 @@ void MatArith() {
   mat_print(Mmul4);  mat_clear(Mmul4);
 
   // Power
+  int i;
   matrix* Mpow;
-  for ( int i=0; i<4; i++ ) {
+  for ( i=0; i<4; i++ ) {
     Mpow= mat_pow(M33a,i);
     mat_print(Mpow);
   }
