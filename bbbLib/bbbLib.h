@@ -8,14 +8,20 @@
 
 
 //  Standard includes
-//#include <math.h>
-//#include <stdio.h>
+#include <fcntl.h>
+#include <math.h>
+#include <stdio.h>
+#include <unistd.h>
 
 
 // Custom includes
 #include <matLib.h>
 #include <rotLib.h>
 
+
+// Custom definitions
+#define LED_PATH "/sys/class/leds/beaglebone:green:usr"
+#define MAX_BUF 64
 
 
 // bbbLED functions

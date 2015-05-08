@@ -12,7 +12,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int led_rmtrig ( unsigned int index )  {
 
-  mat_err( index<0 || index>3, "Error (led_rmtrig): LED index is between 0-3." );
+  mat_err( index>3, "Error (led_rmtrig): LED index is between 0-3." );
 
   int fd, len;
   char path[MAX_BUF];
@@ -40,7 +40,7 @@ int led_rmtrig ( unsigned int index )  {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int led_on ( unsigned int index )  {
 
-  mat_err( index<0 || index>3, "Error (led_on): LED index is between 0-3." );
+  mat_err( index>3, "Error (led_on): LED index is between 0-3." );
 
   int fd, len;
   char path[MAX_BUF];
@@ -71,7 +71,7 @@ int led_on ( unsigned int index )  {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int led_off ( unsigned int index )  {
 
-  mat_err( index<0 || index>3, "Error (led_off): LED index is between 0-3." );
+  mat_err( index>3, "Error (led_off): LED index is between 0-3." );
 
   int fd, len;
   char path[MAX_BUF];
@@ -101,9 +101,9 @@ int led_off ( unsigned int index )  {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int led_blink ( unsigned int index, unsigned int on, unsigned int off )  {
 
-  mat_err( index<0 || index>3, "Error (led_blink): LED index is between 0-3."         );
-  mat_err( on<=0,              "Error (led_blink): Duration 'on' must be positive."   );
-  mat_err( off<=0,             "Error (led_blink): Duration 'off' must be positive."  );
+  mat_err( index>3, "Error (led_blink): LED index is between 0-3."         );
+  mat_err( on<=0,   "Error (led_blink): Duration 'on' must be positive."   );
+  mat_err( off<=0,  "Error (led_blink): Duration 'off' must be positive."  );
 
   int fd, len;
   char path[MAX_BUF];
