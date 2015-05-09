@@ -12,15 +12,6 @@ categories:
       matArith    - Arithmetic and matrix math functions
       matRoot     - Method to find complex roots of a polynomial
 
-The primary intention is to keep this as a static library which 
-can be referenced throughout multiple projects.  The command:
-
-      ar -cvq libmat.a *.o
-
-is run in the <code>makefile</code>, which generates a static 
-library that can be included in other projects. 
-
-
 <!--
     matProp   - Properties of a matrix
     matDecomp - Useful matrix decompositions

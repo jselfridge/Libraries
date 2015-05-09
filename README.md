@@ -6,6 +6,14 @@ This repository contains various libraries that are useful
 for a wide variety of coding projects.  Some are for general 
 purpose programs, and others are specific to the BBB platform.
 
+The primary intention is to keep these as static libraries 
+which can be referenced throughout multiple projects. The command:
+
+        ar -cvq libmat.a *.o
+
+is run in each <code>makefile</code>, which generates the static 
+library that can be included in other projects.
+
 
 bbbLib
 ------
@@ -23,10 +31,10 @@ applicable to embedded system architecture.
 
 rotLib
 ------
-The <code>rotLib</code> library contains functions that are 
-needed to perform various types of roational transformations.  
-It is built upon the <code>matLib</code> library, and is useful
-for both simulations and hardware applications.
+The <code>rotLib</code> library contains functions that are needed 
+to perform various types of roational transformations.  It is built 
+upon the <code>matLib</code> library, and is useful for both 
+simulations and hardware applications.
 
 
 optLib
