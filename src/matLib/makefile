@@ -22,5 +22,5 @@ obj/%.o : %.c ../../inc/matLib.h
 	$(CC) $(CFLAGS) -I$(IDIR) -o $@ $< 
 
 clean :
-	rm $(OBJ)
+	rm $(OBJ) $(LDIR)/libmat.a
 
