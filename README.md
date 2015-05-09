@@ -14,6 +14,10 @@ which can be referenced throughout multiple projects. The command:
 is run in each <code>makefile</code>, which generates the static 
 library that can be included in other projects.
 
+The libraries need to be compiled natively on whatever platform 
+they will be used.  So, many libraries that run natively on Mac 
+OS X, need to be recompiled on the BBB to be used on that system.
+
 
 bbbLib
 ------
