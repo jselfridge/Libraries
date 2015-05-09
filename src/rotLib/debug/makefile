@@ -9,8 +9,8 @@ CC     = gcc
 CFLAGS = -Wall -g -c
 
 LIBS   = -lrot -lmat -lm
-IDIR   = ../../inc
-LDIR   = ../../lib
+IDIR   = ../../../inc
+LDIR   = ../../../lib
 
 OBJ    = rotDebug.o
 
