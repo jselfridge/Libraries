@@ -9,8 +9,8 @@ CC     = gcc
 CFLAGS = -Wall -g -c
 
 LIBS   = -lctrl -lmat -lm
-IDIR   = ../../inc
-LDIR   = ../../lib
+IDIR   = ../../../inc
+LDIR   = ../../../lib
 
 OBJ    = ctrlDebug.o
 
