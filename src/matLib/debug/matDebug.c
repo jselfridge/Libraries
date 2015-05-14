@@ -12,14 +12,15 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
-  InitMat(); 
-  PrintMat();
-  MatManip();
-  MatComplex();
-  MatVec();
-  MatArith();
-  MatRoot();
-  ClearMat();
+  //InitMat(); 
+  //PrintMat();
+  //MatManip();
+  //MatComplex();
+  //MatVec();
+  //MatArith();
+  //MatRoot();
+  MatTest();
+  //ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return 0;
 }
@@ -564,6 +565,92 @@ void MatRoot() {
   mat_clearz(zero3);
   mat_clearz(zero4);
 
+  printf("\n");
+  return;
+}
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  MatTest
+//  Debugs the MatRoot file functions.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void MatTest() {
+
+  // Illustration 1: [3x3] exists
+  printf("LU1: \n");
+  matrix *A1, *L1, *U1, *T1;
+  A1 = mat_init(3,3);
+  mat_set( A1,1,1, -3 );    mat_set( A1,1,2, 1 );    mat_set( A1,1,3,  2 );  
+  mat_set( A1,2,1,  6 );    mat_set( A1,2,2, 2 );    mat_set( A1,2,3, -5 );  
+  mat_set( A1,3,1,  9 );    mat_set( A1,3,2, 5 );    mat_set( A1,3,3, -6 );  
+  mat_LU( A1, &L1, &U1 );
+  T1 = mat_mul(L1,U1);
+  printf("A1: ");  mat_print(A1);  mat_clear(A1);
+  printf("L1: ");  mat_print(L1);  mat_clear(L1);
+  printf("U1: ");  mat_print(U1);  mat_clear(U1);
+  printf("T1: ");  mat_print(T1);  mat_clear(T1);
+  printf("\n");
+
+  // Illustration 2: [4x4] exists
+  printf("LU2: \n");
+  matrix *A2, *L2, *U2, *T2;
+  A2 = mat_init(4,4);
+  mat_set( A2,1,1,  2 );  mat_set( A2,1,2,  1 );  mat_set( A2,1,3,  0 );  mat_set( A2,1,4,   4 );  
+  mat_set( A2,2,1, -4 );  mat_set( A2,2,2, -3 );  mat_set( A2,2,3,  5 );  mat_set( A2,2,4, -10 );  
+  mat_set( A2,3,1,  6 );  mat_set( A2,3,2,  4 );  mat_set( A2,3,3, -8 );  mat_set( A2,3,4,  17 );  
+  mat_set( A2,4,1,  2 );  mat_set( A2,4,2, -3 );  mat_set( A2,4,3, 29 );  mat_set( A2,4,4,  -9 );  
+  mat_LU( A2, &L2, &U2 );
+  T2 = mat_mul(L2,U2);
+  printf("A2: ");  mat_print(A2);  mat_clear(A2);
+  printf("L2: ");  mat_print(L2);  mat_clear(L2);
+  printf("U2: ");  mat_print(U2);  mat_clear(U2);
+  printf("T2: ");  mat_print(T2);  mat_clear(T2);
+  printf("\n");
+
+  /*
+  // Illustration 3: [3x3] no solution
+  printf("LU3: \n");
+  matrix *A3, *L3, *U3;
+  A3 = mat_init(3,3);
+  mat_set( A3,1,1,  2 );  mat_set( A3,1,2,  1 );  mat_set( A3,1,3, -1 );
+  mat_set( A3,2,1, -4 );  mat_set( A3,2,2, -2 );  mat_set( A3,2,3,  5 );
+  mat_set( A3,3,1,  6 );  mat_set( A3,3,2,  2 );  mat_set( A3,3,3, 11 );
+  mat_LU( A3, &L3, &U3 );
+  */
+
+  // Illustration 4: [3x5] exists
+  printf("LU4: \n");
+  matrix *A4, *L4, *U4, *T4;
+  A4 = mat_init(3,5);
+  mat_set( A4,1,1,   4 );  mat_set( A4,1,2,  -3 );  mat_set( A4,1,3,  -1 );  mat_set( A4,1,4,   5 );  mat_set( A4,1,5,  2 );
+  mat_set( A4,2,1, -16 );  mat_set( A4,2,2,  12 );  mat_set( A4,2,3,   2 );  mat_set( A4,2,4, -17 );  mat_set( A4,2,5, -7 );
+  mat_set( A4,3,1,   8 );  mat_set( A4,3,2,  -6 );  mat_set( A4,3,3, -12 );  mat_set( A4,3,4,  22 );  mat_set( A4,3,5, 10 );
+  mat_LU( A4, &L4, &U4 );
+  T4 = mat_mul(L4,U4);
+  printf("A4: ");  mat_print(A4);  mat_clear(A4);
+  printf("L4: ");  mat_print(L4);  mat_clear(L4);
+  printf("U4: ");  mat_print(U4);  mat_clear(U4);
+  printf("T4: ");  mat_print(T4);  mat_clear(T4);
+  printf("\n");
+ 
+  // Illustration 5: [5x3] exists
+  printf("LU5: \n");
+  matrix *A5, *L5, *U5, *T5;
+  A5 = mat_init(5,3);
+  mat_set( A5,1,1,  3 );  mat_set( A5,1,2, -1 );  mat_set( A5,1,3,  4 );
+  mat_set( A5,2,1,  9 );  mat_set( A5,2,2, -5 );  mat_set( A5,2,3, 15 );
+  mat_set( A5,3,1, 15 );  mat_set( A5,3,2, -1 );  mat_set( A5,3,3, 10 );
+  mat_set( A5,4,1, -6 );  mat_set( A5,4,2,  2 );  mat_set( A5,4,3, -4 );
+  mat_set( A5,5,1, -3 );  mat_set( A5,5,2, -3 );  mat_set( A5,5,3, 10 );
+  mat_LU( A5, &L5, &U5 );
+  T5 = mat_mul(L5,U5);
+  printf("A5: ");  mat_print(A5);  mat_clear(A5);
+  printf("L5: ");  mat_print(L5);  mat_clear(L5);
+  printf("U5: ");  mat_print(U5);  mat_clear(U5);
+  printf("T5: ");  mat_print(T5);  mat_clear(T5);
+  printf("\n");
+
+  // Exit function
   printf("\n");
   return;
 }

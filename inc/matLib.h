@@ -109,6 +109,10 @@ double complex   N    ( matrixz* zero, matrix* coef, int j );
 double complex   D    ( matrixz* zero, int j );
 
 
+// MatTest functions
+void      mat_LU      ( matrix* mat, matrix** L, matrix** U );
+
+
 #endif
 
 
