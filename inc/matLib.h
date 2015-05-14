@@ -111,7 +111,7 @@ double complex   D    ( matrixz* zero, int j );
 
 // MatTest functions
 void      mat_LU      ( matrix* mat, matrix** L, matrix** U );
-
+void      mat_LDU     ( matrix* mat, matrix** L, matrix** D, matrix** U );
 
 #endif
 

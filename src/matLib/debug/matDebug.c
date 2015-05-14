@@ -576,66 +576,90 @@ void MatRoot() {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void MatTest() {
 
-  // Illustration 1: [3x3] exists
-  printf("LU1: \n");
-  matrix *A1, *L1, *U1, *T1;
+  // Sample 1
+  printf("Sample 1: \n");
+  matrix *A1, *L1, *U1, *LU1, *D1, *V1, *LDU1;
   A1 = mat_init(3,3);
   mat_set( A1,1,1, -3 );    mat_set( A1,1,2, 1 );    mat_set( A1,1,3,  2 );  
   mat_set( A1,2,1,  6 );    mat_set( A1,2,2, 2 );    mat_set( A1,2,3, -5 );  
   mat_set( A1,3,1,  9 );    mat_set( A1,3,2, 5 );    mat_set( A1,3,3, -6 );  
   mat_LU( A1, &L1, &U1 );
-  T1 = mat_mul(L1,U1);
-  printf("A1: ");  mat_print(A1);  mat_clear(A1);
-  printf("L1: ");  mat_print(L1);  mat_clear(L1);
-  printf("U1: ");  mat_print(U1);  mat_clear(U1);
-  printf("T1: ");  mat_print(T1);  mat_clear(T1);
+  LU1 = mat_mul(L1,U1);
+  mat_LDU( A1, &L1, &D1, &V1 );
+  LDU1 = mat_mul(mat_mul(L1,D1),V1);
+  printf("A1: ");    mat_print(A1);    mat_clear(A1);
+  printf("L1: ");    mat_print(L1);    mat_clear(L1);
+  printf("U1: ");    mat_print(U1);    mat_clear(U1);
+  printf("LU1: ");   mat_print(LU1);   mat_clear(LU1);
+  printf("D1: ");    mat_print(D1);    mat_clear(D1);
+  printf("V1: ");    mat_print(V1);    mat_clear(V1);
+  printf("LDU1: ");  mat_print(LDU1);  mat_clear(LDU1);
   printf("\n");
 
-  // Illustration 2: [4x4] exists
-  printf("LU2: \n");
-  matrix *A2, *L2, *U2, *T2;
-  A2 = mat_init(4,4);
-  mat_set( A2,1,1,  2 );  mat_set( A2,1,2,  1 );  mat_set( A2,1,3,  0 );  mat_set( A2,1,4,   4 );  
-  mat_set( A2,2,1, -4 );  mat_set( A2,2,2, -3 );  mat_set( A2,2,3,  5 );  mat_set( A2,2,4, -10 );  
-  mat_set( A2,3,1,  6 );  mat_set( A2,3,2,  4 );  mat_set( A2,3,3, -8 );  mat_set( A2,3,4,  17 );  
-  mat_set( A2,4,1,  2 );  mat_set( A2,4,2, -3 );  mat_set( A2,4,3, 29 );  mat_set( A2,4,4,  -9 );  
+  // Sample 2
+  printf("Sample 2: \n");
+  matrix *A2, *L2, *U2, *LU2, *D2, *V2, *LDU2;
+  A2 = mat_init(3,3);
+  mat_set( A2,1,1,  2 );    mat_set( A2,1,2,  8 );    mat_set( A2,1,3,   0 );  
+  mat_set( A2,2,1,  4 );    mat_set( A2,2,2, 18 );    mat_set( A2,2,3,  -4 );  
+  mat_set( A2,3,1, -2 );    mat_set( A2,3,2, -2 );    mat_set( A2,3,3, -13 );  
   mat_LU( A2, &L2, &U2 );
-  T2 = mat_mul(L2,U2);
-  printf("A2: ");  mat_print(A2);  mat_clear(A2);
-  printf("L2: ");  mat_print(L2);  mat_clear(L2);
-  printf("U2: ");  mat_print(U2);  mat_clear(U2);
-  printf("T2: ");  mat_print(T2);  mat_clear(T2);
+  LU2 = mat_mul(L2,U2);
+  mat_LDU( A2, &L2, &D2, &V2 );
+  LDU2 = mat_mul(mat_mul(L2,D2),V2);
+  printf("A2: ");    mat_print(A2);    mat_clear(A2);
+  printf("L2: ");    mat_print(L2);    mat_clear(L2);
+  printf("U2: ");    mat_print(U2);    mat_clear(U2);
+  printf("LU2: ");   mat_print(LU2);   mat_clear(LU2);
+  printf("D2: ");    mat_print(D2);    mat_clear(D2);
+  printf("V2: ");    mat_print(V2);    mat_clear(V2);
+  printf("LDU2: ");  mat_print(LDU2);  mat_clear(LDU2);
   printf("\n");
 
-  /*
-  // Illustration 3: [3x3] no solution
-  printf("LU3: \n");
-  matrix *A3, *L3, *U3;
-  A3 = mat_init(3,3);
-  mat_set( A3,1,1,  2 );  mat_set( A3,1,2,  1 );  mat_set( A3,1,3, -1 );
-  mat_set( A3,2,1, -4 );  mat_set( A3,2,2, -2 );  mat_set( A3,2,3,  5 );
-  mat_set( A3,3,1,  6 );  mat_set( A3,3,2,  2 );  mat_set( A3,3,3, 11 );
+  // Sample 3
+  printf("Sample 3: \n");
+  matrix *A3, *L3, *U3, *LU3, *D3, *V3, *LDU3;;
+  A3 = mat_init(4,4);
+  mat_set( A3,1,1,  2 );  mat_set( A3,1,2,  1 );  mat_set( A3,1,3,  0 );  mat_set( A3,1,4,   4 );  
+  mat_set( A3,2,1, -4 );  mat_set( A3,2,2, -3 );  mat_set( A3,2,3,  5 );  mat_set( A3,2,4, -10 );  
+  mat_set( A3,3,1,  6 );  mat_set( A3,3,2,  4 );  mat_set( A3,3,3, -8 );  mat_set( A3,3,4,  17 );  
+  mat_set( A3,4,1,  2 );  mat_set( A3,4,2, -3 );  mat_set( A3,4,3, 29 );  mat_set( A3,4,4,  -9 );  
   mat_LU( A3, &L3, &U3 );
-  */
+  LU3 = mat_mul(L3,U3);
+  mat_LDU( A3, &L3, &D3, &V3 );
+  LDU3 = mat_mul(mat_mul(L3,D3),V3);
+  printf("A3: ");    mat_print(A3);    mat_clear(A3);
+  printf("L3: ");    mat_print(L3);    mat_clear(L3);
+  printf("U3: ");    mat_print(U3);    mat_clear(U3);
+  printf("LU3: ");   mat_print(LU3);   mat_clear(LU3);
+  printf("D3: ");    mat_print(D3);    mat_clear(D3);
+  printf("V3: ");    mat_print(V3);    mat_clear(V3);
+  printf("LDU3: ");  mat_print(LDU3);  mat_clear(LDU3);
+  printf("\n");
 
-  // Illustration 4: [3x5] exists
-  printf("LU4: \n");
-  matrix *A4, *L4, *U4, *T4;
+  // Sample 4
+  printf("Sample 4: \n");
+  matrix *A4, *L4, *U4, *LU4, *D4, *V4, *LDU4;
   A4 = mat_init(3,5);
   mat_set( A4,1,1,   4 );  mat_set( A4,1,2,  -3 );  mat_set( A4,1,3,  -1 );  mat_set( A4,1,4,   5 );  mat_set( A4,1,5,  2 );
   mat_set( A4,2,1, -16 );  mat_set( A4,2,2,  12 );  mat_set( A4,2,3,   2 );  mat_set( A4,2,4, -17 );  mat_set( A4,2,5, -7 );
   mat_set( A4,3,1,   8 );  mat_set( A4,3,2,  -6 );  mat_set( A4,3,3, -12 );  mat_set( A4,3,4,  22 );  mat_set( A4,3,5, 10 );
   mat_LU( A4, &L4, &U4 );
-  T4 = mat_mul(L4,U4);
-  printf("A4: ");  mat_print(A4);  mat_clear(A4);
-  printf("L4: ");  mat_print(L4);  mat_clear(L4);
-  printf("U4: ");  mat_print(U4);  mat_clear(U4);
-  printf("T4: ");  mat_print(T4);  mat_clear(T4);
+  LU4 = mat_mul(L4,U4);
+  mat_LDU( A4, &L4, &D4, &V4 );
+  LDU4 = mat_mul(mat_mul(L4,D4),V4);
+  printf("A4: ");    mat_print(A4);    mat_clear(A4);
+  printf("L4: ");    mat_print(L4);    mat_clear(L4);
+  printf("U4: ");    mat_print(U4);    mat_clear(U4);
+  printf("LU4: ");   mat_print(LU4);   mat_clear(LU4);
+  printf("D4: ");    mat_print(D4);    mat_clear(D4);
+  printf("V4: ");    mat_print(V4);    mat_clear(V4);
+  printf("LDU4: ");  mat_print(LDU4);  mat_clear(LDU4);
   printf("\n");
  
-  // Illustration 5: [5x3] exists
-  printf("LU5: \n");
-  matrix *A5, *L5, *U5, *T5;
+  // Sample 5
+  printf("Sample 5: \n");
+  matrix *A5, *L5, *U5, *LU5, *D5, *V5, *LDU5;
   A5 = mat_init(5,3);
   mat_set( A5,1,1,  3 );  mat_set( A5,1,2, -1 );  mat_set( A5,1,3,  4 );
   mat_set( A5,2,1,  9 );  mat_set( A5,2,2, -5 );  mat_set( A5,2,3, 15 );
@@ -643,12 +667,26 @@ void MatTest() {
   mat_set( A5,4,1, -6 );  mat_set( A5,4,2,  2 );  mat_set( A5,4,3, -4 );
   mat_set( A5,5,1, -3 );  mat_set( A5,5,2, -3 );  mat_set( A5,5,3, 10 );
   mat_LU( A5, &L5, &U5 );
-  T5 = mat_mul(L5,U5);
-  printf("A5: ");  mat_print(A5);  mat_clear(A5);
-  printf("L5: ");  mat_print(L5);  mat_clear(L5);
-  printf("U5: ");  mat_print(U5);  mat_clear(U5);
-  printf("T5: ");  mat_print(T5);  mat_clear(T5);
+  LU5 = mat_mul(L5,U5);
+  mat_LDU( A5, &L5, &D5, &V5 );
+  LDU5 = mat_mul(mat_mul(L5,D5),V5);
+  printf("A5: ");    mat_print(A5);    mat_clear(A5);
+  printf("L5: ");    mat_print(L5);    mat_clear(L5);
+  printf("U5: ");    mat_print(U5);    mat_clear(U5);
+  printf("LU5: ");   mat_print(LU5);   mat_clear(LU5);
+  printf("D5: ");    mat_print(D5);    mat_clear(D5);
+  printf("V5: ");    mat_print(V5);    mat_clear(V5);
+  printf("LDU5: ");  mat_print(LDU5);  mat_clear(LDU5);
   printf("\n");
+
+  // Sample 6: No solution
+  printf("LU6: \n");
+  matrix *A6, *L6, *U6;
+  A6 = mat_init(3,3);
+  mat_set( A6,1,1,  2 );  mat_set( A6,1,2,  1 );  mat_set( A6,1,3, -1 );
+  mat_set( A6,2,1, -4 );  mat_set( A6,2,2, -2 );  mat_set( A6,2,3,  5 );
+  mat_set( A6,3,1,  6 );  mat_set( A6,3,2,  2 );  mat_set( A6,3,3, 11 );
+  mat_LU( A6, &L6, &U6 );
 
   // Exit function
   printf("\n");
