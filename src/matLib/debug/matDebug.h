@@ -23,7 +23,7 @@ void MatComplex();
 void MatVec();
 void MatArith();
 void MatRoot();
-void MatTest();
+void MatDecomp();
 void ClearMat();
 
 

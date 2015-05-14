@@ -1,6 +1,6 @@
 
 //============================================================
-//  matTest.c
+//  matDecomp.c
 //  Justin M Selfridge
 //============================================================
 #include "matLib.h"
@@ -12,63 +12,51 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_LU ( matrix* mat, matrix** L, matrix** U )  {
 
-  int i, j, k, p, q, r, c;
-  float pivot, scale, val;
+  int i, j, k, n, m, p, r, c;
+  float pivot, val, scale;
   matrix* row;
 
   r = mat->rows;
   c = mat->cols;
+  n = r<c ? r : c;
   row = mat_init(1,c);
+  i = 1;  j = 1;  m = 0;
 
   *U = mat_copy(mat);
   *L = mat_init(r,r);
 
-  p = 1;  q = 1;  k = 0;
+  for ( p=1; p<=n; p++ ) {
 
-  // Loop through all columns
-  for ( j=1; j<=c; j++ ) {
+    pivot = mat_get(*U,i,j);
 
-    // Check row completion
-    if ( p>r )  break;
-
-    // Obtain current pivot value
-    pivot = mat_get(*U,p,q);
-
-    // Test for zero column entries
     if(!pivot) {
-      for ( i=p+1; i<=r; i++ ) {
-        val = mat_get(*U,i,q);
+      for ( k=i+1; k<=r; k++ ) {
+        val = mat_get(*U,k,j);
         mat_err( val!=0, "Error (mat_LU): The LU decomposition does not exist." );
       }
-      q++; k++;
+      j++; m++; p--;
     }
 
-    // Otherwise fill in matrices
     else {
 
-      // Populate L column
-      for ( i=p; i<=r; i++ ) {
-        val = mat_get(*U,i,q)/pivot;
-        mat_set(*L,i,q-k,val);
+      for ( k=i; k<=r; k++ ) {
+        val = mat_get(*U,k,j)/pivot;
+        mat_set(*L,k,j-m,val);
       }
 
-      // Manipulate U
-      for ( i=p+1; i<=r; i++ ) {
-        scale = -mat_get(*U,i,q)/pivot;
-        row = mat_getr(*U,p);
+      for ( k=i+1; k<=r; k++ ) {
+        scale = -mat_get(*U,k,j)/pivot;
+        row = mat_getr(*U,i);
         row = mat_scale(row,scale);
-        row = mat_add( row, mat_getr(*U,i) );
-        mat_setr(*U,i,row);
+        row = mat_add( row, mat_getr(*U,k) );
+        mat_setr(*U,k,row);
       }
 
-      // New pivot position
-      p++;  q++;
-
+      i++;  j++;
     }
   }
 
-  // Check column completion
-  if ( q>c )  while ( q<=r ) {  mat_set(*L,q,q,1.0);  q++;  }
+  while ( p<=r ) {  mat_set(*L,p,p,1.0);  p++;  }
 
   mat_clear(row);
   return;
@@ -81,7 +69,7 @@ void mat_LU ( matrix* mat, matrix** L, matrix** U )  {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void mat_LDU ( matrix* mat, matrix** L, matrix** D, matrix** U )  {
 
-  int i, p, q, r, c;
+  int i, j, k, r, c;
   float pivot;
   matrix* row;
 
@@ -92,24 +80,24 @@ void mat_LDU ( matrix* mat, matrix** L, matrix** D, matrix** U )  {
   mat_LU( mat, &*L, &*U );
   *D = mat_init(r,r);
 
-  p = 1;  q = 1;
-  for ( i=1; i<=r; i++ ) {
+  i = 1;  j = 1;
+  for ( k=1; k<=r; k++ ) {
 
-    if ( i>c ) {
-      while ( i<=r ) {  mat_set(*D,i,i,1);  i++;  }
+    if ( k>c ) {
+      while ( k<=r ) {  mat_set(*D,k,k,1);  k++;  }
       break;
     }
 
-    pivot = mat_get(*U,p,q);
+    pivot = mat_get(*U,i,j);
     while (!pivot) {
-      q++;
-      pivot = mat_get(*U,p,q);
+      j++;
+      pivot = mat_get(*U,i,j);
     }
-    row = mat_getr(*U,p);
+    row = mat_getr(*U,i);
     row = mat_scale( row, 1/pivot );
-    mat_setr(*U,p,row);
-    mat_set(*D,i,i,pivot);
-    p++; q++;
+    mat_setr(*U,i,row);
+    mat_set(*D,k,k,pivot);
+    i++; j++;
   }
 
   mat_clear(row);

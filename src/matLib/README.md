@@ -11,11 +11,8 @@ categories:
       matVec      - Operations appplied to vectors
       matArith    - Arithmetic and matrix math functions
       matRoot     - Method to find complex roots of a polynomial
+      matDecomp   - Useful matrix decompositions
 
-<!--
-    matProp   - Properties of a matrix
-    matDecomp - Useful matrix decompositions
--->
 
 
 

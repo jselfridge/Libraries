@@ -19,7 +19,7 @@ int main ()  {
   //MatVec();
   //MatArith();
   //MatRoot();
-  MatTest();
+  MatDecomp();
   //ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return 0;
@@ -574,7 +574,7 @@ void MatRoot() {
 //  MatTest
 //  Debugs the MatRoot file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void MatTest() {
+void MatDecomp() {
 
   // Sample 1
   printf("Sample 1: \n");
@@ -656,7 +656,7 @@ void MatTest() {
   printf("V4: ");    mat_print(V4);    mat_clear(V4);
   printf("LDU4: ");  mat_print(LDU4);  mat_clear(LDU4);
   printf("\n");
- 
+
   // Sample 5
   printf("Sample 5: \n");
   matrix *A5, *L5, *U5, *LU5, *D5, *V5, *LDU5;
@@ -679,6 +679,7 @@ void MatTest() {
   printf("LDU5: ");  mat_print(LDU5);  mat_clear(LDU5);
   printf("\n");
 
+  /*
   // Sample 6: No solution
   printf("LU6: \n");
   matrix *A6, *L6, *U6;
@@ -687,6 +688,7 @@ void MatTest() {
   mat_set( A6,2,1, -4 );  mat_set( A6,2,2, -2 );  mat_set( A6,2,3,  5 );
   mat_set( A6,3,1,  6 );  mat_set( A6,3,2,  2 );  mat_set( A6,3,3, 11 );
   mat_LU( A6, &L6, &U6 );
+  */
 
   // Exit function
   printf("\n");
