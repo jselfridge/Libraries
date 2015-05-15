@@ -112,6 +112,8 @@ double complex   D    ( matrixz* zero, int j );
 // MatDecomp functions
 void      mat_LU      ( matrix* mat, matrix** L, matrix** U );
 void      mat_LDU     ( matrix* mat, matrix** L, matrix** D, matrix** U );
+double    mat_det     ( matrix* mat );
+
 
 #endif
 

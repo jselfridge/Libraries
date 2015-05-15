@@ -105,4 +105,29 @@ void mat_LDU ( matrix* mat, matrix** L, matrix** D, matrix** U )  {
 }
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//  mat_det
+//  Returns the determinant of a matrix.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+double mat_det ( matrix* mat )  {
+
+  mat_err( mat->rows != mat->cols, "Error (mat_det): Matrix must be square." );
+
+  int     i, n;
+  double  product = 1.0;
+  matrix* L = NULL;
+  matrix* U = NULL;
+
+  mat_LU( mat, &L, &U );
+  n = mat->rows;
+
+  for ( i=1; i<=n; i++ )  product *= mat_get(U,i,i);
+
+  mat_clear(L);
+  mat_clear(U);
+
+  return product;
+}
+
+
 

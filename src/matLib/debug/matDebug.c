@@ -12,15 +12,15 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
-  //InitMat(); 
-  //PrintMat();
+  InitMat(); 
+  PrintMat();
   //MatManip();
   //MatComplex();
   //MatVec();
   //MatArith();
   //MatRoot();
   MatDecomp();
-  //ClearMat();
+  ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return 0;
 }
@@ -576,8 +576,8 @@ void MatRoot() {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void MatDecomp() {
 
-  // Sample 1
-  printf("Sample 1: \n");
+  // LDU 1
+  printf("LDU 1: \n");
   matrix *A1, *L1, *U1, *LU1, *D1, *V1, *LDU1;
   A1 = mat_init(3,3);
   mat_set( A1,1,1, -3 );    mat_set( A1,1,2, 1 );    mat_set( A1,1,3,  2 );  
@@ -596,8 +596,8 @@ void MatDecomp() {
   printf("LDU1: ");  mat_print(LDU1);  mat_clear(LDU1);
   printf("\n");
 
-  // Sample 2
-  printf("Sample 2: \n");
+  // LDU 2
+  printf("LDU 2: \n");
   matrix *A2, *L2, *U2, *LU2, *D2, *V2, *LDU2;
   A2 = mat_init(3,3);
   mat_set( A2,1,1,  2 );    mat_set( A2,1,2,  8 );    mat_set( A2,1,3,   0 );  
@@ -616,8 +616,8 @@ void MatDecomp() {
   printf("LDU2: ");  mat_print(LDU2);  mat_clear(LDU2);
   printf("\n");
 
-  // Sample 3
-  printf("Sample 3: \n");
+  // LDU 3
+  printf("LDU 3: \n");
   matrix *A3, *L3, *U3, *LU3, *D3, *V3, *LDU3;;
   A3 = mat_init(4,4);
   mat_set( A3,1,1,  2 );  mat_set( A3,1,2,  1 );  mat_set( A3,1,3,  0 );  mat_set( A3,1,4,   4 );  
@@ -637,8 +637,8 @@ void MatDecomp() {
   printf("LDU3: ");  mat_print(LDU3);  mat_clear(LDU3);
   printf("\n");
 
-  // Sample 4
-  printf("Sample 4: \n");
+  // LDU 4
+  printf("LDU 4: \n");
   matrix *A4, *L4, *U4, *LU4, *D4, *V4, *LDU4;
   A4 = mat_init(3,5);
   mat_set( A4,1,1,   4 );  mat_set( A4,1,2,  -3 );  mat_set( A4,1,3,  -1 );  mat_set( A4,1,4,   5 );  mat_set( A4,1,5,  2 );
@@ -657,8 +657,8 @@ void MatDecomp() {
   printf("LDU4: ");  mat_print(LDU4);  mat_clear(LDU4);
   printf("\n");
 
-  // Sample 5
-  printf("Sample 5: \n");
+  // LDU 5
+  printf("LDU 5: \n");
   matrix *A5, *L5, *U5, *LU5, *D5, *V5, *LDU5;
   A5 = mat_init(5,3);
   mat_set( A5,1,1,  3 );  mat_set( A5,1,2, -1 );  mat_set( A5,1,3,  4 );
@@ -680,8 +680,8 @@ void MatDecomp() {
   printf("\n");
 
   /*
-  // Sample 6: No solution
-  printf("LU6: \n");
+  // LDU 6: No solution
+  printf("LDU 6: \n");
   matrix *A6, *L6, *U6;
   A6 = mat_init(3,3);
   mat_set( A6,1,1,  2 );  mat_set( A6,1,2,  1 );  mat_set( A6,1,3, -1 );
@@ -689,6 +689,12 @@ void MatDecomp() {
   mat_set( A6,3,1,  6 );  mat_set( A6,3,2,  2 );  mat_set( A6,3,3, 11 );
   mat_LU( A6, &L6, &U6 );
   */
+
+  // Determinant
+  double det3 = mat_det(M33a);
+  printf( "det3: %f \n", det3 );
+  double det4 = mat_det(M44);
+  printf( "det4: %f \n", det4 );
 
   // Exit function
   printf("\n");
