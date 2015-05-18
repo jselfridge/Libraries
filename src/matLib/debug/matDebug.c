@@ -12,15 +12,15 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
-  InitMat(); 
-  PrintMat();
+  //InitMat(); 
+  //PrintMat();
   //MatManip();
   //MatComplex();
   //MatVec();
   //MatArith();
   //MatRoot();
   MatDecomp();
-  ClearMat();
+  //ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return 0;
 }
@@ -689,12 +689,13 @@ void MatDecomp() {
   mat_set( A6,3,1,  6 );  mat_set( A6,3,2,  2 );  mat_set( A6,3,3, 11 );
   mat_LU( A6, &L6, &U6 );
   */
-
+  /*
   // Determinant
   double det3 = mat_det(M33a);
   printf( "det3: %f \n", det3 );
   double det4 = mat_det(M44);
   printf( "det4: %f \n", det4 );
+  */
 
   // Exit function
   printf("\n");
