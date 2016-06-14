@@ -3,13 +3,14 @@
 //  rotEuler.c
 //  Justin M Selfridge
 //============================================================
-#include "rotLib.h"
+//#include "rotLib.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_xaxis
 //  Generates a rotation matrix around the X-axis.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_xaxis ( double angle )  {
 
   matrix* R = mat_init(3,3);
@@ -22,12 +23,13 @@ matrix* rot_xaxis ( double angle )  {
 
   return R;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_yaxis
 //  Generates a rotation matrix around the Y-axis.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_yaxis ( double angle )  {
 
   matrix* R = mat_init(3,3);
@@ -40,12 +42,13 @@ matrix* rot_yaxis ( double angle )  {
 
   return R;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_zaxis
 //  Generates a rotation matrix around the Z-axis.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_zaxis ( double angle )  {
 
   matrix* R = mat_init(3,3);
@@ -58,7 +61,7 @@ matrix* rot_zaxis ( double angle )  {
 
   return R;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_eul
@@ -67,6 +70,7 @@ matrix* rot_zaxis ( double angle )  {
 //  reverses the relationship.
 //  Xi = R * Xb , Xb = R' * Xi
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_eul ( matrix* att )  {
 
   mat_err( att->rows!=3 || att->cols!=1, "Error (rot_eul): Attitude must be a 3 element column vector." );
@@ -81,6 +85,6 @@ matrix* rot_eul ( matrix* att )  {
 
   return R;
 }
-
+*/
 
 

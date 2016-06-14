@@ -3,13 +3,14 @@
 //  rotQuat.c
 //  Justin M Selfridge
 //============================================================
-#include "rotLib.h"
+//#include "rotLib.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_e2q
 //  Converts an Euler attitude vector to a quaternion vector.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_e2q ( matrix* att )  {
 
   mat_err( att->rows!=3 || att->cols!=1, "Error (rot_e2q): Attitude is a 3 element column vector." );
@@ -35,12 +36,13 @@ matrix* rot_e2q ( matrix* att )  {
 
   return mat_uvec(Q);
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_q2e
 //  Converts a quaternion vector to an Euler attitude vector.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_q2e ( matrix* quat )  {
 
   mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_q2e): Quaternion is a 4 element column vector." );
@@ -65,12 +67,13 @@ matrix* rot_q2e ( matrix* quat )  {
 
   return E;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_q2dcm
 //  Converts quaternion vector into Direction Cosine Matrix (DCM).
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_q2dcm ( matrix* quat )  {
 
   mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_q2dcm): Quaternion is a 4 element column vector." );
@@ -104,12 +107,13 @@ matrix* rot_q2dcm ( matrix* quat )  {
 
   return R;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_vec2q
 //  Returns quaternion to rotate from VecA to VecB.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_vec2q ( matrix* vecA, matrix* vecB )  {
 
   mat_err( vecA->rows!=3 || vecA->cols!=1, "Error (rot_vec2q): VecA must be a 3 element column vector." );
@@ -134,12 +138,13 @@ matrix* rot_vec2q ( matrix* vecA, matrix* vecB )  {
   mat_clear(axis);
   return mat_uvec(Q);
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_vec2e
 //  Returns Euler angles to rotate from VecA to VecB.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_vec2e ( matrix* vecA, matrix* vecB )  {
 
   mat_err( vecA->rows!=3 || vecA->cols!=1, "Error (rot_vec2e): VecA must be a 3 element column vector." );
@@ -153,12 +158,13 @@ matrix* rot_vec2e ( matrix* vecA, matrix* vecB )  {
   mat_clear(Q);
   return E;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_qskew
 //  Takes a quaternion and returns a matrix for quat multiplication.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_qskew ( matrix* quat )  {
 
   mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_qskew): Quaternion must be a 4 element column vector." );
@@ -179,12 +185,13 @@ matrix* rot_qskew ( matrix* quat )  {
 
   return qskew;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_qmul
 //  Performs quaternion multiplication.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_qmul ( matrix* quatA, matrix* quatB )  {
 
   mat_err( quatA->rows!=4 || quatA->cols!=1, "Error (rot_qmul): QuatA must be a 4 element column vector." );
@@ -195,12 +202,13 @@ matrix* rot_qmul ( matrix* quatA, matrix* quatB )  {
 
   return Q;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_qderiv
 //  Matrix to determine quat derivatives given angular rate.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_qderiv ( matrix* quat )  {
 
   mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_qderiv): Quaternion must be a 4 element column vector." );
@@ -221,6 +229,6 @@ matrix* rot_qderiv ( matrix* quat )  {
 
   return mat_scale(mat,0.5);
 }
-
+*/
 
 

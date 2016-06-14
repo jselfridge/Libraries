@@ -3,31 +3,34 @@
 //  rotConv.c
 //  Justin M Selfridge
 //============================================================
-#include "rotLib.h"
+//#include "rotLib.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_d2r
 //  Converts the angles of a matrix from degrees into radians.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_d2r ( matrix* deg )  {
   return mat_scale( deg, PI/180.0 );
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_r2d
 //  Converts the angles of matrix from radians into degrees.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* rot_r2d ( matrix* rad )  {
   return mat_scale( rad, 180.0/PI );
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_wrappi
 //  Places the elements of a matrix within the range (-pi,pi].
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void rot_wrappi ( matrix* rad )  {
 
   int i, j, r, c;
@@ -47,12 +50,13 @@ void rot_wrappi ( matrix* rad )  {
 
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  rot_wrap2pi
 //  Places the elements of a matrix within the range [0,2pi).
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void rot_wrap2pi ( matrix* rad )  {
 
   int i, j, r, c;
@@ -72,6 +76,6 @@ void rot_wrap2pi ( matrix* rad )  {
 
   return;
 }
-
+*/
 
 

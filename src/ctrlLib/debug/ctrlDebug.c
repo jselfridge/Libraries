@@ -3,25 +3,27 @@
 //  ctrlDebug.c
 //  Justin M Selfridge
 //============================================================
-#include "ctrlDebug.h"
+//#include "ctrlDebug.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  main
 //  Runs the main CtrlLib debugging program.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 int main ()  {
   printf("\n   --- CtrlLib Debugging --- \n\n");
   CtrlFunc();
   printf("   --- CtrlLib Complete --- \n\n");
   return 0;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  CtrlFunc
 //  Debugs the CtrlFunc file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void CtrlFunc ()  {
 
   // Define states
@@ -71,12 +73,13 @@ void CtrlFunc ()  {
   printf("\n");
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Plant1
 //  Provides a nonlinear system to test linearization function.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* Plant1 ( matrix* x, matrix* u )  {
 
   double x1, x2, x3, x4;
@@ -105,12 +108,13 @@ matrix* Plant1 ( matrix* x, matrix* u )  {
 
   return f;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Plant2
 //  Provides a nonlinear system to test linearization function.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* Plant2 ( matrix* x, matrix* u )  {
 
   double x1, x2, x3, x4;
@@ -139,6 +143,6 @@ matrix* Plant2 ( matrix* x, matrix* u )  {
 
   return f;
 }
-
+*/
 
 

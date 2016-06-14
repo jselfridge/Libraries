@@ -3,13 +3,14 @@
 //  rotDebug.c
 //  Justin M Selfridge
 //============================================================
-#include "rotDebug.h"
+//#include "rotDebug.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  main
 //  Runs the main RotLib debugging program.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 int main ()  {
   printf("\n   --- RotLib Debugging --- \n\n");
   //RotConv();
@@ -18,12 +19,13 @@ int main ()  {
   printf("   --- RotLib Complete --- \n\n");
   return 0;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  RotConv
 //  Debugs the RotConv file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void RotConv ()  {
   printf("Rotation conversions \n");
 
@@ -103,12 +105,13 @@ void RotConv ()  {
   printf("\n");
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  RotEuler
 //  Debugs the RotEuler file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void RotEuler ()  {
   printf("Euler type rotations \n");
 
@@ -154,12 +157,13 @@ void RotEuler ()  {
   printf("\n");
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  RotQuat
 //  Debugs the RotQuat file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void RotQuat ()  {
   printf("Quaternion functions \n");
 
@@ -241,6 +245,6 @@ void RotQuat ()  {
   printf("\n");
   return;
 }
-
+*/
 
 

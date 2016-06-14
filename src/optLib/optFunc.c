@@ -3,13 +3,14 @@
 //  optFunc.c
 //  Justin M Selfridge
 //============================================================
-#include "optLib.h"
+//#include "optLib.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  opt_grad
 //  Performs a gradient method type of optimization.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void opt_grad ( matrix* F ( matrix* ), matrix** x, matrix* d, double tol, double gain, int max )  {
 
   mat_err( (*x)->cols !=1, "Error (opt_grad): State (x) must be a column vector."              );
@@ -40,6 +41,6 @@ void opt_grad ( matrix* F ( matrix* ), matrix** x, matrix* d, double tol, double
 
   return;
 }
-
+*/
 
 

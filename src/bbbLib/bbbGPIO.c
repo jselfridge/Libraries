@@ -3,13 +3,14 @@
 //  bbbGPIO.c
 //  Justin M Selfridge
 //============================================================
-#include "bbbLib.h"
+//#include "bbbLib.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  gpio_export
 //  Establishes a GPIO configuration.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void gpio_export ( unsigned int gpio )  {
 
   int fd, len;
@@ -26,12 +27,13 @@ void gpio_export ( unsigned int gpio )  {
 
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  gpio_unexport
 //  Disables a GPIO configuration.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void gpio_unexport ( unsigned int gpio )  {
 
   int fd, len;
@@ -48,12 +50,13 @@ void gpio_unexport ( unsigned int gpio )  {
     
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  gpio_set_dir
 //  Assign a GPIO pin as input or output.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void gpio_set_dir ( unsigned int gpio, enum PIN_DIR dir )  {
 
   int fd, len;
@@ -71,12 +74,13 @@ void gpio_set_dir ( unsigned int gpio, enum PIN_DIR dir )  {
 
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  gpio_set_val
 //  Assign a value to a gpio pin.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void gpio_set_val ( unsigned int gpio, enum PIN_VAL val )  {
 
   int fd, len;
@@ -94,12 +98,13 @@ void gpio_set_val ( unsigned int gpio, enum PIN_VAL val )  {
 
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  gpio_get_val
 //  Determine the current value of a GPIO pin.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void gpio_get_val ( unsigned int gpio, unsigned int *val )  {
 
   int fd, len;
@@ -119,12 +124,13 @@ void gpio_get_val ( unsigned int gpio, unsigned int *val )  {
 
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  gpio_set_edge
 //  Assignment options: "none", "rising", "falling", "both".
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void gpio_set_edge ( unsigned int gpio, char *edge ) {
 
   int fd, len;
@@ -141,12 +147,13 @@ void gpio_set_edge ( unsigned int gpio, char *edge ) {
     
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  gpio_fd_open
 //  Opens a GPIO file description.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void gpio_fd_open ( unsigned int gpio )  {
 
   int fd, len;
@@ -160,16 +167,17 @@ void gpio_fd_open ( unsigned int gpio )  {
     
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  gpio_fd_close
 //  Closes a GPIO file description.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void gpio_fd_close ( int fd )  {
   close(fd);
   return;
 }
-
+*/
 
 

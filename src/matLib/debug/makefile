@@ -1,12 +1,8 @@
 
-##============================================================
-##  makefile - Debug matLib
-##  Justin M Selfridge
-##============================================================
 
 EXEC   = debug
 CC     = gcc
-CFLAGS = -Wall -g -c
+CFLAGS = -Wall -g -c -O3
 
 LIBS   = -lmat -lm
 IDIR   = ../../../inc

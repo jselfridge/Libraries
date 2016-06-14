@@ -3,13 +3,14 @@
 //  matRoot.c
 //  Justin M Selfridge
 //============================================================
-#include "matLib.h"
+//#include "matLib.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_root
 //  Returns complex roots of a polynomial using Durand-Kerner method.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrixz* mat_root ( matrix* poly, double tol, int max )  {
 
   mat_err( poly->rows !=1, "Error (mat_root): Polynomial must be a row vector." );
@@ -38,11 +39,12 @@ matrixz* mat_root ( matrix* poly, double tol, int max )  {
   mat_clear(coef);
   return zero;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Auxilliary function that bounds the coefficients.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 double B ( matrix* coef )  {
 
   int i, c;
@@ -57,11 +59,12 @@ double B ( matrix* coef )  {
 
   return b+1;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Auxilliary function initializes values of the complex zeros.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void Z ( matrixz* zero, double b )  {
 
   int i, z;
@@ -78,11 +81,12 @@ void Z ( matrixz* zero, double b )  {
 
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Auxilliary function loops through the numerical routine.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void L ( matrixz* zero, matrix* coef, double tol, int max )  {
 
   int j, k, z;
@@ -110,11 +114,12 @@ void L ( matrixz* zero, matrix* coef, double tol, int max )  {
 
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Auxilliary function generates the iterative numerator.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 double complex N ( matrixz* zero, matrix* coef, int j )  {
 
   int i, c, z;
@@ -135,11 +140,12 @@ double complex N ( matrixz* zero, matrix* coef, int j )  {
 
   return n;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Auxilliary function generates the iterative denominator.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 double complex D ( matrixz* zero, int j )  {
 
   int i, z;
@@ -156,6 +162,6 @@ double complex D ( matrixz* zero, int j )  {
 
   return d;
 }
-
+*/
 
 

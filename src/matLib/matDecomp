@@ -3,13 +3,14 @@
 //  matDecomp.c
 //  Justin M Selfridge
 //============================================================
-#include "matLib.h"
+//#include "matLib.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_LU
 //  Solves for the LU decomposition of a matrix (if it exists).
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void mat_LU ( matrix* mat, matrix** L, matrix** U )  {
 
   int i, j, k, n, m, p, r, c;
@@ -61,12 +62,13 @@ void mat_LU ( matrix* mat, matrix** L, matrix** U )  {
   mat_clear(row);
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_LDU
 //  Solves for the LDU decomposition of a matrix (if it exists).
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void mat_LDU ( matrix* mat, matrix** L, matrix** D, matrix** U )  {
 
   int i, j, k, r, c;
@@ -103,12 +105,13 @@ void mat_LDU ( matrix* mat, matrix** L, matrix** D, matrix** U )  {
   mat_clear(row);
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_det
 //  Returns the determinant of a matrix.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 double mat_det ( matrix* mat )  {
 
   mat_err( mat->rows != mat->cols, "Error (mat_det): Matrix must be square." );
@@ -128,6 +131,6 @@ double mat_det ( matrix* mat )  {
 
   return product;
 }
-
+*/
 
 

@@ -3,13 +3,14 @@
 //  bbbDebug.c
 //  Justin M Selfridge
 //============================================================
-#include "bbbDebug.h"
+//#include "bbbDebug.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  main
 //  Runs the main bbbLib debugging program.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 int main ()  {
   printf("\n   --- bbbLib Debugging --- \n\n");
   //bbbLED();
@@ -17,12 +18,13 @@ int main ()  {
   printf("   --- bbbLib Complete --- \n\n");
   return 0;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  bbbLED
 //  Debugs the bbbLED file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void bbbLED ( void )  {
 
   // Start the LED demo
@@ -63,12 +65,13 @@ void bbbLED ( void )  {
   printf("\n");
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  bbbGPIO
 //  Debugs the bbbGPIO file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void bbbGPIO ( void )  {
 
   // Start the GPIO demo
@@ -116,6 +119,6 @@ void bbbGPIO ( void )  {
   printf("\n");
   return;
 }
-
+*/
 
 

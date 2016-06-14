@@ -1,35 +1,33 @@
 
-//============================================================
-//  matDebug.c
-//  Justin M Selfridge
-//============================================================
-#include "matDebug.h"
+
+//#include "matDebug.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  main
 //  Runs the main MatLib debugging program.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-int main ()  {
-  printf("\n   --- MatLib Debugging --- \n\n");
-  InitMat(); 
-  PrintMat();
+//int main ()  {
+  //printf("\n   --- MatLib Debugging --- \n\n");
+  //InitMat(); 
+  //PrintMat();
   //MatManip();
   //MatComplex();
   //MatVec();
-  MatArith();
+  //MatArith();
   //MatRoot();
   //MatDecomp();
-  ClearMat();
-  printf("   --- MatLib Complete --- \n\n");
-  return 0;
-}
+  //ClearMat();
+  //printf("   --- MatLib Complete --- \n\n");
+  //return 0;
+//}
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  InitMat
 //  Initializes the debugging matrices.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void InitMat ()  {
 
   // Define 1x3 vector
@@ -114,12 +112,13 @@ void InitMat ()  {
 
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  PrintMat
 //  Prints the debugging matrices.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void PrintMat ()  {
   printf("General purpose debugging matrices \n");
   mat_print(M13);
@@ -138,12 +137,13 @@ void PrintMat ()  {
   printf("\n");
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  ClearMat
 //  Clears the debugging matrices.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void ClearMat ()  {
   mat_clear(M13);
   mat_clear(M14);
@@ -160,12 +160,13 @@ void ClearMat ()  {
   mat_clear(M44);
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatManip
 //  Debugs the MatManip file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void MatManip ()  {
   printf("Matrix manipulation \n");
 
@@ -294,12 +295,13 @@ void MatManip ()  {
   printf("\n");
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatComplex
 //  Debugs the MatComplex file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void MatComplex() {
   printf("Complex matrix manipulation \n");
 
@@ -351,12 +353,13 @@ void MatComplex() {
   printf("\n");
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatVec
 //  Debugs the MatVec file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void MatVec() {
   printf("Matrix vector operations \n");
 
@@ -437,12 +440,13 @@ void MatVec() {
   printf("\n");
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatArith
 //  Debugs the MatArith file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void MatArith() {
   printf("Matrix arithmetic functions \n");
 
@@ -505,12 +509,13 @@ void MatArith() {
   printf("\n");
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatRoot
 //  Debugs the MatRoot file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void MatRoot() {
   printf("Matrix root \n");
 
@@ -580,14 +585,15 @@ void MatRoot() {
   printf("\n");
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  MatTest
 //  Debugs the MatRoot file functions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void MatDecomp() {
+//void MatDecomp() {
 
+  /*
   // LDU 1
   printf("LDU 1: \n");
   matrix *A1, *L1, *U1, *LU1, *D1, *V1, *LDU1;
@@ -607,7 +613,9 @@ void MatDecomp() {
   printf("V1: ");    mat_print(V1);    mat_clear(V1);
   printf("LDU1: ");  mat_print(LDU1);  mat_clear(LDU1);
   printf("\n");
+  */
 
+  /*
   // LDU 2
   printf("LDU 2: \n");
   matrix *A2, *L2, *U2, *LU2, *D2, *V2, *LDU2;
@@ -627,7 +635,9 @@ void MatDecomp() {
   printf("V2: ");    mat_print(V2);    mat_clear(V2);
   printf("LDU2: ");  mat_print(LDU2);  mat_clear(LDU2);
   printf("\n");
+  */
 
+  /*
   // LDU 3
   printf("LDU 3: \n");
   matrix *A3, *L3, *U3, *LU3, *D3, *V3, *LDU3;;
@@ -648,7 +658,9 @@ void MatDecomp() {
   printf("V3: ");    mat_print(V3);    mat_clear(V3);
   printf("LDU3: ");  mat_print(LDU3);  mat_clear(LDU3);
   printf("\n");
+  */
 
+  /*
   // LDU 4
   printf("LDU 4: \n");
   matrix *A4, *L4, *U4, *LU4, *D4, *V4, *LDU4;
@@ -668,7 +680,9 @@ void MatDecomp() {
   printf("V4: ");    mat_print(V4);    mat_clear(V4);
   printf("LDU4: ");  mat_print(LDU4);  mat_clear(LDU4);
   printf("\n");
+  */
 
+  /*
   // LDU 5
   printf("LDU 5: \n");
   matrix *A5, *L5, *U5, *LU5, *D5, *V5, *LDU5;
@@ -690,6 +704,7 @@ void MatDecomp() {
   printf("V5: ");    mat_print(V5);    mat_clear(V5);
   printf("LDU5: ");  mat_print(LDU5);  mat_clear(LDU5);
   printf("\n");
+  */
 
   /*
   // LDU 6: No solution
@@ -701,6 +716,7 @@ void MatDecomp() {
   mat_set( A6,3,1,  6 );  mat_set( A6,3,2,  2 );  mat_set( A6,3,3, 11 );
   mat_LU( A6, &L6, &U6 );
   */
+
   /*
   // Determinant
   double det3 = mat_det(M33a);
@@ -710,9 +726,10 @@ void MatDecomp() {
   */
 
   // Exit function
-  printf("\n");
-  return;
-}
+  //printf("\n");
+  //return;
+
+//}
 
 
 

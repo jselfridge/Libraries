@@ -3,25 +3,27 @@
 //  optDebug.c
 //  Justin M Selfridge
 //============================================================
-#include "optDebug.h"
+//#include "optDebug.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  main
 //  Runs the main OptLib debugging program.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 int main ()  {
   printf("\n   --- OptLib Debugging --- \n\n");
   OptGrad();
   printf("   --- OptLib Complete --- \n\n");
   return 0;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  OptGrad
 //  Debugs the gradient method optimization.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 void OptGrad ()  {
 
   // Define optimization parameters
@@ -56,12 +58,13 @@ void OptGrad ()  {
   printf("\n");
   return;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Deriv
 //  Generates a derivative function for optimization debugging.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* Deriv ( matrix* x )  {
 
   double x1, x2, f1, f2;
@@ -79,6 +82,6 @@ matrix* Deriv ( matrix* x )  {
 
   return f;
 }
-
+*/
 
 

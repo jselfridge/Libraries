@@ -3,13 +3,14 @@
 //  matVec.c
 //  Justin M Selfridge
 //============================================================
-#include "matLib.h"
+//#include "matLib.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_skew
 //  Returns skew symmetric matrix of a 3 element column vector.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_skew ( matrix* vec )  {
 
   mat_err( vec->rows!=3 || vec->cols!=1, "Error (mat_skew): Input vector must be [3x1]." );
@@ -21,12 +22,13 @@ matrix* mat_skew ( matrix* vec )  {
 
   return skew;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_sskew
 //  Returns skew skew symmetric matrix of a 3 element column vector.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_sskew ( matrix* vec )  {
 
   mat_err( vec->rows!=3 || vec->cols!=1, "Error (mat_sskew): Input vector must be [3x1]." );
@@ -37,12 +39,13 @@ matrix* mat_sskew ( matrix* vec )  {
 
   return sskew;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_cross
 //  Returns cross product of two three-element vectors.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_cross ( matrix* vecA, matrix* vecB )  {
 
   mat_err( vecA->rows!=3 || vecA->cols!=1, "Error (mat_cross): Vector A must be [3x1]."  );
@@ -53,12 +56,13 @@ matrix* mat_cross ( matrix* vecA, matrix* vecB )  {
 
   return out;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_dot
 //  Returns dot product of two arbitrary length vectors.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 double mat_dot ( matrix* vecA, matrix* vecB )  {
 
   mat_err( vecA->cols!=1 || vecB->cols!=1, "Error (mat_dot): Requires column vector inputs."    );
@@ -70,13 +74,14 @@ double mat_dot ( matrix* vecA, matrix* vecB )  {
 
   return out;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_norm
 //  Returns the norm of a vector of a specified degree.  Returns
 //  the infinity norm when p=0.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 double mat_norm ( matrix* vec, int p )  {
 
   mat_err( p<0,          "Error (mat_norm): Degree of a norm must be positive."  );
@@ -106,22 +111,24 @@ double mat_norm ( matrix* vec, int p )  {
 
   return norm;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_mag
 //  Returns the magnitude (Euclidean norm) of a column vector.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 double mat_mag ( matrix* vec )  {
   mat_err( vec->cols!=1, "Error (mat_mag): Input must be a column vector." );
   return mat_norm(vec,2);
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_uvec
 //  Returns an equivalent unit vector of a column vector.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_uvec ( matrix* vec )  {
 
   mat_err( vec->cols!=1, "Error (mat_uvec): Input must be a column vector." );
@@ -145,12 +152,13 @@ matrix* mat_uvec ( matrix* vec )  {
 
   return uvec;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_proj
 //  Returns the projection of vector u onto vector v.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_proj ( matrix* u, matrix* v )  {
 
   mat_err( u->cols!=1 || v->cols!=1, "Error (mat_proj): Inputs must be column vectors."          );
@@ -168,6 +176,6 @@ matrix* mat_proj ( matrix* u, matrix* v )  {
 
   return proj;
 }
-
+*/
 
 

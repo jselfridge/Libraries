@@ -1,11 +1,7 @@
 
-##============================================================
-##  makefile - matLib Library
-##  Justin M Selfridge
-##============================================================
 
 CC     = gcc
-CFLAGS = -Wall -g -c
+CFLAGS = -Wall -g -c -O3
 
 LIBS   = -lm
 IDIR   = ../../inc 

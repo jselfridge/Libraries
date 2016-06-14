@@ -3,13 +3,14 @@
 //  matArith.c
 //  Justin M Selfridge
 //============================================================
-#include "matLib.h"
+//#include "matLib.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_add
 //  Adds two matrices with indentical dimensions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_add ( matrix* matA, matrix* matB )  {
 
   mat_err( matA->rows != matB->rows, "Error (mat_add): Matrices must have same number of rows."     );
@@ -31,12 +32,13 @@ matrix* mat_add ( matrix* matA, matrix* matB )  {
 
   return add;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_sub
 //  Subtracts two matrices with indentical dimensions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_sub ( matrix* matA, matrix* matB )  {
 
   mat_err( matA->rows != matB->rows, "Error (mat_sub): Matrices must have same number of rows."     );
@@ -58,12 +60,13 @@ matrix* mat_sub ( matrix* matA, matrix* matB )  {
 
   return sub;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_emul
 //  Element-wise multiplication of two matrices with identical dimensions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_emul ( matrix* matA, matrix* matB )  {
 
   mat_err( matA->rows != matB->rows, "Error (mat_emul): Matrices must have same number of rows."     );
@@ -85,12 +88,13 @@ matrix* mat_emul ( matrix* matA, matrix* matB )  {
 
   return emul;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_ediv
 //  Element-wise division of two matrices with identical dimensions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_ediv ( matrix* matA, matrix* matB )  {
 
   mat_err( matA->rows != matB->rows, "Error (mat_ediv): Matrices must have same number of rows."     );
@@ -112,12 +116,13 @@ matrix* mat_ediv ( matrix* matA, matrix* matB )  {
 
   return ediv;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_mul
 //  Multiplication of two matrices with proper dimensions.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_mul ( matrix* matA, matrix* matB )  {
 
   mat_err( matA->cols != matB->rows, "Error (mat_mul): Matrix dimensions do not agree." );
@@ -142,12 +147,13 @@ matrix* mat_mul ( matrix* matA, matrix* matB )  {
 
   return mul;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_pow
 //  Raises a square matrix to the specified power.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_pow ( matrix* mat, int power )  {
 
   mat_err( mat->rows != mat->cols, "Error (mat_pow): Matrix must be square."         );
@@ -169,12 +175,13 @@ matrix* mat_pow ( matrix* mat, int power )  {
 
   return pow;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_abs
 //  Applies absolute value to all elements within a matrix.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_abs ( matrix* mat )  {
 
   int i, j, r, c;
@@ -194,12 +201,13 @@ matrix* mat_abs ( matrix* mat )  {
 
   return abs;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_trans
 //  Returns the transpose of a rectangular matrix.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 matrix* mat_trans ( matrix* mat ) {
 
   int i, j, r, c;
@@ -219,6 +227,6 @@ matrix* mat_trans ( matrix* mat ) {
 
   return trans;
 }
-
+*/
 
 

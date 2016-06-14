@@ -3,13 +3,14 @@
 //  bbbLED.c
 //  Justin M Selfridge
 //============================================================
-#include "bbbLib.h"
+//#include "bbbLib.h"
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  led_rmtrig
 //  Sets the LED trigger status to 'none'.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 int led_rmtrig ( unsigned int index )  {
 
   mat_err( index >3, "Error (led_rmtrig): LED index is between 0-3." );
@@ -28,12 +29,13 @@ int led_rmtrig ( unsigned int index )  {
 
   return 0;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  led_on
 //  Turns on the specified user LED.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 int led_on ( unsigned int index )  {
 
   mat_err( index >3, "Error (led_on): LED index is between 0-3." );
@@ -54,12 +56,13 @@ int led_on ( unsigned int index )  {
 
   return 0;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  led_off
 //  Turns off the specified user LED.  
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 int led_off ( unsigned int index )  {
 
   mat_err( index >3, "Error (led_off): LED index is between 0-3." );
@@ -80,12 +83,13 @@ int led_off ( unsigned int index )  {
 
   return 0;
 }
-
+*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  led_blink
 //  Blinks the specified user LED.  
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 int led_blink ( unsigned int index, unsigned int on, unsigned int off )  {
 
   mat_err( index  >3, "Error (led_blink): LED index is between 0-3."         );
@@ -128,6 +132,6 @@ int led_blink ( unsigned int index, unsigned int on, unsigned int off )  {
 
   return 0;
 }
-
+*/
 
 
