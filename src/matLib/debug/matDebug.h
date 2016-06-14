@@ -13,7 +13,7 @@
 
 
 // Function prototypes
-//void InitMat();
+void InitMat();
 //void PrintMat();
 //void MatManip();
 //void MatComplex();
@@ -25,6 +25,20 @@
 
 
 // Global variables
+double **M13;
+//matrix *M14;
+//matrix *M31a;
+//matrix *M31b;
+//matrix *M41;
+//matrix *M22;
+//matrix *M23;
+//matrix *M32;
+//matrix *M33a;
+//matrix *M33b;
+//matrix *M34;
+//matrix *M43;
+//matrix *M44;
+
 //matrix *M13;
 //matrix *M14;
 //matrix *M31a;

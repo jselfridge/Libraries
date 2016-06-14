@@ -1,7 +1,7 @@
 
 
-//#ifndef MATLIB_H
-//#define MATLIB_H
+#ifndef MATLIB_H
+#define MATLIB_H
 
 
 // Standard includes
@@ -23,13 +23,12 @@
 
 
 // Matrix structure
-/*
 typedef struct matrix_struct {
   int rows;
   int cols;
   double *data;
 } matrix_struct;
-*/
+
 
 // Complex matrix structure
 /*
@@ -117,7 +116,7 @@ typedef struct matrixz_struct {
 //double    mat_det     ( matrix *mat );
 
 
-//#endif
+#endif
 
 
 

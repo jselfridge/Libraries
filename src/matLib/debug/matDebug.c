@@ -1,15 +1,38 @@
 
 
-//#include "matDebug.h"
+#include "matDebug.h"
 
+#include <stdio.h>
+#include <stdlib.h>
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  main
-//  Runs the main MatLib debugging program.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//int main ()  {
-  //printf("\n   --- MatLib Debugging --- \n\n");
-  //InitMat(); 
+/**
+ *  main
+ *  Runs the main MatLib debugging program.
+ */
+int main ()  {
+  printf("\n   --- MatLib Debugging --- \n\n");
+
+  //---  DEBUGGING  ---//
+  /*
+  int i, j, k, p, q;
+  int n = 4;
+  int m = 3;
+  double mat[n][m];
+  k =0;
+  for ( i=0; i<n; i++ ) {
+    for (j=0; j<m; j++ ) {
+      mat[i][j] = k;
+      printf("K: %d \n", k);
+      k++;
+    }
+  }  
+  p = sizeof mat / sizeof mat[0];
+  q = sizeof mat[0] / sizeof mat[0][0];
+  printf( "P: %d   Q: %d \n", p, q );
+  */
+  //---  DEBUGGING  ---//
+
+  InitMat(); 
   //PrintMat();
   //MatManip();
   //MatComplex();
@@ -18,17 +41,39 @@
   //MatRoot();
   //MatDecomp();
   //ClearMat();
-  //printf("   --- MatLib Complete --- \n\n");
-  //return 0;
-//}
+  printf("   --- MatLib Complete --- \n\n");
+  return 0;
+}
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  InitMat
-//  Initializes the debugging matrices.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
+/**
+ *  InitMat
+ *  Initializes the debugging matrices.
+ */
 void InitMat ()  {
+
+  // Define 1x3 vector
+  //double M13[1][3];
+
+  int r = 3;
+  int c = 1;
+
+  M13  = (double **)malloc(sizeof(double *) * r);
+  M13[0] = (double *)malloc(sizeof(double) * c * r);
+
+  //M13 = malloc(1*3*sizeof(double));
+
+  M13[0][0] = -0.1;
+  M13[0][1] =  4.6;
+  M13[0][2] =  7.3;
+
+  int p = sizeof(M13);// / sizeof(*M13[0]);
+  int q = sizeof M13[0] / sizeof M13[0][0];
+  printf( "P: %d   Q: %d \n", p, q );
+  printf( "Blah: %f \n", *(*M13+1) );
+
+
+/*
 
   // Define 1x3 vector
   M13 = mat_init(1,3);
@@ -110,14 +155,16 @@ void InitMat ()  {
   mat_set(M44,3,1, 0.7);  mat_set(M44,3,2, 4.7);  mat_set(M44,3,3, 9.9);  mat_set(M44,3,4,-9.3);
   mat_set(M44,4,1,-4.5);  mat_set(M44,4,2,-8.1);  mat_set(M44,4,3, 0.1);  mat_set(M44,4,4, 2.7);
 
-  return;
-}
 */
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  PrintMat
-//  Prints the debugging matrices.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  return;
+}
+
+
+/**
+ *  PrintMat
+ *  Prints the debugging matrices.
+ */
 /*
 void PrintMat ()  {
   printf("General purpose debugging matrices \n");
@@ -139,10 +186,10 @@ void PrintMat ()  {
 }
 */
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  ClearMat
-//  Clears the debugging matrices.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ *  ClearMat
+ *  Clears the debugging matrices.
+ */
 /*
 void ClearMat ()  {
   mat_clear(M13);
@@ -162,10 +209,10 @@ void ClearMat ()  {
 }
 */
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  MatManip
-//  Debugs the MatManip file functions.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ *  MatManip
+ *  Debugs the MatManip file functions.
+ */
 /*
 void MatManip ()  {
   printf("Matrix manipulation \n");
@@ -297,10 +344,10 @@ void MatManip ()  {
 }
 */
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  MatComplex
-//  Debugs the MatComplex file functions.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ *  MatComplex
+ *  Debugs the MatComplex file functions.
+ */
 /*
 void MatComplex() {
   printf("Complex matrix manipulation \n");
@@ -355,10 +402,10 @@ void MatComplex() {
 }
 */
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  MatVec
-//  Debugs the MatVec file functions.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ *  MatVec
+ *  Debugs the MatVec file functions.
+ */
 /*
 void MatVec() {
   printf("Matrix vector operations \n");
@@ -442,10 +489,10 @@ void MatVec() {
 }
 */
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  MatArith
-//  Debugs the MatArith file functions.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ *  MatArith
+ *  Debugs the MatArith file functions.
+ */
 /*
 void MatArith() {
   printf("Matrix arithmetic functions \n");
@@ -511,10 +558,10 @@ void MatArith() {
 }
 */
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  MatRoot
-//  Debugs the MatRoot file functions.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ *  MatRoot
+ *  Debugs the MatRoot file functions.
+ */
 /*
 void MatRoot() {
   printf("Matrix root \n");
@@ -587,10 +634,10 @@ void MatRoot() {
 }
 */
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  MatTest
-//  Debugs the MatRoot file functions.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ *  MatTest
+ *  Debugs the MatRoot file functions.
+ */
 //void MatDecomp() {
 
   /*
