@@ -15,7 +15,7 @@
 // Function prototypes
 void InitMat();
 void PrintMat();
-//void MatManip();
+void MatManip();
 //void MatComplex();
 //void MatVec();
 //void MatArith();

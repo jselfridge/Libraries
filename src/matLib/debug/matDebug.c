@@ -13,7 +13,7 @@ int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
   PrintMat();
-  //MatManip();
+  MatManip();
   //MatComplex();
   //MatVec();
   //MatArith();
@@ -165,47 +165,46 @@ void ClearMat ()  {
  *  MatManip
  *  Debugs the MatManip file functions.
  */
-/*
 void MatManip ()  {
   printf("Matrix manipulation \n");
 
   // File operations
-  matrix* A = mat_init(5,2);
-  printf("Rows: %d \n", A->rows );
-  printf("Cols: %d \n", A->cols );
+  matrix *A = mat_init(5,2);
+  printf( "Rows: %d \n", A->rows );
+  printf( "Cols: %d \n", A->cols );
   mat_print(A);
   mat_write(A,"test");
-  matrix* B = mat_read("test");
+  matrix *B = mat_read("test");
   mat_print(B);
   mat_clear(A); 
   mat_clear(B);
 
   // Identity matrix
-  matrix* M = mat_eye(4);
+  matrix *M = mat_eye(4);
   mat_print(M);
 
   // Scale matrix
-  matrix* N = mat_scale(M,3);
+  matrix *N = mat_scale(M,3.2);
   mat_print(N);
 
   // Copy matrix
-  matrix* P = mat_copy(N);
+  matrix *P = mat_copy(N);
   mat_print(P);
 
   // Set element values
-  mat_set( P,1,4, 14.0 );
-  mat_set( P,3,2, 32.0 );
+  mat_set( P, 1,4, 14.0 );
+  mat_set( P, 3,2, 32.0 );
   mat_print(P);
 
   // Get element values
   double val;
-  val = mat_get(P,1,4);
+  val = mat_get( P, 1,4 );
   printf( "Element value: %f\n", val );
-  val = mat_get(P,3,2);
+  val = mat_get( P, 3,2 );
   printf( "Element value: %f\n", val );
 
   // Ones matrix
-  matrix* Q = mat_ones(5,2);
+  matrix *Q = mat_ones(5,2);
   mat_print(Q);
 
   // Get matrix row
@@ -277,7 +276,7 @@ void MatManip ()  {
   mat_print( mat_appc(M44,M41) );
 
   // Remove tiny
-  matrix* R = mat_init(2,2);
+  matrix *R = mat_init(2,2);
   mat_set(R,1,1, -0.1000 );  mat_set(R,1,2,  0.0100 );
   mat_set(R,2,1,  0.0010 );  mat_set(R,2,2, -0.0001 );
   mat_print(R);
@@ -294,7 +293,7 @@ void MatManip ()  {
   printf("\n");
   return;
 }
-*/
+
 
 /**
  *  MatComplex
