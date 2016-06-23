@@ -1,9 +1,9 @@
 
 
 #include "matDebug.h"
-
 #include <stdio.h>
 #include <stdlib.h>
+
 
 /**
  *  main
@@ -11,36 +11,15 @@
  */
 int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
-
-  //---  DEBUGGING  ---//
-  /*
-  int i, j, k, p, q;
-  int n = 4;
-  int m = 3;
-  double mat[n][m];
-  k =0;
-  for ( i=0; i<n; i++ ) {
-    for (j=0; j<m; j++ ) {
-      mat[i][j] = k;
-      printf("K: %d \n", k);
-      k++;
-    }
-  }  
-  p = sizeof mat / sizeof mat[0];
-  q = sizeof mat[0] / sizeof mat[0][0];
-  printf( "P: %d   Q: %d \n", p, q );
-  */
-  //---  DEBUGGING  ---//
-
   InitMat(); 
-  //PrintMat();
+  PrintMat();
   //MatManip();
   //MatComplex();
   //MatVec();
   //MatArith();
   //MatRoot();
   //MatDecomp();
-  //ClearMat();
+  ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return 0;
 }
@@ -53,109 +32,84 @@ int main ()  {
 void InitMat ()  {
 
   // Define 1x3 vector
-  //double M13[1][3];
-
-  int r = 3;
-  int c = 1;
-
-  M13  = (double **)malloc(sizeof(double *) * r);
-  M13[0] = (double *)malloc(sizeof(double) * c * r);
-
-  //M13 = malloc(1*3*sizeof(double));
-
-  M13[0][0] = -0.1;
-  M13[0][1] =  4.6;
-  M13[0][2] =  7.3;
-
-  int p = sizeof(M13);// / sizeof(*M13[0]);
-  int q = sizeof M13[0] / sizeof M13[0][0];
-  printf( "P: %d   Q: %d \n", p, q );
-  printf( "Blah: %f \n", *(*M13+1) );
-
-
-/*
-
-  // Define 1x3 vector
   M13 = mat_init(1,3);
-  mat_set(M13,1,1,-0.1);
-  mat_set(M13,1,2,4.6);
-  mat_set(M13,1,3,7.3);
+  mat_set( M13, 1,1, -0.1 );
+  mat_set( M13, 1,2,  4.6 );
+  mat_set( M13, 1,3,  7.3 );
 
   // Define 1x4 vector
   M14 = mat_init(1,4);
-  mat_set(M14,1,1,2.6);
-  mat_set(M14,1,2,5.9);
-  mat_set(M14,1,3,3.7);
-  mat_set(M14,1,4,1.4);
+  mat_set( M14, 1,1, 2.6 );
+  mat_set( M14, 1,2, 5.9 );
+  mat_set( M14, 1,3, 3.7 );
+  mat_set( M14, 1,4, 1.4 );
 
   // Define first 3x1 vector
   M31a = mat_init(3,1);
-  mat_set(M31a,1,1,6.0);
-  mat_set(M31a,2,1,2.1);
-  mat_set(M31a,3,1,0.3);
+  mat_set( M31a, 1,1, 6.0 );
+  mat_set( M31a, 2,1, 2.1 );
+  mat_set( M31a, 3,1, 0.3 );
 
   // Define second 3x1 vector
   M31b = mat_init(3,1);
-  mat_set(M31b,1,1,-4.2);
-  mat_set(M31b,2,1, 8.7);
-  mat_set(M31b,3,1,-3.9);
+  mat_set( M31b, 1,1, -4.2 );
+  mat_set( M31b, 2,1,  8.7 );
+  mat_set( M31b, 3,1, -3.9 );
   
   // Define 4x1 vector
   M41 = mat_init(4,1);
-  mat_set(M41,1,1,-2.2);
-  mat_set(M41,2,1, 7.4);
-  mat_set(M41,3,1,-9.1);
-  mat_set(M41,4,1, 5.8);
+  mat_set( M41, 1,1, -2.2 );
+  mat_set( M41, 2,1,  7.4 );
+  mat_set( M41, 3,1, -9.1 );
+  mat_set( M41, 4,1,  5.8 );
   
   // Define 2x2 matrix
   M22 = mat_init(2,2);
-  mat_set(M22,1,1, 3.4);  mat_set(M22,1,2,-5.3);
-  mat_set(M22,2,1,-7.2);  mat_set(M22,2,2, 9.2);
+  mat_set( M22, 1,1,  3.4 );  mat_set( M22, 1,2, -5.3 );
+  mat_set( M22, 2,1, -7.2 );  mat_set( M22, 2,2,  9.2 );
 
   // Define 2x3 matrix
   M23 = mat_init(2,3);
-  mat_set(M23,1,1,6.6);  mat_set(M23,1,2, 1.9);  mat_set(M23,1,3,-0.4);
-  mat_set(M23,2,1,9.4);  mat_set(M23,2,2,-7.1);  mat_set(M23,2,3, 0.8);
+  mat_set( M23, 1,1, 6.6 );  mat_set( M23, 1,2,  1.9 );  mat_set( M23, 1,3, -0.4 );
+  mat_set( M23, 2,1, 9.4 );  mat_set( M23, 2,2, -7.1 );  mat_set( M23, 2,3,  0.8 );
 
   // Define 3x2 matrix
   M32 = mat_init(3,2);
-  mat_set(M32,1,1, 6.8);  mat_set(M32,1,2,-0.1);
-  mat_set(M32,2,1, 0.4);  mat_set(M32,2,2, 5.4);
-  mat_set(M32,3,1,-9.3);  mat_set(M32,3,2, 4.2);
+  mat_set( M32, 1,1,  6.8 );  mat_set( M32, 1,2, -0.1 );
+  mat_set( M32, 2,1,  0.4 );  mat_set( M32, 2,2,  5.4 );
+  mat_set( M32, 3,1, -9.3 );  mat_set( M32, 3,2,  4.2 );
   
   // Define first 3x3 matrix
   M33a = mat_init(3,3);
-  mat_set(M33a,1,1,3.4);  mat_set(M33a,1,2,0.5);  mat_set(M33a,1,3,8.2);
-  mat_set(M33a,2,1,7.7);  mat_set(M33a,2,2,-9.3);  mat_set(M33a,2,3,-4.6);
-  mat_set(M33a,3,1,-1.8);  mat_set(M33a,3,2,0.2);  mat_set(M33a,3,3,-2.9);
+  mat_set( M33a, 1,1,  3.4 );  mat_set( M33a, 1,2,  0.5 );  mat_set( M33a, 1,3,  8.2 );
+  mat_set( M33a, 2,1,  7.7 );  mat_set( M33a, 2,2, -9.3 );  mat_set( M33a, 2,3, -4.6 );
+  mat_set( M33a, 3,1, -1.8 );  mat_set( M33a, 3,2,  0.2 );  mat_set( M33a, 3,3, -2.9 );
 
   // Define second 3x3 matrix
   M33b = mat_init(3,3);
-  mat_set(M33b,1,1, 3.4);  mat_set(M33b,1,2,-1.9);  mat_set(M33b,1,3, 0.2);
-  mat_set(M33b,2,1, 0.5);  mat_set(M33b,2,2,-0.8);  mat_set(M33b,2,3, 6.3);
-  mat_set(M33b,3,1,-7.2);  mat_set(M33b,3,2, 4.5);  mat_set(M33b,3,3,-9.5);
+  mat_set( M33b, 1,1,  3.4 );  mat_set( M33b, 1,2, -1.9 );  mat_set( M33b, 1,3,  0.2 );
+  mat_set( M33b, 2,1,  0.5 );  mat_set( M33b, 2,2, -0.8 );  mat_set( M33b, 2,3,  6.3 );
+  mat_set( M33b, 3,1, -7.2 );  mat_set( M33b, 3,2,  4.5 );  mat_set( M33b, 3,3, -9.5 );
 
   // Define 3x4 matrix
   M34 = mat_init(3,4);
-  mat_set(M34,1,1,-3.3);  mat_set(M34,1,2, 7.6);  mat_set(M34,1,3,-0.6);  mat_set(M34,1,4,-7.3);
-  mat_set(M34,2,1, 0.5);  mat_set(M34,2,2, 4.2);  mat_set(M34,2,3, 3.2);  mat_set(M34,2,4, 3.4);
-  mat_set(M34,3,1, 1.6);  mat_set(M34,3,2,-0.8);  mat_set(M34,3,3, 5.8);  mat_set(M34,3,4,-9.1);
+  mat_set( M34, 1,1, -3.3 );  mat_set( M34, 1,2,  7.6 );  mat_set( M34, 1,3, -0.6 );  mat_set( M34, 1,4, -7.3 );
+  mat_set( M34, 2,1,  0.5 );  mat_set( M34, 2,2,  4.2 );  mat_set( M34, 2,3,  3.2 );  mat_set( M34, 2,4,  3.4 );
+  mat_set( M34, 3,1,  1.6 );  mat_set( M34, 3,2, -0.8 );  mat_set( M34, 3,3,  5.8 );  mat_set( M34, 3,4, -9.1 );
 
   // Define 4x3 matrix
   M43 = mat_init(4,3);
-  mat_set(M43,1,1,-0.8);  mat_set(M43,1,2,-1.2);  mat_set(M43,1,3, 5.9);
-  mat_set(M43,2,1, 1.2);  mat_set(M43,2,2, 0.3);  mat_set(M43,2,3,-6.4);
-  mat_set(M43,3,1, 4.9);  mat_set(M43,3,2, 7.4);  mat_set(M43,3,3, 0.8);
-  mat_set(M43,4,1,-8.3);  mat_set(M43,4,2, 9.3);  mat_set(M43,4,3,-1.8);
+  mat_set( M43, 1,1, -0.8 );  mat_set( M43, 1,2, -1.2 );  mat_set( M43, 1,3,  5.9 );
+  mat_set( M43, 2,1,  1.2 );  mat_set( M43, 2,2,  0.3 );  mat_set( M43, 2,3, -6.4 );
+  mat_set( M43, 3,1,  4.9 );  mat_set( M43, 3,2,  7.4 );  mat_set( M43, 3,3,  0.8 );
+  mat_set( M43, 4,1, -8.3 );  mat_set( M43, 4,2,  9.3 );  mat_set( M43, 4,3, -1.8 );
 
   // Define 4x4 matrix
   M44 = mat_init(4,4);
-  mat_set(M44,1,1, 3.1);  mat_set(M44,1,2,-0.1);  mat_set(M44,1,3,-2.7);  mat_set(M44,1,4, 7.2);
-  mat_set(M44,2,1, 5.4);  mat_set(M44,2,2, 8.2);  mat_set(M44,2,3,-6.4);  mat_set(M44,2,4, 3.2);
-  mat_set(M44,3,1, 0.7);  mat_set(M44,3,2, 4.7);  mat_set(M44,3,3, 9.9);  mat_set(M44,3,4,-9.3);
-  mat_set(M44,4,1,-4.5);  mat_set(M44,4,2,-8.1);  mat_set(M44,4,3, 0.1);  mat_set(M44,4,4, 2.7);
-
-*/
+  mat_set( M44, 1,1,  3.1 );  mat_set( M44, 1,2, -0.1 );  mat_set( M44, 1,3, -2.7);  mat_set( M44, 1,4,  7.2 );
+  mat_set( M44, 2,1,  5.4 );  mat_set( M44, 2,2,  8.2 );  mat_set( M44, 2,3, -6.4);  mat_set( M44, 2,4,  3.2 );
+  mat_set( M44, 3,1,  0.7 );  mat_set( M44, 3,2,  4.7 );  mat_set( M44, 3,3,  9.9);  mat_set( M44, 3,4, -9.3 );
+  mat_set( M44, 4,1, -4.5 );  mat_set( M44, 4,2, -8.1 );  mat_set( M44, 4,3,  0.1);  mat_set( M44, 4,4,  2.7 );
 
   return;
 }
@@ -165,7 +119,6 @@ void InitMat ()  {
  *  PrintMat
  *  Prints the debugging matrices.
  */
-/*
 void PrintMat ()  {
   printf("General purpose debugging matrices \n");
   mat_print(M13);
@@ -184,13 +137,12 @@ void PrintMat ()  {
   printf("\n");
   return;
 }
-*/
+
 
 /**
  *  ClearMat
  *  Clears the debugging matrices.
  */
-/*
 void ClearMat ()  {
   mat_clear(M13);
   mat_clear(M14);
@@ -207,7 +159,7 @@ void ClearMat ()  {
   mat_clear(M44);
   return;
 }
-*/
+
 
 /**
  *  MatManip

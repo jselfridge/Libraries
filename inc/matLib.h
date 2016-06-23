@@ -7,10 +7,10 @@
 // Standard includes
 //#include <math.h>
 //#include <complex.h>
-//#include <stdbool.h>
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 
 // Define values of PI
@@ -23,11 +23,11 @@
 
 
 // Matrix structure
-typedef struct matrix_struct {
+typedef struct matrix {
   int rows;
   int cols;
   double *data;
-} matrix_struct;
+} matrix;
 
 
 // Complex matrix structure
@@ -41,16 +41,16 @@ typedef struct matrixz_struct {
 
 
 // MatManip Functions
-//void      mat_err     ( bool cond, char *msg );
-//matrix*   mat_init    ( int rows, int cols );
+void      mat_err     ( bool cond, char *msg );
+matrix*   mat_init    ( int rows, int cols );
 //matrix*   mat_read    ( char *file );
-//void      mat_print   ( matrix *mat );
+void      mat_print   ( matrix *mat );
 //void      mat_write   ( matrix *mat, char *file );
-//void      mat_clear   ( matrix *mat );
-//double    mat_get     ( matrix *mat, int row, int col );
+void      mat_clear   ( matrix *mat );
+double    mat_get     ( matrix *mat, int row, int col );
 //matrix*   mat_getr    ( matrix *mat, int row );
 //matrix*   mat_getc    ( matrix *mat, int col );
-//void      mat_set     ( matrix *mat, int row, int col, double val );
+void      mat_set     ( matrix *mat, int row, int col, double val );
 //void      mat_setr    ( matrix *mat, int row, matrix *vec );
 //void      mat_setc    ( matrix *mat, int col, matrix *vec );
 //matrix*   mat_copy    ( matrix *mat );

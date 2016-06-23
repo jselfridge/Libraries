@@ -7,9 +7,9 @@
  *  mat_err
  *  If error condition is true, prints a warning and exits.
  */
-//void mat_err ( bool cond, char* msg )  {
-  //if (cond) {  fprintf( stderr, "%s\n\n", msg );  exit(1);  }
-//}
+void mat_err ( bool cond, char* msg )  {
+  if (cond) {  fprintf( stderr, "%s\n\n", msg );  exit(1);  }
+}
 
 
 /**
@@ -17,7 +17,6 @@
  *  Initializes a new matrix with the specified dimensions,
  *  and sets the elements to values of zero.
  */
-/*
 matrix* mat_init ( int rows, int cols )  {
 
   mat_err( rows <1 || cols <1, "Error (mat_init): Matrix dimensions must be positive." ); 
@@ -35,7 +34,7 @@ matrix* mat_init ( int rows, int cols )  {
 
   return out;
 }
-*/
+
 
 /**
  *  mat_read
@@ -84,7 +83,6 @@ matrix* mat_read ( char* file )  {
  *  mat_print
  *  Displays a matrix in the terminal.
  */
-/*
 void mat_print( matrix* mat )  {
 
   int r, c, i, j;
@@ -100,7 +98,7 @@ void mat_print( matrix* mat )  {
 
   return;
 }
-*/
+
 
 /**
  *  mat_write
@@ -133,7 +131,6 @@ void mat_write ( matrix* mat, char* file )  {
  *  mat_clear
  *  Destroys an existing matrix and frees the memory.
  */
-/*
 void mat_clear ( matrix* mat )  {
 
   double* data = mat->data;
@@ -142,15 +139,15 @@ void mat_clear ( matrix* mat )  {
     free(mat);
     mat = NULL;
   }
+
   return;
 }
-*/
+
 
 /**
  *  mat_get
  *  Returns the value of a matrix element.
  */
-/*
 double mat_get ( matrix* mat, int row, int col )  {
 
   mat_err( row > mat->rows, "Error (mat_get): Row index exceeds matrix dimensions."     );
@@ -167,7 +164,7 @@ double mat_get ( matrix* mat, int row, int col )  {
 
   return val;
 }
-*/
+
 
 /**
  *  mat_getr
@@ -209,7 +206,6 @@ matrix* mat_getc ( matrix* mat, int col )  {
  *  mat_set
  *  Assigns a value into a matrix element.
  */
-/*
 void mat_set ( matrix* mat, int row, int col, double val )  {
 
   mat_err( row > mat->rows, "Error (mat_set): Row index exceeds matrix dimensions."     );
@@ -225,7 +221,7 @@ void mat_set ( matrix* mat, int row, int col, double val )  {
 
   return;
 }
-*/
+
 
 /**
  *  mat_setr
