@@ -1,49 +1,45 @@
 
-//============================================================
-//  matComplex.c
-//  Justin M Selfridge
-//============================================================
-//#include "matLib.h"
+
+#include "matLib.h"
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_initz
-//  Initializes a new matrix with the specified dimensions,
-//  and sets the elements to complex values of zero.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
-matrixz* mat_initz ( int rows, int cols )  {
+/**
+ *  mat_initz
+ *  Initializes a new matrix with the specified dimensions,
+ *  and sets the elements to complex values of zero.
+ */
+matrixz* mat_initz ( uint rows, uint cols )  {
 
-  mat_err( rows <1 || cols <1, "Error (mat_initz): Matrix dimensions must be positive." ); 
+  mat_err( rows<1 || cols<1, "Error (mat_initz): Matrix dimensions must be positive." ); 
 
-  matrixz* out;
-  out = (matrixz*) malloc( sizeof(matrixz) );
+  matrixz *out;
+  out = (matrixz *) malloc( sizeof(matrixz) );
   mat_err( out == NULL, "Error (mat_initz): Matrix returned NULL." );
 
   out->rows = rows;
   out->cols = cols;
-  out->data = (double complex*) malloc( sizeof(double complex) * rows * cols );
+  out->data = (double complex *) malloc( sizeof(double complex) * rows * cols );
 
   mat_err( out->data == NULL, "Error (mat_initz): Matrix data returned NULL." );
   memset( out->data, 0.0, rows * cols * sizeof(double complex) );
 
   return out;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_readz
-//  Reads a complex matrix from a file.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
-matrixz* mat_readz ( char* file )  {
 
-  FILE*    f;
-  int      i, r, c, n, scan;
-  double   re, im;
-  char     sign;
-  matrixz* out;
-  double complex* data;
+/**
+ *  mat_readz
+ *  Reads a complex matrix from a file.
+ */
+matrixz* mat_readz ( char *file )  {
+
+  FILE *f;
+  uint i, r, c, n;
+  int scan;
+  double re, im;
+  char sign;
+  matrixz *out;
+  double complex *data;
 
   f = fopen( file, "r" );
   mat_err( f==NULL, "Error (mat_readz): Cannont open file." );
@@ -75,14 +71,13 @@ matrixz* mat_readz ( char* file )  {
   fclose(f);
   return out;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_printz
-//  Display a complex matrix in the terminal.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
-void mat_printz ( matrixz* mat )  {
+
+/**
+ *  mat_printz
+ *  Display a complex matrix in the terminal.
+ */
+void mat_printz ( matrixz *mat )  {
 
   int r, c, i, j;
   char sign;
@@ -92,10 +87,10 @@ void mat_printz ( matrixz* mat )  {
   c = mat->cols;
 
   printf( "[%dx%d]\n", r, c );
-  for ( i=1; i<=r; i++ ) {
-    for ( j=1; j<=c; j++ ) {
-      re = mat_getre(mat,i,j);
-      im = mat_getim(mat,i,j);
+  for ( i=1; i<=r; i++ )  {
+    for ( j=1; j<=c; j++ )  {
+      re = mat_getre( mat, i,j );
+      im = mat_getim( mat, i,j );
       if (im<0)  sign = '-';
       else       sign = '+';
       printf( " %4.4f  %c%4.4f i\t", re, sign, fabs(im) );
@@ -105,16 +100,15 @@ void mat_printz ( matrixz* mat )  {
 
   return;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_writez
-//  Writes a complex matrix to a file.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
-void mat_writez ( matrixz* mat, char* file )  {
 
-  FILE* f;
+/**
+ *  mat_writez
+ *  Writes a complex matrix to a file.
+ */
+void mat_writez ( matrixz *mat, char *file )  {
+
+  FILE *f;
   int r, c, i, j;
   double re, im;
   char sign;
@@ -126,10 +120,10 @@ void mat_writez ( matrixz* mat, char* file )  {
   mat_err( f==NULL, "Error (mat_writez): Cannot open file." );
 
   fprintf( f, "# %d %d \n", r, c );
-  for ( i=1; i<=r; i++ ) {
-    for ( j=1; j<=c; j++ ) {
-      re = mat_getre(mat,i,j);
-      im = mat_getim(mat,i,j);
+  for ( i=1; i<=r; i++ )  {
+    for ( j=1; j<=c; j++ )  {
+      re = mat_getre( mat, i,j );
+      im = mat_getim( mat, i,j );
       if (im<0)  sign = '-';
       else       sign = '+';
       fprintf( f, " %4.6f %c%4.6f i\t", re, sign, fabs(im) );
@@ -140,16 +134,15 @@ void mat_writez ( matrixz* mat, char* file )  {
   fclose(f);  
   return;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_clearz
-//  Destroys an existing complex matrix and frees the memory.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
-void mat_clearz ( matrixz* mat )  {
 
-  double complex* data = mat->data;
+/**
+ *  mat_clearz
+ *  Destroys an existing complex matrix and frees the memory.
+ */
+void mat_clearz ( matrixz *mat )  {
+
+  double complex *data = mat->data;
   if ( mat != NULL ) {
     if ( data != NULL ) {  free( data );  data = NULL;  }
     free(mat);
@@ -157,13 +150,12 @@ void mat_clearz ( matrixz* mat )  {
   }
   return;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_getre
-//  Returns the real part of a complex matrix element.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
+
+/**
+ *  mat_getre
+ *  Returns the real part of a complex matrix element.
+ */
 double mat_getre ( matrixz* mat, int row, int col )  {
 
   mat_err( row > mat->rows, "Error (mat_getre): Row index exceeds matrix dimensions."     );
@@ -180,13 +172,12 @@ double mat_getre ( matrixz* mat, int row, int col )  {
 
   return re;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_getim
-//  Returns the imaginary part of a complex matrix element.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
+
+/**
+ *  mat_getim
+ *  Returns the imaginary part of a complex matrix element.
+ */
 double mat_getim ( matrixz* mat, int row, int col )  {
 
   mat_err( row > mat->rows, "Error (mat_getim): Row index exceeds matrix dimensions."     );
@@ -203,13 +194,12 @@ double mat_getim ( matrixz* mat, int row, int col )  {
 
   return im;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_getzr
-//  Returns the specified complex row vector of a matrix.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
+
+/**
+ *  mat_getzr
+ *  Returns the specified complex row vector of a matrix.
+ */
 matrixz* mat_getzr ( matrixz* mat, int row )  {
 
   mat_err( row > mat->rows, "Error (mat_getzr): Row index exceeds matrix dimensions."  );
@@ -221,13 +211,12 @@ matrixz* mat_getzr ( matrixz* mat, int row )  {
 
   return out;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_getzc
-//  Returns the specified complex column vector of a matrix.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
+
+/**
+ *  mat_getzc
+ *  Returns the specified complex column vector of a matrix.
+ */
 matrixz* mat_getzc ( matrixz* mat, int col )  {
 
   mat_err( col > mat->cols, "Error (mat_getzc): Column index exceeds matrix dimensions."  );
@@ -239,13 +228,12 @@ matrixz* mat_getzc ( matrixz* mat, int col )  {
 
   return out;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_setz
-//  Assigns a complex number into a matrix element.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
+
+/**
+ *  mat_setz
+ *  Assigns a complex number into a matrix element.
+ */
 void mat_setz ( matrixz* mat, int row, int col, double re, double im )  {
 
   mat_err( row > mat->rows, "Error (mat_setz): Row index exceeds matrix dimensions."     );
@@ -261,13 +249,12 @@ void mat_setz ( matrixz* mat, int row, int col, double re, double im )  {
 
   return;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_setzr
-//  Replaces a row of a complex matrix with the specified vector.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
+
+/**
+ *  mat_setzr
+ *  Replaces a row of a complex matrix with the specified vector.
+ */
 void mat_setzr ( matrixz* mat, int row, matrixz* vec )  {
 
   mat_err( row > mat->rows,        "Error (mat_setzr): Row index exceeds matrix dimensions."            );
@@ -280,13 +267,12 @@ void mat_setzr ( matrixz* mat, int row, matrixz* vec )  {
 
   return;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_setzc
-//  Replaces a column of a complex matrix with the specified vector.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
+
+/**
+ *  mat_setzc
+ *  Replaces a column of a complex matrix with the specified vector.
+ */
 void mat_setzc ( matrixz* mat, int col, matrixz* vec )  {
 
   mat_err( col > mat->cols,        "Error (mat_setzc): Column index exceeds matrix dimensions."          );
@@ -299,6 +285,6 @@ void mat_setzc ( matrixz* mat, int col, matrixz* vec )  {
 
   return;
 }
-*/
+
 
 
