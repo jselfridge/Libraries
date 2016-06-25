@@ -68,7 +68,6 @@ matrixz*  mat_readz   ( char *file );
 void      mat_printz  ( matrixz *mat );
 void      mat_writez  ( matrixz *mat, char *file );
 void      mat_clearz  ( matrixz *mat );
-
 double    mat_getre   ( matrixz *mat, uint row, uint col );
 double    mat_getim   ( matrixz *mat, uint row, uint col );
 matrixz*  mat_getzr   ( matrixz *mat, uint row );
@@ -79,25 +78,25 @@ void      mat_setzc   ( matrixz *mat, uint col, matrixz *vec );
 
 
 // MatVec functions
-//matrix*   mat_skew    ( matrix *vec );
-//matrix*   mat_sskew   ( matrix *vec );
-//matrix*   mat_cross   ( matrix *vecA, matrix *vecB );
-//double    mat_dot     ( matrix *vecA, matrix *vecB );
-//double    mat_norm    ( matrix *vec, int p );
-//double    mat_mag     ( matrix *vec );
-//matrix*   mat_uvec    ( matrix *vec );
-//matrix*   mat_proj    ( matrix *u, matrix *v );
+matrix*   mat_skew    ( matrix *vec );
+matrix*   mat_sskew   ( matrix *vec );
+matrix*   mat_cross   ( matrix *vecA, matrix *vecB );
+double    mat_dot     ( matrix *vecA, matrix *vecB );
+double    mat_norm    ( matrix *vec, uint p );
+double    mat_mag     ( matrix *vec );
+matrix*   mat_uvec    ( matrix *vec );
+matrix*   mat_proj    ( matrix *u, matrix *v );
 
 
 // MatArith functions
-//matrix*   mat_add     ( matrix *matA, matrix *matB );
-//matrix*   mat_sub     ( matrix *matA, matrix *matB );
-//matrix*   mat_emul    ( matrix *matA, matrix *matB );
-//matrix*   mat_ediv    ( matrix *matA, matrix *matB );
-//matrix*   mat_mul     ( matrix *matA, matrix *matB );
-//matrix*   mat_pow     ( matrix *mat, int power );
-//matrix*   mat_abs     ( matrix *mat );
-//matrix*   mat_trans   ( matrix *mat );
+matrix*   mat_add     ( matrix *matA, matrix *matB );
+matrix*   mat_sub     ( matrix *matA, matrix *matB );
+matrix*   mat_emul    ( matrix *matA, matrix *matB );
+matrix*   mat_ediv    ( matrix *matA, matrix *matB );
+matrix*   mat_mul     ( matrix *matA, matrix *matB );
+matrix*   mat_pow     ( matrix *mat, uint power );
+matrix*   mat_abs     ( matrix *mat );
+matrix*   mat_trans   ( matrix *mat );
 
 
 // MatRoot functions

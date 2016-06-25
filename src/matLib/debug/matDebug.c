@@ -12,8 +12,8 @@
 int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
-  PrintMat();
-  MatManip();
+  //PrintMat();
+  //MatManip();
   //MatComplex();
   //MatVec();
   //MatArith();
@@ -299,47 +299,46 @@ void MatManip ()  {
  *  MatComplex
  *  Debugs the MatComplex file functions.
  */
-/*
 void MatComplex() {
   printf("Complex matrix manipulation \n");
 
   // Declare complex column vector
-  matrixz* Cz = mat_initz(4,1);
-  mat_setz( Cz,1,1,  1.0,  2.0 );
-  mat_setz( Cz,2,1,  0.3, -4.0 );
-  mat_setz( Cz,3,1, -1.4,  0.6 );
-  mat_setz( Cz,4,1, -3.1, -2.7 );
+  matrixz *Cz = mat_initz( 4, 1 );
+  mat_setz( Cz, 1, 1,  1.0,  2.0 );
+  mat_setz( Cz, 2, 1,  0.3, -4.0 );
+  mat_setz( Cz, 3, 1, -1.4,  0.6 );
+  mat_setz( Cz, 4, 1, -3.1, -2.7 );
   mat_printz(Cz);
 
   // Declare complex row vector
-  matrixz* Rz = mat_initz(1,2);
-  mat_setz( Rz,1,1,  4.2,  1.5 );
-  mat_setz( Rz,1,2,  0.9, -3.7 );
+  matrixz *Rz = mat_initz( 1, 2 );
+  mat_setz( Rz, 1, 1, 4.2,  1.5 );
+  mat_setz( Rz, 1, 2, 0.9, -3.7 );
   mat_printz(Rz);
 
   // Get element values
-  printf("%f \n", mat_getre(Cz,1,1) );
-  printf("%f \n", mat_getre(Cz,3,1) );
-  printf("%f \n", mat_getim(Cz,1,1) );
-  printf("%f \n", mat_getim(Cz,4,1) );
-  printf("%f \n", mat_getre(Rz,1,2) );
-  printf("%f \n", mat_getim(Rz,1,2) );
+  printf("%f \n", mat_getre( Cz, 1, 1 ) );
+  printf("%f \n", mat_getre( Cz, 3, 1 ) );
+  printf("%f \n", mat_getim( Cz, 1, 1 ) );
+  printf("%f \n", mat_getim( Cz, 4, 1 ) );
+  printf("%f \n", mat_getre( Rz, 1, 2 ) );
+  printf("%f \n", mat_getim( Rz, 1, 2 ) );
 
   // Initialize complex matrix
-  matrixz* Mz = mat_initz(4,2);
-  printf("Rows: %d \n", Mz->rows );
-  printf("Cols: %d \n", Mz->cols );
+  matrixz *Mz = mat_initz( 4, 2 );
+  printf( "Rows: %d \n", Mz->rows );
+  printf( "Cols: %d \n", Mz->cols );
 
   // Set and get columns and rows
-  mat_setzr( Mz,1,Rz );
-  mat_setzc( Mz,2,Cz );
+  mat_setzr( Mz, 1, Rz );
+  mat_setzc( Mz, 2, Cz );
   mat_printz(Mz);
-  mat_printz(mat_getzr(Mz,1));
-  mat_printz(mat_getzc(Mz,2));
+  mat_printz( mat_getzr( Mz, 1 ) );
+  mat_printz( mat_getzc( Mz, 2 ) );
 
   // Write and read complex matrix
-  mat_writez(Mz,"testz");
-  matrixz* Tz = mat_readz("testz");
+  mat_writez( Mz, "testz" );
+  matrixz *Tz = mat_readz("testz");
   mat_printz(Tz);
 
   // Clear complex matrices
@@ -351,84 +350,85 @@ void MatComplex() {
   printf("\n");
   return;
 }
-*/
+
 
 /**
  *  MatVec
  *  Debugs the MatVec file functions.
  */
-/*
 void MatVec() {
   printf("Matrix vector operations \n");
 
-  //  Skew symmetric
-  matrix* skew = mat_skew(M31a);
-  mat_print(skew);  mat_clear(skew);
+  // Skew symmetric
+  matrix *skew = mat_skew(M31a);
+  mat_print(skew);
+  mat_clear(skew);
 
-  //  Double skew symmetric
-  matrix* sskew = mat_sskew(M31a);
-  mat_print(sskew);  mat_clear(sskew);
+  // Double skew symmetric
+  matrix *sskew = mat_sskew(M31a);
+  mat_print(sskew);
+  mat_clear(sskew);
 
-  //  Cross product
-  matrix* cross;
-  cross = mat_cross(M31a,M31b);
+  // Cross product
+  matrix *cross;
+  cross = mat_cross( M31a, M31b );
   mat_print(cross);
-  cross = mat_cross(M31a,M31a);
+  cross = mat_cross( M31a, M31a );
   mat_print(cross);  
   mat_clear(cross);
 
-  //  Dot product
+  // Dot product
   double dot;
-  dot = mat_dot(M31a,M31b);
-  printf("dot: %f \n", dot);
-  dot = mat_dot(M31a,M31a);
-  printf("dot: %f \n", dot);
+  dot = mat_dot( M31a, M31b );
+  printf( "dot: %f \n", dot );
+  dot = mat_dot( M31a, M31a );
+  printf( "dot: %f \n", dot );
 
   // Norm
   mat_print(M41);
-  double NI = mat_norm(M41,0);
-  double N1 = mat_norm(M41,1);
-  double N2 = mat_norm(M41,2);
-  double N3 = mat_norm(M41,3);
-  printf("NormI: %f \n", NI);
-  printf("Norm1: %f \n", N1);
-  printf("Norm2: %f \n", N2);
-  printf("Norm3: %f \n", N3);
+  double NI = mat_norm( M41, 0 );
+  double N1 = mat_norm( M41, 1 );
+  double N2 = mat_norm( M41, 2 );
+  double N3 = mat_norm( M41, 3 );
+  printf( "NormI: %f \n", NI );
+  printf( "Norm1: %f \n", N1 );
+  printf( "Norm2: %f \n", N2 );
+  printf( "Norm3: %f \n", N3 );
 
   // Magnitude
-  printf("Mag: %f \n", mat_mag(M31a));
-  matrix* unity = mat_init(4,1);
-  mat_set(unity,1,1,1);
-  mat_set(unity,2,1,0);
-  mat_set(unity,3,1,1);
-  mat_set(unity,4,1,0);
-  printf("Mag: %f \n", mat_mag(unity));
+  printf( "Mag: %f \n", mat_mag(M31a) );
+  matrix *unity = mat_init( 4, 1 );
+  mat_set( unity, 1, 1, 1 );
+  mat_set( unity, 2, 1, 0 );
+  mat_set( unity, 3, 1, 1 );
+  mat_set( unity, 4, 1, 0 );
+  printf( "Mag: %f \n", mat_mag(unity) );
 
   // Unit vector
   printf("Unit vector: ");
-  matrix* quat = mat_init(4,1);
-  mat_set(quat,1,1,1);
-  mat_set(quat,2,1,0);
-  mat_set(quat,3,1,1);
-  mat_set(quat,4,1,0);
+  matrix *quat = mat_init( 4, 1 );
+  mat_set( quat, 1, 1, 1 );
+  mat_set( quat, 2, 1, 0 );
+  mat_set( quat, 3, 1, 1 );
+  mat_set( quat, 4, 1, 0 );
   mat_print(mat_uvec(M31b));
   mat_print(mat_uvec(M41));
   mat_print(mat_uvec(quat));
 
   // Vector projection
-  matrix* u = mat_init(3,1);
-  mat_set(u,1,1,7);
-  mat_set(u,2,1,14);
-  mat_set(u,3,1,4);
+  matrix *u = mat_init( 3, 1 );
+  mat_set( u, 1, 1,  7 );
+  mat_set( u, 2, 1, 14 );
+  mat_set( u, 3, 1,  4 );
   printf("u: ");
   mat_print(u);
-  matrix* v = mat_init(3,1);
-  mat_set(v,1,1,-2);
-  mat_set(v,2,1,5);
-  mat_set(v,3,1,1);
+  matrix *v = mat_init( 3, 1 );
+  mat_set( v, 1, 1, -2 );
+  mat_set( v, 2, 1,  5 );
+  mat_set( v, 3, 1,  1 );
   printf("v: ");
   mat_print(v);
-  matrix* proj = mat_proj(u,v);
+  matrix *proj = mat_proj( u, v );
   printf("proj: ");
   mat_print(proj);
   mat_clear(u);
@@ -438,53 +438,63 @@ void MatVec() {
   printf("\n");
   return;
 }
-*/
+
 
 /**
  *  MatArith
  *  Debugs the MatArith file functions.
  */
-/*
 void MatArith() {
   printf("Matrix arithmetic functions \n");
 
   // Addition
-  matrix* Vadd = mat_add(M31a,M31b);
-  mat_print(Vadd);  mat_clear(Vadd);
-  matrix* Madd = mat_add(M33a,M33b);
-  mat_print(Madd);  mat_clear(Madd);
+  matrix *Vadd = mat_add( M31a, M31b );
+  mat_print(Vadd);
+  mat_clear(Vadd);
+  matrix *Madd = mat_add( M33a, M33b );
+  mat_print(Madd);
+  mat_clear(Madd);
 
   // Subtraction
-  matrix* Vsub = mat_sub(M31a,M31b);
-  mat_print(Vsub);  mat_clear(Vsub);
-  matrix* Msub = mat_sub(M33a,M33b);
-  mat_print(Msub);  mat_clear(Msub);
+  matrix *Vsub = mat_sub( M31a, M31b );
+  mat_print(Vsub);
+  mat_clear(Vsub);
+  matrix *Msub = mat_sub( M33a, M33b );
+  mat_print(Msub);
+  mat_clear(Msub);
 
   // Elem-wise multiplication
-  matrix* Vemul = mat_emul(M31a,M31b);
-  mat_print(Vemul);  mat_clear(Vemul);
-  matrix* Memul = mat_emul(M33a,M33b);
-  mat_print(Memul);  mat_clear(Memul);
+  matrix *Vemul = mat_emul( M31a, M31b );
+  mat_print(Vemul);
+  mat_clear(Vemul);
+  matrix *Memul = mat_emul( M33a, M33b );
+  mat_print(Memul);
+  mat_clear(Memul);
 
   // Elem-wise division
-  matrix* Vediv = mat_ediv(M31a,M31b);
-  mat_print(Vediv);  mat_clear(Vediv);
-  matrix* Mediv = mat_ediv(M33a,M33b);
-  mat_print(Mediv);  mat_clear(Mediv);
+  matrix *Vediv = mat_ediv( M31a, M31b );
+  mat_print(Vediv);
+  mat_clear(Vediv);
+  matrix *Mediv = mat_ediv( M33a, M33b );
+  mat_print(Mediv);
+  mat_clear(Mediv);
 
   // Multiplication
-  matrix* Mmul33 = mat_mul(M33a,M33b);
-  mat_print(Mmul33);  mat_clear(Mmul33);
-  matrix* Mmul23 = mat_mul(M23,M33a);
-  mat_print(Mmul23);  mat_clear(Mmul23);
-  matrix* Mmul4 = mat_mul(M44,M41);
-  mat_print(Mmul4);  mat_clear(Mmul4);
+  matrix *Mmul33 = mat_mul( M33a, M33b );
+  mat_print(Mmul33);
+  mat_clear(Mmul33);
+  matrix *Mmul23 = mat_mul( M23, M33a );
+  mat_print(Mmul23);
+  mat_clear(Mmul23);
+  matrix *Mmul4 = mat_mul( M44, M41 );
+  mat_print(Mmul4);
+  mat_clear(Mmul4);
 
   // Power
-  int i;
-  matrix* Mpow;
-  for ( i=0; i<4; i++ ) {
-    Mpow= mat_pow(M33a,i);
+  uint i;
+  matrix *Mpow;
+  for ( i=0; i<4; i++ )  {
+    Mpow= mat_pow( M33a, i );
     mat_print(Mpow);
   }
   mat_clear(Mpow);
@@ -495,19 +505,23 @@ void MatArith() {
   mat_print( mat_abs(M41) );
 
   //  Transpose
-  matrix* T1 = mat_trans(M41);
-  mat_print(T1);  mat_clear(T1);
-  matrix* T2 = mat_trans(M23);
-  mat_print(T2);  mat_clear(T2);
-  matrix* T3 = mat_trans(M43);
-  mat_print(T3);  mat_clear(T3);
-  matrix* T4 = mat_trans(M33a);
-  mat_print(T4);  mat_clear(T4);
+  matrix *T1 = mat_trans(M41);
+  mat_print(T1);
+  mat_clear(T1);
+  matrix *T2 = mat_trans(M23);
+  mat_print(T2);
+  mat_clear(T2);
+  matrix *T3 = mat_trans(M43);
+  mat_print(T3);
+  mat_clear(T3);
+  matrix *T4 = mat_trans(M33a);
+  mat_print(T4);
+  mat_clear(T4);
 
   printf("\n");
   return;
 }
-*/
+
 
 /**
  *  MatRoot
