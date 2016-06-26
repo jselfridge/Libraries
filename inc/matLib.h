@@ -104,9 +104,9 @@ matrixz*  mat_root    ( matrix *poly, double tol, uint max );
 
 
 // MatDecomp functions
-//void      mat_LU      ( matrix *mat, matrix **L, matrix **U );
-//void      mat_LDU     ( matrix *mat, matrix **L, matrix **D, matrix **U );
-//double    mat_det     ( matrix *mat );
+void      mat_LU      ( matrix *mat, matrix **L, matrix **U );
+void      mat_LDU     ( matrix *mat, matrix **L, matrix **D, matrix **U );
+double    mat_det     ( matrix *mat );
 
 
 #endif
