@@ -99,13 +99,8 @@ matrix*   mat_abs     ( matrix *mat );
 matrix*   mat_trans   ( matrix *mat );
 
 
-// MatRoot functions
-//matrixz*  mat_root    ( matrix *poly, double tol, int max );
-//double           B    ( matrix *coef );
-//void             Z    ( matrixz *zero, double b );
-//void             L    ( matrixz *zero, matrix *coef, double tol, int max );
-//double complex   N    ( matrixz *zero, matrix *coef, int j );
-//double complex   D    ( matrixz *zero, int j );
+// MatRoot function
+matrixz*  mat_root    ( matrix *poly, double tol, uint max );
 
 
 // MatDecomp functions
