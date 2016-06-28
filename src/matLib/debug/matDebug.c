@@ -613,6 +613,7 @@ void MatRoot() {
 void MatDecomp() {
   printf("Matrix decomposition functions \n");
 
+  /*
   // LDU 1
   printf("LDU 1: \n");
   matrix *A1, *L1, *U1, *LU1, *D1, *V1, *LDU1;
@@ -652,7 +653,6 @@ void MatDecomp() {
   printf("V2: ");    mat_print(V2);    mat_clear(V2);
   printf("LDU2: ");  mat_print(LDU2);  mat_clear(LDU2);
   printf("\n");
-
 
   // LDU 3
   printf("LDU 3: \n");
@@ -717,7 +717,6 @@ void MatDecomp() {
   printf("LDU5: ");  mat_print(LDU5);  mat_clear(LDU5);
   printf("\n");
 
-  /*
   // LDU 6: No solution
   printf("LDU 6: \n");
   matrix *A6, *L6, *U6;
@@ -726,13 +725,40 @@ void MatDecomp() {
   mat_set( A6, 2, 1, -4 );    mat_set( A6, 2, 2, -2 );    mat_set( A6, 2, 3,  5 );
   mat_set( A6, 3, 1,  6 );    mat_set( A6, 3, 2,  2 );    mat_set( A6, 3, 3, 11 );
   mat_LU( A6, &L6, &U6 );
-  */
 
   // Determinant
   double det3 = mat_det(M33a);
   printf( "det3: %f \n", det3 );
   double det4 = mat_det(M44);
   printf( "det4: %f \n", det4 );
+  */
+
+  // Symmetric PSD1
+  printf("Matrix Inverse 1: \n");
+  matrix *PSD1, *PSD1i, *I3;
+  double a[6], c[6], w[6];
+  uint nullity, ifault;
+  PSD1  = mat_init( 3, 3 );
+  PSD1i = mat_init( 3, 3 );
+  I3    = mat_init( 3, 3 );
+  mat_set( PSD1, 1, 1, 4 );    mat_set( PSD1, 1, 2, 0 );    mat_set( PSD1, 1, 3, 1 );
+  mat_set( PSD1, 2, 1, 0 );    mat_set( PSD1, 2, 2, 2 );    mat_set( PSD1, 2, 3, 1 );
+  mat_set( PSD1, 3, 1, 1 );    mat_set( PSD1, 3, 2, 1 );    mat_set( PSD1, 3, 3, 2 );
+  a[0] = mat_get(PSD1,1,1);
+  a[1] = mat_get(PSD1,2,1);
+  a[2] = mat_get(PSD1,2,2);
+  a[3] = mat_get(PSD1,3,1);
+  a[4] = mat_get(PSD1,3,2);
+  a[5] = mat_get(PSD1,3,3);
+  mat_syminv( a, 3, c, w, &nullity, &ifault );
+  mat_set( PSD1i, 1, 1, c[0] );    mat_set( PSD1i, 1, 2, c[1] );    mat_set( PSD1i, 1, 3, c[3] );
+  mat_set( PSD1i, 2, 1, c[1] );    mat_set( PSD1i, 2, 2, c[2] );    mat_set( PSD1i, 2, 3, c[4] );
+  mat_set( PSD1i, 3, 1, c[3] );    mat_set( PSD1i, 3, 2, c[4] );    mat_set( PSD1i, 3, 3, c[5] );
+  I3 = mat_mul( PSD1i, PSD1 );
+  printf("PSD1:");   mat_print(PSD1);   mat_clear(PSD1);
+  printf("PSD1i:");  mat_print(PSD1i);  mat_clear(PSD1i);
+  printf("I3");      mat_print(I3);     mat_clear(I3);
+
 
   // Exit function
   printf("\n");
