@@ -732,7 +732,53 @@ void MatDecomp() {
   double det4 = mat_det(M44);
   printf( "det4: %f \n", det4 );
   */
+  /*
+  // Symmetric matrix
+  printf("Symmetric matrix \n");
+  matrix *sym;
+  bool issym;
+  double tol = 0.01;
+  sym = mat_init( 3, 3 );
+  mat_set( sym, 1, 1, 4.00 );    mat_set( sym, 1, 2, 0.30 );    mat_set( sym, 1, 3, 0.00 );
+  mat_set( sym, 2, 1, 0.30 );    mat_set( sym, 2, 2, 3.00 );    mat_set( sym, 2, 3, 0.00 );
+  mat_set( sym, 3, 1, 0.01 );    mat_set( sym, 3, 2, 0.00 );    mat_set( sym, 3, 3, 2.00 );
+  printf("Sym:");
+  mat_print(sym);
+  issym = mat_sym( sym, tol );
+  printf("Is the matrix symmetric?  ");  issym ? printf("yes\n") : printf("no\n");
+  printf("Sym:");
+  mat_print(sym);
+  mat_clear(sym);
+  */
 
+  // Triangle to vector
+  printf("Triangle to vector: \n");
+  matrix *tri1, *vec1;
+  tri1 = mat_init( 3, 3 );
+  mat_set( tri1, 1, 1, 1.00 );    mat_set( tri1, 1, 2, 0.00 );    mat_set( tri1, 1, 3, 0.00 );
+  mat_set( tri1, 2, 1, 0.20 );    mat_set( tri1, 2, 2, 0.03 );    mat_set( tri1, 2, 3, 0.00 );
+  mat_set( tri1, 3, 1, 4.00 );    mat_set( tri1, 3, 2, 0.50 );    mat_set( tri1, 3, 3, 0.06 );
+  vec1 = mat_tri2vec(tri1);
+  printf("Tri:");  mat_print(tri1);  mat_clear(tri1);
+  printf("Vec:");  mat_print(vec1);  mat_clear(vec1);
+
+  // Vector to triangle
+  printf("Vector to triangle: \n");
+  matrix *tri2, *vec2;
+  vec2 = mat_init( 6, 1 );
+  mat_set( vec2, 1, 1, 0.01 );
+  mat_set( vec2, 2, 1, 0.20 );
+  mat_set( vec2, 3, 1, 3.00 );
+  mat_set( vec2, 4, 1, 0.04 );
+  mat_set( vec2, 5, 1, 0.50 );
+  mat_set( vec2, 6, 1, 6.00 );
+  tri2 = mat_vec2tri(vec2);
+  printf("Vec:");  mat_print(vec2);  mat_clear(vec2);
+  printf("Tri:");  mat_print(tri2);  mat_clear(tri2);
+
+
+
+  /*
   // Symmetric PSD1
   printf("Matrix Inverse 1: \n");
   matrix *PSD1, *PSD1i, *I3;
@@ -758,7 +804,7 @@ void MatDecomp() {
   printf("PSD1:");   mat_print(PSD1);   mat_clear(PSD1);
   printf("PSD1i:");  mat_print(PSD1i);  mat_clear(PSD1i);
   printf("I3");      mat_print(I3);     mat_clear(I3);
-
+  */
 
   // Exit function
   printf("\n");

@@ -110,6 +110,9 @@ double    mat_det     ( matrix *mat );
 bool      mat_sym     ( matrix *mat, double tol );
 void      mat_chol    ( double a[], uint n, uint nn, double u[], uint *nullty, uint *ifault );
 void      mat_syminv  ( double a[], uint n, double c[], double w[], uint *nullty, uint *ifault );
+matrix*   mat_tri2vec ( matrix *tri );
+matrix*   mat_vec2tri ( matrix *vec );
+
 
 #endif
 
