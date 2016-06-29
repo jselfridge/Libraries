@@ -124,6 +124,43 @@ void mat_LDU ( matrix *mat, matrix **L, matrix **D, matrix **U )  {
 
 
 /**
+ *  mat_sym
+ *  Evaluates whether a matrix is symmetric within a prescribed tolerance.
+ */
+bool mat_sym ( matrix *mat, double tol )  {
+
+  mat_err( mat->rows != mat->cols, "Error (mat_sym): A symmetric matrix must be square." );
+
+  uint r, c;
+  double u, l;
+  double diff, val;
+  bool sym = true;
+
+  // Loop through lower triangle
+  for ( r=1; r <= mat->rows; r++ )  {
+    for ( c=1; c<r; c++ )  {
+
+      // Gte upper and lower elements 
+      l = mat_get( mat, r, c );
+      u = mat_get( mat, c, r );
+
+      // Compare the absolute difference to the tolerance
+      diff = fabs( l - u );
+      if ( diff >= tol )  sym = false;
+
+      // Average the two values 
+      val = ( l + u ) / 2.0;
+      mat_set( mat, r, c, val );
+      mat_set( mat, c, r, val );
+
+    }
+  }
+
+  return sym;
+}
+
+
+/**
  *  mat_det
  *  Returns the determinant of a matrix.
  */
