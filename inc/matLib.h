@@ -103,13 +103,17 @@ matrix*   mat_trans   ( matrix *mat );
 matrixz*  mat_root    ( matrix *poly, double tol, uint max );
 
 
+// MatProp functions
+double    mat_det     ( matrix *mat );
+double    mat_trace   ( matrix *mat );
+bool      mat_sym     ( matrix *mat, double tol );
+
+
 // MatDecomp functions
 void      mat_LU      ( matrix *mat, matrix **L, matrix **U );
 void      mat_LDU     ( matrix *mat, matrix **L, matrix **D, matrix **U );
-double    mat_det     ( matrix *mat );
-bool      mat_sym     ( matrix *mat, double tol );
-void      mat_chol    ( double a[], uint n, uint nn, double u[], uint *nullty, uint *ifault );
-void      mat_syminv  ( double a[], uint n, double c[], double w[], uint *nullty, uint *ifault );
+//void      mat_chol    ( double a[], uint n, uint nn, double u[], uint *nullty, uint *ifault );
+//void      mat_syminv  ( double a[], uint n, double c[], double w[], uint *nullty, uint *ifault );
 matrix*   mat_tri2vec ( matrix *tri );
 matrix*   mat_vec2tri ( matrix *vec );
 

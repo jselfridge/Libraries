@@ -12,13 +12,14 @@
 int main ()  {
   printf("\n   --- MatLib Debugging --- \n\n");
   InitMat(); 
-  //PrintMat();
+  PrintMat();
   //MatManip();
   //MatComplex();
   //MatVec();
   //MatArith();
   //MatRoot();
-  MatDecomp();
+  MatProp();
+  //MatDecomp();
   ClearMat();
   printf("   --- MatLib Complete --- \n\n");
   return 0;
@@ -607,7 +608,51 @@ void MatRoot() {
 
 
 /**
- *  MatTest
+ *  MatProp
+ *  Debugs the MatProp file functions.
+ */
+void MatProp() {
+  printf("Matrix properties functions \n");
+
+  /*
+  // Determinant
+  double det3 = mat_det(M33a);
+  printf( "det3: %f \n", det3 );
+  double det4 = mat_det(M44);
+  printf( "det4: %f \n", det4 );
+  */
+
+  // Trace of a matrix
+  double trace3 = mat_trace(M33a);
+  printf( "trace3: %f \n", trace3 );
+  double trace4 = mat_trace(M44);
+  printf( "trace4: %f \n", trace4 );
+
+  /*
+  // Symmetric matrix
+  printf("Symmetric matrix \n");
+  matrix *sym;
+  bool issym;
+  double tol = 0.011;
+  sym = mat_init( 3, 3 );
+  mat_set( sym, 1, 1, 4.00 );    mat_set( sym, 1, 2, 0.30 );    mat_set( sym, 1, 3, 0.00 );
+  mat_set( sym, 2, 1, 0.30 );    mat_set( sym, 2, 2, 3.00 );    mat_set( sym, 2, 3, 0.00 );
+  mat_set( sym, 3, 1, 0.01 );    mat_set( sym, 3, 2, 0.00 );    mat_set( sym, 3, 3, 2.00 );
+  printf("Sym:");
+  mat_print(sym);
+  issym = mat_sym( sym, tol );
+  printf("Is the matrix symmetric?  ");  issym ? printf("yes\n") : printf("no\n");
+  printf("Sym:");
+  mat_print(sym);
+  mat_clear(sym);
+  */
+
+  return;
+}
+
+
+/**
+ *  MatDecomp
  *  Debugs the MatDecomp file functions.
  */
 void MatDecomp() {
@@ -716,7 +761,8 @@ void MatDecomp() {
   printf("V5: ");    mat_print(V5);    mat_clear(V5);
   printf("LDU5: ");  mat_print(LDU5);  mat_clear(LDU5);
   printf("\n");
-
+  */
+  /*
   // LDU 6: No solution
   printf("LDU 6: \n");
   matrix *A6, *L6, *U6;
@@ -725,32 +771,8 @@ void MatDecomp() {
   mat_set( A6, 2, 1, -4 );    mat_set( A6, 2, 2, -2 );    mat_set( A6, 2, 3,  5 );
   mat_set( A6, 3, 1,  6 );    mat_set( A6, 3, 2,  2 );    mat_set( A6, 3, 3, 11 );
   mat_LU( A6, &L6, &U6 );
-
-  // Determinant
-  double det3 = mat_det(M33a);
-  printf( "det3: %f \n", det3 );
-  double det4 = mat_det(M44);
-  printf( "det4: %f \n", det4 );
   */
   /*
-  // Symmetric matrix
-  printf("Symmetric matrix \n");
-  matrix *sym;
-  bool issym;
-  double tol = 0.01;
-  sym = mat_init( 3, 3 );
-  mat_set( sym, 1, 1, 4.00 );    mat_set( sym, 1, 2, 0.30 );    mat_set( sym, 1, 3, 0.00 );
-  mat_set( sym, 2, 1, 0.30 );    mat_set( sym, 2, 2, 3.00 );    mat_set( sym, 2, 3, 0.00 );
-  mat_set( sym, 3, 1, 0.01 );    mat_set( sym, 3, 2, 0.00 );    mat_set( sym, 3, 3, 2.00 );
-  printf("Sym:");
-  mat_print(sym);
-  issym = mat_sym( sym, tol );
-  printf("Is the matrix symmetric?  ");  issym ? printf("yes\n") : printf("no\n");
-  printf("Sym:");
-  mat_print(sym);
-  mat_clear(sym);
-  */
-
   // Triangle to vector
   printf("Triangle to vector: \n");
   matrix *tri1, *vec1;
@@ -775,9 +797,7 @@ void MatDecomp() {
   tri2 = mat_vec2tri(vec2);
   printf("Vec:");  mat_print(vec2);  mat_clear(vec2);
   printf("Tri:");  mat_print(tri2);  mat_clear(tri2);
-
-
-
+  */
   /*
   // Symmetric PSD1
   printf("Matrix Inverse 1: \n");
