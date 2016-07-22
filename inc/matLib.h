@@ -94,6 +94,9 @@ matrix*   mat_sub     ( matrix *matA, matrix *matB );
 matrix*   mat_emul    ( matrix *matA, matrix *matB );
 matrix*   mat_ediv    ( matrix *matA, matrix *matB );
 matrix*   mat_mul     ( matrix *matA, matrix *matB );
+matrix*   mat_inv     ( matrix *mat );
+matrix*   mat_divL    ( matrix *matA, matrix *matB );
+matrix*   mat_divR    ( matrix *matA, matrix *matB );
 matrix*   mat_pow     ( matrix *mat, uint power );
 matrix*   mat_abs     ( matrix *mat );
 matrix*   mat_trans   ( matrix *mat );
@@ -112,7 +115,7 @@ bool      mat_sym     ( matrix *mat, double tol );
 // MatDecomp functions
 void      mat_LU      ( matrix *mat, matrix **L, matrix **U );
 void      mat_LDU     ( matrix *mat, matrix **L, matrix **D, matrix **U );
-void      mat_QR      ( matrix *mat, matrix **Q, matrix **R );
+void      mat_QR      ( matrix *mat, matrix **Q, matrix **R );     //---  TODO: QR factorization on short matrices  ---//
 //void      mat_chol    ( double a[], uint n, uint nn, double u[], uint *nullty, uint *ifault );
 //void      mat_syminv  ( double a[], uint n, double c[], double w[], uint *nullty, uint *ifault );
 matrix*   mat_tri2vec ( matrix *tri );

@@ -129,7 +129,7 @@ void mat_LDU ( matrix *mat, matrix **L, matrix **D, matrix **U )  {
  */
 void mat_QR ( matrix *mat, matrix **Q, matrix **R )  {
 
-  //mat_err( *Q != NULL || *R != NULL, "Error (mat_QR): Q and R matrices must be initialized as NULL." );
+  mat_err( mat->rows < mat->cols, "Error (mat_QR): Input matrix must be square or tall." );
 
   uint i, j, r, c;
   matrix *A, *Acol, *Qcol;

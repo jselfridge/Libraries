@@ -142,6 +142,90 @@ matrix* mat_mul ( matrix *matA, matrix *matB )  {
 
 
 /**
+ *  mat_inv
+ *  Calculates the inverse of a square matrix
+ */
+matrix* mat_inv ( matrix *mat )  {
+
+  mat_err( mat->rows != mat->cols, "Error (mat_inv): Matrix must be square." );
+
+  matrix *eye = mat_eye( mat->rows );
+  matrix *inv = mat_divL( mat, eye );
+
+  mat_clear(eye);
+
+  return inv;
+}
+
+
+/**
+ *  mat_divL
+ *  Solves for X in AX=B; which is equivalent to X=A\B.
+ */
+matrix* mat_divL ( matrix *matA, matrix *matB )  {
+
+  // Error checking
+  mat_err( matA->rows != matA->cols, "Error (mat_divL): A matrix must be square. "        );
+  mat_err( matA->rows != matB->rows, "Error (mat_divL): A and B must be the same height." );
+
+  // Local variables
+  uint r, c, i, j, k;
+  double val;
+  matrix *Q, *R, *Y, *X;
+
+  // Dimensions
+  r = matB->rows;
+  c = matB->cols;
+
+  // Initialize matrices
+  Y = mat_init(r,c);
+  X = mat_init(r,c);
+
+  // QR factorization
+  Q = NULL;  
+  R = NULL;
+  mat_QR( matA, &Q, &R );
+
+  // Solve intermediate matrix
+  Y = mat_mul( mat_trans(Q), matB );
+
+  // Trangluar substitution
+  for ( k=1; k<=c; k++ )  {
+    for ( i=r; i>=1; i-- )  {
+      val = mat_get( Y, i, k );
+      for ( j=r; j>i; j-- )  val -= mat_get( R, i, j ) * mat_get( X, j, k );
+      val /= mat_get( R, i, i );
+      mat_set( X, i, k, val );
+    }
+  }
+
+  // Clear matrices
+  mat_clear(Q);
+  mat_clear(R);
+  mat_clear(Y);
+
+  return X;
+}
+
+
+/**
+ *  mat_divR
+ *  Solves for X in XA=B; which is equivalent to X=B/A.
+ */
+matrix* mat_divR ( matrix *matA, matrix *matB )  {
+
+  mat_err( matA->rows != matA->cols, "Error (mat_divR): A matrix must be square. " );
+  mat_err( matA->cols != matB->cols, "Error (mat_divR): A and B must be the same width." );
+
+  matrix *X = mat_init( matB->rows, matB->cols );
+
+  X = mat_mul( matB, mat_inv(matA) );
+
+  return X;
+}
+
+
+/**
  *  mat_pow
  *  Raises a square matrix to a specified power.
  */

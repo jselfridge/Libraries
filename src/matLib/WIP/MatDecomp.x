@@ -7,40 +7,6 @@
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  mat_QR
-//  Solves for the QR decomposition of a matrix.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
-
-  mat_err( *Q!=NULL || *R!=NULL, "Error (mat_QR): Q and R matrices must be initialized as NULL." );
-
-  int r = mat->rows;
-  int c = mat->cols;
-
-  matrix* A    = mat_copy(mat);
-  matrix* Acol = mat_init(r,1);
-  matrix* Qcol = mat_init(r,1);
-
-  *Q = mat_init(r,c);
-  *R = mat_init(c,c);
-
-  for ( int i=1; i<=c; i++ ) {
-    Acol = mat_getc(A,i);
-    Qcol = mat_copy(Acol);
-    for ( int j=1; j<i; j++ ) {  Qcol = mat_sub( Qcol, mat_proj( Acol, mat_getc(*Q,j) ) );  }
-    mat_setc(*Q,i,mat_uvec(Qcol));
-  }
-
-  *R = mat_mul( mat_trans(*Q), A );
-
-  mat_clear(A);
-  mat_clear(Acol);
-  mat_clear(Qcol);
-
-}
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  mat_divL
 //  Solves for X in B=AX, equivalent to X=A\B.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
