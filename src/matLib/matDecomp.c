@@ -124,6 +124,49 @@ void mat_LDU ( matrix *mat, matrix **L, matrix **D, matrix **U )  {
 
 
 /**
+ *  mat_QR
+ *  Solves for the QR decomposition of a matrix.
+ */
+void mat_QR ( matrix *mat, matrix **Q, matrix **R )  {
+
+  //mat_err( *Q != NULL || *R != NULL, "Error (mat_QR): Q and R matrices must be initialized as NULL." );
+
+  uint i, j, r, c;
+  matrix *A, *Acol, *Qcol;
+
+  if ( mat->rows < mat->cols )  mat = mat_trans(mat); 
+
+  r = mat->rows;
+  c = mat->cols;
+  A    = mat_copy(mat);
+  Acol = mat_init(r,1);
+  Qcol = mat_init(r,1);
+
+  *Q = mat_init(r,c);
+  *R = mat_init(c,c);
+
+  for ( i=1; i<=c; i++ )  {
+
+    Acol = mat_getc(A,i);
+    Qcol = mat_copy(Acol);
+
+    for ( j=1; j<i; j++ )  {  Qcol = mat_sub( Qcol, mat_proj( Acol, mat_getc(*Q,j) ) );  }
+
+    mat_setc( *Q, i, mat_uvec(Qcol) );
+
+  }
+
+  *R = mat_mul( mat_trans(*Q), A );
+
+  mat_clear(A);
+  mat_clear(Acol);
+  mat_clear(Qcol);
+
+  return;
+}
+
+
+/**
  *  mat_chol
  *  Computes the Cholesky factorization of a PDS matrix.  For matrix A, 
  *  the Cholesky factor U is an upper triangular matrix such that A = U' * U.

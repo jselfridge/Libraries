@@ -112,6 +112,7 @@ bool      mat_sym     ( matrix *mat, double tol );
 // MatDecomp functions
 void      mat_LU      ( matrix *mat, matrix **L, matrix **U );
 void      mat_LDU     ( matrix *mat, matrix **L, matrix **D, matrix **U );
+void      mat_QR      ( matrix *mat, matrix **Q, matrix **R );
 //void      mat_chol    ( double a[], uint n, uint nn, double u[], uint *nullty, uint *ifault );
 //void      mat_syminv  ( double a[], uint n, double c[], double w[], uint *nullty, uint *ifault );
 matrix*   mat_tri2vec ( matrix *tri );
