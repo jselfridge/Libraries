@@ -12,13 +12,13 @@
 #define MATLIB_H
 
 
-// // Standard includes
+// Standard includes
 // #include <math.h>
 // #include <complex.h>
 // #include <stdbool.h>
-// #include <stdio.h>
+ #include <stdio.h>
 // #include <stdlib.h>
-// #include <string.h>
+#include <string.h>
 
 
 // // Define values of PI
@@ -30,12 +30,12 @@
 // #define PIS (PI/16.0)
 
 
-// // Matrix structure
-// typedef struct matrix {
-//   int rows;
-//   int cols;
-//   double *data;
-// } matrix;
+// Matrix structure
+typedef struct matrix {
+  int rows;
+  int cols;
+  double *data;
+} matrix;
 
 
 // // Complex matrix structure
