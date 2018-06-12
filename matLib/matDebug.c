@@ -8,13 +8,6 @@
 * Debugging program for tetsing the 'matLib' library functions.
 *
 *******************************************************************************/
-
-
-#include <stdio.h>
-// #include <stdlib.h>
-
-
-// Custom includes
 #include <matLib.h>
 
 
@@ -31,20 +24,20 @@
 // void ClearMat();
 
 
-// Global variables
-matrix *M13;
-matrix *M14;
-matrix *M31a;
-matrix *M31b;
-matrix *M41;
-matrix *M22;
-matrix *M23;
-matrix *M32;
-matrix *M33a;
-matrix *M33b;
-matrix *M34;
-matrix *M43;
-matrix *M44;
+// // Global variables
+// matrix *M13;
+// matrix *M14;
+// matrix *M31a;
+// matrix *M31b;
+// matrix *M41;
+// matrix *M22;
+// matrix *M23;
+// matrix *M32;
+// matrix *M33a;
+// matrix *M33b;
+// matrix *M34;
+// matrix *M43;
+// matrix *M44;
 
 
 
@@ -54,9 +47,10 @@ matrix *M44;
 * Runs the main matLib debugging program.
 *******************************************************************************/
 int main ()  {
-  printf("\n   --- MatLib Debugging --- \n\n");
 
-  M13 = mat_init(1,3);
+  mat_err( true, "Hello world \n" );
+
+  //printf("\n   --- MatLib Debugging --- \n\n");
 
   //InitMat();
   //PrintMat();
@@ -69,7 +63,7 @@ int main ()  {
   //MatDecomp();
   //ClearMat();
 
-  printf("   --- MatLib Complete --- \n\n");
+  //printf("   --- MatLib Complete --- \n\n");
   return 0;
 }
 

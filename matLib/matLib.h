@@ -13,12 +13,12 @@
 
 
 // Standard includes
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 // #include <math.h>
 // #include <complex.h>
-// #include <stdbool.h>
- #include <stdio.h>
-// #include <stdlib.h>
-#include <string.h>
+// #include <string.h>
 
 
 // // Define values of PI
@@ -46,8 +46,8 @@ typedef struct matrix {
 // } matrixz;
 
 
-// // MatManip Functions
-// void      mat_err     ( bool cond, char *msg );
+// MatManip Functions
+void      mat_err     ( bool cond, char *msg );
 // matrix*   mat_init    ( uint rows, uint cols );
 // matrix*   mat_read    ( char *file );
 // void      mat_print   ( matrix *mat );

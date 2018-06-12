@@ -8,52 +8,52 @@
 # 
 #******************************************************************************/
 
-DEBUG       := mat
 LIB         := libmat.a
+DEBUG       := mat
 
 CC          := gcc
 CFLAGS      := -c -Wall -O2
-LFLAGS      := -L -lm -lrt -lmat
+LFLAGS      := -L. -lm -lrt -lmat
+
+PREFIX      := /usr
+RM          := rm -f
+INSTALL     := install -o root -g root -m 4755
+INSTALLDIR  := install -d -m 755
 
 
 
-
-$(DEBUG) : matDebug.o
-	$(CC) -L. -o $@ $< $(LFLAGS)
-
-matDebug.o : matDebug.c matLib.h
-	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 $(LIB) : matManip.o
 	ar -cvq $@ $<
+	@echo " "
+
+$(DEBUG) : matDebug.o libmat.a
+	$(CC) -o $@ $< $(LFLAGS)
 
 matManip.o : matManip.c matLib.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
-all:
-#	$(DEBUG)
-	@echo "Make all"
+matDebug.o : matDebug.c matLib.h
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 
-lib :
-	$(MAKE) $(LIB)
-	@echo "Make lib"
+
+
 
 debug:
-	$(MAKE) $(DEBUG)
-	@echo "Make debug"
+	$(MAKE) $(DEBUG) --no-print-directory
+	@echo "Finished compiling debug program."
+	@echo " "
 
 install:
-	@echo "Make install"
-
-uninstall:
-	@echo "Make uninstall"
+	@$(MAKE) --no-print-directory
+	@$(INSTALLDIR) $(DESTDIR)$(PREFIX)/lib
+	@$(INSTALL) $(LIB) $(DESTDIR)$(PREFIX)/lib
+	@echo "$(LIB) installation complete."
 
 clean:
-	rm $(DEBUG) matDebug.o
-	@echo "Make clean"
-
-test:
-	@echo "Make test"
+	@$(RM) $(DEBUG) $(LIB) matDebug.o matManip.o
+	@echo "Finished cleaning directory."
+	@echo " "
 
 
 

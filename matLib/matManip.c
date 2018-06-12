@@ -17,9 +17,9 @@
 * void mat_err ( bool cond, char *msg )
 * If error condition is true, prints a warning and exits.
 *******************************************************************************/
-// void mat_err ( bool cond, char *msg )  {
-//   if (cond)  {  fprintf( stderr, "%s\n\n", msg );  exit(1);  }
-// }
+void mat_err ( bool cond, char *msg ) {
+  if(cond) {  fprintf( stderr, "%s\n\n", msg );  exit(1);  }
+}
 
 
 
@@ -29,24 +29,24 @@
 * Initializes a new matrix with the specified dimensions,
 * and sets the elements to values of zero.
 *******************************************************************************/
-matrix* mat_init ( int rows, int cols )  {
+//matrix* mat_init ( int rows, int cols ) {
 //matrix* mat_init ( uint rows, uint cols )  {
 
   //mat_err( rows <1 || cols <1, "Error (mat_init): Matrix dimensions must be positive." ); 
 
-  matrix *out;
-  out = (matrix *) malloc( sizeof(matrix) );
+  //matrix *out;
+  //out = (matrix *) malloc( sizeof(matrix) );
   //mat_err( out == NULL, "Error (mat_init): Matrix returned NULL." );
 
-  out->rows = rows;
-  out->cols = cols;
-  out->data = (double*) malloc( sizeof(double) * rows * cols );
+  //out->rows = rows;
+  //out->cols = cols;
+  //out->data = (double*) malloc( sizeof(double) * rows * cols );
 
   //mat_err( out->data == NULL, "Error (mat_init): Matrix data returned NULL." );
-  memset( out->data, 0.0, rows * cols * sizeof(double) );
+  //memset( out->data, 0.0, rows * cols * sizeof(double) );
 
-  return out;
-}
+  //return out;
+//}
 
 
 
@@ -55,7 +55,7 @@ matrix* mat_init ( int rows, int cols )  {
 * matrix* mat_read ( char *file )
 * Reads a matrix from a file.
 *******************************************************************************/
-// matrix* mat_read ( char *file )  {
+// matrix* mat_read ( char *file ) {
 
 //   FILE *f;
 //   uint i, r, c, n;
@@ -101,7 +101,7 @@ matrix* mat_init ( int rows, int cols )  {
 * void mat_print ( matrix *mat )
 * Displays a matrix in the terminal.
 *******************************************************************************/
-// void mat_print ( matrix *mat )  {
+// void mat_print ( matrix *mat ) {
 
 //   int r, c, i, j;
 
@@ -124,7 +124,7 @@ matrix* mat_init ( int rows, int cols )  {
 * void mat_write ( matrix *mat, char *file )
 * Writes a matrix to a file.
 *******************************************************************************/
-// void mat_write ( matrix *mat, char *file )  {
+// void mat_write ( matrix *mat, char *file ) {
 
 //   FILE *f;
 //   int r, c, i, j;
@@ -153,7 +153,7 @@ matrix* mat_init ( int rows, int cols )  {
 * void mat_clear ( matrix *mat )
 * Destroys an existing matrix and frees the memory.
 *******************************************************************************/
-// void mat_clear ( matrix *mat )  {
+// void mat_clear ( matrix *mat ) {
 
 //   double *data = mat->data;
 
@@ -173,7 +173,7 @@ matrix* mat_init ( int rows, int cols )  {
 * double mat_get ( matrix *mat, uint row, uint col )
 * Returns the value of a matrix element.
 *******************************************************************************/
-// double mat_get ( matrix *mat, uint row, uint col )  {
+// double mat_get ( matrix *mat, uint row, uint col ) {
 
 //   mat_err( row > mat->rows, "Error (mat_get): Row index exceeds matrix dimensions."     );
 //   mat_err( col > mat->cols, "Error (mat_get): Column index exceeds matrix dimensions."  );
@@ -197,7 +197,7 @@ matrix* mat_init ( int rows, int cols )  {
 * matrix* mat_getr ( matrix *mat, uint row )
 * Returns the specified row of a matrix.
 *******************************************************************************/
-// matrix* mat_getr ( matrix *mat, uint row )  {
+// matrix* mat_getr ( matrix *mat, uint row ) {
 
 //   mat_err( row > mat->rows, "Error (mat_getr): Row index exceeds matrix dimensions."  );
 //   mat_err( row < 1,         "Error (mat_getr): Row index must be positive."           );
@@ -220,7 +220,7 @@ matrix* mat_init ( int rows, int cols )  {
 * matrix* mat_getc ( matrix *mat, uint col )
 * Returns the specified column of a matrix.
 *******************************************************************************/
-// matrix* mat_getc ( matrix *mat, uint col )  {
+// matrix* mat_getc ( matrix *mat, uint col ) {
 
 //   mat_err( col > mat->cols, "Error (mat_getc): Column index exceeds matrix dimensions."  );
 //   mat_err( col < 1,         "Error (mat_getc): Column index must be positive."           );
@@ -243,7 +243,7 @@ matrix* mat_init ( int rows, int cols )  {
 * void mat_set ( matrix *mat, uint row, uint col, double val )
 * Assigns a value into a matrix element.
 *******************************************************************************/
-// void mat_set ( matrix *mat, uint row, uint col, double val )  {
+// void mat_set ( matrix *mat, uint row, uint col, double val ) {
 
 //   mat_err( row > mat->rows, "Error (mat_set): Row index exceeds matrix dimensions."     );
 //   mat_err( col > mat->cols, "Error (mat_set): Column index exceeds matrix dimensions."  );
@@ -266,7 +266,7 @@ matrix* mat_init ( int rows, int cols )  {
 * void mat_setr ( matrix *mat, uint row, matrix *vec )
 * Replaces a row of a matrix with the specified vector.
 *******************************************************************************/
-// void mat_setr ( matrix *mat, uint row, matrix *vec )  {
+// void mat_setr ( matrix *mat, uint row, matrix *vec ) {
 
 //   mat_err( row > mat->rows,        "Error (mat_setr): Row index exceeds matrix dimensions."           );
 //   mat_err( row < 1,                "Error (mat_setr): Row index must be positive."                    );
@@ -286,7 +286,7 @@ matrix* mat_init ( int rows, int cols )  {
 * void mat_setc ( matrix *mat, uint col, matrix *vec )
 * Replaces a column of a matrix with the specified vector.
 *******************************************************************************/
-// void mat_setc ( matrix *mat, uint col, matrix *vec )  {
+// void mat_setc ( matrix *mat, uint col, matrix *vec ) {
 
 //   mat_err( col > mat->cols,        "Error (mat_setc): Column index exceeds matrix dimensions."          );
 //   mat_err( col < 1,                "Error (mat_setc): Column index must be positive."                   );
@@ -306,7 +306,7 @@ matrix* mat_init ( int rows, int cols )  {
 * matrix* mat_copy ( matrix *mat )
 * Copies a matrix into a new matrix.
 *******************************************************************************/
-// matrix* mat_copy ( matrix *mat )  {
+// matrix* mat_copy ( matrix *mat ) {
 //   return mat_scale( mat, 1.0 );
 // }
 
@@ -317,7 +317,7 @@ matrix* mat_init ( int rows, int cols )  {
 * matrix* mat_eye ( uint n )
 * Creates an identity matrix of dimension n.
 *******************************************************************************/
-// matrix* mat_eye ( uint n )  {
+// matrix* mat_eye ( uint n ) {
 
 //   mat_err( n<1, "Error (mat_eye): Matrix dimension must be positive." );
 
@@ -335,7 +335,7 @@ matrix* mat_init ( int rows, int cols )  {
 * matrix* mat_ones ( uint rows, uint cols )
 * Creates a new [nxm] matrix filled with values of one.
 *******************************************************************************/
-// matrix* mat_ones ( uint rows, uint cols )  {
+// matrix* mat_ones ( uint rows, uint cols ) {
 
 //   mat_err( rows < 1, "Error (mat_ones): Matrix rows must be a positive dimension."     );
 //   mat_err( cols < 1, "Error (mat_ones): Matrix columns must be a positive dimension."  );
@@ -359,7 +359,7 @@ matrix* mat_init ( int rows, int cols )  {
 * matrix* mat_scale ( matrix *mat, double scale )
 * Multiplies a matrix by a scalar with type double.
 *******************************************************************************/
-// matrix* mat_scale ( matrix *mat, double scale )  {
+// matrix* mat_scale ( matrix *mat, double scale ) {
 
 //   int r, c, i, j;
 //   double val;
@@ -386,7 +386,7 @@ matrix* mat_init ( int rows, int cols )  {
 * void mat_swapr ( matrix *mat, uint p, uint q )
 * Swaps rows within a matrix.
 *******************************************************************************/
-// void mat_swapr ( matrix *mat, uint p, uint q )  {
+// void mat_swapr ( matrix *mat, uint p, uint q ) {
 
 //   mat_err( mat->rows < 2,                  "Error (mat_swapr): Matrix must have at least two rows."  );
 //   mat_err( mat->rows < p || mat->rows < q, "Error (mat_swapr): Row index exceeds matrix dimension."  );
@@ -413,7 +413,7 @@ matrix* mat_init ( int rows, int cols )  {
 * void mat_swapc ( matrix *mat, uint p, uint q )
 * Swaps columns within a matrix.
 *******************************************************************************/
-// void mat_swapc ( matrix *mat, uint p, uint q )  {
+// void mat_swapc ( matrix *mat, uint p, uint q ) {
 
 //   mat_err( mat->cols < 2,                  "Error (mat_swapc): Matrix must have at least two columns."  );
 //   mat_err( mat->cols < p || mat->cols < q, "Error (mat_swapc): Column index exceeds matrix dimension."  );
@@ -440,7 +440,7 @@ matrix* mat_init ( int rows, int cols )  {
 * matrix* mat_appr ( matrix *matT, matrix *matB )
 * Appends two matrices, top to bottom.
 *******************************************************************************/
-// matrix* mat_appr ( matrix *matT, matrix *matB )  {
+// matrix* mat_appr ( matrix *matT, matrix *matB ) {
 
 //   mat_err( matT->cols != matB->cols, "Error (mat_appr): Matrices must be the same width." );
 
@@ -470,7 +470,7 @@ matrix* mat_init ( int rows, int cols )  {
 * matrix* mat_appc ( matrix *matL, matrix *matR )
 * Appends two matrices, left to right.
 *******************************************************************************/
-// matrix* mat_appc ( matrix *matL, matrix *matR )  {
+// matrix* mat_appc ( matrix *matL, matrix *matR ) {
 
 //   mat_err( matL->rows != matR->rows, "Error (mat_appc): Matrices must be the same height." );
 
@@ -500,7 +500,7 @@ matrix* mat_init ( int rows, int cols )  {
 * void mat_rmtiny ( matrix **mat, double tol )
 * Removes nearly zero entries within a matrix.
 *******************************************************************************/
-// void mat_rmtiny ( matrix **mat, double tol )  {
+// void mat_rmtiny ( matrix **mat, double tol ) {
 
 //   mat_err( tol < 0.0, "Error (mat_rmtiny): Tolerance must be nonnegative." );
 
