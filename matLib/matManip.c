@@ -1,16 +1,14 @@
-// /*******************************************************************************
-// *
-// * Justin M Selfridge, PhD
-// * Gradient Consulting, LLC
-// * jselfridge@gmail.com
-// *
-// * matManip.h
-// * Source code for matrix manipulations within the 'matLib' library.
-// *
-// *******************************************************************************/
-
-
-// #include "matLib.h"
+/*******************************************************************************
+*
+* Justin M Selfridge, PhD
+* Gradient Consulting, LLC
+* jselfridge@gmail.com
+*
+* matManip.h
+* Source code for matrix manipulation functions within the 'matLib' library.
+*
+*******************************************************************************/
+#include "matLib.h"
 
 
 // /**

@@ -5,13 +5,11 @@
 * jselfridge@gmail.com
 *
 * matLib.h
-* Header file for the matLib library functions.
+* Header file for the 'matLib' library functions.
 *
 *******************************************************************************/
-
-
-// #ifndef MATLIB_H
-// #define MATLIB_H
+#ifndef MATLIB_H
+#define MATLIB_H
 
 
 // // Standard includes
@@ -132,7 +130,7 @@
 // matrix*   mat_vec2tri ( matrix *vec );
 
 
-// #endif
+#endif
 
 
 
