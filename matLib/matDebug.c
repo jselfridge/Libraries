@@ -5,7 +5,7 @@
 * jselfridge@gmail.com
 *
 * matDebug.c
-* Debugging program source code for tetsing the 'matLib' library.
+* Debugging program for tetsing the 'matLib' library functions.
 *
 *******************************************************************************/
 
@@ -55,16 +55,16 @@
 // */
 // int main ()  {
 //   printf("\n   --- MatLib Debugging --- \n\n");
-//   InitMat(); 
+//   //InitMat();
 //   //PrintMat();
 //   //MatManip();
 //   //MatComplex();
 //   //MatVec();
-//   MatArith();
+//   //MatArith();
 //   //MatRoot();
 //   //MatProp();
 //   //MatDecomp();
-//   ClearMat();
+//   //ClearMat();
 //   printf("   --- MatLib Complete --- \n\n");
 //   return 0;
 // }
@@ -100,14 +100,14 @@
 //   mat_set( M31b, 1,1, -4.2 );
 //   mat_set( M31b, 2,1,  8.7 );
 //   mat_set( M31b, 3,1, -3.9 );
-  
+
 //   // Define 4x1 vector
 //   M41 = mat_init(4,1);
 //   mat_set( M41, 1,1, -2.2 );
 //   mat_set( M41, 2,1,  7.4 );
 //   mat_set( M41, 3,1, -9.1 );
 //   mat_set( M41, 4,1,  5.8 );
-  
+
 //   // Define 2x2 matrix
 //   M22 = mat_init(2,2);
 //   mat_set( M22, 1,1,  3.4 );  mat_set( M22, 1,2, -5.3 );
@@ -123,7 +123,7 @@
 //   mat_set( M32, 1,1,  6.8 );  mat_set( M32, 1,2, -0.1 );
 //   mat_set( M32, 2,1,  0.4 );  mat_set( M32, 2,2,  5.4 );
 //   mat_set( M32, 3,1, -9.3 );  mat_set( M32, 3,2,  4.2 );
-  
+
 //   // Define first 3x3 matrix
 //   M33a = mat_init(3,3);
 //   mat_set( M33a, 1,1,  3.4 );  mat_set( M33a, 1,2,  0.5 );  mat_set( M33a, 1,3,  8.2 );
