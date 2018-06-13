@@ -13,15 +13,15 @@
 
 
 // Standard includes
+#include <complex.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-// #include <complex.h>
 
 
-// Matrix structure
+// Matrix (real) structure
 typedef struct matrix {
   uint rows;
   uint cols;
@@ -29,12 +29,12 @@ typedef struct matrix {
 } matrix;
 
 
-// // Complex matrix structure
-// typedef struct matrixz {
-//   int rows;
-//   int cols;
-//   double complex *data;
-// } matrixz;
+// Matrix (complex) structure
+typedef struct matrixz {
+  uint rows;
+  uint cols;
+  float complex *data;
+} matrixz;
 
 
 // MatManip Functions
@@ -61,19 +61,19 @@ matrix*   mat_appc    ( matrix *matL, matrix *matR );
 void      mat_rmtiny  ( matrix **mat, float tol );
 
 
-// // MatComplex functions
-// matrixz*  mat_initz   ( uint rows, uint cols );
-// matrixz*  mat_readz   ( char *file );
-// void      mat_printz  ( matrixz *mat );
-// void      mat_writez  ( matrixz *mat, char *file );
-// void      mat_clearz  ( matrixz *mat );
-// double    mat_getre   ( matrixz *mat, uint row, uint col );
-// double    mat_getim   ( matrixz *mat, uint row, uint col );
-// matrixz*  mat_getzr   ( matrixz *mat, uint row );
-// matrixz*  mat_getzc   ( matrixz *mat, uint col );
-// void      mat_setz    ( matrixz *mat, uint row, uint col, double re, double im );
-// void      mat_setzr   ( matrixz *mat, uint row, matrixz *vec );
-// void      mat_setzc   ( matrixz *mat, uint col, matrixz *vec );
+// MatComplex functions
+matrixz*  mat_initz   ( uint rows, uint cols );
+matrixz*  mat_readz   ( char *file );
+void      mat_printz  ( matrixz *mat );
+void      mat_writez  ( matrixz *mat, char *file );
+void      mat_clearz  ( matrixz *mat );
+float     mat_getre   ( matrixz *mat, uint row, uint col );
+float     mat_getim   ( matrixz *mat, uint row, uint col );
+matrixz*  mat_getzr   ( matrixz *mat, uint row );
+matrixz*  mat_getzc   ( matrixz *mat, uint col );
+void      mat_setz    ( matrixz *mat, uint row, uint col, float re, float im );
+void      mat_setzr   ( matrixz *mat, uint row, matrixz *vec );
+void      mat_setzc   ( matrixz *mat, uint col, matrixz *vec );
 
 
 // // MatVec functions
