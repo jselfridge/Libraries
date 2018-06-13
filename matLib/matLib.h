@@ -69,11 +69,11 @@ void      mat_writez  ( matrixz *mat, char *file );
 void      mat_clearz  ( matrixz *mat );
 float     mat_getre   ( matrixz *mat, uint row, uint col );
 float     mat_getim   ( matrixz *mat, uint row, uint col );
-matrixz*  mat_getzr   ( matrixz *mat, uint row );
-matrixz*  mat_getzc   ( matrixz *mat, uint col );
+matrixz*  mat_getrz   ( matrixz *mat, uint row );
+matrixz*  mat_getcz   ( matrixz *mat, uint col );
 void      mat_setz    ( matrixz *mat, uint row, uint col, float re, float im );
-void      mat_setzr   ( matrixz *mat, uint row, matrixz *vec );
-void      mat_setzc   ( matrixz *mat, uint col, matrixz *vec );
+void      mat_setrz   ( matrixz *mat, uint row, matrixz *vec );
+void      mat_setcz   ( matrixz *mat, uint col, matrixz *vec );
 
 
 // // MatVec functions
