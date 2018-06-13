@@ -9,7 +9,7 @@
 #******************************************************************************/
 
 LIB         := libmat.a
-DEBUG       := mat
+EXEC        := mat
 
 CC          := gcc
 CFLAGS      := -c -Wall -O2
@@ -25,9 +25,10 @@ INSTALLDIR  := install -d -m 755
 
 $(LIB) : matManip.o
 	ar -cvq $@ $<
+	@echo "Finished compiling library."
 	@echo " "
 
-$(DEBUG) : matDebug.o libmat.a
+$(EXEC) : matDebug.o libmat.a
 	$(CC) -o $@ $< $(LFLAGS)
 
 matManip.o : matManip.c matLib.h
@@ -40,7 +41,7 @@ matDebug.o : matDebug.c matLib.h
 
 
 debug:
-	$(MAKE) $(DEBUG) --no-print-directory
+	$(MAKE) $(EXEC) --no-print-directory
 	@echo "Finished compiling debug program."
 	@echo " "
 
@@ -48,10 +49,10 @@ install:
 	@$(MAKE) --no-print-directory
 	@$(INSTALLDIR) $(DESTDIR)$(PREFIX)/lib
 	@$(INSTALL) $(LIB) $(DESTDIR)$(PREFIX)/lib
-	@echo "$(LIB) installation complete."
+	@echo "$Library installation complete."
 
 clean:
-	@$(RM) $(DEBUG) $(LIB) matDebug.o matManip.o
+	@$(RM) $(EXEC) $(LIB) matDebug.o matManip.o
 	@echo "Finished cleaning directory."
 	@echo " "
 
