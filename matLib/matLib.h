@@ -21,20 +21,11 @@
 // #include <string.h>
 
 
-// // Define values of PI
-// #define PI  M_PI
-// #define PI2 (2.0*PI)
-// #define PIH (PI/2.0)
-// #define PIQ (PI/4.0)
-// #define PIE (PI/8.0)
-// #define PIS (PI/16.0)
-
-
 // Matrix structure
 typedef struct matrix {
-  int rows;
-  int cols;
-  double *data;
+  uint rows;
+  uint cols;
+  float *data;
 } matrix;
 
 
@@ -48,26 +39,26 @@ typedef struct matrix {
 
 // MatManip Functions
 void      mat_err     ( bool cond, char *msg );
-// matrix*   mat_init    ( uint rows, uint cols );
-// matrix*   mat_read    ( char *file );
-// void      mat_print   ( matrix *mat );
-// void      mat_write   ( matrix *mat, char *file );
-// void      mat_clear   ( matrix *mat );
-// double    mat_get     ( matrix *mat, uint row, uint col );
-// matrix*   mat_getr    ( matrix *mat, uint row );
-// matrix*   mat_getc    ( matrix *mat, uint col );
-// void      mat_set     ( matrix *mat, uint row, uint col, double val );
-// void      mat_setr    ( matrix *mat, uint row, matrix *vec );
-// void      mat_setc    ( matrix *mat, uint col, matrix *vec );
-// matrix*   mat_copy    ( matrix *mat );
-// matrix*   mat_eye     ( uint n );
-// matrix*   mat_ones    ( uint rows, uint cols );
-// matrix*   mat_scale   ( matrix *mat, double scale );
-// void      mat_swapr   ( matrix *mat, uint p, uint q );
-// void      mat_swapc   ( matrix *mat, uint p, uint q );
-// matrix*   mat_appr    ( matrix *matT, matrix *matB );
-// matrix*   mat_appc    ( matrix *matL, matrix *matR );
-// void      mat_rmtiny  ( matrix **mat, double tol );
+matrix*   mat_init    ( uint rows, uint cols );
+matrix*   mat_read    ( char *file );
+void      mat_print   ( matrix *mat );
+void      mat_write   ( matrix *mat, char *file );
+void      mat_clear   ( matrix *mat );
+float     mat_get     ( matrix *mat, uint row, uint col );
+matrix*   mat_getr    ( matrix *mat, uint row );
+matrix*   mat_getc    ( matrix *mat, uint col );
+void      mat_set     ( matrix *mat, uint row, uint col, float val );
+void      mat_setr    ( matrix *mat, uint row, matrix *vec );
+void      mat_setc    ( matrix *mat, uint col, matrix *vec );
+matrix*   mat_copy    ( matrix *mat );
+matrix*   mat_eye     ( uint n );
+matrix*   mat_ones    ( uint rows, uint cols );
+matrix*   mat_scale   ( matrix *mat, float scale );
+void      mat_swapr   ( matrix *mat, uint p, uint q );
+void      mat_swapc   ( matrix *mat, uint p, uint q );
+matrix*   mat_appr    ( matrix *matT, matrix *matB );
+matrix*   mat_appc    ( matrix *matL, matrix *matR );
+void      mat_rmtiny  ( matrix **mat, float tol );
 
 
 // // MatComplex functions
