@@ -18,20 +18,20 @@
  *  Initializes a new matrix with the specified dimensions,
  *  and sets the elements to complex values of zero.
 *******************************************************************************/
-matrixz* mat_initz ( uint rows, uint cols )  {
+matrixz* mat_initz ( uint rows, uint cols ) {
 
-  mat_err( rows<1 || cols<1, "Error (mat_initz): Matrix dimensions must be positive." );
+  mat_err( ( rows<1 || cols<1 ), "Error (mat_initz): Matrix dimensions must be positive." );
 
   matrixz *out;
   out = (matrixz *) malloc( sizeof(matrixz) );
-  mat_err( out == NULL, "Error (mat_initz): Matrix returned NULL." );
+  mat_err( ( out == NULL ), "Error (mat_initz): Matrix structure returned NULL." );
 
   out->rows = rows;
   out->cols = cols;
-  out->data = (double complex *) malloc( sizeof(double complex) * rows * cols );
+  out->data = (float complex *) malloc( rows * cols * sizeof(float complex) );
 
-  mat_err( out->data == NULL, "Error (mat_initz): Matrix data returned NULL." );
-  memset( out->data, 0.0, rows * cols * sizeof(double complex) );
+  mat_err( ( out->data == NULL ), "Error (mat_initz): Matrix data returned NULL." );
+  memset( out->data, 0.0, rows * cols * sizeof(float complex) );
 
   return out;
 }
@@ -40,7 +40,7 @@ matrixz* mat_initz ( uint rows, uint cols )  {
 
 
 /*******************************************************************************
- *  mat_readz
+ *  mat_readz ?
  *  Reads a complex matrix from a file.
 *******************************************************************************/
 matrixz* mat_readz ( char *file )  {
@@ -88,7 +88,7 @@ matrixz* mat_readz ( char *file )  {
 
 
 /*******************************************************************************
- *  mat_printz
+ *  mat_printz ?
  *  Display a complex matrix in the terminal.
 *******************************************************************************/
 void mat_printz ( matrixz *mat )  {
@@ -117,7 +117,7 @@ void mat_printz ( matrixz *mat )  {
 
 
 /*******************************************************************************
- *  mat_writez
+ *  mat_writez ?
  *  Writes a complex matrix to a file.
 *******************************************************************************/
 void mat_writez ( matrixz *mat, char *file )  {
@@ -153,7 +153,7 @@ void mat_writez ( matrixz *mat, char *file )  {
 
 
 /*******************************************************************************
- *  mat_clearz
+ *  mat_clearz ?
  *  Destroys an existing complex matrix and frees the memory.
 *******************************************************************************/
 void mat_clearz ( matrixz *mat )  {
@@ -173,7 +173,7 @@ void mat_clearz ( matrixz *mat )  {
 
 
 /*******************************************************************************
- *  mat_getre
+ *  mat_getre ?
  *  Returns the real part of a complex matrix element.
 *******************************************************************************/
 double mat_getre ( matrixz *mat, uint row, uint col )  {
@@ -197,7 +197,7 @@ double mat_getre ( matrixz *mat, uint row, uint col )  {
 
 
 /*******************************************************************************
- *  mat_getim
+ *  mat_getim ?
  *  Returns the imaginary part of a complex matrix element.
 *******************************************************************************/
 double mat_getim ( matrixz *mat, uint row, uint col )  {
@@ -221,7 +221,7 @@ double mat_getim ( matrixz *mat, uint row, uint col )  {
 
 
 /*******************************************************************************
- *  mat_getzr
+ *  mat_getzr ?
  *  Returns the specified complex row vector of a matrix.
 *******************************************************************************/
 matrixz* mat_getzr ( matrixz *mat, uint row )  {
@@ -240,7 +240,7 @@ matrixz* mat_getzr ( matrixz *mat, uint row )  {
 
 
 /*******************************************************************************
- *  mat_getzc
+ *  mat_getzc ?
  *  Returns the specified complex column vector of a matrix.
 *******************************************************************************/
 matrixz* mat_getzc ( matrixz *mat, uint col )  {
@@ -259,7 +259,7 @@ matrixz* mat_getzc ( matrixz *mat, uint col )  {
 
 
 /*******************************************************************************
- *  mat_setz
+ *  mat_setz ?
  *  Assigns a complex number into a matrix element.
 *******************************************************************************/
 void mat_setz ( matrixz *mat, uint row, uint col, double re, double im )  {
@@ -282,7 +282,7 @@ void mat_setz ( matrixz *mat, uint row, uint col, double re, double im )  {
 
 
 /*******************************************************************************
- *  mat_setzr
+ *  mat_setzr ?
  *  Replaces a row of a complex matrix with the specified vector.
 *******************************************************************************/
 void mat_setzr ( matrixz *mat, uint row, matrixz *vec )  {
@@ -302,7 +302,7 @@ void mat_setzr ( matrixz *mat, uint row, matrixz *vec )  {
 
 
 /*******************************************************************************
- *  mat_setzc
+ *  mat_setzc ?
  *  Replaces a column of a complex matrix with the specified vector.
 *******************************************************************************/
 void mat_setzc ( matrixz *mat, uint col, matrixz *vec )  {
