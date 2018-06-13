@@ -449,9 +449,9 @@ matrix* mat_appr ( matrix *matT, matrix *matB ) {
   uint i, j, k, c, rt, rb;
   matrix *temp, *out;
 
-  c  = matT->col;
-  rt = matT->row;
-  rb = matB->row;
+  c  = matT->cols;
+  rt = matT->rows;
+  rb = matB->rows;
 
   temp = mat_init(1,c);
   out  = mat_init( rt + rb, c );
@@ -485,9 +485,9 @@ matrix* mat_appc ( matrix *matL, matrix *matR ) {
   uint i, j, k, r, cl, cr;
   matrix *temp, *out;
 
-  r  = matL->row;
-  cl = matL->col;
-  cr = matR->col;
+  r  = matL->rows;
+  cl = matL->cols;
+  cr = matR->cols;
 
   temp = mat_init(r,1);
   out  = mat_init( r, cl + cr );

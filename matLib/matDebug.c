@@ -11,68 +11,67 @@
 #include <matLib.h>
 
 
-// // Function prototypes
-// void InitMat();
-// void PrintMat();
-// void MatManip();
-// void MatComplex();
-// void MatVec();
-// void MatArith();
-// void MatRoot();
-// void MatProp();
-// void MatDecomp();
-// void ClearMat();
+// Function prototypes
+void  MatInit     ( void );
+void  MatPrint    ( void );
+void  MatClear    ( void );
+void  MatManip    ( void );
+void  MatComplex  ( void );
+void  MatVec      ( void );
+void  MatArith    ( void );
+void  MatRoot     ( void );
+void  MatProp     ( void );
+void  MatDecomp   ( void );
 
 
-// // Global variables
-// matrix *M13;
-// matrix *M14;
-// matrix *M31a;
-// matrix *M31b;
-// matrix *M41;
-// matrix *M22;
-// matrix *M23;
-// matrix *M32;
-// matrix *M33a;
-// matrix *M33b;
-// matrix *M34;
-// matrix *M43;
-// matrix *M44;
+// Global variables
+matrix *M13;
+matrix *M14;
+matrix *M31a;
+matrix *M31b;
+matrix *M41;
+matrix *M22;
+matrix *M23;
+matrix *M32;
+matrix *M33a;
+matrix *M33b;
+matrix *M34;
+matrix *M43;
+matrix *M44;
 
 
 
 
 /*******************************************************************************
-* int main ()
+* int main ( void )
 * Runs the main matLib debugging program.
 *******************************************************************************/
-int main ()  {
+int main ( void ) {
 
-  mat_err( true, "Hello world \n" );
+  printf("\n   --- MatLib Debugging --- \n\n");
+  MatInit();
+  MatPrint();
+  MatManip();
+  MatComplex();
+  MatVec();
+  MatArith();
+  MatRoot();
+  MatProp();
+  MatDecomp();
+  MatClear();
+  printf("   --- MatLib Complete --- \n\n");
 
-  //printf("\n   --- MatLib Debugging --- \n\n");
-
-  //InitMat();
-  //PrintMat();
-  //MatManip();
-  //MatComplex();
-  //MatVec();
-  //MatArith();
-  //MatRoot();
-  //MatProp();
-  //MatDecomp();
-  //ClearMat();
-
-  //printf("   --- MatLib Complete --- \n\n");
   return 0;
 }
 
 
-// /**
-// *  InitMat
-// *  Initializes the debugging matrices.
-// */
-// void InitMat ()  {
+
+
+/*******************************************************************************
+* void MatInit ( void )
+* Initializes the debugging matrices.
+*******************************************************************************/
+void MatInit ( void ) {
 
 //   // Define 1x3 vector
 //   M13 = mat_init(1,3);
@@ -154,15 +153,18 @@ int main ()  {
 //   mat_set( M44, 3,1,  0.7 );  mat_set( M44, 3,2,  4.7 );  mat_set( M44, 3,3,  9.9);  mat_set( M44, 3,4, -9.3 );
 //   mat_set( M44, 4,1, -4.5 );  mat_set( M44, 4,2, -8.1 );  mat_set( M44, 4,3,  0.1);  mat_set( M44, 4,4,  2.7 );
 
-//   return;
-// }
+  return;
+}
 
 
-// /**
-// *  PrintMat
-// *  Prints the debugging matrices.
-// */
-// void PrintMat ()  {
+
+
+/*******************************************************************************
+* void MatPrint ( void )
+* Prints the debugging matrices.
+*******************************************************************************/
+void MatPrint ( void ) {
+
 //   printf("General purpose debugging matrices \n");
 //   mat_print(M13);
 //   mat_print(M14);
@@ -178,15 +180,19 @@ int main ()  {
 //   mat_print(M43);
 //   mat_print(M44);
 //   printf("\n");
-//   return;
-// }
+
+  return;
+}
 
 
-// /**
-// *  ClearMat
-// *  Clears the debugging matrices.
-// */
-// void ClearMat ()  {
+
+
+/*******************************************************************************
+* void MatClear ( void )
+* Clears the debugging matrices.
+*******************************************************************************/
+void MatClear ( void ) {
+
 //   mat_clear(M13);
 //   mat_clear(M14);
 //   mat_clear(M31a);
@@ -200,16 +206,20 @@ int main ()  {
 //   mat_clear(M34);
 //   mat_clear(M43);
 //   mat_clear(M44);
-//   return;
-// }
+
+  return;
+}
 
 
-// /**
-// *  MatManip
-// *  Debugs the MatManip file functions.
-// */
-// void MatManip ()  {
-//   printf("Matrix manipulation \n");
+
+
+/*******************************************************************************
+* void MatManip ( void )
+* Debugs the MatManip file functions.
+*******************************************************************************/
+void MatManip ( void ) {
+
+  printf("Matrix manipulation functions \n");
 
 //   // File operations
 //   matrix *A = mat_init(5,2);
@@ -333,17 +343,22 @@ int main ()  {
 //   mat_clear(Q);
 //   mat_clear(R);
 
-//   printf("\n");
-//   return;
-// }
+  // Exit MatManip debugging
+  printf("\n");
+
+  return;
+}
 
 
-// /**
-// *  MatComplex
-// *  Debugs the MatComplex file functions.
-// */
-// void MatComplex() {
-//   printf("Complex matrix manipulation \n");
+
+
+/*******************************************************************************
+* void MatComplex ( void )
+* Debugs the MatComplex file functions.
+*******************************************************************************/
+void MatComplex ( void ) {
+
+  printf("Matrix complex manipulation functions \n");
 
 //   // Declare complex column vector
 //   matrixz *Cz = mat_initz( 4, 1 );
@@ -390,17 +405,22 @@ int main ()  {
 //   mat_clearz(Mz);
 //   mat_clearz(Tz);
 
-//   printf("\n");
-//   return;
-// }
+  // Exit MatComplex debugging
+  printf("\n");
+
+  return;
+}
 
 
-// /**
-// *  MatVec
-// *  Debugs the MatVec file functions.
-// */
-// void MatVec() {
-//   printf("Matrix vector operations \n");
+
+
+/*******************************************************************************
+* void MatVec ( void )
+* Debugs the MatVec file functions.
+*******************************************************************************/
+void MatVec ( void ) {
+
+  printf("Matrix vector functions \n");
 
 //   // Skew symmetric
 //   matrix *skew = mat_skew(M31a);
@@ -478,17 +498,22 @@ int main ()  {
 //   mat_clear(v);
 //   mat_clear(proj);
 
-//   printf("\n");
-//   return;
-// }
+  // Exit MatVec debugging
+  printf("\n");
+
+  return;
+}
 
 
-// /**
-// *  MatArith
-// *  Debugs the MatArith file functions.
-// */
-// void MatArith() {
-//   printf("Matrix arithmetic functions \n");
+
+
+/*******************************************************************************
+* void MatArith ( void )
+* Debugs the MatArith file functions.
+*******************************************************************************/
+void MatArith ( void ) {
+
+  printf("Matrix arithmetic functions \n");
 
 //   /*
 //   // Addition
@@ -586,17 +611,22 @@ int main ()  {
 //   mat_clear(T4);
 //   */
 
-//   printf("\n");
-//   return;
-// }
+  // Exit MatArith degugging
+  printf("\n");
+
+  return;
+}
 
 
-// /**
-// *  MatRoot
-// *  Debugs the MatRoot file functions.
-// */
-// void MatRoot() {
-//   printf("Matrix root function \n");
+
+
+/*******************************************************************************
+* void MatRoot ( void )
+* Debugs the MatRoot file functions.
+*******************************************************************************/
+void MatRoot ( void ) {
+
+  printf("Matrix polynomial root function \n");
 
 //   // Routine values
 //   double tol = 0.000002;
@@ -669,17 +699,22 @@ int main ()  {
 //   mat_clearz(zero3);
 //   mat_clearz(zero4);
 
-//   printf("\n");
-//   return;
-// }
+  // Exit MatRoot debugging
+  printf("\n");
+
+  return;
+}
 
 
-// /**
-// *  MatProp
-// *  Debugs the MatProp file functions.
-// */
-// void MatProp() {
-//   printf("Matrix properties functions \n");
+
+
+/*******************************************************************************
+* void MatProp ( void )
+* Debugs the MatProp file functions.
+*******************************************************************************/
+void MatProp ( void ) {
+
+  printf("Matrix properties functions \n");
 
 //   // Determinant
 //   double det3 = mat_det(M33a);
@@ -710,16 +745,22 @@ int main ()  {
 //   mat_print(sym);
 //   mat_clear(sym);
 
-//   return;
-// }
+  // Exit MatProp debugging
+  printf("\n");
+
+  return;
+}
 
 
-// /**
-// *  MatDecomp
-// *  Debugs the MatDecomp file functions.
-// */
-// void MatDecomp() {
-//   printf("Matrix decomposition functions \n");
+
+
+/*******************************************************************************
+* void MatDecomp ( void )
+* Debugs the MatDecomp file functions.
+*******************************************************************************/
+void MatDecomp ( void ) {
+
+  printf("Matrix decomposition functions \n");
 
 //   // LDU 1
 //   printf("LDU 1: \n");
@@ -975,11 +1016,11 @@ int main ()  {
 //   printf("I3");      mat_print(I3);     mat_clear(I3);
 //   */
 
-//   // Exit function
-//   printf("\n");
-//   return;
+  // Exit MatDecomp debugging
+  printf("\n");
 
-// }
+  return;
+}
 
 
 
