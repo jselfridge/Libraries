@@ -23,13 +23,15 @@ INSTALLDIR  := install -d -m 755
 
 
 
-$(LIB) : matManip.o
-	ar -cvq $@ $<
-	@echo "Finished compiling library."
-	@echo " "
-
 $(EXEC) : matDebug.o libmat.a
 	$(CC) -o $@ $< $(LFLAGS)
+	@echo "Finished compiling debug program."
+	@echo " "
+
+$(LIB) : matManip.o
+	ar -cvq $@ $<
+	@echo "Finished compiling matrix library."
+	@echo " "
 
 matManip.o : matManip.c matLib.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
@@ -40,10 +42,8 @@ matDebug.o : matDebug.c matLib.h
 
 
 
-debug:
-	$(MAKE) $(EXEC) --no-print-directory
-	@echo "Finished compiling debug program."
-	@echo " "
+lib:
+	$(MAKE) $(LIB) --no-print-directory
 
 install:
 	@$(MAKE) --no-print-directory
