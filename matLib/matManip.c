@@ -35,14 +35,14 @@ matrix* mat_init ( uint rows, uint cols )  {
 
   matrix *out;
   out = (matrix *) malloc( sizeof(matrix) );
-  mat_err( out == NULL, "Error (mat_init): Matrix returned NULL." );
+  mat_err( ( out == NULL ), "Error (mat_init): Matrix structure returned NULL." );
 
   out->rows = rows;
   out->cols = cols;
-  out->data = (float*) malloc( sizeof(float) * rows * cols );
+  out->data = (float*) malloc( rows * cols * sizeof(float) );
 
-  mat_err( out->data == NULL, "Error (mat_init): Matrix data returned NULL." );
-  memset( out->data, 0.0, sizeof(float) * rows * cols );
+  mat_err( ( out->data == NULL ), "Error (mat_init): Matrix data returned NULL." );
+  memset( out->data, 0.0, rows * cols * sizeof(float) );
 
   return out;
 }
@@ -109,7 +109,7 @@ void mat_print ( matrix *mat ) {
 
   printf( "[%dx%d]\n", r, c );
   for( i=1; i<=r; i++ ) {
-    for( j=1; j<=c; j++ )  printf( " %9.6f", mat_get(mat,i,j) );
+    for( j=1; j<=c; j++ )  printf( " %8.4f", mat_get( mat, i, j ) );
     printf("\n");
   }
 
@@ -136,7 +136,7 @@ void mat_write ( matrix *mat, char *file ) {
 
   fprintf( f, "# %d %d \n", r, c );
   for( i=1; i<=r; i++ ) {
-    for( j=1; j<=c; j++ )  fprintf( f, " %2.5f", mat_get(mat,i,j) );
+    for( j=1; j<=c; j++ )  fprintf( f, " %8.4f", mat_get( mat, i, j ) );
     fprintf( f, "\n" );
   }
 
@@ -158,7 +158,7 @@ void mat_clear ( matrix *mat ) {
 
   if( mat != NULL ) {
     if( data != NULL ) {
-      free( data );
+      free(data);
       data = NULL;
     }
     free(mat);
@@ -296,7 +296,7 @@ void mat_setc ( matrix *mat, uint col, matrix *vec ) {
   mat_err( mat->rows != vec->rows, "Error (mat_setc): Input array and matrix must be the same height." );
 
   uint i;
-  for( i=1; i <= mat->rows; i++ )  mat_set( mat, i,col, mat_get( vec, i, 1 ) );
+  for( i=1; i <= mat->rows; i++ )  mat_set( mat, i, col, mat_get( vec, i, 1 ) );
 
   return;
 }
@@ -309,7 +309,7 @@ void mat_setc ( matrix *mat, uint col, matrix *vec ) {
 * Copies a matrix into a new matrix.
 *******************************************************************************/
 matrix* mat_copy ( matrix *mat ) {
-  return mat_scale( mat, 1.0 );
+  return mat_scale( mat, 1.0f );
 }
 
 
@@ -335,7 +335,7 @@ matrix* mat_eye ( uint n ) {
 
 /*******************************************************************************
 * matrix* mat_ones ( uint rows, uint cols )
-* Creates a new [nxm] matrix filled with values of one.
+* Creates a new matrix filled with values of one.
 *******************************************************************************/
 matrix* mat_ones ( uint rows, uint cols ) {
 
@@ -347,7 +347,7 @@ matrix* mat_ones ( uint rows, uint cols ) {
 
   for( i=1; i<=rows; i++ ) {
     for( j=1; j<=cols; j++ ) {
-      mat_set( out, i, j, 1.0 );
+      mat_set( out, i, j, 1.0f );
     }
   }
 
@@ -438,7 +438,7 @@ void mat_swapc ( matrix *mat, uint p, uint q ) {
 
 
 
-*******************************************************************************
+/*******************************************************************************
 * matrix* mat_appr ( matrix *matT, matrix *matB )
 * Appends two matrices, top to bottom.
 *******************************************************************************/
@@ -446,18 +446,24 @@ matrix* mat_appr ( matrix *matT, matrix *matB ) {
 
   mat_err( matT->cols != matB->cols, "Error (mat_appr): Matrices must be the same width." );
 
-  int i, j, k;
-  matrix *temp = mat_init( 1, matT->cols );
-  matrix *out  = mat_init( matT->rows + matB->rows, matT->cols );
+  uint i, j, k, c, rt, rb;
+  matrix *temp, *out;
 
-  for ( i=1; i<= matT->rows; i++ ) {
+  c  = matT->col;
+  rt = matT->row;
+  rb = matB->row;
+
+  temp = mat_init(1,c);
+  out  = mat_init( rt + rb, c );
+
+  for ( i=1; i<=rt; i++ ) {
     temp = mat_getr( matT, i );
     mat_setr( out, i, temp );
   }
 
-  for ( j=1; j<= matB->rows; j++ ) {
+  for ( j=1; j<=rb; j++ ) {
     temp = mat_getr( matB, j );
-    k = j + matT->rows;
+    k = j + rt;
     mat_setr( out, k, temp );
   }
 
@@ -476,18 +482,24 @@ matrix* mat_appc ( matrix *matL, matrix *matR ) {
 
   mat_err( matL->rows != matR->rows, "Error (mat_appc): Matrices must be the same height." );
 
-  int i, j, k;
-  matrix *temp = mat_init( matL->rows, 1 );
-  matrix *out  = mat_init( matL->rows, matL->cols + matR->cols );
+  uint i, j, k, r, cl, cr;
+  matrix *temp, *out;
 
-  for ( i=1; i<= matL->cols; i++ ) {
+  r  = matL->row;
+  cl = matL->col;
+  cr = matR->col;
+
+  temp = mat_init(r,1);
+  out  = mat_init( r, cl + cr );
+
+  for ( i=1; i<=cl; i++ ) {
     temp = mat_getc( matL, i );
     mat_setc( out, i, temp );
   }
 
-  for ( j=1; j<= matR->cols; j++ ) {
+  for ( j=1; j<=cr; j++ ) {
     temp = mat_getc( matR, j );
-    k = j + matL->cols;
+    k = j + cl;
     mat_setc( out, k, temp );
   }
 
@@ -500,22 +512,22 @@ matrix* mat_appc ( matrix *matL, matrix *matR ) {
 
 /*******************************************************************************
 * void mat_rmtiny ( matrix **mat, float tol )
-* Removes nearly zero entries within a matrix.
+* Matrix entries smaller than 'tol' are replaced with values of zero.
 *******************************************************************************/
 void mat_rmtiny ( matrix **mat, float tol ) {
 
-  mat_err( tol < 0.0, "Error (mat_rmtiny): Tolerance must be nonnegative." );
+  mat_err( tol < 0.0f, "Error (mat_rmtiny): Tolerance must be nonnegative." );
 
-  int i, j, r, c;
+  uint i, j, r, c;
   float val;
 
   r = (*mat)->rows;
   c = (*mat)->cols;
 
-  for ( i=1; i<=r; i++ )  {
-    for ( j=1; j<=c; j++ )  {
-      val = fabs( mat_get( *mat, i,j ) );
-      if ( val < tol )  mat_set( *mat, i,j, 0.0 );
+  for( i=1; i<=r; i++ ) {
+    for( j=1; j<=c; j++ ) {
+      val = fabs( mat_get( *mat, i, j ) );
+      if( val < tol )  mat_set( *mat, i, j, 0.0 );
     }
   }
 
