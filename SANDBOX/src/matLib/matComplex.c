@@ -20,7 +20,7 @@
 *******************************************************************************/
 matrixz* mat_initz ( uint rows, uint cols )  {
 
-  mat_err( rows<1 || cols<1, "Error (mat_initz): Matrix dimensions must be positive." ); 
+  mat_err( rows<1 || cols<1, "Error (mat_initz): Matrix dimensions must be positive." );
 
   matrixz *out;
   out = (matrixz *) malloc( sizeof(matrixz) );
@@ -35,6 +35,8 @@ matrixz* mat_initz ( uint rows, uint cols )  {
 
   return out;
 }
+
+
 
 
 /*******************************************************************************
@@ -81,6 +83,8 @@ matrixz* mat_readz ( char *file )  {
   fclose(f);
   return out;
 }
+
+
 
 
 /*******************************************************************************
@@ -141,9 +145,11 @@ void mat_writez ( matrixz *mat, char *file )  {
     fprintf( f, "\n" );
   }
 
-  fclose(f);  
+  fclose(f);
   return;
 }
+
+
 
 
 /*******************************************************************************
@@ -162,6 +168,8 @@ void mat_clearz ( matrixz *mat )  {
 
   return;
 }
+
+
 
 
 /*******************************************************************************
@@ -186,6 +194,8 @@ double mat_getre ( matrixz *mat, uint row, uint col )  {
 }
 
 
+
+
 /*******************************************************************************
  *  mat_getim
  *  Returns the imaginary part of a complex matrix element.
@@ -208,6 +218,8 @@ double mat_getim ( matrixz *mat, uint row, uint col )  {
 }
 
 
+
+
 /*******************************************************************************
  *  mat_getzr
  *  Returns the specified complex row vector of a matrix.
@@ -225,6 +237,8 @@ matrixz* mat_getzr ( matrixz *mat, uint row )  {
 }
 
 
+
+
 /*******************************************************************************
  *  mat_getzc
  *  Returns the specified complex column vector of a matrix.
@@ -240,6 +254,8 @@ matrixz* mat_getzc ( matrixz *mat, uint col )  {
 
   return out;
 }
+
+
 
 
 /*******************************************************************************
@@ -263,6 +279,8 @@ void mat_setz ( matrixz *mat, uint row, uint col, double re, double im )  {
 }
 
 
+
+
 /*******************************************************************************
  *  mat_setzr
  *  Replaces a row of a complex matrix with the specified vector.
@@ -279,6 +297,8 @@ void mat_setzr ( matrixz *mat, uint row, matrixz *vec )  {
 
   return;
 }
+
+
 
 
 /*******************************************************************************
