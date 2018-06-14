@@ -89,25 +89,25 @@ matrixz* mat_readz ( char *file ) {
 
 
 /*******************************************************************************
- *  mat_printz
- *  Display a complex matrix in the terminal.
+* void mat_printz ( matrixz *mat )
+* Display a complex matrix in the terminal.
 *******************************************************************************/
-void mat_printz ( matrixz *mat )  {
+void mat_printz ( matrixz *mat ) {
 
-  int r, c, i, j;
+  uint r, c, i, j;
   char sign;
-  double re, im;
+  float re, im;
 
   r = mat->rows;
   c = mat->cols;
 
   printf( "[%dx%d]\n", r, c );
-  for ( i=1; i<=r; i++ )  {
-    for ( j=1; j<=c; j++ )  {
-      re = mat_getre( mat, i,j );
-      im = mat_getim( mat, i,j );
-      if (im<0)  sign = '-';
-      else       sign = '+';
+  for( i=1; i<=r; i++ ) {
+    for( j=1; j<=c; j++ ) {
+      re = mat_getre( mat, i, j );
+      im = mat_getim( mat, i, j );
+      if(im<0)  sign = '-';
+      else      sign = '+';
       printf( " %4.4f  %c%4.4f i\t", re, sign, fabs(im) );
     }
     printf("\n");
@@ -115,6 +115,8 @@ void mat_printz ( matrixz *mat )  {
 
   return;
 }
+
+
 
 
 /*******************************************************************************
