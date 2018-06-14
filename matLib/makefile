@@ -28,12 +28,15 @@ $(EXEC) : matDebug.o libmat.a
 	@echo "Finished compiling debug program."
 	@echo " "
 
-$(LIB) : matManip.o
+$(LIB) : matManip.o matComplex.o
 	ar -cvq $@ $<
 	@echo "Finished compiling matrix library."
 	@echo " "
 
 matManip.o : matManip.c matLib.h
+	$(CC) $(CFLAGS) -I. -c $< -o $@
+
+matComplex.o : matComplex.c matLib.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 matDebug.o : matDebug.c matLib.h

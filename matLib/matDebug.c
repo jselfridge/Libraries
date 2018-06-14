@@ -50,9 +50,9 @@ int main ( void ) {
 
   printf("\n   --- MatLib Debugging --- \n\n");
   MatInit();
-  MatPrint();
+  //MatPrint();
   MatManip();
-  // MatComplex();
+  MatComplex();
   // MatVec();
   // MatArith();
   // MatRoot();
@@ -361,20 +361,21 @@ void MatManip ( void ) {
 void MatComplex ( void ) {
 
   printf("Matrix complex manipulation functions \n");
+  matrixz *Cz = mat_initz( 4, 1 );
 
-//   // Declare complex column vector
-//   matrixz *Cz = mat_initz( 4, 1 );
-//   mat_setz( Cz, 1, 1,  1.0,  2.0 );
-//   mat_setz( Cz, 2, 1,  0.3, -4.0 );
-//   mat_setz( Cz, 3, 1, -1.4,  0.6 );
-//   mat_setz( Cz, 4, 1, -3.1, -2.7 );
-//   mat_printz(Cz);
+  // // Declare complex column vector
+  // matrixz *Cz = mat_initz( 4, 1 );
+  // mat_setz( Cz, 1, 1,  1.0,  2.0 );
+  // mat_setz( Cz, 2, 1,  0.3, -4.0 );
+  // mat_setz( Cz, 3, 1, -1.4,  0.6 );
+  // mat_setz( Cz, 4, 1, -3.1, -2.7 );
+  // mat_printz(Cz);
 
-//   // Declare complex row vector
-//   matrixz *Rz = mat_initz( 1, 2 );
-//   mat_setz( Rz, 1, 1, 4.2,  1.5 );
-//   mat_setz( Rz, 1, 2, 0.9, -3.7 );
-//   mat_printz(Rz);
+  // // Declare complex row vector
+  // matrixz *Rz = mat_initz( 1, 2 );
+  // mat_setz( Rz, 1, 1, 4.2,  1.5 );
+  // mat_setz( Rz, 1, 2, 0.9, -3.7 );
+  // mat_printz(Rz);
 
 //   // Get element values
 //   printf("%f \n", mat_getre( Cz, 1, 1 ) );

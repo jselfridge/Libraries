@@ -8,7 +8,7 @@
 * Debugging program for tetsing the 'matComplex' library functions.
 *
 *******************************************************************************/
-#include <matLib.h>
+#include "matLib.h"
 
 
 
@@ -48,7 +48,7 @@ matrixz* mat_readz ( char *file ) {
   FILE *f;
   uint i, r, c, n;
   int scan;
-  floar re, im;
+  float re, im;
   char sign;
   matrixz *out;
   float complex *data;
@@ -70,14 +70,14 @@ matrixz* mat_readz ( char *file ) {
   data = out->data;
 
   for( i=0; i<n; i++ ) {
-    scan = fscanf( f, "%lf %c %lf i", &re, &sign, &im );
+    scan = fscanf( f, "%f %c %f i", &re, &sign, &im );
     mat_err( scan==EOF, "Error (mat_readz): Matrix is missing elements." );
     if( sign == '-' )  im *= -1.0;
     *data = re + im*I;
     data++;
   }
 
-  scan = fscanf( f, "%lf %c %lf i", &re, &sign, &im );
+  scan = fscanf( f, "%f %c %f i", &re, &sign, &im );
   mat_err( scan!=EOF, "Error (mat_readz): Matrix has extra elements." );
 
   fclose(f);
@@ -167,6 +167,7 @@ void mat_clearz ( matrixz *mat ) {
     if( data != NULL ) {
       free( data );
       data = NULL;
+    }
     free(mat);
     mat = NULL;
   }
@@ -318,7 +319,7 @@ void mat_setrz ( matrixz *mat, uint row, matrixz *vec ) {
 * void mat_setcz ( matrixz *mat, uint col, matrixz *vec )
 * Replaces a column of a complex matrix with the specified vector.
 *******************************************************************************/
-void mat_setcz ( matrixz *mat, uint col, matrixz *vec )  {
+void mat_setcz ( matrixz *mat, uint col, matrixz *vec ) {
 
   mat_err( col > mat->cols,        "Error (mat_setcz): Column index exceeds matrix dimensions."         );
   mat_err( col < 1,                "Error (mat_setcz): Column index must be positive."                  );
