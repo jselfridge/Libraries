@@ -108,7 +108,7 @@ void mat_printz ( matrixz *mat ) {
       im = mat_getim( mat, i, j );
       if(im<0)  sign = '-';
       else      sign = '+';
-      printf( " %4.4f  %c%4.4f i\t", re, sign, fabs(im) );
+      printf( " %9.4f  %c%9.4f i\t", re, sign, fabs(im) );
     }
     printf("\n");
   }

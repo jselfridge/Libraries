@@ -370,42 +370,42 @@ void MatComplex ( void ) {
   mat_setz( Cz, 4, 1, -3.1, -2.7 );
   mat_printz(Cz);
 
-  // // Declare complex row vector
-  // matrixz *Rz = mat_initz( 1, 2 );
-  // mat_setz( Rz, 1, 1, 4.2,  1.5 );
-  // mat_setz( Rz, 1, 2, 0.9, -3.7 );
-  // mat_printz(Rz);
+  // Declare complex row vector
+  matrixz *Rz = mat_initz( 1, 2 );
+  mat_setz( Rz, 1, 1, 4.2,  1.5 );
+  mat_setz( Rz, 1, 2, 0.9, -3.7 );
+  mat_printz(Rz);
 
-//   // Get element values
-//   printf("%f \n", mat_getre( Cz, 1, 1 ) );
-//   printf("%f \n", mat_getre( Cz, 3, 1 ) );
-//   printf("%f \n", mat_getim( Cz, 1, 1 ) );
-//   printf("%f \n", mat_getim( Cz, 4, 1 ) );
-//   printf("%f \n", mat_getre( Rz, 1, 2 ) );
-//   printf("%f \n", mat_getim( Rz, 1, 2 ) );
+  // Get element values
+  printf( "%f \n", mat_getre( Cz, 1, 1 ) );
+  printf( "%f \n", mat_getre( Cz, 3, 1 ) );
+  printf( "%f \n", mat_getim( Cz, 1, 1 ) );
+  printf( "%f \n", mat_getim( Cz, 4, 1 ) );
+  printf( "%f \n", mat_getre( Rz, 1, 2 ) );
+  printf( "%f \n", mat_getim( Rz, 1, 2 ) );
 
-//   // Initialize complex matrix
-//   matrixz *Mz = mat_initz( 4, 2 );
-//   printf( "Rows: %d \n", Mz->rows );
-//   printf( "Cols: %d \n", Mz->cols );
+  // Initialize complex matrix
+  matrixz *Mz = mat_initz( 4, 2 );
+  printf( "Rows: %d \n", Mz->rows );
+  printf( "Cols: %d \n", Mz->cols );
 
-//   // Set and get columns and rows
-//   mat_setzr( Mz, 1, Rz );
-//   mat_setzc( Mz, 2, Cz );
-//   mat_printz(Mz);
-//   mat_printz( mat_getzr( Mz, 1 ) );
-//   mat_printz( mat_getzc( Mz, 2 ) );
+  // Set and get columns and rows
+  mat_setrz( Mz, 1, Rz );
+  mat_setcz( Mz, 2, Cz );
+  mat_printz(Mz);
+  mat_printz( mat_getrz( Mz, 1 ) );
+  mat_printz( mat_getcz( Mz, 2 ) );
 
-//   // Write and read complex matrix
-//   mat_writez( Mz, "testz" );
-//   matrixz *Tz = mat_readz("testz");
-//   mat_printz(Tz);
+  // Write and read complex matrix
+  mat_writez( Mz, "testz" );
+  matrixz *Tz = mat_readz("testz");
+  mat_printz(Tz);
 
-//   // Clear complex matrices
-//   mat_clearz(Cz); 
-//   mat_clearz(Rz); 
-//   mat_clearz(Mz);
-//   mat_clearz(Tz);
+  // Clear complex matrices
+  mat_clearz(Cz); 
+  mat_clearz(Rz); 
+  mat_clearz(Mz);
+  mat_clearz(Tz);
 
   // Exit MatComplex debugging
   printf("\n");

@@ -8,6 +8,7 @@
 # 
 #******************************************************************************/
 
+
 LIB         := libmat.a
 EXEC        := mat
 
@@ -34,6 +35,9 @@ $(LIB) : $(OBJ)
 	ar -cvq $@ $(OBJ)
 	@echo "Finished compiling matrix library."
 	@echo " "
+
+
+
 
 matManip.o : matManip.c matLib.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
