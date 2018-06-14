@@ -40,18 +40,18 @@ matrixz* mat_initz ( uint rows, uint cols ) {
 
 
 /*******************************************************************************
- *  mat_readz
- *  Reads a complex matrix from a file.
+* matrixz* mat_readz ( char *file )
+* Reads a complex matrix from a file.
 *******************************************************************************/
-matrixz* mat_readz ( char *file )  {
+matrixz* mat_readz ( char *file ) {
 
   FILE *f;
   uint i, r, c, n;
   int scan;
-  double re, im;
+  floar re, im;
   char sign;
   matrixz *out;
-  double complex *data;
+  float complex *data;
 
   f = fopen( file, "r" );
   mat_err( f==NULL, "Error (mat_readz): Cannont open file." );
@@ -65,14 +65,14 @@ matrixz* mat_readz ( char *file )  {
   scan = fscanf( f, "%d", &c );
   mat_err( scan==EOF, "Error (mat_readz): Failed to read 'cols' from file." );
 
-  out = mat_initz(r,c);
   n = r * c;
+  out = mat_initz(r,c);
   data = out->data;
 
-  for ( i=0; i<n; i++ ) {
+  for( i=0; i<n; i++ ) {
     scan = fscanf( f, "%lf %c %lf i", &re, &sign, &im );
     mat_err( scan==EOF, "Error (mat_readz): Matrix is missing elements." );
-    if ( sign == '-' ) { im *= -1.0; }
+    if( sign == '-' )  im *= -1.0;
     *data = re + im*I;
     data++;
   }
@@ -81,6 +81,7 @@ matrixz* mat_readz ( char *file )  {
   mat_err( scan!=EOF, "Error (mat_readz): Matrix has extra elements." );
 
   fclose(f);
+
   return out;
 }
 
