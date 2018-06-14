@@ -120,14 +120,14 @@ void mat_printz ( matrixz *mat ) {
 
 
 /*******************************************************************************
- *  mat_writez
- *  Writes a complex matrix to a file.
+* void mat_writez ( matrixz *mat, char *file )
+* Writes a complex matrix to a file.
 *******************************************************************************/
-void mat_writez ( matrixz *mat, char *file )  {
+void mat_writez ( matrixz *mat, char *file ) {
 
   FILE *f;
-  int r, c, i, j;
-  double re, im;
+  uint r, c, i, j;
+  float re, im;
   char sign;
 
   r = mat->rows;
@@ -137,12 +137,12 @@ void mat_writez ( matrixz *mat, char *file )  {
   mat_err( f==NULL, "Error (mat_writez): Cannot open file." );
 
   fprintf( f, "# %d %d \n", r, c );
-  for ( i=1; i<=r; i++ )  {
-    for ( j=1; j<=c; j++ )  {
-      re = mat_getre( mat, i,j );
-      im = mat_getim( mat, i,j );
-      if (im<0)  sign = '-';
-      else       sign = '+';
+  for( i=1; i<=r; i++ ) {
+    for( j=1; j<=c; j++ ) {
+      re = mat_getre( mat, i, j );
+      im = mat_getim( mat, i, j );
+      if(im<0)  sign = '-';
+      else      sign = '+';
       fprintf( f, " %4.6f %c%4.6f i\t", re, sign, fabs(im) );
     }
     fprintf( f, "\n" );
@@ -156,15 +156,17 @@ void mat_writez ( matrixz *mat, char *file )  {
 
 
 /*******************************************************************************
- *  mat_clearz
- *  Destroys an existing complex matrix and frees the memory.
+* void mat_clearz ( matrixz *mat )
+* Destroys an existing complex matrix and frees the memory.
 *******************************************************************************/
-void mat_clearz ( matrixz *mat )  {
+void mat_clearz ( matrixz *mat ) {
 
-  double complex *data = mat->data;
+  float complex *data = mat->data;
 
-  if ( mat != NULL )  {
-    if ( data != NULL ) {  free( data );  data = NULL;  }
+  if( mat != NULL ) {
+    if( data != NULL ) {
+      free( data );
+      data = NULL;
     free(mat);
     mat = NULL;
   }
@@ -176,19 +178,19 @@ void mat_clearz ( matrixz *mat )  {
 
 
 /*******************************************************************************
- *  mat_getre
- *  Returns the real part of a complex matrix element.
+* float mat_getre ( matrixz *mat, uint row, uint col )
+* Returns the real part of a complex matrix element.
 *******************************************************************************/
-double mat_getre ( matrixz *mat, uint row, uint col )  {
+float mat_getre ( matrixz *mat, uint row, uint col )  {
 
-  mat_err( row > mat->rows, "Error (mat_getre): Row index exceeds matrix dimensions."     );
-  mat_err( col > mat->cols, "Error (mat_getre): Column index exceeds matrix dimensions."  );
-  mat_err( row < 1,         "Error (mat_getre): Row index must be positive."              );
-  mat_err( col < 1,         "Error (mat_getre): Column index must be positive."           );
+  mat_err( row > mat->rows, "Error (mat_getre): Row index exceeds matrix dimensions."    );
+  mat_err( col > mat->cols, "Error (mat_getre): Column index exceeds matrix dimensions." );
+  mat_err( row < 1,         "Error (mat_getre): Row index must be positive."             );
+  mat_err( col < 1,         "Error (mat_getre): Column index must be positive."          );
 
-  double re;
-  double complex *data = mat->data;
-  int offset = (row-1) * (mat->cols) + (col-1);
+  float re;
+  float complex *data = mat->data;
+  uint offset = (row-1) * (mat->cols) + (col-1);
 
   data += offset;
   re = creal(*data);
@@ -200,19 +202,19 @@ double mat_getre ( matrixz *mat, uint row, uint col )  {
 
 
 /*******************************************************************************
- *  mat_getim
- *  Returns the imaginary part of a complex matrix element.
+* float mat_getim ( matrixz *mat, uint row, uint col )
+* Returns the imaginary part of a complex matrix element.
 *******************************************************************************/
-double mat_getim ( matrixz *mat, uint row, uint col )  {
+float mat_getim ( matrixz *mat, uint row, uint col ) {
 
-  mat_err( row > mat->rows, "Error (mat_getim): Row index exceeds matrix dimensions."     );
-  mat_err( col > mat->cols, "Error (mat_getim): Column index exceeds matrix dimensions."  );
-  mat_err( row < 1,         "Error (mat_getim): Row index must be positive."              );
-  mat_err( col < 1,         "Error (mat_getim): Column index must be positive."           );
+  mat_err( row > mat->rows, "Error (mat_getim): Row index exceeds matrix dimensions."    );
+  mat_err( col > mat->cols, "Error (mat_getim): Column index exceeds matrix dimensions." );
+  mat_err( row < 1,         "Error (mat_getim): Row index must be positive."             );
+  mat_err( col < 1,         "Error (mat_getim): Column index must be positive."          );
 
-  double im;
-  double complex *data = mat->data;
-  int offset = (row-1) * (mat->cols) + (col-1);
+  float im;
+  float complex *data = mat->data;
+  uint offset = (row-1) * (mat->cols) + (col-1);
 
   data += offset;
   im = cimag(*data);
