@@ -49,16 +49,16 @@ matrix *M44;
 int main ( void ) {
 
   printf("\n   --- MatLib Debugging --- \n\n");
-  MatInit();
+  //MatInit();
   //MatPrint();
-  MatManip();
+  //MatManip();
   MatComplex();
   // MatVec();
   // MatArith();
   // MatRoot();
   // MatProp();
   // MatDecomp();
-  MatClear();
+  //MatClear();
   printf("   --- MatLib Complete --- \n\n");
 
   return 0;
@@ -361,15 +361,14 @@ void MatManip ( void ) {
 void MatComplex ( void ) {
 
   printf("Matrix complex manipulation functions \n");
-  matrixz *Cz = mat_initz( 4, 1 );
 
-  // // Declare complex column vector
-  // matrixz *Cz = mat_initz( 4, 1 );
-  // mat_setz( Cz, 1, 1,  1.0,  2.0 );
-  // mat_setz( Cz, 2, 1,  0.3, -4.0 );
-  // mat_setz( Cz, 3, 1, -1.4,  0.6 );
-  // mat_setz( Cz, 4, 1, -3.1, -2.7 );
-  // mat_printz(Cz);
+  // Declare complex column vector
+  matrixz *Cz = mat_initz( 4, 1 );
+  mat_setz( Cz, 1, 1,  1.0,  2.0 );
+  mat_setz( Cz, 2, 1,  0.3, -4.0 );
+  mat_setz( Cz, 3, 1, -1.4,  0.6 );
+  mat_setz( Cz, 4, 1, -3.1, -2.7 );
+  mat_printz(Cz);
 
   // // Declare complex row vector
   // matrixz *Rz = mat_initz( 1, 2 );

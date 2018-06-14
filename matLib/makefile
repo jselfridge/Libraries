@@ -20,6 +20,8 @@ RM          := rm -f
 INSTALL     := install -o root -g root -m 4755
 INSTALLDIR  := install -d -m 755
 
+OBJ := matManip.o matComplex.o
+
 
 
 
@@ -28,8 +30,8 @@ $(EXEC) : matDebug.o libmat.a
 	@echo "Finished compiling debug program."
 	@echo " "
 
-$(LIB) : matManip.o matComplex.o
-	ar -cvq $@ $<
+$(LIB) : $(OBJ)
+	ar -cvq $@ $(OBJ)
 	@echo "Finished compiling matrix library."
 	@echo " "
 
@@ -54,8 +56,8 @@ install:
 	@$(INSTALL) $(LIB) $(DESTDIR)$(PREFIX)/lib
 	@echo "$Library installation complete."
 
-clean:
-	@$(RM) $(EXEC) $(LIB) matDebug.o matManip.o
+make clean:
+	@$(RM) $(EXEC) $(LIB) matDebug.o matManip.o matComplex.o
 	@echo "Finished cleaning directory."
 	@echo " "
 
