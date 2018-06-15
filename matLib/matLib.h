@@ -76,15 +76,15 @@ void      mat_setrz   ( matrixz *mat, uint row, matrixz *vec );
 void      mat_setcz   ( matrixz *mat, uint col, matrixz *vec );
 
 
-// // MatVec functions
-// matrix*   mat_skew    ( matrix *vec );
-// matrix*   mat_sskew   ( matrix *vec );
-// matrix*   mat_cross   ( matrix *vecA, matrix *vecB );
-// double    mat_dot     ( matrix *vecA, matrix *vecB );
-// double    mat_norm    ( matrix *vec, uint p );
-// double    mat_mag     ( matrix *vec );
-// matrix*   mat_uvec    ( matrix *vec );
-// matrix*   mat_proj    ( matrix *u, matrix *v );
+// MatVec functions
+matrix*   mat_skew    ( matrix *vec );
+matrix*   mat_sskew   ( matrix *vec );
+matrix*   mat_cross   ( matrix *vecA, matrix *vecB );
+float     mat_dot     ( matrix *vecA, matrix *vecB );
+float     mat_norm    ( matrix *vec, uint p );
+float     mat_mag     ( matrix *vec );
+matrix*   mat_uvec    ( matrix *vec );
+matrix*   mat_proj    ( matrix *u, matrix *v );
 
 
 // // MatArith functions
