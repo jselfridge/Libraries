@@ -49,16 +49,16 @@ matrix *M44;
 int main ( void ) {
 
   printf("\n   --- MatLib Debugging --- \n\n");
-  //MatInit();
-  //MatPrint();
+  MatInit();
+  MatPrint();
   //MatManip();
-  MatComplex();
-  // MatVec();
+  //MatComplex();
+  //MatVec();
   // MatArith();
   // MatRoot();
   // MatProp();
   // MatDecomp();
-  //MatClear();
+  MatClear();
   printf("   --- MatLib Complete --- \n\n");
 
   return 0;
@@ -424,81 +424,83 @@ void MatVec ( void ) {
 
   printf("Matrix vector functions \n");
 
-//   // Skew symmetric
-//   matrix *skew = mat_skew(M31a);
-//   mat_print(skew);
-//   mat_clear(skew);
+  // Skew symmetric
+  matrix *skew = mat_skew(M31a);
+  mat_print(skew);
+  mat_clear(skew);
 
-//   // Double skew symmetric
-//   matrix *sskew = mat_sskew(M31a);
-//   mat_print(sskew);
-//   mat_clear(sskew);
+  // Double skew symmetric
+  matrix *sskew = mat_sskew(M31a);
+  mat_print(sskew);
+  mat_clear(sskew);
 
-//   // Cross product
-//   matrix *cross;
-//   cross = mat_cross( M31a, M31b );
-//   mat_print(cross);
-//   cross = mat_cross( M31a, M31a );
-//   mat_print(cross);  
-//   mat_clear(cross);
+  // Cross product
+  matrix *cross;
+  cross = mat_cross( M31a, M31b );
+  mat_print(cross);
+  cross = mat_cross( M31a, M31a );
+  mat_print(cross);
+  mat_clear(cross);
 
-//   // Dot product
-//   double dot;
-//   dot = mat_dot( M31a, M31b );
-//   printf( "dot: %f \n", dot );
-//   dot = mat_dot( M31a, M31a );
-//   printf( "dot: %f \n", dot );
+  // Dot product
+  double dot;
+  dot = mat_dot( M31a, M31b );
+  printf( "dot: %f \n", dot );
+  dot = mat_dot( M31a, M31a );
+  printf( "dot: %f \n", dot );
 
-//   // Norm
-//   mat_print(M41);
-//   double NI = mat_norm( M41, 0 );
-//   double N1 = mat_norm( M41, 1 );
-//   double N2 = mat_norm( M41, 2 );
-//   double N3 = mat_norm( M41, 3 );
-//   printf( "NormI: %f \n", NI );
-//   printf( "Norm1: %f \n", N1 );
-//   printf( "Norm2: %f \n", N2 );
-//   printf( "Norm3: %f \n", N3 );
+  // Norm
+  mat_print(M41);
+  double NI = mat_norm( M41, 0 );
+  double N1 = mat_norm( M41, 1 );
+  double N2 = mat_norm( M41, 2 );
+  double N3 = mat_norm( M41, 3 );
+  printf( "NormI: %f \n", NI );
+  printf( "Norm1: %f \n", N1 );
+  printf( "Norm2: %f \n", N2 );
+  printf( "Norm3: %f \n", N3 );
 
-//   // Magnitude
-//   printf( "Mag: %f \n", mat_mag(M31a) );
-//   matrix *unity = mat_init( 4, 1 );
-//   mat_set( unity, 1, 1, 1 );
-//   mat_set( unity, 2, 1, 0 );
-//   mat_set( unity, 3, 1, 1 );
-//   mat_set( unity, 4, 1, 0 );
-//   printf( "Mag: %f \n", mat_mag(unity) );
+  // Magnitude
+  printf( "Mag: %f \n", mat_mag(M31a) );
+  matrix *unity = mat_init( 4, 1 );
+  mat_set( unity, 1, 1, 1.0f );
+  mat_set( unity, 2, 1, 0.0f );
+  mat_set( unity, 3, 1, 0.0f );
+  mat_set( unity, 4, 1, 1.0f );
+  printf( "Mag: %f \n", mat_mag(unity) );
+  mat_clear(unity);
 
-//   // Unit vector
-//   printf("Unit vector: ");
-//   matrix *quat = mat_init( 4, 1 );
-//   mat_set( quat, 1, 1, 1 );
-//   mat_set( quat, 2, 1, 0 );
-//   mat_set( quat, 3, 1, 1 );
-//   mat_set( quat, 4, 1, 0 );
-//   mat_print(mat_uvec(M31b));
-//   mat_print(mat_uvec(M41));
-//   mat_print(mat_uvec(quat));
+  // Unit vector
+  printf("Unit vector: ");
+  matrix *quat = mat_init( 4, 1 );
+  mat_set( quat, 1, 1, 1.0f );
+  mat_set( quat, 2, 1, 0.0f );
+  mat_set( quat, 3, 1, 1.0f );
+  mat_set( quat, 4, 1, 0.0f );
+  mat_print(mat_uvec(M31b));
+  mat_print(mat_uvec(M41));
+  mat_print(mat_uvec(quat));
+  mat_clear(quat);
 
-//   // Vector projection
-//   matrix *u = mat_init( 3, 1 );
-//   mat_set( u, 1, 1,  7 );
-//   mat_set( u, 2, 1, 14 );
-//   mat_set( u, 3, 1,  4 );
-//   printf("u: ");
-//   mat_print(u);
-//   matrix *v = mat_init( 3, 1 );
-//   mat_set( v, 1, 1, -2 );
-//   mat_set( v, 2, 1,  5 );
-//   mat_set( v, 3, 1,  1 );
-//   printf("v: ");
-//   mat_print(v);
-//   matrix *proj = mat_proj( u, v );
-//   printf("proj: ");
-//   mat_print(proj);
-//   mat_clear(u);
-//   mat_clear(v);
-//   mat_clear(proj);
+  // Vector projection
+  matrix *u = mat_init( 3, 1 );
+  mat_set( u, 1, 1,  7 );
+  mat_set( u, 2, 1, 14 );
+  mat_set( u, 3, 1,  4 );
+  printf("u: ");
+  mat_print(u);
+  matrix *v = mat_init( 3, 1 );
+  mat_set( v, 1, 1, -2 );
+  mat_set( v, 2, 1,  5 );
+  mat_set( v, 3, 1,  1 );
+  printf("v: ");
+  mat_print(v);
+  matrix *proj = mat_proj( u, v );
+  printf("proj: ");
+  mat_print(proj);
+  mat_clear(u);
+  mat_clear(v);
+  mat_clear(proj);
 
   // Exit MatVec debugging
   printf("\n");
