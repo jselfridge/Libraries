@@ -130,27 +130,26 @@ matrix* mat_ediv ( matrix *matA, matrix *matB ) {
 
 
 /*******************************************************************************
-* START HERE
 * matrix* mat_mul ( matrix *matA, matrix *matB )
 * Multiplication of two matrices with proper dimensions.
 *******************************************************************************/
-matrix* mat_mul ( matrix *matA, matrix *matB )  {
+matrix* mat_mul ( matrix *matA, matrix *matB ) {
 
   mat_err( matA->cols != matB->rows, "Error (mat_mul): Matrix dimensions do not agree." );
 
   uint i, j, k;
-  double a, b, val;
+  float a, b, val;
   uint r = matA->rows;
   uint c = matB->cols;
-  matrix *mul = mat_init( r, c );
+  matrix *mul = mat_init(r,c);
 
-  for ( i=1; i<=r; i++ )  {
-    for ( j=1; j<=c; j++ )  {
-      val = 0.0;
-      for ( k=1; k <= matA->cols; k++ )  {
-	a = mat_get( matA, i, k );
-	b = mat_get( matB, k, j );
-	val += a * b;
+  for( i=1; i<=r; i++ ) {
+    for( j=1; j<=c; j++ ) {
+      val = 0.0f;
+      for( k=1; k <= matA->cols; k++ ) {
+        a = mat_get( matA, i, k );
+        b = mat_get( matB, k, j );
+        val += a * b;
       }
       mat_set( mul, i, j, val );
     }
@@ -166,7 +165,8 @@ matrix* mat_mul ( matrix *matA, matrix *matB )  {
 * matrix* mat_inv ( matrix *mat )
 * Calculates the inverse of a square matrix
 *******************************************************************************/
-matrix* mat_inv ( matrix *mat )  {
+/*
+matrix* mat_inv ( matrix *mat ) {
 
   mat_err( mat->rows != mat->cols, "Error (mat_inv): Matrix must be square." );
 
@@ -176,7 +176,7 @@ matrix* mat_inv ( matrix *mat )  {
   mat_clear(eye);
 
   return inv;
-}
+}*/
 
 
 
@@ -185,7 +185,8 @@ matrix* mat_inv ( matrix *mat )  {
 * matrix* mat_divL ( matrix *matA, matrix *matB )
 * Solves for X in AX=B; which is equivalent to X=A\B.
 *******************************************************************************/
-matrix* mat_divL ( matrix *matA, matrix *matB )  {
+/*
+matrix* mat_divL ( matrix *matA, matrix *matB ) {
 
   // Error checking
   mat_err( matA->rows != matA->cols, "Error (mat_divL): A matrix must be square. "        );
@@ -193,7 +194,7 @@ matrix* mat_divL ( matrix *matA, matrix *matB )  {
 
   // Local variables
   uint r, c, i, j, k;
-  double val;
+  float val;
   matrix *Q, *R, *Y, *X;
 
   // Dimensions
@@ -205,7 +206,7 @@ matrix* mat_divL ( matrix *matA, matrix *matB )  {
   X = mat_init(r,c);
 
   // QR factorization
-  Q = NULL;  
+  Q = NULL;
   R = NULL;
   mat_QR( matA, &Q, &R );
 
@@ -213,10 +214,10 @@ matrix* mat_divL ( matrix *matA, matrix *matB )  {
   Y = mat_mul( mat_trans(Q), matB );
 
   // Trangluar substitution
-  for ( k=1; k<=c; k++ )  {
-    for ( i=r; i>=1; i-- )  {
+  for( k=1; k<=c; k++ ) {
+    for( i=r; i>=1; i-- ) {
       val = mat_get( Y, i, k );
-      for ( j=r; j>i; j-- )  val -= mat_get( R, i, j ) * mat_get( X, j, k );
+      for( j=r; j>i; j-- )  val -= mat_get( R, i, j ) * mat_get( X, j, k );
       val /= mat_get( R, i, i );
       mat_set( X, i, k, val );
     }
@@ -228,7 +229,7 @@ matrix* mat_divL ( matrix *matA, matrix *matB )  {
   mat_clear(Y);
 
   return X;
-}
+}*/
 
 
 
@@ -237,9 +238,10 @@ matrix* mat_divL ( matrix *matA, matrix *matB )  {
 * matrix* mat_divR ( matrix *matA, matrix *matB )
 * Solves for X in XA=B; which is equivalent to X=B/A.
 *******************************************************************************/
-matrix* mat_divR ( matrix *matA, matrix *matB )  {
+/*
+matrix* mat_divR ( matrix *matA, matrix *matB ) {
 
-  mat_err( matA->rows != matA->cols, "Error (mat_divR): A matrix must be square. " );
+  mat_err( matA->rows != matA->cols, "Error (mat_divR): A matrix must be square.       " );
   mat_err( matA->cols != matB->cols, "Error (mat_divR): A and B must be the same width." );
 
   matrix *X = mat_init( matB->rows, matB->cols );
@@ -247,7 +249,7 @@ matrix* mat_divR ( matrix *matA, matrix *matB )  {
   X = mat_mul( matB, mat_inv(matA) );
 
   return X;
-}
+}*/
 
 
 
@@ -256,20 +258,20 @@ matrix* mat_divR ( matrix *matA, matrix *matB )  {
 * matrix* mat_pow ( matrix *mat, uint power )
 * Raises a square matrix to a specified power.
 *******************************************************************************/
-matrix* mat_pow ( matrix *mat, uint power )  {
+matrix* mat_pow ( matrix *mat, uint power ) {
 
-  mat_err( mat->rows != mat->cols, "Error (mat_pow): Matrix must be square."         );
-  mat_err( power < 0,              "Error (mat_pow): Exponent must be nonnegative."  );
+  mat_err( mat->rows != mat->cols, "Error (mat_pow): Matrix must be square."        );
+  mat_err( power < 0,              "Error (mat_pow): Exponent must be nonnegative." );
 
-  uint i; 
+  uint i;
   uint n = mat->rows;
   matrix *pow;
 
   if      ( power == 0 )  pow = mat_eye(n);
   else if ( power == 1 )  pow = mat_copy(mat);
   else {
-    pow = mat_init( n, n );
-    for ( i=1; i <= power-1; i++ )  {
+    pow = mat_init(n,n);
+    for( i=1; i <= power-1; i++ ) {
       if (i==1)  pow = mat_mul( mat, mat );
       else       pow = mat_mul( pow, mat );
     }
@@ -285,18 +287,18 @@ matrix* mat_pow ( matrix *mat, uint power )  {
 * matrix* mat_abs ( matrix *mat )
 * Applies absolute value to all elements within a matrix.
 *******************************************************************************/
-matrix* mat_abs ( matrix *mat )  {
+matrix* mat_abs ( matrix *mat ) {
 
   uint i, j, r, c;
-  double val;
+  float val;
   matrix *abs;
 
   r = mat->rows;
   c = mat->cols;
-  abs = mat_init( r, c );
+  abs = mat_init(r,c);
 
-  for ( i=1; i<=r; i++ )  {
-    for ( j=1; j<=c; j++ )  {
+  for( i=1; i<=r; i++ ) {
+    for( j=1; j<=c; j++ ) {
       val = fabs( mat_get( mat, i, j ) );
       mat_set( abs, i, j, val );
     }
@@ -312,18 +314,18 @@ matrix* mat_abs ( matrix *mat )  {
 * matrix* mat_trans ( matrix *mat )
 * Returns the transpose of a rectangular matrix.
 *******************************************************************************/
-matrix* mat_trans ( matrix *mat )  {
+matrix* mat_trans ( matrix *mat ) {
 
   uint i, j, r, c;
-  double val;
+  float val;
   matrix *trans;
 
   r = mat->rows;
   c = mat->cols;
-  trans = mat_init( c, r );
+  trans = mat_init(c,r);
 
-  for ( i=1; i<=r; i++ )  {
-    for ( j=1; j<=c; j++ )  {
+  for( i=1; i<=r; i++ ) {
+    for( j=1; j<=c; j++ ) {
       val = mat_get( mat, i, j );
       mat_set( trans, j, i, val );
     }
