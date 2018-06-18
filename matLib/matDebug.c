@@ -519,50 +519,48 @@ void MatArith ( void ) {
 
   printf("Matrix arithmetic functions \n");
 
-//   /*
-//   // Addition
-//   matrix *Vadd = mat_add( M31a, M31b );
-//   mat_print(Vadd);
-//   mat_clear(Vadd);
-//   matrix *Madd = mat_add( M33a, M33b );
-//   mat_print(Madd);
-//   mat_clear(Madd);
+  // Addition
+  matrix *Vadd = mat_add( M31a, M31b );
+  mat_print(Vadd);
+  mat_clear(Vadd);
+  matrix *Madd = mat_add( M33a, M33b );
+  mat_print(Madd);
+  mat_clear(Madd);
 
-//   // Subtraction
-//   matrix *Vsub = mat_sub( M31a, M31b );
-//   mat_print(Vsub);
-//   mat_clear(Vsub);
-//   matrix *Msub = mat_sub( M33a, M33b );
-//   mat_print(Msub);
-//   mat_clear(Msub);
+  // Subtraction
+  matrix *Vsub = mat_sub( M31a, M31b );
+  mat_print(Vsub);
+  mat_clear(Vsub);
+  matrix *Msub = mat_sub( M33a, M33b );
+  mat_print(Msub);
+  mat_clear(Msub);
 
-//   // Elem-wise multiplication
-//   matrix *Vemul = mat_emul( M31a, M31b );
-//   mat_print(Vemul);
-//   mat_clear(Vemul);
-//   matrix *Memul = mat_emul( M33a, M33b );
-//   mat_print(Memul);
-//   mat_clear(Memul);
+  // Elem-wise multiplication
+  matrix *Vemul = mat_emul( M31a, M31b );
+  mat_print(Vemul);
+  mat_clear(Vemul);
+  matrix *Memul = mat_emul( M33a, M33b );
+  mat_print(Memul);
+  mat_clear(Memul);
 
-//   // Elem-wise division
-//   matrix *Vediv = mat_ediv( M31a, M31b );
-//   mat_print(Vediv);
-//   mat_clear(Vediv);
-//   matrix *Mediv = mat_ediv( M33a, M33b );
-//   mat_print(Mediv);
-//   mat_clear(Mediv);
+  // Elem-wise division
+  matrix *Vediv = mat_ediv( M31a, M31b );
+  mat_print(Vediv);
+  mat_clear(Vediv);
+  matrix *Mediv = mat_ediv( M33a, M33b );
+  mat_print(Mediv);
+  mat_clear(Mediv);
 
-//   // Multiplication
-//   matrix *Mmul33 = mat_mul( M33a, M33b );
-//   mat_print(Mmul33);
-//   mat_clear(Mmul33);
-//   matrix *Mmul23 = mat_mul( M23, M33a );
-//   mat_print(Mmul23);
-//   mat_clear(Mmul23);
-//   matrix *Mmul4 = mat_mul( M44, M41 );
-//   mat_print(Mmul4);
-//   mat_clear(Mmul4);
-//   */
+  // Multiplication
+  matrix *Mmul33 = mat_mul( M33a, M33b );
+  mat_print(Mmul33);
+  mat_clear(Mmul33);
+  matrix *Mmul23 = mat_mul( M23, M33a );
+  mat_print(Mmul23);
+  mat_clear(Mmul23);
+  matrix *Mmul4 = mat_mul( M44, M41 );
+  mat_print(Mmul4);
+  mat_clear(Mmul4);
 
 //   // Left division
 //   matrix *XL  = mat_divL( M33a, M32 );

@@ -21,7 +21,7 @@ RM          := rm -f
 INSTALL     := install -o root -g root -m 4755
 INSTALLDIR  := install -d -m 755
 
-OBJ := matManip.o matComplex.o matVec.o
+OBJ :=  matManip.o  matComplex.o  matVec.o  matArith.o
 
 
 
@@ -48,6 +48,9 @@ matComplex.o : matComplex.c matLib.h
 matVec.o : matVec.c matLib.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
+matArith.o : matArith.c matLib.h
+	$(CC) $(CFLAGS) -I. -c $< -o $@
+
 matDebug.o : matDebug.c matLib.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
@@ -64,7 +67,7 @@ install:
 	@echo "$Library installation complete."
 
 make clean:
-	@$(RM) $(EXEC) $(LIB) matDebug.o matManip.o matComplex.o
+	@$(RM) $(EXEC) $(LIB) $(OBJ) matDebug.o
 	@echo "Finished cleaning directory."
 	@echo " "
 
