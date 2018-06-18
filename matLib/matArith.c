@@ -1,12 +1,22 @@
-
-
+/*******************************************************************************
+*
+* Justin M Selfridge, PhD
+* Gradient Consulting, LLC
+* jselfridge@gmail.com
+*
+* matArith.h
+* Source code for matrix arithmetic functions within the 'matLib' library.
+*
+*******************************************************************************/
 #include "matLib.h"
 
 
-/**
- *  mat_add
- *  Adds two matrices with indentical dimensions.
- */
+
+
+/*******************************************************************************
+* matrix* mat_add ( matrix *matA, matrix *matB )
+* Adds two matrices with indentical dimensions.
+*******************************************************************************/
 matrix* mat_add ( matrix *matA, matrix *matB )  {
 
   mat_err( matA->rows != matB->rows, "Error (mat_add): Matrices must have same number of rows."     );
@@ -30,10 +40,12 @@ matrix* mat_add ( matrix *matA, matrix *matB )  {
 }
 
 
-/**
- *  mat_sub
- *  Subtracts two matrices with indentical dimensions.
- */
+
+
+/*******************************************************************************
+* matrix* mat_sub ( matrix *matA, matrix *matB )  {
+* Subtracts two matrices with indentical dimensions.
+*******************************************************************************/
 matrix* mat_sub ( matrix *matA, matrix *matB )  {
 
   mat_err( matA->rows != matB->rows, "Error (mat_sub): Matrices must have same number of rows."     );
@@ -57,10 +69,12 @@ matrix* mat_sub ( matrix *matA, matrix *matB )  {
 }
 
 
-/**
- *  mat_emul
- *  Element-wise multiplication of two matrices with identical dimensions.
- */
+
+
+/*******************************************************************************
+* matrix* mat_emul ( matrix *matA, matrix *matB )
+* Element-wise multiplication of two matrices with identical dimensions.
+*******************************************************************************/
 matrix* mat_emul ( matrix *matA, matrix *matB )  {
 
   mat_err( matA->rows != matB->rows, "Error (mat_emul): Matrices must have same number of rows."     );
@@ -84,10 +98,12 @@ matrix* mat_emul ( matrix *matA, matrix *matB )  {
 }
 
 
-/**
- *  mat_ediv
- *  Element-wise division of two matrices with identical dimensions.
- */
+
+
+/*******************************************************************************
+* matrix* mat_ediv ( matrix *matA, matrix *matB )
+* Element-wise division of two matrices with identical dimensions.
+*******************************************************************************/
 matrix* mat_ediv ( matrix *matA, matrix *matB )  {
 
   mat_err( matA->rows != matB->rows, "Error (mat_ediv): Matrices must have same number of rows."     );
@@ -111,10 +127,12 @@ matrix* mat_ediv ( matrix *matA, matrix *matB )  {
 }
 
 
-/**
- *  mat_mul
- *  Multiplication of two matrices with proper dimensions.
- */
+
+
+/*******************************************************************************
+* matrix* mat_mul ( matrix *matA, matrix *matB )
+* Multiplication of two matrices with proper dimensions.
+*******************************************************************************/
 matrix* mat_mul ( matrix *matA, matrix *matB )  {
 
   mat_err( matA->cols != matB->rows, "Error (mat_mul): Matrix dimensions do not agree." );
@@ -141,10 +159,12 @@ matrix* mat_mul ( matrix *matA, matrix *matB )  {
 }
 
 
-/**
- *  mat_inv
- *  Calculates the inverse of a square matrix
- */
+
+
+/*******************************************************************************
+* matrix* mat_inv ( matrix *mat )
+* Calculates the inverse of a square matrix
+*******************************************************************************/
 matrix* mat_inv ( matrix *mat )  {
 
   mat_err( mat->rows != mat->cols, "Error (mat_inv): Matrix must be square." );
@@ -158,10 +178,12 @@ matrix* mat_inv ( matrix *mat )  {
 }
 
 
-/**
- *  mat_divL
- *  Solves for X in AX=B; which is equivalent to X=A\B.
- */
+
+
+/*******************************************************************************
+* matrix* mat_divL ( matrix *matA, matrix *matB )
+* Solves for X in AX=B; which is equivalent to X=A\B.
+*******************************************************************************/
 matrix* mat_divL ( matrix *matA, matrix *matB )  {
 
   // Error checking
@@ -208,10 +230,12 @@ matrix* mat_divL ( matrix *matA, matrix *matB )  {
 }
 
 
-/**
- *  mat_divR
- *  Solves for X in XA=B; which is equivalent to X=B/A.
- */
+
+
+/*******************************************************************************
+* matrix* mat_divR ( matrix *matA, matrix *matB )
+* Solves for X in XA=B; which is equivalent to X=B/A.
+*******************************************************************************/
 matrix* mat_divR ( matrix *matA, matrix *matB )  {
 
   mat_err( matA->rows != matA->cols, "Error (mat_divR): A matrix must be square. " );
@@ -225,10 +249,12 @@ matrix* mat_divR ( matrix *matA, matrix *matB )  {
 }
 
 
-/**
- *  mat_pow
- *  Raises a square matrix to a specified power.
- */
+
+
+/*******************************************************************************
+* matrix* mat_pow ( matrix *mat, uint power )
+* Raises a square matrix to a specified power.
+*******************************************************************************/
 matrix* mat_pow ( matrix *mat, uint power )  {
 
   mat_err( mat->rows != mat->cols, "Error (mat_pow): Matrix must be square."         );
@@ -252,10 +278,12 @@ matrix* mat_pow ( matrix *mat, uint power )  {
 }
 
 
-/**
- *  mat_abs
- *  Applies absolute value to all elements within a matrix.
- */
+
+
+/*******************************************************************************
+* matrix* mat_abs ( matrix *mat )
+* Applies absolute value to all elements within a matrix.
+*******************************************************************************/
 matrix* mat_abs ( matrix *mat )  {
 
   uint i, j, r, c;
@@ -277,10 +305,12 @@ matrix* mat_abs ( matrix *mat )  {
 }
 
 
-/**
- *  mat_trans
- *  Returns the transpose of a rectangular matrix.
- */
+
+
+/*******************************************************************************
+* matrix* mat_trans ( matrix *mat )
+* Returns the transpose of a rectangular matrix.
+*******************************************************************************/
 matrix* mat_trans ( matrix *mat )  {
 
   uint i, j, r, c;
