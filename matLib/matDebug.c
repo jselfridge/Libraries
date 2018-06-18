@@ -54,7 +54,7 @@ int main ( void ) {
   //MatManip();
   //MatComplex();
   //MatVec();
-  // MatArith();
+  MatArith();
   // MatRoot();
   // MatProp();
   // MatDecomp();
@@ -584,13 +584,12 @@ void MatArith ( void ) {
 //   mat_print(XR);   mat_clear(XR);
 //   mat_print(XRA);  mat_clear(XRA);
 
-
 //   /*
 //   // Power
 //   uint i;
 //   matrix *Mpow;
-//   for ( i=0; i<4; i++ )  {
-//     Mpow= mat_pow( M33a, i );
+//   for( i=0; i<4; i++ ) {
+//     Mpow = mat_pow( M33a, i );
 //     mat_print(Mpow);
 //   }
 //   mat_clear(Mpow);
