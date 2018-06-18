@@ -17,19 +17,19 @@
 * matrix* mat_add ( matrix *matA, matrix *matB )
 * Adds two matrices with indentical dimensions.
 *******************************************************************************/
-matrix* mat_add ( matrix *matA, matrix *matB )  {
+matrix* mat_add ( matrix *matA, matrix *matB ) {
 
-  mat_err( matA->rows != matB->rows, "Error (mat_add): Matrices must have same number of rows."     );
-  mat_err( matA->cols != matB->cols, "Error (mat_add): Matrices must have same number of columns."  );
+  mat_err( matA->rows != matB->rows, "Error (mat_add): Matrices must have same number of rows."    );
+  mat_err( matA->cols != matB->cols, "Error (mat_add): Matrices must have same number of columns." );
 
   uint i, j;
-  double a, b;
+  float a, b;
   uint r = matA->rows;
   uint c = matA->cols;
-  matrix *add = mat_init( r, c );
+  matrix *add = mat_init(r,c);
 
-  for ( i=1; i<=r; i++ )  {
-    for ( j=1; j<=c; j++ )  {
+  for( i=1; i<=r; i++ ) {
+    for( j=1; j<=c; j++ ) {
       a = mat_get( matA, i, j );
       b = mat_get( matB, i, j );
       mat_set( add, i, j, a+b );
@@ -43,22 +43,22 @@ matrix* mat_add ( matrix *matA, matrix *matB )  {
 
 
 /*******************************************************************************
-* matrix* mat_sub ( matrix *matA, matrix *matB )  {
+* matrix* mat_sub ( matrix *matA, matrix *matB )
 * Subtracts two matrices with indentical dimensions.
 *******************************************************************************/
-matrix* mat_sub ( matrix *matA, matrix *matB )  {
+matrix* mat_sub ( matrix *matA, matrix *matB ) {
 
-  mat_err( matA->rows != matB->rows, "Error (mat_sub): Matrices must have same number of rows."     );
-  mat_err( matA->cols != matB->cols, "Error (mat_sub): Matrices must have same number of columns."  );
+  mat_err( matA->rows != matB->rows, "Error (mat_sub): Matrices must have same number of rows."    );
+  mat_err( matA->cols != matB->cols, "Error (mat_sub): Matrices must have same number of columns." );
 
   uint i, j;
-  double a, b;
+  float a, b;
   uint r = matA->rows;
   uint c = matA->cols;
-  matrix *sub = mat_init( r, c );
+  matrix *sub = mat_init(r,c);
 
-  for ( i=1; i<=r; i++ )  {
-    for ( j=1; j<=c; j++ )  {
+  for( i=1; i<=r; i++ ) {
+    for( j=1; j<=c; j++ ) {
       a = mat_get( matA, i, j );
       b = mat_get( matB, i, j );
       mat_set( sub, i, j, a-b );
@@ -75,19 +75,19 @@ matrix* mat_sub ( matrix *matA, matrix *matB )  {
 * matrix* mat_emul ( matrix *matA, matrix *matB )
 * Element-wise multiplication of two matrices with identical dimensions.
 *******************************************************************************/
-matrix* mat_emul ( matrix *matA, matrix *matB )  {
+matrix* mat_emul ( matrix *matA, matrix *matB ) {
 
-  mat_err( matA->rows != matB->rows, "Error (mat_emul): Matrices must have same number of rows."     );
-  mat_err( matA->cols != matB->cols, "Error (mat_emul): Matrices must have same number of columns."  );
+  mat_err( matA->rows != matB->rows, "Error (mat_emul): Matrices must have same number of rows."    );
+  mat_err( matA->cols != matB->cols, "Error (mat_emul): Matrices must have same number of columns." );
 
   uint i, j;
-  double a, b;
+  float a, b;
   uint r = matA->rows;
   uint c = matA->cols;
-  matrix *emul = mat_init( r, c );
+  matrix *emul = mat_init(r,c);
 
-  for ( i=1; i<=r; i++ )  {
-    for ( j=1; j<=c; j++ )  {
+  for( i=1; i<=r; i++ ) {
+    for( j=1; j<=c; j++ ) {
       a = mat_get( matA, i, j );
       b = mat_get( matB, i, j );
       mat_set( emul, i, j, a*b );
@@ -104,19 +104,19 @@ matrix* mat_emul ( matrix *matA, matrix *matB )  {
 * matrix* mat_ediv ( matrix *matA, matrix *matB )
 * Element-wise division of two matrices with identical dimensions.
 *******************************************************************************/
-matrix* mat_ediv ( matrix *matA, matrix *matB )  {
+matrix* mat_ediv ( matrix *matA, matrix *matB ) {
 
-  mat_err( matA->rows != matB->rows, "Error (mat_ediv): Matrices must have same number of rows."     );
-  mat_err( matA->cols != matB->cols, "Error (mat_ediv): Matrices must have same number of columns."  );
+  mat_err( matA->rows != matB->rows, "Error (mat_ediv): Matrices must have same number of rows."    );
+  mat_err( matA->cols != matB->cols, "Error (mat_ediv): Matrices must have same number of columns." );
 
   uint i, j;
-  double a, b;
+  float a, b;
   uint r = matA->rows;
   uint c = matA->cols;
-  matrix *ediv = mat_init( r, c );
+  matrix *ediv = mat_init(r,c);
 
-  for ( i=1; i<=r; i++ )  {
-    for ( j=1; j<=c; j++ )  {
+  for( i=1; i<=r; i++ ) {
+    for( j=1; j<=c; j++ ) {
       a = mat_get( matA, i, j );
       b = mat_get( matB, i, j );
       mat_set( ediv, i, j, a/b );
@@ -130,6 +130,7 @@ matrix* mat_ediv ( matrix *matA, matrix *matB )  {
 
 
 /*******************************************************************************
+* START HERE
 * matrix* mat_mul ( matrix *matA, matrix *matB )
 * Multiplication of two matrices with proper dimensions.
 *******************************************************************************/
