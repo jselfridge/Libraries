@@ -582,35 +582,33 @@ void MatArith ( void ) {
 //   mat_print(XR);   mat_clear(XR);
 //   mat_print(XRA);  mat_clear(XRA);
 
-//   /*
-//   // Power
-//   uint i;
-//   matrix *Mpow;
-//   for( i=0; i<4; i++ ) {
-//     Mpow = mat_pow( M33a, i );
-//     mat_print(Mpow);
-//   }
-//   mat_clear(Mpow);
+  // Matrix power
+  uint i;
+  matrix *Mpow;
+  for( i=0; i<=4; i++ ) {
+    Mpow = mat_pow( M33a, i );
+    mat_print(Mpow);
+  }
+  mat_clear(Mpow);
 
-//   // Absolute value
-//   mat_print( mat_abs(M32) );
-//   mat_print( mat_abs(M44) );
-//   mat_print( mat_abs(M41) );
+  // Absolute value
+  mat_print( mat_abs(M32) );
+  mat_print( mat_abs(M44) );
+  mat_print( mat_abs(M41) );
 
-//   //  Transpose
-//   matrix *T1 = mat_trans(M41);
-//   mat_print(T1);
-//   mat_clear(T1);
-//   matrix *T2 = mat_trans(M23);
-//   mat_print(T2);
-//   mat_clear(T2);
-//   matrix *T3 = mat_trans(M43);
-//   mat_print(T3);
-//   mat_clear(T3);
-//   matrix *T4 = mat_trans(M33a);
-//   mat_print(T4);
-//   mat_clear(T4);
-//   */
+  // Transpose
+  matrix *T1 = mat_trans(M41);
+  mat_print(T1);
+  mat_clear(T1);
+  matrix *T2 = mat_trans(M23);
+  mat_print(T2);
+  mat_clear(T2);
+  matrix *T3 = mat_trans(M43);
+  mat_print(T3);
+  mat_clear(T3);
+  matrix *T4 = mat_trans(M33a);
+  mat_print(T4);
+  mat_clear(T4);
 
   // Exit MatArith degugging
   printf("\n");
