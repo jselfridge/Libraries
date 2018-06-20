@@ -101,8 +101,8 @@ matrix*   mat_abs     ( matrix *mat );
 matrix*   mat_trans   ( matrix *mat );
 
 
-// // MatRoot function
-// matrixz*  mat_root    ( matrix *poly, double tol, uint max );
+// MatRoot function
+matrixz*  mat_root    ( matrix *poly, float tol, uint max );
 
 
 // // MatProp functions
