@@ -68,7 +68,7 @@ matrixz* mat_root ( matrix *poly, float tol, uint max ) {
 float B ( matrix *coef ) {
 
   uint i, c;
-  float val, b = 0.0;
+  float val, b = 0.0f;
 
   c = coef->rows;
 
