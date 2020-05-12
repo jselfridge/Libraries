@@ -169,11 +169,8 @@ float mat_get ( matrix *mat, uint row, uint col ) {
   mat_err( ( !row || row > mat->rows ), "Error (mat_get): Row index exceeds matrix dimensions."    );
   mat_err( ( !col || col > mat->cols ), "Error (mat_get): Column index exceeds matrix dimensions." );
 
-  float *data = mat->data;
-  uint offset = (row-1) * (mat->cols) + (col-1);
-  data += offset;
+  return *( mat->data + (row-1) * (mat->cols) + (col-1) );
 
-  return *data;
 }
 
 
@@ -224,11 +221,7 @@ void mat_set ( matrix *mat, uint row, uint col, float val ) {
   mat_err( ( !row || row > mat->rows ), "Error (mat_set): Row index exceeds matrix dimensions."    );
   mat_err( ( !col || col > mat->cols ), "Error (mat_set): Column index exceeds matrix dimensions." );
 
-  float *data = mat->data;
-  uint offset = (row-1) * (mat->cols) + (col-1);
-
-  data += offset;
-  *data = val;
+  *( mat->data + (row-1) * (mat->cols) + (col-1) ) = val;
 
   return;
 }
