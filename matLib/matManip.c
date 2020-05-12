@@ -233,18 +233,16 @@ void mat_set ( matrix *mat, uint row, uint col, float val ) {
 * void mat_setr ( matrix *mat, uint row, matrix *vec )
 * Replaces a row of a matrix with the specified vector.
 *******************************************************************************/
-// void mat_setr ( matrix *mat, uint row, matrix *vec ) {
+void mat_setr ( matrix *mat, uint row, matrix *vec ) {
 
-//   mat_err( row > mat->rows,        "Error (mat_setr): Row index exceeds matrix dimensions."           );
-//   mat_err( row < 1,                "Error (mat_setr): Row index must be positive."                    );
-//   mat_err( vec->rows !=1,          "Error (mat_setr): Input array must be a row vector."              );
-//   mat_err( mat->cols != vec->cols, "Error (mat_setr): Input array and matrix must be the same width." );
+  mat_err( ( !row || row > mat->rows ), "Error (mat_setr): Row index exceeds matrix dimensions."           );
+  mat_err( ( vec->rows !=1 ),           "Error (mat_setr): Input array must be a row vector."              );
+  mat_err( ( mat->cols != vec->cols ),  "Error (mat_setr): Input array and matrix must be the same width." );
 
-//   uint i;
-//   for( i=1; i <= mat->cols; i++ )  mat_set( mat, row, i, mat_get( vec, 1, i ) );
+  for( uint i=0; i<mat->cols; i++ )  *( mat->data + (row-1) * (mat->cols) + i ) = *( vec->data+i );
 
-//   return;
-// }
+  return;
+}
 
 
 
@@ -253,18 +251,16 @@ void mat_set ( matrix *mat, uint row, uint col, float val ) {
 * void mat_setc ( matrix *mat, uint col, matrix *vec )
 * Replaces a column of a matrix with the specified vector.
 *******************************************************************************/
-// void mat_setc ( matrix *mat, uint col, matrix *vec ) {
+void mat_setc ( matrix *mat, uint col, matrix *vec ) {
 
-//   mat_err( col > mat->cols,        "Error (mat_setc): Column index exceeds matrix dimensions."         );
-//   mat_err( col < 1,                "Error (mat_setc): Column index must be positive."                  );
-//   mat_err( vec->cols !=1,          "Error (mat_setc): Input array must be a column vector."            );
-//   mat_err( mat->rows != vec->rows, "Error (mat_setc): Input array and matrix must be the same height." );
+  mat_err( ( !col || col > mat->cols ), "Error (mat_setc): Column index exceeds matrix dimensions."         );
+  mat_err( ( vec->cols !=1 ),           "Error (mat_setc): Input array must be a column vector."            );
+  mat_err( ( mat->rows != vec->rows ),  "Error (mat_setc): Input array and matrix must be the same height." );
 
-//   uint i;
-//   for( i=1; i <= mat->rows; i++ )  mat_set( mat, i, col, mat_get( vec, i, 1 ) );
+  for( uint i=0; i<mat->rows; i++ )  *( mat->data + ( i * mat->cols ) + (col-1) ) = *( vec->data+i );
 
-//   return;
-// }
+  return;
+}
 
 
 
