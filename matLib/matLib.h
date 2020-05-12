@@ -37,72 +37,72 @@ typedef struct matrixz {
 } matrixz;
 
 
-// MatManip Functions
-void      mat_err     ( bool cond, char *msg );
-matrix*   mat_init    ( uint rows, uint cols );
-matrix*   mat_read    ( char *file );
-void      mat_print   ( matrix *mat );
-void      mat_write   ( matrix *mat, char *file );
-void      mat_clear   ( matrix *mat );
-float     mat_get     ( matrix *mat, uint row, uint col );
-matrix*   mat_getr    ( matrix *mat, uint row );
-matrix*   mat_getc    ( matrix *mat, uint col );
-void      mat_set     ( matrix *mat, uint row, uint col, float val );
-void      mat_setr    ( matrix *mat, uint row, matrix *vec );
-void      mat_setc    ( matrix *mat, uint col, matrix *vec );
-matrix*   mat_copy    ( matrix *mat );
-matrix*   mat_eye     ( uint n );
-matrix*   mat_ones    ( uint rows, uint cols );
-matrix*   mat_scale   ( matrix *mat, float scale );
-void      mat_swapr   ( matrix *mat, uint p, uint q );
-void      mat_swapc   ( matrix *mat, uint p, uint q );
-matrix*   mat_appr    ( matrix *matT, matrix *matB );
-matrix*   mat_appc    ( matrix *matL, matrix *matR );
-void      mat_rmtiny  ( matrix **mat, float tol );
+// // MatManip Functions
+// void      mat_err     ( bool cond, char *msg );
+// matrix*   mat_init    ( uint rows, uint cols );
+// matrix*   mat_read    ( char *file );
+// void      mat_print   ( matrix *mat );
+// void      mat_write   ( matrix *mat, char *file );
+// void      mat_clear   ( matrix *mat );
+// float     mat_get     ( matrix *mat, uint row, uint col );
+// matrix*   mat_getr    ( matrix *mat, uint row );
+// matrix*   mat_getc    ( matrix *mat, uint col );
+// void      mat_set     ( matrix *mat, uint row, uint col, float val );
+// void      mat_setr    ( matrix *mat, uint row, matrix *vec );
+// void      mat_setc    ( matrix *mat, uint col, matrix *vec );
+// matrix*   mat_copy    ( matrix *mat );
+// matrix*   mat_eye     ( uint n );
+// matrix*   mat_ones    ( uint rows, uint cols );
+// matrix*   mat_scale   ( matrix *mat, float scale );
+// void      mat_swapr   ( matrix *mat, uint p, uint q );
+// void      mat_swapc   ( matrix *mat, uint p, uint q );
+// matrix*   mat_appr    ( matrix *matT, matrix *matB );
+// matrix*   mat_appc    ( matrix *matL, matrix *matR );
+// void      mat_rmtiny  ( matrix **mat, float tol );
 
 
-// MatComplex functions
-matrixz*  mat_initz   ( uint rows, uint cols );
-matrixz*  mat_readz   ( char *file );
-void      mat_printz  ( matrixz *mat );
-void      mat_writez  ( matrixz *mat, char *file );
-void      mat_clearz  ( matrixz *mat );
-float     mat_getre   ( matrixz *mat, uint row, uint col );
-float     mat_getim   ( matrixz *mat, uint row, uint col );
-matrixz*  mat_getrz   ( matrixz *mat, uint row );
-matrixz*  mat_getcz   ( matrixz *mat, uint col );
-void      mat_setz    ( matrixz *mat, uint row, uint col, float re, float im );
-void      mat_setrz   ( matrixz *mat, uint row, matrixz *vec );
-void      mat_setcz   ( matrixz *mat, uint col, matrixz *vec );
+// // MatComplex functions
+// matrixz*  mat_initz   ( uint rows, uint cols );
+// matrixz*  mat_readz   ( char *file );
+// void      mat_printz  ( matrixz *mat );
+// void      mat_writez  ( matrixz *mat, char *file );
+// void      mat_clearz  ( matrixz *mat );
+// float     mat_getre   ( matrixz *mat, uint row, uint col );
+// float     mat_getim   ( matrixz *mat, uint row, uint col );
+// matrixz*  mat_getrz   ( matrixz *mat, uint row );
+// matrixz*  mat_getcz   ( matrixz *mat, uint col );
+// void      mat_setz    ( matrixz *mat, uint row, uint col, float re, float im );
+// void      mat_setrz   ( matrixz *mat, uint row, matrixz *vec );
+// void      mat_setcz   ( matrixz *mat, uint col, matrixz *vec );
 
 
-// MatVec functions
-matrix*   mat_skew    ( matrix *vec );
-matrix*   mat_sskew   ( matrix *vec );
-matrix*   mat_cross   ( matrix *vecA, matrix *vecB );
-float     mat_dot     ( matrix *vecA, matrix *vecB );
-float     mat_norm    ( matrix *vec, uint p );
-float     mat_mag     ( matrix *vec );
-matrix*   mat_uvec    ( matrix *vec );
-matrix*   mat_proj    ( matrix *u, matrix *v );
+// // MatVec functions
+// matrix*   mat_skew    ( matrix *vec );
+// matrix*   mat_sskew   ( matrix *vec );
+// matrix*   mat_cross   ( matrix *vecA, matrix *vecB );
+// float     mat_dot     ( matrix *vecA, matrix *vecB );
+// float     mat_norm    ( matrix *vec, uint p );
+// float     mat_mag     ( matrix *vec );
+// matrix*   mat_uvec    ( matrix *vec );
+// matrix*   mat_proj    ( matrix *u, matrix *v );
 
 
-// MatArith functions
-matrix*   mat_add     ( matrix *matA, matrix *matB );
-matrix*   mat_sub     ( matrix *matA, matrix *matB );
-matrix*   mat_emul    ( matrix *matA, matrix *matB );
-matrix*   mat_ediv    ( matrix *matA, matrix *matB );
-matrix*   mat_mul     ( matrix *matA, matrix *matB );
-//matrix*   mat_inv     ( matrix *mat );
-//matrix*   mat_divL    ( matrix *matA, matrix *matB );
-//matrix*   mat_divR    ( matrix *matA, matrix *matB );
-matrix*   mat_pow     ( matrix *mat, uint power );
-matrix*   mat_abs     ( matrix *mat );
-matrix*   mat_trans   ( matrix *mat );
+// // MatArith functions
+// matrix*   mat_add     ( matrix *matA, matrix *matB );
+// matrix*   mat_sub     ( matrix *matA, matrix *matB );
+// matrix*   mat_emul    ( matrix *matA, matrix *matB );
+// matrix*   mat_ediv    ( matrix *matA, matrix *matB );
+// matrix*   mat_mul     ( matrix *matA, matrix *matB );
+// //matrix*   mat_inv     ( matrix *mat );
+// //matrix*   mat_divL    ( matrix *matA, matrix *matB );
+// //matrix*   mat_divR    ( matrix *matA, matrix *matB );
+// matrix*   mat_pow     ( matrix *mat, uint power );
+// matrix*   mat_abs     ( matrix *mat );
+// matrix*   mat_trans   ( matrix *mat );
 
 
-// MatRoot function
-matrixz*  mat_root    ( matrix *poly, float tol, uint max );
+// // MatRoot function
+// matrixz*  mat_root    ( matrix *poly, float tol, uint max );
 
 
 // // MatProp functions

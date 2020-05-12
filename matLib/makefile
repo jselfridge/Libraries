@@ -10,7 +10,7 @@
 
 
 LIB         := libmat.a
-EXEC        := mat
+EXEC        := debug
 
 CC          := gcc
 CFLAGS      := -c -Wall -O2
@@ -66,7 +66,7 @@ install:
 	@$(INSTALL) $(LIB) $(DESTDIR)$(PREFIX)/lib
 	@echo "$Library installation complete."
 
-make clean:
+clean:
 	@$(RM) $(EXEC) $(LIB) $(OBJ) matDebug.o
 	@echo "Finished cleaning directory."
 	@echo " "
