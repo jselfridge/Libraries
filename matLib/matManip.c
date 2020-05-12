@@ -301,16 +301,15 @@ void mat_set ( matrix *mat, uint row, uint col, float val ) {
 * matrix* mat_eye ( uint n )
 * Creates an identity matrix of dimension n.
 *******************************************************************************/
-// matrix* mat_eye ( uint n ) {
+matrix* mat_eye ( uint n ) {
 
-//   mat_err( ( !n ), "Error (mat_eye): Matrix dimension must be positive." );
+  mat_err( (!n), "Error (mat_eye): Matrix dimension must be positive." );
 
-//   matrix *out = mat_init(n,n);
-//   //for( uint i=1; i<=n; i++ )  mat_set( out, i, i, 1.0 );
-  
+  matrix *out = mat_init(n,n);
+  for( float *ptr = out->data; ptr < out->data + ( out->rows * out->cols ); ptr += n+1 )  *ptr = 1.0;  
 
-//   return out;
-// }
+  return out;
+}
 
 
 

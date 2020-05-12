@@ -232,9 +232,9 @@ void MatManip ( void ) {
   matrix *B = mat_read("sample");
   mat_print(B);
 
-//   // Identity matrix
-//   matrix *M = mat_eye(4);
-//   mat_print(M);
+  // Identity matrix
+  matrix *M = mat_eye(4);
+  mat_print(M);
 
 //   // Scale matrix
 //   matrix *N = mat_scale(M,3.2);
@@ -256,9 +256,9 @@ void MatManip ( void ) {
 //   val = mat_get( P, 3,2 );
 //   printf( "Element value: %f\n", val );
 
-  // Ones matrix
-  matrix *Q = mat_ones(5,3);
-  mat_print(Q);
+  // // Ones matrix
+  // matrix *Q = mat_ones(5,3);
+  // mat_print(Q);
 
 //   // Get matrix row
 //   mat_print( mat_getr( M22,  2 ) );
@@ -339,10 +339,10 @@ void MatManip ( void ) {
   // Clear completed matrices
   mat_clear(A);
   mat_clear(B);
-//   mat_clear(M);
+  mat_clear(M);
 //   mat_clear(N);
 //   mat_clear(P);
-  mat_clear(Q);
+  // mat_clear(Q);
 //   mat_clear(R);
 
   // Exit MatManip debugging

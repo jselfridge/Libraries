@@ -51,7 +51,7 @@ void      mat_set     ( matrix *mat, uint row, uint col, float val );
 // void      mat_setr    ( matrix *mat, uint row, matrix *vec );
 // void      mat_setc    ( matrix *mat, uint col, matrix *vec );
 // matrix*   mat_copy    ( matrix *mat );
-// matrix*   mat_eye     ( uint n );
+matrix*   mat_eye     ( uint n );
 matrix*   mat_ones    ( uint rows, uint cols );
 // matrix*   mat_scale   ( matrix *mat, float scale );
 // void      mat_swapr   ( matrix *mat, uint p, uint q );
