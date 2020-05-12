@@ -466,25 +466,31 @@ matrix* mat_scale ( matrix *mat, float scale ) {
 * void mat_rmtiny ( matrix **mat, float tol )
 * Matrix entries smaller than 'tol' are replaced with values of zero.
 *******************************************************************************/
-// void mat_rmtiny ( matrix **mat, float tol ) {
+void mat_rmtiny ( matrix **mat, float tol ) {
 
-//   mat_err( tol < 0.0f, "Error (mat_rmtiny): Tolerance must be nonnegative." );
+  mat_err( ( tol < 0.0 ), "Error (mat_rmtiny): Tolerance must be nonnegative." );
 
-//   uint i, j, r, c;
-//   float val;
+  // uint i, j, r, c;
+  // float val;
+  // r = (*mat)->rows;
+  // c = (*mat)->cols;
+  // for( i=1; i<=r; i++ ) {
+  //   for( j=1; j<=c; j++ ) {
+  //     val = fabs( mat_get( *mat, i, j ) );
+  //     if( val < tol )  mat_set( *mat, i, j, 0.0 );
+  //   }
+  // }
 
-//   r = (*mat)->rows;
-//   c = (*mat)->cols;
 
-//   for( i=1; i<=r; i++ ) {
-//     for( j=1; j<=c; j++ ) {
-//       val = fabs( mat_get( *mat, i, j ) );
-//       if( val < tol )  mat_set( *mat, i, j, 0.0 );
-//     }
-//   }
 
-//   return;
-// }
+
+  for( float *ptr = (*mat)->data; ptr < (*mat)->data + ( (*mat)->rows * (*mat)->cols ); ptr++ )
+    if( fabs(*ptr) < tol )  *ptr = 0;
+
+
+
+  return;
+}
 
 
 

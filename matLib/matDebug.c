@@ -322,13 +322,13 @@ void MatManip ( void ) {
 //   mat_print( mat_appc(M33a,M33b) );
 //   mat_print( mat_appc(M44,M41) );
 
-//   // Remove tiny entries
-//   matrix *R = mat_init(2,2);
-//   mat_set( R, 1, 1, -0.1000f );  mat_set( R, 1, 2,  0.0100f );
-//   mat_set( R, 2, 1,  0.0010f );  mat_set( R, 2, 2, -0.0001f );
-//   mat_print(R);
-//   mat_rmtiny(&R,0.10f);
-//   mat_print(R);
+  // Remove tiny entries
+  matrix *R = mat_init(2,2);
+  mat_set( R, 1, 1, -0.1000 );  mat_set( R, 1, 2,  0.0100 );
+  mat_set( R, 2, 1,  0.0010 );  mat_set( R, 2, 2, -0.0001 );
+  mat_print(R);
+  mat_rmtiny(&R,0.001);
+  mat_print(R);
 
   // // Clear completed matrices
   // mat_clear(A);
@@ -337,7 +337,7 @@ void MatManip ( void ) {
   // mat_clear(N);
   // mat_clear(P);
   // mat_clear(Q);
-//   mat_clear(R);
+  mat_clear(R);
 
   // Exit MatManip debugging
   printf("\n");

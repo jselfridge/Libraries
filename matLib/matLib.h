@@ -58,7 +58,7 @@ matrix*   mat_scale   ( matrix *mat, float scale );
 // void      mat_swapc   ( matrix *mat, uint p, uint q );
 // matrix*   mat_appr    ( matrix *matT, matrix *matB );
 // matrix*   mat_appc    ( matrix *matL, matrix *matR );
-// void      mat_rmtiny  ( matrix **mat, float tol );
+void      mat_rmtiny  ( matrix **mat, float tol );
 
 
 // // MatComplex functions
