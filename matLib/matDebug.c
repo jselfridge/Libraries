@@ -221,16 +221,16 @@ void MatManip ( void ) {
 
   printf("Matrix manipulation functions \n");
 
-  // // File operations
-  // matrix *A = mat_init(5,2);
-  // printf( "Rows: %d \n", A->rows );
-  // printf( "Cols: %d \n", A->cols );
-  // mat_set( A, 3, 1, 1.2 );
-  // mat_set( A, 5, 2, 2.1 );
-  // mat_print(A);
-  // mat_write(A,"test");
-  // matrix *B = mat_read("test");
-  // mat_print(B);
+  // File operations
+  matrix *A = mat_init(5,2);
+  printf( "Rows: %d \n", A->rows );
+  printf( "Cols: %d \n", A->cols );
+  mat_set( A, 3, 1, 1.2 );
+  mat_set( A, 5, 2, 2.1 );
+  mat_print(A);
+  mat_write(A,"sample");
+  matrix *B = mat_read("sample");
+  mat_print(B);
 
 //   // Identity matrix
 //   matrix *M = mat_eye(4);
@@ -256,9 +256,9 @@ void MatManip ( void ) {
 //   val = mat_get( P, 3,2 );
 //   printf( "Element value: %f\n", val );
 
-//   // Ones matrix
-//   matrix *Q = mat_ones(5,2);
-//   mat_print(Q);
+  // Ones matrix
+  matrix *Q = mat_ones(5,3);
+  mat_print(Q);
 
 //   // Get matrix row
 //   mat_print( mat_getr( M22,  2 ) );
@@ -336,13 +336,13 @@ void MatManip ( void ) {
 //   mat_rmtiny(&R,0.10f);
 //   mat_print(R);
 
-//   // Clear completed matrices
-//   mat_clear(A); 
-//   mat_clear(B);
+  // Clear completed matrices
+  mat_clear(A);
+  mat_clear(B);
 //   mat_clear(M);
 //   mat_clear(N);
 //   mat_clear(P);
-//   mat_clear(Q);
+  mat_clear(Q);
 //   mat_clear(R);
 
   // Exit MatManip debugging

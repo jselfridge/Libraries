@@ -31,7 +31,7 @@ void mat_err ( bool cond, char *msg ) {
 *******************************************************************************/
 matrix* mat_init ( uint rows, uint cols ) {
 
-  mat_err( ( rows<1 || cols<1 ), "Error (mat_init): Matrix dimensions must be positive." );
+  mat_err( ( !rows || !cols ), "Error (mat_init): Matrix dimensions must be positive." );
 
   matrix *out;
   out = (matrix*) malloc( sizeof(matrix) );
@@ -98,44 +98,41 @@ void mat_print ( matrix *mat ) {
 * matrix* mat_read ( char *file )
 * Reads a matrix from a file.
 *******************************************************************************/
-// matrix* mat_read ( char *file ) {
+matrix* mat_read ( char *file ) {
 
-//   FILE *f;
-//   uint i, r, c, n;
-//   int scan;
-//   float val;
-//   matrix *out;
-//   float *data;
+  uint r, c;
+  int scan;
+  float val;
 
-//   f = fopen( file, "r" );
-//   mat_err( f==NULL, "Error (mat_read): Cannot open file." );
+  FILE *f = fopen( file, "r" );
+  mat_err( ( f == NULL ), "Error (mat_read): Cannot open file." );
 
-//   scan = fscanf( f, "#" );
-//   mat_err( scan==EOF, "Error (mat_read): Failed to read 'header' from file." );
+  scan = fscanf( f, "#" );
+  mat_err( ( scan == EOF ), "Error (mat_read): Failed to read 'header' from file." );
 
-//   scan = fscanf( f, "%d", &r );
-//   mat_err( scan==EOF, "Error (mat_read): Failed to read 'rows' from file." );
+  scan = fscanf( f, "%d", &r );
+  mat_err( ( scan == EOF ), "Error (mat_read): Failed to read 'rows' from file." );
 
-//   scan = fscanf( f, "%d", &c );
-//   mat_err( scan==EOF, "Error (mat_read): Failed to read 'cols' from file." );
+  scan = fscanf( f, "%d", &c );
+  mat_err( ( scan == EOF ), "Error (mat_read): Failed to read 'cols' from file." );
 
-//   n = r * c;
-//   out = mat_init(r,c);
-//   data = out->data;
+  uint n = r * c;
+  matrix *out = mat_init(r,c);
+  float *data = out->data;
 
-//   for( i=0; i<n; i++ ) {
-//     scan = fscanf( f, "%f", &val );
-//     mat_err( scan==EOF, "Error (mat_read): Matrix is missing elements." );
-//     *(data++) = val;
-//   }
+  for( uint i=0; i<n; i++ ) {
+    scan = fscanf( f, "%f", &val );
+    mat_err( ( scan == EOF ), "Error (mat_read): Matrix is missing elements." );
+    *(data++) = val;
+  }
 
-//   scan = fscanf( f, "%f", &val );
-//   mat_err( scan!=EOF, "Error (mat_read): Matrix has extra elements." );
+  scan = fscanf( f, "%f", &val );
+  mat_err( ( scan != EOF ), "Error (mat_read): Matrix has extra elements." );
 
-//   fclose(f);
+  fclose(f);
 
-//   return out;
-// }
+  return out;
+}
 
 
 
@@ -144,27 +141,21 @@ void mat_print ( matrix *mat ) {
 * void mat_write ( matrix *mat, char *file )
 * Writes a matrix to a file.
 *******************************************************************************/
-// void mat_write ( matrix *mat, char *file ) {
+void mat_write ( matrix *mat, char *file ) {
 
-//   FILE *f;
-//   uint r, c, i, j;
+  FILE *f = fopen( file, "w" );
+  mat_err( ( f == NULL ), "Error (mat_write): Cannot open file.\n" );
 
-//   r = mat->rows;
-//   c = mat->cols;
+  fprintf( f, "# %d %d \n", mat->rows, mat->cols );
+  for( uint i=1; i<=mat->rows; i++ ) {
+    for( uint j=1; j<=mat->cols; j++ )  fprintf( f, " %8.4f", mat_get( mat, i, j ) );
+    fprintf( f, "\n" );
+  }
 
-//   f = fopen( file, "w" );
-//   mat_err( f==NULL, "Error (mat_write): Cannot open file.\n" );
+  fclose(f);
 
-//   fprintf( f, "# %d %d \n", r, c );
-//   for( i=1; i<=r; i++ ) {
-//     for( j=1; j<=c; j++ )  fprintf( f, " %8.4f", mat_get( mat, i, j ) );
-//     fprintf( f, "\n" );
-//   }
-
-//   fclose(f);
-
-//   return;
-// }
+  return;
+}
 
 
 
@@ -175,10 +166,8 @@ void mat_print ( matrix *mat ) {
 *******************************************************************************/
 float mat_get ( matrix *mat, uint row, uint col ) {
 
-  mat_err( row > mat->rows, "Error (mat_get): Row index exceeds matrix dimensions."    );
-  mat_err( col > mat->cols, "Error (mat_get): Column index exceeds matrix dimensions." );
-  mat_err( row < 1,         "Error (mat_get): Row index must be positive."             );
-  mat_err( col < 1,         "Error (mat_get): Column index must be positive."          );
+  mat_err( ( !row || row > mat->rows ), "Error (mat_get): Row index exceeds matrix dimensions."    );
+  mat_err( ( !col || col > mat->cols ), "Error (mat_get): Column index exceeds matrix dimensions." );
 
   float *data = mat->data;
   uint offset = (row-1) * (mat->cols) + (col-1);
@@ -242,8 +231,8 @@ float mat_get ( matrix *mat, uint row, uint col ) {
 *******************************************************************************/
 void mat_set ( matrix *mat, uint row, uint col, float val ) {
 
-  mat_err( !row || row > mat->rows, "Error (mat_set): Row index exceeds matrix dimensions."    );
-  mat_err( !col || col > mat->cols, "Error (mat_set): Column index exceeds matrix dimensions." );
+  mat_err( ( !row || row > mat->rows ), "Error (mat_set): Row index exceeds matrix dimensions."    );
+  mat_err( ( !col || col > mat->cols ), "Error (mat_set): Column index exceeds matrix dimensions." );
 
   float *data = mat->data;
   uint offset = (row-1) * (mat->cols) + (col-1);
@@ -314,11 +303,11 @@ void mat_set ( matrix *mat, uint row, uint col, float val ) {
 *******************************************************************************/
 // matrix* mat_eye ( uint n ) {
 
-//   mat_err( n<1, "Error (mat_eye): Matrix dimension must be positive." );
+//   mat_err( ( !n ), "Error (mat_eye): Matrix dimension must be positive." );
 
-//   uint i;
 //   matrix *out = mat_init(n,n);
-//   for( i=1; i<=n; i++ )  mat_set( out, i, i, 1.0 );
+//   //for( uint i=1; i<=n; i++ )  mat_set( out, i, i, 1.0 );
+  
 
 //   return out;
 // }
@@ -330,22 +319,17 @@ void mat_set ( matrix *mat, uint row, uint col, float val ) {
 * matrix* mat_ones ( uint rows, uint cols )
 * Creates a new matrix filled with values of one.
 *******************************************************************************/
-// matrix* mat_ones ( uint rows, uint cols ) {
+matrix* mat_ones ( uint rows, uint cols ) {
 
-//   mat_err( rows < 1, "Error (mat_ones): Matrix rows must be a positive dimension."    );
-//   mat_err( cols < 1, "Error (mat_ones): Matrix columns must be a positive dimension." );
+  mat_err( (!rows), "Error (mat_ones): Matrix rows must be a positive."    );
+  mat_err( (!cols), "Error (mat_ones): Matrix columns must be a positive." );
 
-//   uint i, j;
-//   matrix *out = mat_init( rows, cols );
+  matrix *out = mat_init( rows, cols );
 
-//   for( i=1; i<=rows; i++ ) {
-//     for( j=1; j<=cols; j++ ) {
-//       mat_set( out, i, j, 1.0f );
-//     }
-//   }
+  for( float *ptr = out->data; ptr < out->data + ( out->rows * out->cols ); ptr++ )  *ptr = 1.0;
 
-//   return out;
-// }
+  return out;
+}
 
 
 
