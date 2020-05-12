@@ -148,7 +148,7 @@ void mat_write ( matrix *mat, char *file ) {
 
   fprintf( f, "# %d %d \n", mat->rows, mat->cols );
   for( uint i=1; i<=mat->rows; i++ ) {
-    for( uint j=1; j<=mat->cols; j++ )  fprintf( f, " %8.4f", mat_get( mat, i, j ) );
+    for( uint j=1; j<=mat->cols; j++ )  fprintf( f, " %e", mat_get( mat, i, j ) );
     fprintf( f, "\n" );
   }
 

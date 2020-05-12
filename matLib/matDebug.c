@@ -227,6 +227,8 @@ void MatManip ( void ) {
   printf( "Cols: %d \n", A->cols );
   mat_set( A, 3, 1, 1.2 );
   mat_set( A, 5, 2, 2.1 );
+  mat_set( A, 1, 2, 0.0000012345 );
+  mat_set( A, 5, 1, 1234560000.0 );
   mat_print(A);
   mat_write(A,"sample");
   matrix *B = mat_read("sample");
