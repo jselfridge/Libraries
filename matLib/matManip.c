@@ -388,34 +388,17 @@ void mat_swapc ( matrix *mat, uint p, uint q ) {
 * matrix* mat_appr ( matrix *matT, matrix *matB )
 * Appends two matrices, top to bottom.
 *******************************************************************************/
-// matrix* mat_appr ( matrix *matT, matrix *matB ) {
+matrix* mat_appr ( matrix *matT, matrix *matB ) {
 
-//   mat_err( matT->cols != matB->cols, "Error (mat_appr): Matrices must be the same width." );
+  mat_err( ( matT->cols != matB->cols ), "Error (mat_appr): Matrices must be the same width." );
 
-//   uint i, j, k, c, rt, rb;
-//   matrix *temp, *out;
+  matrix *out = mat_init( matT->rows + matB->rows, matT->cols );
 
-//   c  = matT->cols;
-//   rt = matT->rows;
-//   rb = matB->rows;
+  memcpy( out->data, matT->data, sizeof(float) * matT->rows * matT->cols );
+  memcpy( out->data + ( matT->rows * matT->cols ), matB->data, sizeof(float) * matB->rows * matT->cols );
 
-//   temp = mat_init(1,c);
-//   out  = mat_init( rt + rb, c );
-
-//   for ( i=1; i<=rt; i++ ) {
-//     temp = mat_getr( matT, i );
-//     mat_setr( out, i, temp );
-//   }
-
-//   for ( j=1; j<=rb; j++ ) {
-//     temp = mat_getr( matB, j );
-//     k = j + rt;
-//     mat_setr( out, k, temp );
-//   }
-
-//   mat_clear(temp);
-//   return out;
-// }
+  return out;
+}
 
 
 
@@ -424,34 +407,19 @@ void mat_swapc ( matrix *mat, uint p, uint q ) {
 * matrix* mat_appc ( matrix *matL, matrix *matR )
 * Appends two matrices, left to right.
 *******************************************************************************/
-// matrix* mat_appc ( matrix *matL, matrix *matR ) {
+matrix* mat_appc ( matrix *matL, matrix *matR ) {
 
-//   mat_err( matL->rows != matR->rows, "Error (mat_appc): Matrices must be the same height." );
+  mat_err( ( matL->rows != matR->rows ), "Error (mat_appc): Matrices must be the same height." );
 
-//   uint i, j, k, r, cl, cr;
-//   matrix *temp, *out;
+  matrix *out = mat_init( matL->rows, matL->cols + matR->cols );
 
-//   r  = matL->rows;
-//   cl = matL->cols;
-//   cr = matR->cols;
+  for( uint i=0; i<matL->rows; i++ ) {
+    memcpy( out->data + (i*out->cols),               matL->data + (i*matL->cols), sizeof(float) * matL->cols );
+    memcpy( out->data + (i*out->cols) + matL->cols , matR->data + (i*matR->cols), sizeof(float) * matR->cols );    
+  }
 
-//   temp = mat_init(r,1);
-//   out  = mat_init( r, cl + cr );
-
-//   for ( i=1; i<=cl; i++ ) {
-//     temp = mat_getc( matL, i );
-//     mat_setc( out, i, temp );
-//   }
-
-//   for ( j=1; j<=cr; j++ ) {
-//     temp = mat_getc( matR, j );
-//     k = j + cl;
-//     mat_setc( out, k, temp );
-//   }
-
-//   mat_clear(temp);
-//   return out;
-// }
+  return out;
+}
 
 
 

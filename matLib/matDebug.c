@@ -318,14 +318,15 @@ void MatManip ( void ) {
   // mat_swapc( M43, 2, 3 );
   // mat_print(M43);
 
-//   // Append rows
-//   mat_print( mat_appr( M33a, M33b ) );
-//   mat_print( mat_appr( M13,  M33a ) );
-//   mat_print( mat_appr( M44,  M14  ) );
+  // Append rows
+  // mat_print( mat_appr( M33a, M33b ) );
+  // mat_print( mat_appr( M13,  M33a ) );
+  // mat_print( mat_appr( M44,  M14  ) );
 
-//   // Append columns
-//   mat_print( mat_appc(M33a,M33b) );
-//   mat_print( mat_appc(M44,M41) );
+  // Append columns
+  // mat_print( mat_appc(M31b,M32) );
+  // mat_print( mat_appc(M33a,M33b) );
+  // mat_print( mat_appc(M44,M41) );
 
   // // Remove tiny entries
   // matrix *R = mat_init(2,2);

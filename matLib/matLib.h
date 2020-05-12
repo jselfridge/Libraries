@@ -56,8 +56,8 @@ matrix*   mat_ones    ( uint rows, uint cols );
 matrix*   mat_scale   ( matrix *mat, float scale );
 void      mat_swapr   ( matrix *mat, uint p, uint q );
 void      mat_swapc   ( matrix *mat, uint p, uint q );
-// matrix*   mat_appr    ( matrix *matT, matrix *matB );
-// matrix*   mat_appc    ( matrix *matL, matrix *matR );
+matrix*   mat_appr    ( matrix *matT, matrix *matB );
+matrix*   mat_appc    ( matrix *matL, matrix *matR );
 void      mat_rmtiny  ( matrix **mat, float tol );
 
 
