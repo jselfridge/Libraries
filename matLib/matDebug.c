@@ -221,129 +221,129 @@ void MatManip ( void ) {
 
   printf("Matrix manipulation functions \n");
 
-  // // File operations
-  // matrix *A = mat_init(5,2);
-  // printf( "Rows: %d \n", A->rows );
-  // printf( "Cols: %d \n", A->cols );
-  // mat_set( A, 3, 1, 1.2 );
-  // mat_set( A, 5, 2, 2.1 );
-  // mat_set( A, 1, 2, 0.0000012345 );
-  // mat_set( A, 5, 1, 1234560000.0 );
-  // mat_print(A);
-  // mat_write(A,"sample");
-  // matrix *B = mat_read("sample");
-  // mat_print(B);
+  // File operations
+  matrix *A = mat_init(5,2);
+  printf( "Rows: %d \n", A->rows );
+  printf( "Cols: %d \n", A->cols );
+  mat_set( A, 3, 1, 1.2 );
+  mat_set( A, 5, 2, 2.1 );
+  mat_set( A, 1, 2, 0.0000012345 );
+  mat_set( A, 5, 1, 1234560000.0 );
+  mat_print(A);
+  mat_write(A,"sample");
+  matrix *B = mat_read("sample");
+  mat_print(B);
 
-  // // Identity matrix
-  // matrix *M = mat_eye(4);
-  // mat_print(M);
+  // Identity matrix
+  matrix *M = mat_eye(4);
+  mat_print(M);
 
-  // // Scale matrix
-  // mat_set( M, 4,1, 0.1  );
-  // mat_set( M, 1,4, 10.0 );
-  // matrix *N = mat_scale( M, 3.2 );
-  // mat_print(N);
+  // Scale matrix
+  mat_set( M, 4,1, 0.1  );
+  mat_set( M, 1,4, 10.0 );
+  matrix *N = mat_scale( M, 3.2 );
+  mat_print(N);
 
-  // // Copy matrix
-  // mat_set( N, 3,2, 0.1  );
-  // mat_set( N, 2,3, 10.0 );
-  // matrix *P = mat_copy(N);
-  // mat_print(P);
+  // Copy matrix
+  mat_set( N, 3,2, 0.1  );
+  mat_set( N, 2,3, 10.0 );
+  matrix *P = mat_copy(N);
+  mat_print(P);
 
-  // // Ones matrix
-  // matrix *Q = mat_ones(5,3);
-  // mat_print(Q);
+  // Ones matrix
+  matrix *Q = mat_ones(5,3);
+  mat_print(Q);
 
-  // // Get matrix row
-  // mat_print( mat_getr( M22,  2 ) );
-  // mat_print( mat_getr( M32,  1 ) );
-  // mat_print( mat_getr( M33b, 3 ) );
-  // mat_print( mat_getr( M44,  4 ) );
+  // Get matrix row
+  mat_print( mat_getr( M22,  2 ) );
+  mat_print( mat_getr( M32,  1 ) );
+  mat_print( mat_getr( M33b, 3 ) );
+  mat_print( mat_getr( M44,  4 ) );
 
-  // // Get matrix column
-  // mat_print( mat_getc( M22,  2 ) );
-  // mat_print( mat_getc( M32,  1 ) );
-  // mat_print( mat_getc( M33b, 3 ) );
-  // mat_print( mat_getc( M44,  4 ) );
+  // Get matrix column
+  mat_print( mat_getc( M22,  2 ) );
+  mat_print( mat_getc( M32,  1 ) );
+  mat_print( mat_getc( M33b, 3 ) );
+  mat_print( mat_getc( M44,  4 ) );
 
-  // // Set matrix row
-  // mat_setr( M23, 2, M13 );
-  // mat_print(M23);
-  // mat_setr( M44, 1, M14 );
-  // mat_print(M44);
+  // Set matrix row
+  mat_setr( M23, 2, M13 );
+  mat_print(M23);
+  mat_setr( M44, 1, M14 );
+  mat_print(M44);
 
-  // // Set matrix column
-  // mat_setc( M32, 2, M31a );
-  // mat_print(M32);
-  // mat_setc( M44, 1, M41 );
-  // mat_print(M44);
+  // Set matrix column
+  mat_setc( M32, 2, M31a );
+  mat_print(M32);
+  mat_setc( M44, 1, M41 );
+  mat_print(M44);
 
-  // // Swap Rows [2x2]
-  // mat_print(M22);
-  // mat_swapr( M22, 1, 2 );
-  // mat_print(M22);
-  // mat_swapr( M22, 2, 1 );
-  // mat_print(M22);
+  // Swap Rows [2x2]
+  mat_print(M22);
+  mat_swapr( M22, 1, 2 );
+  mat_print(M22);
+  mat_swapr( M22, 2, 1 );
+  mat_print(M22);
 
-  // // Swap rows [3x2]
-  // mat_print(M32);
-  // mat_swapr( M32, 2, 3 );
-  // mat_print(M32);
-  // mat_swapr( M32, 3, 2 );
-  // mat_print(M32);
+  // Swap rows [3x2]
+  mat_print(M32);
+  mat_swapr( M32, 2, 3 );
+  mat_print(M32);
+  mat_swapr( M32, 3, 2 );
+  mat_print(M32);
 
-  // // Swap rows [4x4]
-  // mat_print(M44);
-  // mat_swapr( M44, 1, 3 );
-  // mat_print(M44);
-  // mat_swapr( M44, 2, 4 );
-  // mat_print(M44);
-  // mat_swapr( M44, 4, 2 );
-  // mat_swapr( M44, 3, 1 );
-  // mat_print(M44);
+  // Swap rows [4x4]
+  mat_print(M44);
+  mat_swapr( M44, 1, 3 );
+  mat_print(M44);
+  mat_swapr( M44, 2, 4 );
+  mat_print(M44);
+  mat_swapr( M44, 4, 2 );
+  mat_swapr( M44, 3, 1 );
+  mat_print(M44);
 
-  // // Swap cols [2x3]
-  // mat_print(M23);
-  // mat_swapc( M23, 1, 3 );
-  // mat_print(M23);
-  // mat_swapc( M23, 3, 1 );
-  // mat_print(M23);
+  // Swap cols [2x3]
+  mat_print(M23);
+  mat_swapc( M23, 1, 3 );
+  mat_print(M23);
+  mat_swapc( M23, 3, 1 );
+  mat_print(M23);
 
-  // // Swap col [4x3]
-  // mat_print(M43);
-  // mat_swapc( M43, 1, 1 );
-  // mat_print(M43);
-  // mat_swapc( M43, 3, 2 );
-  // mat_print(M43);
-  // mat_swapc( M43, 2, 3 );
-  // mat_print(M43);
+  // Swap col [4x3]
+  mat_print(M43);
+  mat_swapc( M43, 1, 1 );
+  mat_print(M43);
+  mat_swapc( M43, 3, 2 );
+  mat_print(M43);
+  mat_swapc( M43, 2, 3 );
+  mat_print(M43);
 
   // Append rows
-  // mat_print( mat_appr( M33a, M33b ) );
-  // mat_print( mat_appr( M13,  M33a ) );
-  // mat_print( mat_appr( M44,  M14  ) );
+  mat_print( mat_appr( M33a, M33b ) );
+  mat_print( mat_appr( M13,  M33a ) );
+  mat_print( mat_appr( M44,  M14  ) );
 
   // Append columns
-  // mat_print( mat_appc(M31b,M32) );
-  // mat_print( mat_appc(M33a,M33b) );
-  // mat_print( mat_appc(M44,M41) );
+  mat_print( mat_appc(M31b,M32) );
+  mat_print( mat_appc(M33a,M33b) );
+  mat_print( mat_appc(M44,M41) );
 
-  // // Remove tiny entries
-  // matrix *R = mat_init(2,2);
-  // mat_set( R, 1, 1, -0.1000 );  mat_set( R, 1, 2,  0.0100 );
-  // mat_set( R, 2, 1,  0.0010 );  mat_set( R, 2, 2, -0.0001 );
-  // mat_print(R);
-  // mat_rmtiny(&R,0.001);
-  // mat_print(R);
+  // Remove tiny entries
+  matrix *R = mat_init(2,2);
+  mat_set( R, 1, 1, -0.1000 );  mat_set( R, 1, 2,  0.0100 );
+  mat_set( R, 2, 1,  0.0010 );  mat_set( R, 2, 2, -0.0001 );
+  mat_print(R);
+  mat_rmtiny(&R,0.001);
+  mat_print(R);
 
-  // // Clear completed matrices
-  // mat_clear(A);
-  // mat_clear(B);
-  // mat_clear(M);
-  // mat_clear(N);
-  // mat_clear(P);
-  // mat_clear(Q);
-  // mat_clear(R);
+  // Clear completed matrices
+  mat_clear(A);
+  mat_clear(B);
+  mat_clear(M);
+  mat_clear(N);
+  mat_clear(P);
+  mat_clear(Q);
+  mat_clear(R);
 
   // Exit MatManip debugging
   printf("\n");

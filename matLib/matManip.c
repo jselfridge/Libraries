@@ -39,9 +39,10 @@ matrix* mat_init ( uint rows, uint cols ) {
 
   out->rows = rows;
   out->cols = cols;
-  out->data = (float*) malloc( rows * cols * sizeof(float) );
 
+  out->data = (float*) malloc( rows * cols * sizeof(float) );
   mat_err( ( out->data == NULL ), "Error (mat_init): Matrix data returned NULL." );
+
   memset( out->data, 0.0, rows * cols * sizeof(float) );
 
   return out;
@@ -79,12 +80,11 @@ void mat_clear ( matrix *mat ) {
 *******************************************************************************/
 void mat_print ( matrix *mat ) {
 
-  uint r = mat->rows;
-  uint c = mat->cols;
-
-  printf( "[%dx%d]\n", r, c );
-  for( uint i=1; i<=r; i++ ) {
-    for( uint j=1; j<=c; j++ )  printf( " %8.4f", mat_get( mat, i, j ) );
+  printf( "[%dx%d]\n", mat->rows, mat->cols );
+  for( uint i=1; i<=mat->rows; i++ ) {
+    for( uint j=1; j<=mat->cols; j++ ) {
+      printf( " %8.4f", mat_get( mat, i, j ) );
+    }
     printf("\n");
   }
 
@@ -148,7 +148,9 @@ void mat_write ( matrix *mat, char *file ) {
 
   fprintf( f, "# %d %d \n", mat->rows, mat->cols );
   for( uint i=1; i<=mat->rows; i++ ) {
-    for( uint j=1; j<=mat->cols; j++ )  fprintf( f, " %e", mat_get( mat, i, j ) );
+    for( uint j=1; j<=mat->cols; j++ ) {
+      fprintf( f, " %e", mat_get( mat, i, j ) );
+    }
     fprintf( f, "\n" );
   }
 
@@ -170,7 +172,6 @@ float mat_get ( matrix *mat, uint row, uint col ) {
   mat_err( ( !col || col > mat->cols ), "Error (mat_get): Column index exceeds matrix dimensions." );
 
   return *( mat->data + (row-1) * (mat->cols) + (col-1) );
-
 }
 
 
@@ -432,8 +433,9 @@ void mat_rmtiny ( matrix **mat, float tol ) {
 
   mat_err( ( tol < 0.0 ), "Error (mat_rmtiny): Tolerance must be nonnegative." );
 
-  for( float *ptr = (*mat)->data; ptr < (*mat)->data + ( (*mat)->rows * (*mat)->cols ); ptr++ )
+  for( float *ptr = (*mat)->data; ptr < (*mat)->data + ( (*mat)->rows * (*mat)->cols ); ptr++ ) {
     if( fabs(*ptr) < tol )  *ptr = 0.0;
+  }
 
   return;
 }
