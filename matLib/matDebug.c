@@ -250,33 +250,21 @@ void MatManip ( void ) {
   matrix *P = mat_copy(N);
   mat_print(P);
 
-//   // Set element values
-//   mat_set( P, 1,4, 14.0 );
-//   mat_set( P, 3,2, 32.0 );
-//   mat_print(P);
+  // Ones matrix
+  matrix *Q = mat_ones(5,3);
+  mat_print(Q);
 
-//   // Get element values
-//   double val;
-//   val = mat_get( P, 1,4 );
-//   printf( "Element value: %f\n", val );
-//   val = mat_get( P, 3,2 );
-//   printf( "Element value: %f\n", val );
+  // Get matrix row
+  mat_print( mat_getr( M22,  2 ) );
+  mat_print( mat_getr( M32,  1 ) );
+  mat_print( mat_getr( M33b, 3 ) );
+  mat_print( mat_getr( M44,  4 ) );
 
-  // // Ones matrix
-  // matrix *Q = mat_ones(5,3);
-  // mat_print(Q);
-
-//   // Get matrix row
-//   mat_print( mat_getr( M22,  2 ) );
-//   mat_print( mat_getr( M32,  1 ) );
-//   mat_print( mat_getr( M33b, 3 ) );
-//   mat_print( mat_getr( M44,  4 ) );
-
-//   // Get matrix column
-//   mat_print( mat_getc( M22,  2 ) );
-//   mat_print( mat_getc( M32,  1 ) );
-//   mat_print( mat_getc( M33b, 3 ) );
-//   mat_print( mat_getc( M44,  4 ) );
+  // Get matrix column
+  mat_print( mat_getc( M22,  2 ) );
+  mat_print( mat_getc( M32,  1 ) );
+  mat_print( mat_getc( M33b, 3 ) );
+  mat_print( mat_getc( M44,  4 ) );
 
 //   // Set matrix row
 //   mat_setr( M23, 2, M13 );
@@ -348,7 +336,7 @@ void MatManip ( void ) {
   mat_clear(M);
   mat_clear(N);
   mat_clear(P);
-  // mat_clear(Q);
+  mat_clear(Q);
 //   mat_clear(R);
 
   // Exit MatManip debugging

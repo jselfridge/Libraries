@@ -183,21 +183,16 @@ float mat_get ( matrix *mat, uint row, uint col ) {
 * matrix* mat_getr ( matrix *mat, uint row )
 * Returns the specified row of a matrix.
 *******************************************************************************/
-// matrix* mat_getr ( matrix *mat, uint row ) {
+matrix* mat_getr ( matrix *mat, uint row ) {
 
-//   mat_err( row > mat->rows, "Error (mat_getr): Row index exceeds matrix dimensions." );
-//   mat_err( row < 1,         "Error (mat_getr): Row index must be positive."          );
+  mat_err( ( !row || row > mat->rows ), "Error (mat_getr): Row index exceeds matrix dimensions." );
 
-//   uint i, c;
-//   matrix *out;
+  matrix *out = mat_init( 1, mat->cols );
 
-//   c = mat->cols;
-//   out = mat_init(1,c);
+  for( uint i=0; i<mat->cols; i++ )  *(out->data+i) = *( mat->data + (row-1) * mat->cols + i );
 
-//   for( i=1; i<=c; i++ )  mat_set( out, 1, i, mat_get( mat, row, i ) );
-
-//   return out;
-// }
+  return out;
+}
 
 
 
@@ -206,21 +201,16 @@ float mat_get ( matrix *mat, uint row, uint col ) {
 * matrix* mat_getc ( matrix *mat, uint col )
 * Returns the specified column of a matrix.
 *******************************************************************************/
-// matrix* mat_getc ( matrix *mat, uint col ) {
+matrix* mat_getc ( matrix *mat, uint col ) {
 
-//   mat_err( col > mat->cols, "Error (mat_getc): Column index exceeds matrix dimensions." );
-//   mat_err( col < 1,         "Error (mat_getc): Column index must be positive."          );
+  mat_err( ( !col || col > mat->cols ), "Error (mat_getc): Column index exceeds matrix dimensions." );
 
-//   uint i, r;
-//   matrix *out;
+  matrix *out = mat_init( mat->rows, 1 );
 
-//   r = mat->rows;
-//   out = mat_init(r,1);
+  for( uint i=0; i<mat->rows; i++ )  *(out->data+i) = *( mat->data + ( i * mat->cols ) + (col-1) );
 
-//   for( i=1; i<=r; i++ )  mat_set( out, i, 1, mat_get( mat, i, col ) );
-
-//   return out;
-// }
+  return out;
+}
 
 
 
@@ -311,6 +301,7 @@ matrix* mat_eye ( uint n ) {
   mat_err( (!n), "Error (mat_eye): Matrix dimension must be positive." );
 
   matrix *out = mat_init(n,n);
+
   for( float *ptr = out->data; ptr < out->data + ( out->rows * out->cols ); ptr += n+1 )  *ptr = 1.0;  
 
   return out;
