@@ -337,25 +337,16 @@ matrix* mat_ones ( uint rows, uint cols ) {
 * matrix* mat_scale ( matrix *mat, float scale )
 * Multiplies a matrix by a scalar with type float.
 *******************************************************************************/
-// matrix* mat_scale ( matrix *mat, float scale ) {
+matrix* mat_scale ( matrix *mat, float scale ) {
 
-//   uint r, c, i, j;
-//   float val;
-//   matrix *out;
+  matrix *out = mat_init( mat->rows, mat->cols );
 
-//   r = mat->rows;
-//   c = mat->cols;
-//   out = mat_init(r,c);
+  memcpy( out->data, mat->data, sizeof(float) * out->rows * out->cols );
 
-//   for( i=1; i<=r; i++ ) {
-//     for( j=1; j<=c; j++ ) {
-//       val = mat_get( mat, i, j ) * scale;
-//       mat_set( out, i, j, val );
-//     }
-//   }
+  for( float *ptr = out->data; ptr < out->data + ( out->rows * out->cols ); ptr++ )  *ptr *= scale;
 
-//   return out;
-// }
+  return out;
+}
 
 
 

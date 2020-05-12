@@ -238,9 +238,11 @@ void MatManip ( void ) {
   matrix *M = mat_eye(4);
   mat_print(M);
 
-//   // Scale matrix
-//   matrix *N = mat_scale(M,3.2);
-//   mat_print(N);
+  // Scale matrix
+  mat_set( M, 4,1, 0.1  );
+  mat_set( M, 1,4, 10.0 );
+  matrix *N = mat_scale( M, 3.2 );
+  mat_print(N);
 
 //   // Copy matrix
 //   matrix *P = mat_copy(N);
@@ -342,7 +344,7 @@ void MatManip ( void ) {
   mat_clear(A);
   mat_clear(B);
   mat_clear(M);
-//   mat_clear(N);
+  mat_clear(N);
 //   mat_clear(P);
   // mat_clear(Q);
 //   mat_clear(R);
