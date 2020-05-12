@@ -340,25 +340,22 @@ matrix* mat_scale ( matrix *mat, float scale ) {
 * void mat_swapr ( matrix *mat, uint p, uint q )
 * Swaps rows within a matrix.
 *******************************************************************************/
-// void mat_swapr ( matrix *mat, uint p, uint q ) {
+void mat_swapr ( matrix *mat, uint p, uint q ) {
 
-//   mat_err( mat->rows < 2,                  "Error (mat_swapr): Matrix must have at least two rows." );
-//   mat_err( mat->rows < p || mat->rows < q, "Error (mat_swapr): Row index exceeds matrix dimension." );
-//   mat_err( p<1 || q<1,                     "Error (mat_swapr): Row index must be positive."         );
+  mat_err( ( mat->rows < 2 ),       "Error (mat_swapr): Matrix must have at least two rows." );
+  mat_err( ( !p || p > mat->rows ), "Error (mat_swapr): Row index exceeds matrix dimension." );
+  mat_err( ( !q || q > mat->rows ), "Error (mat_swapr): Row index exceeds matrix dimension." );
 
-//   if( p == q )  return;
+  if( p == q )  return;
 
-//   matrix *pr = mat_getr(mat,p);
-//   matrix *qr = mat_getr(mat,q);
+  for( uint i=0; i<mat->cols; i++ ) {
+    float tmp = *( mat->data + (p-1) * (mat->cols) + i );
+    *( mat->data + (p-1) * (mat->cols) + i ) = *( mat->data + (q-1) * (mat->cols) + i );
+    *( mat->data + (q-1) * (mat->cols) + i ) = tmp;
+  }
 
-//   mat_setr( mat, p, qr );
-//   mat_setr( mat, q, pr );
-
-//   mat_clear(pr);
-//   mat_clear(qr);
-
-//   return;
-// }
+  return;
+}
 
 
 
@@ -367,25 +364,22 @@ matrix* mat_scale ( matrix *mat, float scale ) {
 * void mat_swapc ( matrix *mat, uint p, uint q )
 * Swaps columns within a matrix.
 *******************************************************************************/
-// void mat_swapc ( matrix *mat, uint p, uint q ) {
+void mat_swapc ( matrix *mat, uint p, uint q ) {
 
-//   mat_err( mat->cols < 2,                  "Error (mat_swapc): Matrix must have at least two columns." );
-//   mat_err( mat->cols < p || mat->cols < q, "Error (mat_swapc): Column index exceeds matrix dimension." );
-//   mat_err( p<1 || q<1,                     "Error (mat_swapc): Column index must be positive."         );
+  mat_err( ( mat->cols < 2 ),       "Error (mat_swapc): Matrix must have at least two columns." );
+  mat_err( ( !p || p > mat->cols ), "Error (mat_swapc): Column index exceeds matrix dimension." );
+  mat_err( ( !q || q > mat->cols ), "Error (mat_swapc): Column index exceeds matrix dimension." );
 
-//   if ( p == q )  return;
+  if ( p == q )  return;
 
-//   matrix *pc = mat_getc(mat,p);
-//   matrix *qc = mat_getc(mat,q);
+  for( uint i=0; i<mat->rows; i++ ) {
+    float tmp = *( mat->data + ( i * mat->cols ) + (p-1) );
+    *( mat->data + ( i * mat->cols ) + (p-1) ) = *( mat->data + ( i * mat->cols ) + (q-1) );
+    *( mat->data + ( i * mat->cols ) + (q-1) ) = tmp;
+  }
 
-//   mat_setc( mat, p, qc );
-//   mat_setc( mat, q, pc );
-
-//   mat_clear(pc);
-//   mat_clear(qc);
-
-//   return;
-// }
+  return;
+}
 
 
 
@@ -470,24 +464,8 @@ void mat_rmtiny ( matrix **mat, float tol ) {
 
   mat_err( ( tol < 0.0 ), "Error (mat_rmtiny): Tolerance must be nonnegative." );
 
-  // uint i, j, r, c;
-  // float val;
-  // r = (*mat)->rows;
-  // c = (*mat)->cols;
-  // for( i=1; i<=r; i++ ) {
-  //   for( j=1; j<=c; j++ ) {
-  //     val = fabs( mat_get( *mat, i, j ) );
-  //     if( val < tol )  mat_set( *mat, i, j, 0.0 );
-  //   }
-  // }
-
-
-
-
   for( float *ptr = (*mat)->data; ptr < (*mat)->data + ( (*mat)->rows * (*mat)->cols ); ptr++ )
-    if( fabs(*ptr) < tol )  *ptr = 0;
-
-
+    if( fabs(*ptr) < tol )  *ptr = 0.0;
 
   return;
 }

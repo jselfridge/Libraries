@@ -278,40 +278,45 @@ void MatManip ( void ) {
   // mat_setc( M44, 1, M41 );
   // mat_print(M44);
 
-//   // Swap Rows [2x2]
-//   mat_print(M22);
-//   mat_swapr( M22, 1, 2 );
-//   mat_print(M22);
-//   mat_swapr( M22, 2, 1 );
+  // // Swap Rows [2x2]
+  // mat_print(M22);
+  // mat_swapr( M22, 1, 2 );
+  // mat_print(M22);
+  // mat_swapr( M22, 2, 1 );
+  // mat_print(M22);
 
-//   // Swap rows [3x2]
-//   mat_print(M32);
-//   mat_swapr( M32, 2, 3 );
-//   mat_print(M32);
-//   mat_swapr( M32, 3, 2 );
+  // // Swap rows [3x2]
+  // mat_print(M32);
+  // mat_swapr( M32, 2, 3 );
+  // mat_print(M32);
+  // mat_swapr( M32, 3, 2 );
+  // mat_print(M32);
 
-//   // Swap rows [4x4]
-//   mat_print(M44);
-//   mat_swapr( M44, 1, 3 );
-//   mat_print(M44);
-//   mat_swapr( M44, 2, 4 );
-//   mat_print(M44);
-//   mat_swapr( M44, 4, 2 );
-//   mat_swapr( M44, 3, 1 );
+  // // Swap rows [4x4]
+  // mat_print(M44);
+  // mat_swapr( M44, 1, 3 );
+  // mat_print(M44);
+  // mat_swapr( M44, 2, 4 );
+  // mat_print(M44);
+  // mat_swapr( M44, 4, 2 );
+  // mat_swapr( M44, 3, 1 );
+  // mat_print(M44);
 
-//   // Swap cols [2x3]
-//   mat_print(M23);
-//   mat_swapc( M23, 1, 3 );
-//   mat_print(M23);
-//   mat_swapc( M23, 3, 1 );
+  // // Swap cols [2x3]
+  // mat_print(M23);
+  // mat_swapc( M23, 1, 3 );
+  // mat_print(M23);
+  // mat_swapc( M23, 3, 1 );
+  // mat_print(M23);
 
-//   // Swap col [4x3]
-//   mat_print(M43);
-//   mat_swapc( M43, 1, 1 );
-//   mat_print(M43);
-//   mat_swapc( M43, 3, 2 );
-//   mat_print(M43);
-//   mat_swapc( M43, 2, 3 );
+  // // Swap col [4x3]
+  // mat_print(M43);
+  // mat_swapc( M43, 1, 1 );
+  // mat_print(M43);
+  // mat_swapc( M43, 3, 2 );
+  // mat_print(M43);
+  // mat_swapc( M43, 2, 3 );
+  // mat_print(M43);
 
 //   // Append rows
 //   mat_print( mat_appr( M33a, M33b ) );
@@ -322,13 +327,13 @@ void MatManip ( void ) {
 //   mat_print( mat_appc(M33a,M33b) );
 //   mat_print( mat_appc(M44,M41) );
 
-  // Remove tiny entries
-  matrix *R = mat_init(2,2);
-  mat_set( R, 1, 1, -0.1000 );  mat_set( R, 1, 2,  0.0100 );
-  mat_set( R, 2, 1,  0.0010 );  mat_set( R, 2, 2, -0.0001 );
-  mat_print(R);
-  mat_rmtiny(&R,0.001);
-  mat_print(R);
+  // // Remove tiny entries
+  // matrix *R = mat_init(2,2);
+  // mat_set( R, 1, 1, -0.1000 );  mat_set( R, 1, 2,  0.0100 );
+  // mat_set( R, 2, 1,  0.0010 );  mat_set( R, 2, 2, -0.0001 );
+  // mat_print(R);
+  // mat_rmtiny(&R,0.001);
+  // mat_print(R);
 
   // // Clear completed matrices
   // mat_clear(A);
@@ -337,7 +342,7 @@ void MatManip ( void ) {
   // mat_clear(N);
   // mat_clear(P);
   // mat_clear(Q);
-  mat_clear(R);
+  // mat_clear(R);
 
   // Exit MatManip debugging
   printf("\n");
