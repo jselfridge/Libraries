@@ -38,16 +38,16 @@ typedef struct matrixz {
 
 
 // // MatManip Functions
-// void      mat_err     ( bool cond, char *msg );
-// matrix*   mat_init    ( uint rows, uint cols );
+void      mat_err     ( bool cond, char *msg );
+matrix*   mat_init    ( uint rows, uint cols );
+void      mat_clear   ( matrix *mat );
+void      mat_print   ( matrix *mat );
 // matrix*   mat_read    ( char *file );
-// void      mat_print   ( matrix *mat );
 // void      mat_write   ( matrix *mat, char *file );
-// void      mat_clear   ( matrix *mat );
-// float     mat_get     ( matrix *mat, uint row, uint col );
+float     mat_get     ( matrix *mat, uint row, uint col );
 // matrix*   mat_getr    ( matrix *mat, uint row );
 // matrix*   mat_getc    ( matrix *mat, uint col );
-// void      mat_set     ( matrix *mat, uint row, uint col, float val );
+void      mat_set     ( matrix *mat, uint row, uint col, float val );
 // void      mat_setr    ( matrix *mat, uint row, matrix *vec );
 // void      mat_setc    ( matrix *mat, uint col, matrix *vec );
 // matrix*   mat_copy    ( matrix *mat );

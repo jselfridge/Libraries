@@ -13,7 +13,7 @@ LIB         := libmat.a
 EXEC        := debug
 
 CC          := gcc
-CFLAGS      := -c -Wall -O2
+CFLAGS      := -c -Wall -Wconversion -fsingle-precision-constant -O2
 LFLAGS      := -L. -lm -lrt -lmat
 
 PREFIX      := /usr

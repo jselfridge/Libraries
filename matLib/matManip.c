@@ -17,9 +17,9 @@
 * void mat_err ( bool cond, char *msg )
 * If error condition is true, prints a warning and exits.
 *******************************************************************************/
-// void mat_err ( bool cond, char *msg ) {
-//   if(cond) {  fprintf( stderr, "%s\n\n", msg );  exit(1);  }
-// }
+void mat_err ( bool cond, char *msg ) {
+  if(cond)  {  fprintf( stderr, "%s\n\n", msg );  exit(1);  }
+}
 
 
 
@@ -29,23 +29,67 @@
 * Initializes a new matrix with the specified dimensions,
 * and sets the elements to values of zero.
 *******************************************************************************/
-// matrix* mat_init ( uint rows, uint cols )  {
+matrix* mat_init ( uint rows, uint cols ) {
 
-//   mat_err( ( rows<1 || cols<1 ), "Error (mat_init): Matrix dimensions must be positive." );
+  mat_err( ( rows<1 || cols<1 ), "Error (mat_init): Matrix dimensions must be positive." );
 
-//   matrix *out;
-//   out = (matrix *) malloc( sizeof(matrix) );
-//   mat_err( ( out == NULL ), "Error (mat_init): Matrix structure returned NULL." );
+  matrix *out;
+  out = (matrix*) malloc( sizeof(matrix) );
+  mat_err( ( out == NULL ), "Error (mat_init): Matrix structure returned NULL." );
 
-//   out->rows = rows;
-//   out->cols = cols;
-//   out->data = (float*) malloc( rows * cols * sizeof(float) );
+  out->rows = rows;
+  out->cols = cols;
+  out->data = (float*) malloc( rows * cols * sizeof(float) );
 
-//   mat_err( ( out->data == NULL ), "Error (mat_init): Matrix data returned NULL." );
-//   memset( out->data, 0.0, rows * cols * sizeof(float) );
+  mat_err( ( out->data == NULL ), "Error (mat_init): Matrix data returned NULL." );
+  memset( out->data, 0.0, rows * cols * sizeof(float) );
 
-//   return out;
-// }
+  return out;
+}
+
+
+
+
+/*******************************************************************************
+* void mat_clear ( matrix *mat )
+* Destroys an existing matrix and frees the memory.
+*******************************************************************************/
+void mat_clear ( matrix *mat ) {
+
+  float *data = mat->data;
+
+  if( mat != NULL ) {
+    if( data != NULL ) {
+      free(data);
+      data = NULL;
+    }
+    free(mat);
+    mat = NULL;
+  }
+
+  return;
+}
+
+
+
+
+/*******************************************************************************
+* void mat_print ( matrix *mat )
+* Displays a matrix within the terminal.
+*******************************************************************************/
+void mat_print ( matrix *mat ) {
+
+  uint r = mat->rows;
+  uint c = mat->cols;
+
+  printf( "[%dx%d]\n", r, c );
+  for( uint i=1; i<=r; i++ ) {
+    for( uint j=1; j<=c; j++ )  printf( " %8.4f", mat_get( mat, i, j ) );
+    printf("\n");
+  }
+
+  return;
+}
 
 
 
@@ -97,29 +141,6 @@
 
 
 /*******************************************************************************
-* void mat_print ( matrix *mat )
-* Displays a matrix in the terminal.
-*******************************************************************************/
-// void mat_print ( matrix *mat ) {
-
-//   uint r, c, i, j;
-
-//   r = mat->rows;
-//   c = mat->cols;
-
-//   printf( "[%dx%d]\n", r, c );
-//   for( i=1; i<=r; i++ ) {
-//     for( j=1; j<=c; j++ )  printf( " %8.4f", mat_get( mat, i, j ) );
-//     printf("\n");
-//   }
-
-//   return;
-// }
-
-
-
-
-/*******************************************************************************
 * void mat_write ( matrix *mat, char *file )
 * Writes a matrix to a file.
 *******************************************************************************/
@@ -149,48 +170,22 @@
 
 
 /*******************************************************************************
-* void mat_clear ( matrix *mat )
-* Destroys an existing matrix and frees the memory.
-*******************************************************************************/
-// void mat_clear ( matrix *mat ) {
-
-//   float *data = mat->data;
-
-//   if( mat != NULL ) {
-//     if( data != NULL ) {
-//       free(data);
-//       data = NULL;
-//     }
-//     free(mat);
-//     mat = NULL;
-//   }
-
-//   return;
-// }
-
-
-
-
-/*******************************************************************************
 * float mat_get ( matrix *mat, uint row, uint col )
 * Returns the value of a matrix element.
 *******************************************************************************/
-// float mat_get ( matrix *mat, uint row, uint col ) {
+float mat_get ( matrix *mat, uint row, uint col ) {
 
-//   mat_err( row > mat->rows, "Error (mat_get): Row index exceeds matrix dimensions."    );
-//   mat_err( col > mat->cols, "Error (mat_get): Column index exceeds matrix dimensions." );
-//   mat_err( row < 1,         "Error (mat_get): Row index must be positive."             );
-//   mat_err( col < 1,         "Error (mat_get): Column index must be positive."          );
+  mat_err( row > mat->rows, "Error (mat_get): Row index exceeds matrix dimensions."    );
+  mat_err( col > mat->cols, "Error (mat_get): Column index exceeds matrix dimensions." );
+  mat_err( row < 1,         "Error (mat_get): Row index must be positive."             );
+  mat_err( col < 1,         "Error (mat_get): Column index must be positive."          );
 
-//   float val;
-//   float *data = mat->data;
-//   uint offset = (row-1) * (mat->cols) + (col-1);
+  float *data = mat->data;
+  uint offset = (row-1) * (mat->cols) + (col-1);
+  data += offset;
 
-//   data += offset;
-//   val = *data;
-
-//   return val;
-// }
+  return *data;
+}
 
 
 
@@ -245,21 +240,19 @@
 * void mat_set ( matrix *mat, uint row, uint col, float val )
 * Assigns a value into a matrix element.
 *******************************************************************************/
-// void mat_set ( matrix *mat, uint row, uint col, float val ) {
+void mat_set ( matrix *mat, uint row, uint col, float val ) {
 
-//   mat_err( row > mat->rows, "Error (mat_set): Row index exceeds matrix dimensions."    );
-//   mat_err( col > mat->cols, "Error (mat_set): Column index exceeds matrix dimensions." );
-//   mat_err( row < 1,         "Error (mat_set): Row index must be positive."             );
-//   mat_err( col < 1,         "Error (mat_set): Column index must be positive."          );
+  mat_err( !row || row > mat->rows, "Error (mat_set): Row index exceeds matrix dimensions."    );
+  mat_err( !col || col > mat->cols, "Error (mat_set): Column index exceeds matrix dimensions." );
 
-//   float *data = mat->data;
-//   uint offset = (row-1) * (mat->cols) + (col-1);
+  float *data = mat->data;
+  uint offset = (row-1) * (mat->cols) + (col-1);
 
-//   data += offset;
-//   *data = val;
+  data += offset;
+  *data = val;
 
-//   return;
-// }
+  return;
+}
 
 
 
