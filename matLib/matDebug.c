@@ -244,9 +244,11 @@ void MatManip ( void ) {
   matrix *N = mat_scale( M, 3.2 );
   mat_print(N);
 
-//   // Copy matrix
-//   matrix *P = mat_copy(N);
-//   mat_print(P);
+  // Copy matrix
+  mat_set( N, 3,2, 0.1  );
+  mat_set( N, 2,3, 10.0 );
+  matrix *P = mat_copy(N);
+  mat_print(P);
 
 //   // Set element values
 //   mat_set( P, 1,4, 14.0 );
@@ -345,7 +347,7 @@ void MatManip ( void ) {
   mat_clear(B);
   mat_clear(M);
   mat_clear(N);
-//   mat_clear(P);
+  mat_clear(P);
   // mat_clear(Q);
 //   mat_clear(R);
 

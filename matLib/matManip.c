@@ -290,9 +290,14 @@ void mat_set ( matrix *mat, uint row, uint col, float val ) {
 * matrix* mat_copy ( matrix *mat )
 * Copies a matrix into a new matrix.
 *******************************************************************************/
-// matrix* mat_copy ( matrix *mat ) {
-//   return mat_scale( mat, 1.0f );
-// }
+matrix* mat_copy ( matrix *mat ) {
+
+  matrix *out = mat_init( mat->rows, mat->cols );
+
+  memcpy( out->data, mat->data, sizeof(float) * out->rows * out->cols );
+  
+  return out;
+}
 
 
 
