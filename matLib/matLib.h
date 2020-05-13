@@ -23,57 +23,57 @@
 
 // Matrix (real) structure
 typedef struct matrix {
-  uint rows;
-  uint cols;
-  float *data;
+  ushort  rows;
+  ushort  cols;
+  float*  data;
 } matrix;
 
 
 // Matrix (complex) structure
 typedef struct matrixz {
-  uint rows;
-  uint cols;
-  float complex *data;
+  ushort          rows;
+  ushort          cols;
+  float complex*  data;
 } matrixz;
 
 
 // // MatManip Functions
-void      mat_err     ( bool cond, char *msg );
-matrix*   mat_init    ( uint rows, uint cols );
-void      mat_clear   ( matrix *mat );
-void      mat_print   ( matrix *mat );
-matrix*   mat_read    ( char *file );
-void      mat_write   ( matrix *mat, char *file );
-float     mat_get     ( matrix *mat, uint row, uint col );
-matrix*   mat_getr    ( matrix *mat, uint row );
-matrix*   mat_getc    ( matrix *mat, uint col );
-void      mat_set     ( matrix *mat, uint row, uint col, float val );
-void      mat_setr    ( matrix *mat, uint row, matrix *vec );
-void      mat_setc    ( matrix *mat, uint col, matrix *vec );
-matrix*   mat_copy    ( matrix *mat );
-matrix*   mat_eye     ( uint n );
-matrix*   mat_ones    ( uint rows, uint cols );
-matrix*   mat_scale   ( matrix *mat, float scale );
-void      mat_swapr   ( matrix *mat, uint p, uint q );
-void      mat_swapc   ( matrix *mat, uint p, uint q );
-matrix*   mat_appr    ( matrix *matT, matrix *matB );
-matrix*   mat_appc    ( matrix *matL, matrix *matR );
-void      mat_rmtiny  ( matrix **mat, float tol );
+void      mat_err     ( bool cond, char* msg );
+matrix*   mat_init    ( ushort rows, ushort cols );
+void      mat_clear   ( matrix* mat );
+void      mat_print   ( matrix* mat );
+matrix*   mat_read    ( char* file );
+void      mat_write   ( matrix* mat, char* file );
+float     mat_get     ( matrix* mat, ushort row, ushort col );
+matrix*   mat_getr    ( matrix* mat, ushort row );
+matrix*   mat_getc    ( matrix* mat, ushort col );
+void      mat_set     ( matrix* mat, ushort row, ushort col, float val );
+void      mat_setr    ( matrix* mat, ushort row, matrix* vec );
+void      mat_setc    ( matrix* mat, ushort col, matrix* vec );
+matrix*   mat_copy    ( matrix* mat );
+matrix*   mat_eye     ( ushort n );
+matrix*   mat_ones    ( ushort rows, ushort cols );
+matrix*   mat_scale   ( matrix* mat, float scale );
+void      mat_swapr   ( matrix* mat, ushort p, ushort q );
+void      mat_swapc   ( matrix* mat, ushort p, ushort q );
+matrix*   mat_appr    ( matrix* matT, matrix* matB );
+matrix*   mat_appc    ( matrix* matL, matrix* matR );
+void      mat_rmtiny  ( matrix** mat, float tol );
 
 
 // // MatComplex functions
-// matrixz*  mat_initz   ( uint rows, uint cols );
-// matrixz*  mat_readz   ( char *file );
-// void      mat_printz  ( matrixz *mat );
-// void      mat_writez  ( matrixz *mat, char *file );
-// void      mat_clearz  ( matrixz *mat );
-// float     mat_getre   ( matrixz *mat, uint row, uint col );
-// float     mat_getim   ( matrixz *mat, uint row, uint col );
-// matrixz*  mat_getrz   ( matrixz *mat, uint row );
-// matrixz*  mat_getcz   ( matrixz *mat, uint col );
-// void      mat_setz    ( matrixz *mat, uint row, uint col, float re, float im );
-// void      mat_setrz   ( matrixz *mat, uint row, matrixz *vec );
-// void      mat_setcz   ( matrixz *mat, uint col, matrixz *vec );
+// matrixz*  mat_initz   ( ushort rows, ushort cols );
+// void      mat_clearz  ( matrixz* mat );
+// void      mat_printz  ( matrixz* mat );
+// matrixz*  mat_readz   ( char* file );
+// void      mat_writez  ( matrixz* mat, char* file );
+// float     mat_getre   ( matrixz* mat, ushort row, ushort col );
+// float     mat_getim   ( matrixz* mat, ushort row, ushort col );
+// matrixz*  mat_getrz   ( matrixz* mat, ushort row );
+// matrixz*  mat_getcz   ( matrixz* mat, ushort col );
+// void      mat_setz    ( matrixz* mat, ushort row, ushort col, float re, float im );
+// void      mat_setrz   ( matrixz* mat, ushort row, matrixz* vec );
+// void      mat_setcz   ( matrixz* mat, ushort col, matrixz* vec );
 
 
 // // MatVec functions
