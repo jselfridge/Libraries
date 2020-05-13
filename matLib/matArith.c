@@ -14,19 +14,19 @@
 
 
 /*******************************************************************************
-* matrix* mat_add ( matrix *matA, matrix *matB )
+* matrix* mat_add ( matrix* matA, matrix* matB )
 * Adds two matrices with indentical dimensions.
 *******************************************************************************/
-// matrix* mat_add ( matrix *matA, matrix *matB ) {
+// matrix* mat_add ( matrix* matA, matrix* matB ) {
 
 //   mat_err( matA->rows != matB->rows, "Error (mat_add): Matrices must have same number of rows."    );
 //   mat_err( matA->cols != matB->cols, "Error (mat_add): Matrices must have same number of columns." );
 
-//   uint i, j;
+//   ushort i, j;
 //   float a, b;
-//   uint r = matA->rows;
-//   uint c = matA->cols;
-//   matrix *add = mat_init(r,c);
+//   ushort r = matA->rows;
+//   ushort c = matA->cols;
+//   matrix* add = mat_init(r,c);
 
 //   for( i=1; i<=r; i++ ) {
 //     for( j=1; j<=c; j++ ) {
@@ -43,19 +43,19 @@
 
 
 /*******************************************************************************
-* matrix* mat_sub ( matrix *matA, matrix *matB )
+* matrix* mat_sub ( matrix* matA, matrix* matB )
 * Subtracts two matrices with indentical dimensions.
 *******************************************************************************/
-// matrix* mat_sub ( matrix *matA, matrix *matB ) {
+// matrix* mat_sub ( matrix* matA, matrix* matB ) {
 
 //   mat_err( matA->rows != matB->rows, "Error (mat_sub): Matrices must have same number of rows."    );
 //   mat_err( matA->cols != matB->cols, "Error (mat_sub): Matrices must have same number of columns." );
 
-//   uint i, j;
+//   ushort i, j;
 //   float a, b;
-//   uint r = matA->rows;
-//   uint c = matA->cols;
-//   matrix *sub = mat_init(r,c);
+//   ushort r = matA->rows;
+//   ushort c = matA->cols;
+//   matrix* sub = mat_init(r,c);
 
 //   for( i=1; i<=r; i++ ) {
 //     for( j=1; j<=c; j++ ) {
@@ -72,19 +72,19 @@
 
 
 /*******************************************************************************
-* matrix* mat_emul ( matrix *matA, matrix *matB )
+* matrix* mat_emul ( matrix* matA, matrix* matB )
 * Element-wise multiplication of two matrices with identical dimensions.
 *******************************************************************************/
-// matrix* mat_emul ( matrix *matA, matrix *matB ) {
+// matrix* mat_emul ( matrix* matA, matrix* matB ) {
 
 //   mat_err( matA->rows != matB->rows, "Error (mat_emul): Matrices must have same number of rows."    );
 //   mat_err( matA->cols != matB->cols, "Error (mat_emul): Matrices must have same number of columns." );
 
-//   uint i, j;
+//   ushort i, j;
 //   float a, b;
-//   uint r = matA->rows;
-//   uint c = matA->cols;
-//   matrix *emul = mat_init(r,c);
+//   ushort r = matA->rows;
+//   ushort c = matA->cols;
+//   matrix* emul = mat_init(r,c);
 
 //   for( i=1; i<=r; i++ ) {
 //     for( j=1; j<=c; j++ ) {
@@ -101,19 +101,19 @@
 
 
 /*******************************************************************************
-* matrix* mat_ediv ( matrix *matA, matrix *matB )
+* matrix* mat_ediv ( matrix* matA, matrix* matB )
 * Element-wise division of two matrices with identical dimensions.
 *******************************************************************************/
-// matrix* mat_ediv ( matrix *matA, matrix *matB ) {
+// matrix* mat_ediv ( matrix* matA, matrix* matB ) {
 
 //   mat_err( matA->rows != matB->rows, "Error (mat_ediv): Matrices must have same number of rows."    );
 //   mat_err( matA->cols != matB->cols, "Error (mat_ediv): Matrices must have same number of columns." );
 
-//   uint i, j;
+//   ushort i, j;
 //   float a, b;
-//   uint r = matA->rows;
-//   uint c = matA->cols;
-//   matrix *ediv = mat_init(r,c);
+//   ushort r = matA->rows;
+//   ushort c = matA->cols;
+//   matrix* ediv = mat_init(r,c);
 
 //   for( i=1; i<=r; i++ ) {
 //     for( j=1; j<=c; j++ ) {
@@ -130,18 +130,18 @@
 
 
 /*******************************************************************************
-* matrix* mat_mul ( matrix *matA, matrix *matB )
+* matrix* mat_mul ( matrix* matA, matrix* matB )
 * Multiplication of two matrices with proper dimensions.
 *******************************************************************************/
-// matrix* mat_mul ( matrix *matA, matrix *matB ) {
+// matrix* mat_mul ( matrix* matA, matrix* matB ) {
 
 //   mat_err( matA->cols != matB->rows, "Error (mat_mul): Matrix dimensions do not agree." );
 
-//   uint i, j, k;
+//   ushort i, j, k;
 //   float a, b, val;
-//   uint r = matA->rows;
-//   uint c = matB->cols;
-//   matrix *mul = mat_init(r,c);
+//   ushort r = matA->rows;
+//   ushort c = matB->cols;
+//   matrix* mul = mat_init(r,c);
 
 //   for( i=1; i<=r; i++ ) {
 //     for( j=1; j<=c; j++ ) {
@@ -162,16 +162,16 @@
 
 
 /*******************************************************************************
-* matrix* mat_inv ( matrix *mat )
+* matrix* mat_inv ( matrix* mat )
 * Calculates the inverse of a square matrix
 *******************************************************************************/
 /*
-matrix* mat_inv ( matrix *mat ) {
+matrix* mat_inv ( matrix* mat ) {
 
   mat_err( mat->rows != mat->cols, "Error (mat_inv): Matrix must be square." );
 
-  matrix *eye = mat_eye( mat->rows );
-  matrix *inv = mat_divL( mat, eye );
+  matrix* eye = mat_eye( mat->rows );
+  matrix* inv = mat_divL( mat, eye );
 
   mat_clear(eye);
 
@@ -182,32 +182,31 @@ matrix* mat_inv ( matrix *mat ) {
 
 
 /*******************************************************************************
-* matrix* mat_divL ( matrix *matA, matrix *matB )
+* matrix* mat_divL ( matrix* matA, matrix* matB )
 * Solves for X in AX=B; which is equivalent to X=A\B.
 *******************************************************************************/
 /*
-matrix* mat_divL ( matrix *matA, matrix *matB ) {
+matrix* mat_divL ( matrix* matA, matrix* matB ) {
 
   // Error checking
   mat_err( matA->rows != matA->cols, "Error (mat_divL): A matrix must be square. "        );
   mat_err( matA->rows != matB->rows, "Error (mat_divL): A and B must be the same height." );
 
   // Local variables
-  uint r, c, i, j, k;
+  ushort r, c, i, j, k;
   float val;
-  matrix *Q, *R, *Y, *X;
 
   // Dimensions
   r = matB->rows;
   c = matB->cols;
 
   // Initialize matrices
-  Y = mat_init(r,c);
-  X = mat_init(r,c);
+  matrix* Y = mat_init(r,c);
+  matrix* X = mat_init(r,c);
 
   // QR factorization
-  Q = NULL;
-  R = NULL;
+  matrix* Q = NULL;
+  matrix* R = NULL;
   mat_QR( matA, &Q, &R );
 
   // Solve intermediate matrix
@@ -235,16 +234,16 @@ matrix* mat_divL ( matrix *matA, matrix *matB ) {
 
 
 /*******************************************************************************
-* matrix* mat_divR ( matrix *matA, matrix *matB )
+* matrix* mat_divR ( matrix* matA, matrix* matB )
 * Solves for X in XA=B; which is equivalent to X=B/A.
 *******************************************************************************/
 /*
-matrix* mat_divR ( matrix *matA, matrix *matB ) {
+matrix* mat_divR ( matrix* matA, matrix* matB ) {
 
   mat_err( matA->rows != matA->cols, "Error (mat_divR): A matrix must be square.       " );
   mat_err( matA->cols != matB->cols, "Error (mat_divR): A and B must be the same width." );
 
-  matrix *X = mat_init( matB->rows, matB->cols );
+  matrix* X = mat_init( matB->rows, matB->cols );
 
   X = mat_mul( matB, mat_inv(matA) );
 
@@ -255,17 +254,17 @@ matrix* mat_divR ( matrix *matA, matrix *matB ) {
 
 
 /*******************************************************************************
-* matrix* mat_pow ( matrix *mat, uint power )
+* matrix* mat_pow ( matrix* mat, ushort power )
 * Raises a square matrix to a specified power.
 *******************************************************************************/
-// matrix* mat_pow ( matrix *mat, uint power ) {
+// matrix* mat_pow ( matrix* mat, ushort power ) {
 
 //   mat_err( mat->rows != mat->cols, "Error (mat_pow): Matrix must be square."        );
 //   mat_err( power < 0,              "Error (mat_pow): Exponent must be nonnegative." );
 
-//   uint i;
-//   uint n = mat->rows;
-//   matrix *pow;
+//   ushort i;
+//   ushort n = mat->rows;
+//   matrix* pow;
 
 //   if      ( power == 0 )  pow = mat_eye(n);
 //   else if ( power == 1 )  pow = mat_copy(mat);
@@ -284,14 +283,14 @@ matrix* mat_divR ( matrix *matA, matrix *matB ) {
 
 
 /*******************************************************************************
-* matrix* mat_abs ( matrix *mat )
+* matrix* mat_abs ( matrix* mat )
 * Applies absolute value to all elements within a matrix.
 *******************************************************************************/
-// matrix* mat_abs ( matrix *mat ) {
+// matrix* mat_abs ( matrix* mat ) {
 
-//   uint i, j, r, c;
+//   ushort i, j, r, c;
 //   float val;
-//   matrix *abs;
+//   matrix* abs;
 
 //   r = mat->rows;
 //   c = mat->cols;
@@ -311,14 +310,14 @@ matrix* mat_divR ( matrix *matA, matrix *matB ) {
 
 
 /*******************************************************************************
-* matrix* mat_trans ( matrix *mat )
+* matrix* mat_trans ( matrix* mat )
 * Returns the transpose of a rectangular matrix.
 *******************************************************************************/
-// matrix* mat_trans ( matrix *mat ) {
+// matrix* mat_trans ( matrix* mat ) {
 
-//   uint i, j, r, c;
+//   ushort i, j, r, c;
 //   float val;
-//   matrix *trans;
+//   matrix* trans;
 
 //   r = mat->rows;
 //   c = mat->cols;
