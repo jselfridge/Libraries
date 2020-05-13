@@ -16,31 +16,31 @@
 /*******************************************************************************
 * Local internal function declarations.
 *******************************************************************************/
-// float          B  ( matrix  *coef );
-// void           Z  ( matrixz *zero, float b );
-// void           L  ( matrixz *zero, matrix *coef, float tol, uint max );
-// float complex  N  ( matrixz *zero, matrix *coef, uint j );
-// float complex  D  ( matrixz *zero, uint j );
+// float          B  ( matrix*  coef );
+// void           Z  ( matrixz* zero, float b );
+// void           L  ( matrixz* zero, matrix* coef, float tol, ushort max );
+// float complex  N  ( matrixz* zero, matrix* coef, ushort j );
+// float complex  D  ( matrixz* zero, ushort j );
 
 
 
 
 /*******************************************************************************
-* matrixz* mat_root ( matrix *poly, float tol, uint max )
+* matrixz* mat_root ( matrix* poly, float tol, ushort max )
 * Returns complex roots of a polynomial using Durand-Kerner method.
 *******************************************************************************/
-// matrixz* mat_root ( matrix *poly, float tol, uint max ) {
+// matrixz* mat_root ( matrix* poly, float tol, ushort max ) {
 
 //   mat_err( poly->rows != 1, "Error (mat_root): Polynomial must be a row vector." );
 
-//   uint i, j, c, z;
+//   ushort i, j, c, z;
 //   float m, b;
 
 //   c = poly->cols;
 //   z = c-1;
 
-//   matrix *coef = mat_init(c,1);
-//   matrixz *zero = mat_initz(z,1);
+//   matrix* coef = mat_init(c,1);
+//   matrixz* zero = mat_initz(z,1);
 
 //   m = mat_get( poly, 1, 1 );
 //   if( m != 1.0 )  poly = mat_scale( poly, 1/m );
@@ -65,9 +65,9 @@
 /*******************************************************************************
 * Auxilliary function that bounds the coefficients.
 *******************************************************************************/
-// float B ( matrix *coef ) {
+// float B ( matrix* coef ) {
 
-//   uint i, c;
+//   ushort i, c;
 //   float val, b = 0.0f;
 
 //   c = coef->rows;
@@ -86,9 +86,9 @@
 /*******************************************************************************
 * Auxilliary function initializes values of the complex zeros.
 *******************************************************************************/
-// void Z ( matrixz *zero, float b ) {
+// void Z ( matrixz* zero, float b ) {
 
-//   uint i, z;
+//   ushort i, z;
 //   float re, im, ratio;
 
 //   z = zero->rows;
@@ -109,9 +109,9 @@
 /*******************************************************************************
 * Auxilliary function loops through the numerical routine.
 *******************************************************************************/
-// void L ( matrixz *zero, matrix *coef, float tol, uint max ) {
+// void L ( matrixz* zero, matrix* coef, float tol, ushort max ) {
 
-//   uint j, k, z;
+//   ushort j, k, z;
 //   float q, qmax;
 //   float complex n, d, Q, Z;
 
@@ -143,9 +143,9 @@
 /*******************************************************************************
 * Auxilliary function generates the iterative numerator.
 *******************************************************************************/
-// float complex N ( matrixz *zero, matrix *coef, uint j ) {
+// float complex N ( matrixz* zero, matrix* coef, ushort j ) {
 
-//   uint i, c, z;
+//   ushort i, c, z;
 //   float re, im;
 //   float complex C, Z, n;
 
@@ -170,9 +170,9 @@
 /*******************************************************************************
 * Auxilliary function generates the iterative denominator.
 *******************************************************************************/
-// float complex D ( matrixz *zero, uint j ) {
+// float complex D ( matrixz* zero, ushort j ) {
 
-//   uint i, z;
+//   ushort i, z;
 //   float complex zi, zj, d;
 
 //   z = zero->rows;
