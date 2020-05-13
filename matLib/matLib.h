@@ -37,7 +37,7 @@ typedef struct matrixz {
 } matrixz;
 
 
-// // MatManip Functions
+// MatManip Functions
 void      mat_err     ( bool cond, char* msg );
 matrix*   mat_init    ( ushort rows, ushort cols );
 void      mat_clear   ( matrix* mat );
@@ -77,48 +77,48 @@ void      mat_rmtiny  ( matrix** mat, float tol );
 
 
 // // MatVec functions
-// matrix*   mat_skew    ( matrix *vec );
-// matrix*   mat_sskew   ( matrix *vec );
-// matrix*   mat_cross   ( matrix *vecA, matrix *vecB );
-// float     mat_dot     ( matrix *vecA, matrix *vecB );
-// float     mat_norm    ( matrix *vec, uint p );
-// float     mat_mag     ( matrix *vec );
-// matrix*   mat_uvec    ( matrix *vec );
-// matrix*   mat_proj    ( matrix *u, matrix *v );
+// matrix*  mat_skew   ( matrix* vec );
+// matrix*  mat_sskew  ( matrix* vec );
+// matrix*  mat_cross  ( matrix* vecA, matrix* vecB );
+// float    mat_dot    ( matrix* vecA, matrix* vecB );
+// float    mat_norm   ( matrix* vec, ushort p );
+// float    mat_mag    ( matrix* vec );
+// matrix*  mat_uvec   ( matrix* vec );
+// matrix*  mat_proj   ( matrix* u, matrix *v );
 
 
 // // MatArith functions
-// matrix*   mat_add     ( matrix *matA, matrix *matB );
-// matrix*   mat_sub     ( matrix *matA, matrix *matB );
-// matrix*   mat_emul    ( matrix *matA, matrix *matB );
-// matrix*   mat_ediv    ( matrix *matA, matrix *matB );
-// matrix*   mat_mul     ( matrix *matA, matrix *matB );
-// //matrix*   mat_inv     ( matrix *mat );
-// //matrix*   mat_divL    ( matrix *matA, matrix *matB );
-// //matrix*   mat_divR    ( matrix *matA, matrix *matB );
-// matrix*   mat_pow     ( matrix *mat, uint power );
-// matrix*   mat_abs     ( matrix *mat );
-// matrix*   mat_trans   ( matrix *mat );
+// matrix*  mat_add    ( matrix* matA, matrix* matB );
+// matrix*  mat_sub    ( matrix* matA, matrix* matB );
+// matrix*  mat_emul   ( matrix* matA, matrix* matB );
+// matrix*  mat_ediv   ( matrix* matA, matrix* matB );
+// matrix*  mat_mul    ( matrix* matA, matrix* matB );
+// //matrix*  mat_inv    ( matrix* mat );
+// //matrix*  mat_divL   ( matrix* matA, matrix* matB );
+// //matrix*  mat_divR   ( matrix* matA, matrix* matB );
+// matrix*  mat_pow    ( matrix* mat, ushort power );
+// matrix*  mat_abs    ( matrix* mat );
+// matrix*  mat_trans  ( matrix* mat );
 
 
 // // MatRoot function
-// matrixz*  mat_root    ( matrix *poly, float tol, uint max );
+// matrixz*  mat_root  ( matrix* poly, float tol, ushort max );
 
 
 // // MatProp functions
-// double    mat_det     ( matrix *mat );
-// double    mat_trace   ( matrix *mat );
-// bool      mat_sym     ( matrix *mat, double tol );
+// float  mat_det    ( matrix* mat );
+// float  mat_trace  ( matrix* mat );
+// bool   mat_sym    ( matrix* mat, float tol );
 
 
 // // MatDecomp functions
-// void      mat_LU      ( matrix *mat, matrix **L, matrix **U );
-// void      mat_LDU     ( matrix *mat, matrix **L, matrix **D, matrix **U );
-// void      mat_QR      ( matrix *mat, matrix **Q, matrix **R );     //---  TODO: QR factorization on short matrices  ---//
-// //void      mat_chol    ( double a[], uint n, uint nn, double u[], uint *nullty, uint *ifault );
-// //void      mat_syminv  ( double a[], uint n, double c[], double w[], uint *nullty, uint *ifault );
-// matrix*   mat_tri2vec ( matrix *tri );
-// matrix*   mat_vec2tri ( matrix *vec );
+// void     mat_LU      ( matrix* mat, matrix** L, matrix** U );
+// void     mat_LDU     ( matrix* mat, matrix** L, matrix** D, matrix** U );
+// void     mat_QR      ( matrix* mat, matrix** Q, matrix** R );     //---  TODO: QR factorization on short matrices  ---//
+// //void     mat_chol    ( float a[], ushort n, ushort nn, float u[], ushort* nullty, ushort* ifault );
+// //void     mat_syminv  ( float a[], ushort n, float c[], float w[], ushort* nullty, ushort* ifault );
+// matrix*  mat_tri2vec ( matrix* tri );
+// matrix*  mat_vec2tri ( matrix* vec );
 
 
 #endif
