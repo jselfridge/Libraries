@@ -45,13 +45,8 @@ typedef struct matrixz {
            }                                    \
          })
 
-// void mat_err ( bool cond, char* msg ) {
-//   if(cond)  {  fprintf( stderr, "%s\n\n", msg );  exit(1);  }
-// }
-
 
 // MatManip Functions
-//void      mat_err     ( bool cond, char* msg );
 matrix*   mat_init    ( uint rows, uint cols );
 void      mat_clear   ( matrix* mat );
 void      mat_print   ( matrix* mat );

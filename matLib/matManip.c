@@ -14,17 +14,6 @@
 
 
 /*******************************************************************************
-* void mat_err ( bool cond, char* msg )
-* If error condition is true, prints a warning and exits.
-*******************************************************************************/
-// void mat_err ( bool cond, char* msg ) {
-//   if(cond)  {  fprintf( stderr, "%s\n\n", msg );  exit(1);  }
-// }
-
-
-
-
-/*******************************************************************************
 * matrix* mat_init ( uint rows, uint cols )
 * Initializes a new matrix with the specified dimensions,
 * and sets the elements to values of zero.
@@ -33,8 +22,7 @@ matrix* mat_init ( uint rows, uint cols ) {
 
   mat_err( ( !rows || !cols ), "Error (mat_init): Matrix dimensions must be positive." );
 
-  matrix* out;
-  out = (matrix*) malloc( sizeof(matrix) );
+  matrix* out = (matrix*) malloc( sizeof(matrix) );
   mat_err( ( out == NULL ), "Error (mat_init): Matrix structure returned NULL." );
 
   out->rows = rows;
@@ -114,11 +102,10 @@ matrix* mat_read ( char* file ) {
   scan = fscanf( f, "%u", &c );
   mat_err( ( scan == EOF ), "Error (mat_read): Failed to read 'cols' from file." );
 
-  uint n = r * c;
   matrix* out = mat_init( r, c );
   float* data = out->data;
 
-  for( uint i=0; i<n; i++ ) {
+  for( uint i=0; i<r*c; i++ ) {
     scan = fscanf( f, "%f", &val );
     mat_err( ( scan == EOF ), "Error (mat_read): Matrix is missing elements." );
     *(data++) = val;
@@ -272,7 +259,7 @@ matrix* mat_copy ( matrix* mat ) {
 
   matrix* out = mat_init( mat->rows, mat->cols );
 
-  memcpy( out->data, mat->data, sizeof(float) * out->rows * out->cols );
+  memcpy( out->data, mat->data, out->rows * out->cols * sizeof(float) );
   
   return out;
 }
@@ -288,7 +275,7 @@ matrix* mat_eye ( uint n ) {
 
   mat_err( (!n), "Error (mat_eye): Matrix dimension must be positive." );
 
-  matrix* out = mat_init(n,n);
+  matrix* out = mat_init( n, n );
 
   for( float* ptr = out->data; ptr < out->data + ( out->rows * out->cols ); ptr += n+1 )  *ptr = 1.0;  
 
@@ -325,7 +312,7 @@ matrix* mat_scale ( matrix* mat, float scale ) {
 
   matrix* out = mat_init( mat->rows, mat->cols );
 
-  memcpy( out->data, mat->data, sizeof(float) * out->rows * out->cols );
+  memcpy( out->data, mat->data, out->rows * out->cols * sizeof(float) );
 
   for( float* ptr = out->data; ptr < out->data + ( out->rows * out->cols ); ptr++ )  *ptr *= scale;
 
@@ -393,8 +380,8 @@ matrix* mat_appr ( matrix* matT, matrix* matB ) {
 
   matrix* out = mat_init( matT->rows + matB->rows, matT->cols );
 
-  memcpy( out->data, matT->data, sizeof(float) * matT->rows * matT->cols );
-  memcpy( out->data + ( matT->rows * matT->cols ), matB->data, sizeof(float) * matB->rows * matT->cols );
+  memcpy( out->data,                               matT->data, matT->rows * matT->cols * sizeof(float) );
+  memcpy( out->data + ( matT->rows * matT->cols ), matB->data, matB->rows * matT->cols * sizeof(float) );
 
   return out;
 }
@@ -413,8 +400,8 @@ matrix* mat_appc ( matrix* matL, matrix* matR ) {
   matrix* out = mat_init( matL->rows, matL->cols + matR->cols );
 
   for( uint i=0; i<matL->rows; i++ ) {
-    memcpy( out->data + (i*out->cols),               matL->data + (i*matL->cols), sizeof(float) * matL->cols );
-    memcpy( out->data + (i*out->cols) + matL->cols , matR->data + (i*matR->cols), sizeof(float) * matR->cols );    
+    memcpy( out->data + (i*out->cols),               matL->data + (i*matL->cols), matL->cols * sizeof(float) );
+    memcpy( out->data + (i*out->cols) + matL->cols , matR->data + (i*matR->cols), matR->cols * sizeof(float) );    
   }
 
   return out;
