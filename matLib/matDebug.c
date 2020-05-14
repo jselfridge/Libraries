@@ -50,9 +50,9 @@ int main ( void ) {
 
   printf("\n   --- MatLib Debugging --- \n\n");
   MatInit();
-  MatPrint();
-  MatManip();
-  //MatComplex();
+  // MatPrint();
+  // MatManip();
+  MatComplex();
   //MatVec();
   //MatArith();
   //MatRoot();
@@ -360,7 +360,7 @@ void MatManip ( void ) {
 *******************************************************************************/
 void MatComplex ( void ) {
 
-//   printf("Matrix complex manipulation functions \n");
+  printf("Matrix complex manipulation functions \n");
 
 //   // Declare complex column vector
 //   matrixz* Cz = mat_initz( 4, 1 );
@@ -405,10 +405,10 @@ void MatComplex ( void ) {
 //   mat_clearz(Cz); 
 //   mat_clearz(Rz); 
 //   mat_clearz(Mz);
-//   mat_clearz(Tz);
+  // mat_clearz(Tz);
 
-//   // Exit MatComplex debugging
-//   printf("\n");
+  // Exit MatComplex debugging
+  printf("\n");
 
   return;
 }
