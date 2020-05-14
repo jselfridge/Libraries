@@ -17,19 +17,19 @@
 * void mat_err ( bool cond, char* msg )
 * If error condition is true, prints a warning and exits.
 *******************************************************************************/
-void mat_err ( bool cond, char* msg ) {
-  if(cond)  {  fprintf( stderr, "%s\n\n", msg );  exit(1);  }
-}
+// void mat_err ( bool cond, char* msg ) {
+//   if(cond)  {  fprintf( stderr, "%s\n\n", msg );  exit(1);  }
+// }
 
 
 
 
 /*******************************************************************************
-* matrix* mat_init ( ushort rows, ushort cols )
+* matrix* mat_init ( uint rows, uint cols )
 * Initializes a new matrix with the specified dimensions,
 * and sets the elements to values of zero.
 *******************************************************************************/
-matrix* mat_init ( ushort rows, ushort cols ) {
+matrix* mat_init ( uint rows, uint cols ) {
 
   mat_err( ( !rows || !cols ), "Error (mat_init): Matrix dimensions must be positive." );
 
@@ -60,7 +60,7 @@ void mat_clear ( matrix* mat ) {
   if( mat != NULL ) {
     if( mat->data != NULL ) {
       free(mat->data);
-      data = NULL;
+      mat->data = NULL;
     }
     free(mat);
     mat = NULL;
@@ -79,8 +79,8 @@ void mat_clear ( matrix* mat ) {
 void mat_print ( matrix* mat ) {
 
   printf( "[%dx%d]\n", mat->rows, mat->cols );
-  for( ushort i=1; i<=mat->rows; i++ ) {
-    for( ushort j=1; j<=mat->cols; j++ ) {
+  for( uint i=1; i<=mat->rows; i++ ) {
+    for( uint j=1; j<=mat->cols; j++ ) {
       printf( " %8.4f", mat_get( mat, i, j ) );
     }
     printf("\n");
@@ -98,7 +98,7 @@ void mat_print ( matrix* mat ) {
 *******************************************************************************/
 matrix* mat_read ( char* file ) {
 
-  ushort r, c;
+  uint r, c;
   int scan;
   float val;
 
@@ -108,17 +108,17 @@ matrix* mat_read ( char* file ) {
   scan = fscanf( f, "#" );
   mat_err( ( scan == EOF ), "Error (mat_read): Failed to read 'header' from file." );
 
-  scan = fscanf( f, "%d", &r );
+  scan = fscanf( f, "%u", &r );
   mat_err( ( scan == EOF ), "Error (mat_read): Failed to read 'rows' from file." );
 
-  scan = fscanf( f, "%d", &c );
+  scan = fscanf( f, "%u", &c );
   mat_err( ( scan == EOF ), "Error (mat_read): Failed to read 'cols' from file." );
 
-  ushort n = r * c;
+  uint n = r * c;
   matrix* out = mat_init( r, c );
   float* data = out->data;
 
-  for( ushort i=0; i<n; i++ ) {
+  for( uint i=0; i<n; i++ ) {
     scan = fscanf( f, "%f", &val );
     mat_err( ( scan == EOF ), "Error (mat_read): Matrix is missing elements." );
     *(data++) = val;
@@ -145,8 +145,8 @@ void mat_write ( matrix* mat, char* file ) {
   mat_err( ( f == NULL ), "Error (mat_write): Cannot open file.\n" );
 
   fprintf( f, "# %d %d \n", mat->rows, mat->cols );
-  for( ushort i=1; i<=mat->rows; i++ ) {
-    for( ushort j=1; j<=mat->cols; j++ ) {
+  for( uint i=1; i<=mat->rows; i++ ) {
+    for( uint j=1; j<=mat->cols; j++ ) {
       fprintf( f, " %e", mat_get( mat, i, j ) );
     }
     fprintf( f, "\n" );
@@ -161,10 +161,10 @@ void mat_write ( matrix* mat, char* file ) {
 
 
 /*******************************************************************************
-* float mat_get ( matrix* mat, ushort row, ushort col )
+* float mat_get ( matrix* mat, uint row, uint col )
 * Returns the value of a matrix element.
 *******************************************************************************/
-float mat_get ( matrix* mat, ushort row, ushort col ) {
+float mat_get ( matrix* mat, uint row, uint col ) {
 
   mat_err( ( !row || row > mat->rows ), "Error (mat_get): Row index exceeds matrix dimensions."    );
   mat_err( ( !col || col > mat->cols ), "Error (mat_get): Column index exceeds matrix dimensions." );
@@ -176,16 +176,16 @@ float mat_get ( matrix* mat, ushort row, ushort col ) {
 
 
 /*******************************************************************************
-* matrix* mat_getr ( matrix* mat, ushort row )
+* matrix* mat_getr ( matrix* mat, uint row )
 * Returns the specified row of a matrix.
 *******************************************************************************/
-matrix* mat_getr ( matrix* mat, ushort row ) {
+matrix* mat_getr ( matrix* mat, uint row ) {
 
   mat_err( ( !row || row > mat->rows ), "Error (mat_getr): Row index exceeds matrix dimensions." );
 
   matrix* out = mat_init( 1, mat->cols );
 
-  for( ushort i=0; i<mat->cols; i++ )  *(out->data+i) = *( mat->data + (row-1) * mat->cols + i );
+  for( uint i=0; i<mat->cols; i++ )  *(out->data+i) = *( mat->data + (row-1) * mat->cols + i );
 
   return out;
 }
@@ -194,16 +194,16 @@ matrix* mat_getr ( matrix* mat, ushort row ) {
 
 
 /*******************************************************************************
-* matrix* mat_getc ( matrix* mat, ushort col )
+* matrix* mat_getc ( matrix* mat, uint col )
 * Returns the specified column of a matrix.
 *******************************************************************************/
-matrix* mat_getc ( matrix* mat, ushort col ) {
+matrix* mat_getc ( matrix* mat, uint col ) {
 
   mat_err( ( !col || col > mat->cols ), "Error (mat_getc): Column index exceeds matrix dimensions." );
 
   matrix* out = mat_init( mat->rows, 1 );
 
-  for( ushort i=0; i<mat->rows; i++ )  *(out->data+i) = *( mat->data + ( i * mat->cols ) + (col-1) );
+  for( uint i=0; i<mat->rows; i++ )  *(out->data+i) = *( mat->data + ( i * mat->cols ) + (col-1) );
 
   return out;
 }
@@ -212,10 +212,10 @@ matrix* mat_getc ( matrix* mat, ushort col ) {
 
 
 /*******************************************************************************
-* void mat_set ( matrix* mat, ushort row, ushort col, float val )
+* void mat_set ( matrix* mat, uint row, uint col, float val )
 * Assigns a value into a matrix element.
 *******************************************************************************/
-void mat_set ( matrix* mat, ushort row, ushort col, float val ) {
+void mat_set ( matrix* mat, uint row, uint col, float val ) {
 
   mat_err( ( !row || row > mat->rows ), "Error (mat_set): Row index exceeds matrix dimensions."    );
   mat_err( ( !col || col > mat->cols ), "Error (mat_set): Column index exceeds matrix dimensions." );
@@ -229,16 +229,16 @@ void mat_set ( matrix* mat, ushort row, ushort col, float val ) {
 
 
 /*******************************************************************************
-* void mat_setr ( matrix* mat, ushort row, matrix* vec )
+* void mat_setr ( matrix* mat, uint row, matrix* vec )
 * Replaces a row of a matrix with the specified vector.
 *******************************************************************************/
-void mat_setr ( matrix* mat, ushort row, matrix* vec ) {
+void mat_setr ( matrix* mat, uint row, matrix* vec ) {
 
   mat_err( ( !row || row > mat->rows ), "Error (mat_setr): Row index exceeds matrix dimensions."           );
   mat_err( ( vec->rows !=1 ),           "Error (mat_setr): Input array must be a row vector."              );
   mat_err( ( mat->cols != vec->cols ),  "Error (mat_setr): Input array and matrix must be the same width." );
 
-  for( ushort i=0; i<mat->cols; i++ )  *( mat->data + (row-1) * (mat->cols) + i ) = *( vec->data+i );
+  for( uint i=0; i<mat->cols; i++ )  *( mat->data + (row-1) * (mat->cols) + i ) = *( vec->data+i );
 
   return;
 }
@@ -247,16 +247,16 @@ void mat_setr ( matrix* mat, ushort row, matrix* vec ) {
 
 
 /*******************************************************************************
-* void mat_setc ( matrix* mat, ushort col, matrix* vec )
+* void mat_setc ( matrix* mat, uint col, matrix* vec )
 * Replaces a column of a matrix with the specified vector.
 *******************************************************************************/
-void mat_setc ( matrix* mat, ushort col, matrix* vec ) {
+void mat_setc ( matrix* mat, uint col, matrix* vec ) {
 
   mat_err( ( !col || col > mat->cols ), "Error (mat_setc): Column index exceeds matrix dimensions."         );
   mat_err( ( vec->cols !=1 ),           "Error (mat_setc): Input array must be a column vector."            );
   mat_err( ( mat->rows != vec->rows ),  "Error (mat_setc): Input array and matrix must be the same height." );
 
-  for( ushort i=0; i<mat->rows; i++ )  *( mat->data + ( i * mat->cols ) + (col-1) ) = *( vec->data+i );
+  for( uint i=0; i<mat->rows; i++ )  *( mat->data + ( i * mat->cols ) + (col-1) ) = *( vec->data+i );
 
   return;
 }
@@ -281,10 +281,10 @@ matrix* mat_copy ( matrix* mat ) {
 
 
 /*******************************************************************************
-* matrix* mat_eye ( ushort n )
+* matrix* mat_eye ( uint n )
 * Creates an identity matrix of dimension n.
 *******************************************************************************/
-matrix* mat_eye ( ushort n ) {
+matrix* mat_eye ( uint n ) {
 
   mat_err( (!n), "Error (mat_eye): Matrix dimension must be positive." );
 
@@ -299,10 +299,10 @@ matrix* mat_eye ( ushort n ) {
 
 
 /*******************************************************************************
-* matrix* mat_ones ( ushort rows, ushort cols )
+* matrix* mat_ones ( uint rows, uint cols )
 * Creates a new matrix filled with values of one.
 *******************************************************************************/
-matrix* mat_ones ( ushort rows, ushort cols ) {
+matrix* mat_ones ( uint rows, uint cols ) {
 
   mat_err( (!rows), "Error (mat_ones): Matrix rows must be a positive."    );
   mat_err( (!cols), "Error (mat_ones): Matrix columns must be a positive." );
@@ -336,10 +336,10 @@ matrix* mat_scale ( matrix* mat, float scale ) {
 
 
 /*******************************************************************************
-* void mat_swapr ( matrix* mat, ushort p, ushort q )
+* void mat_swapr ( matrix* mat, uint p, uint q )
 * Swaps rows within a matrix.
 *******************************************************************************/
-void mat_swapr ( matrix* mat, ushort p, ushort q ) {
+void mat_swapr ( matrix* mat, uint p, uint q ) {
 
   mat_err( ( mat->rows < 2 ),       "Error (mat_swapr): Matrix must have at least two rows." );
   mat_err( ( !p || p > mat->rows ), "Error (mat_swapr): Row index exceeds matrix dimension." );
@@ -347,7 +347,7 @@ void mat_swapr ( matrix* mat, ushort p, ushort q ) {
 
   if( p == q )  return;
 
-  for( ushort i=0; i<mat->cols; i++ ) {
+  for( uint i=0; i<mat->cols; i++ ) {
     float tmp = *( mat->data + (p-1) * (mat->cols) + i );
     *( mat->data + (p-1) * (mat->cols) + i ) = *( mat->data + (q-1) * (mat->cols) + i );
     *( mat->data + (q-1) * (mat->cols) + i ) = tmp;
@@ -360,10 +360,10 @@ void mat_swapr ( matrix* mat, ushort p, ushort q ) {
 
 
 /*******************************************************************************
-* void mat_swapc ( matrix* mat, ushort p, ushort q )
+* void mat_swapc ( matrix* mat, uint p, uint q )
 * Swaps columns within a matrix.
 *******************************************************************************/
-void mat_swapc ( matrix* mat, ushort p, ushort q ) {
+void mat_swapc ( matrix* mat, uint p, uint q ) {
 
   mat_err( ( mat->cols < 2 ),       "Error (mat_swapc): Matrix must have at least two columns." );
   mat_err( ( !p || p > mat->cols ), "Error (mat_swapc): Column index exceeds matrix dimension." );
@@ -371,7 +371,7 @@ void mat_swapc ( matrix* mat, ushort p, ushort q ) {
 
   if ( p == q )  return;
 
-  for( ushort i=0; i<mat->rows; i++ ) {
+  for( uint i=0; i<mat->rows; i++ ) {
     float tmp = *( mat->data + ( i * mat->cols ) + (p-1) );
     *( mat->data + ( i * mat->cols ) + (p-1) ) = *( mat->data + ( i * mat->cols ) + (q-1) );
     *( mat->data + ( i * mat->cols ) + (q-1) ) = tmp;
@@ -412,7 +412,7 @@ matrix* mat_appc ( matrix* matL, matrix* matR ) {
 
   matrix* out = mat_init( matL->rows, matL->cols + matR->cols );
 
-  for( ushort i=0; i<matL->rows; i++ ) {
+  for( uint i=0; i<matL->rows; i++ ) {
     memcpy( out->data + (i*out->cols),               matL->data + (i*matL->cols), sizeof(float) * matL->cols );
     memcpy( out->data + (i*out->cols) + matL->cols , matR->data + (i*matR->cols), sizeof(float) * matR->cols );    
   }
