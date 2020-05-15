@@ -69,35 +69,18 @@ matrix* mat_sskew ( matrix* vec ) {
 * matrix* mat_cross ( matrix* vecA, matrix* vecB )
 * Returns the cross product of two three-element vectors.
 *******************************************************************************/
-// matrix* mat_cross ( matrix* vecA, matrix* vecB ) {
+matrix* mat_cross ( matrix* vecA, matrix* vecB ) {
 
-//   mat_err( vecA->rows != 3 || vecA->cols != 1, "Error (mat_cross): Vector A must be [3x1]." );
-//   mat_err( vecB->rows != 3 || vecB->cols != 1, "Error (mat_cross): Vector B must be [3x1]." );
+  mat_err( ( vecA->rows != 3 || vecA->cols != 1 ), "Error (mat_cross): Vector A must be [3x1]." );
+  mat_err( ( vecB->rows != 3 || vecB->cols != 1 ), "Error (mat_cross): Vector B must be [3x1]." );
 
-//   float ax, ay, az;
-//   float bx, by, bz;
-//   float cx, cy, cz;
-//   matrix* out;
+  matrix* out = mat_init( 3, 1 );
+  *(out->data  ) = *(vecA->data+1) * *(vecB->data+2) - *(vecA->data+2) * *(vecB->data+1);
+  *(out->data+1) = *(vecA->data+2) * *(vecB->data  ) - *(vecA->data  ) * *(vecB->data+2);
+  *(out->data+2) = *(vecA->data  ) * *(vecB->data+1) - *(vecA->data+1) * *(vecB->data  );
 
-//   ax = mat_get( vecA, 1, 1 );
-//   ay = mat_get( vecA, 2, 1 );
-//   az = mat_get( vecA, 3, 1 );
-
-//   bx = mat_get( vecB, 1, 1 );
-//   by = mat_get( vecB, 2, 1 );
-//   bz = mat_get( vecB, 3, 1 );
-
-//   cx = ay * bz - az * by;
-//   cy = az * bx - ax * bz;
-//   cz = ax * by - ay * bx;
-
-//   out = mat_init(3,1);
-//   mat_set( out, 1, 1, cx );
-//   mat_set( out, 2, 1, cy );
-//   mat_set( out, 3, 1, cz );
-
-//   return out;
-// }
+  return out;
+}
 
 
 
@@ -106,17 +89,16 @@ matrix* mat_sskew ( matrix* vec ) {
 * float mat_dot ( matrix* vecA, matrix* vecB )
 * Returns the dot product of two arbitrary length vectors.
 *******************************************************************************/
-// float mat_dot ( matrix* vecA, matrix* vecB ) {
+float mat_dot ( matrix* vecA, matrix* vecB ) {
 
-//   mat_err( vecA->cols != 1 || vecB->cols != 1, "Error (mat_dot): Requires column vector inputs."   );
-//   mat_err( vecA->rows != vecB->rows,           "Error (mat_dot): Vectors must be the same height." );
+  mat_err( ( vecA->cols != 1 || vecB->cols != 1 ), "Error (mat_dot): Requires column vector inputs."   );
+  mat_err( ( vecA->rows != vecB->rows ),           "Error (mat_dot): Vectors must be the same height." );
 
-//   ushort i;
-//   float out = 0.0f;
-//   for( i=1; i <= vecA->rows; i++ )  out += mat_get( vecA, i, 1 ) * mat_get( vecB, i, 1 );
+  float out = 0.0;
+  for( ushort i=0; i<vecA->rows; i++ )  out += *(vecA->data+i) * *(vecB->data+i);
 
-//   return out;
-// }
+  return out;
+}
 
 
 
@@ -155,18 +137,6 @@ matrix* mat_sskew ( matrix* vec ) {
 //   }
 
 //   return norm;
-// }
-
-
-
-
-/*******************************************************************************
-* float mat_mag ( matrix* vec )
-* Returns the magnitude (Euclidean norm) of a column vector.
-*******************************************************************************/
-// float mat_mag ( matrix* vec ) {
-//   mat_err( vec->cols != 1, "Error (mat_mag): Input must be a column vector." );
-//   return mat_norm( vec, 2 );
 // }
 
 
@@ -224,6 +194,18 @@ matrix* mat_sskew ( matrix* vec ) {
 //   }
 
 //   return proj;
+// }
+
+
+
+
+/*******************************************************************************
+* !!! REPLACED !!!   float mat_mag ( matrix* vec )
+* Returns the magnitude (Euclidean norm) of a column vector.
+*******************************************************************************/
+// float mat_mag ( matrix* vec ) {
+//   mat_err( vec->cols != 1, "Error (mat_mag): Input must be a column vector." );
+//   return mat_norm( vec, 2 );
 // }
 
 
