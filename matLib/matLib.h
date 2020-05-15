@@ -89,11 +89,10 @@ matrix*  mat_skew   ( matrix* vec );
 matrix*  mat_sskew  ( matrix* vec );
 matrix*  mat_cross  ( matrix* vecA, matrix* vecB );
 float    mat_dot    ( matrix* vecA, matrix* vecB );
+float    mat_mag    ( matrix* vec );
 float    mat_norm   ( matrix* vec, uint p );
 matrix*  mat_uvec   ( matrix* vec );
 matrix*  mat_proj   ( matrix* u, matrix *v );
-//float    mat_mag    ( matrix* vec );
-#define  mat_mag(vec)  ( mat_norm( vec, 2 ) )
 
 
 // // Functions within matArith

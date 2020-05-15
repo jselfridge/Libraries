@@ -104,6 +104,23 @@ float mat_dot ( matrix* vecA, matrix* vecB ) {
 
 
 /*******************************************************************************
+* float mat_mag ( matrix* vec )
+* Returns the magnitude (Euclidean norm) of a column vector.
+*******************************************************************************/
+float mat_mag ( matrix* vec ) {
+
+  mat_err( ( vec->cols != 1 ), "Error (mat_mag): Input must be a column vector." );
+
+  float mag = 0.0;
+  for( ushort i=0; i<vec->rows; i++ )  mag += *(vec->data+i) * *(vec->data+i);
+
+  return (float)sqrt(mag);
+}
+
+
+
+
+/*******************************************************************************
 * float mat_norm ( matrix* vec, uint p )
 * Returns the norm of a vector of a specified degree (infinity norm when p=0).
 *******************************************************************************/
@@ -111,22 +128,37 @@ float mat_norm ( matrix* vec, uint p ) {
 
   mat_err( ( vec->cols != 1 ), "Error (mat_norm): Input must be a column vector."     );
 
-  if( p==0 ) {
-    float norm = 0.0;
-    for( ushort i=0; i<vec->rows; i++ ) {
-      float val = fabs( *(vec->data+i) );
-      if( val > norm )  norm = val;
+  switch(p) {
+
+    case 0 : {
+      float norm = 0.0;
+      for( ushort i=0; i<vec->rows; i++ ) {
+        float val = (float)fabs( *(vec->data+i) );
+        if( val > norm )  norm = val;
+      }
+      return norm;
     }
-    return norm;
+
+    case 1 : {
+      float norm = 0.0;
+      for( ushort i=0; i<vec->rows; i++ )  norm += (float)fabs( *(vec->data+i) );
+      return norm;
+    }
+
+    case 2 : {
+      return mat_mag(vec);
+    }
+
+    default : {
+      float norm = 0.0;
+      for( ushort i=0; i<vec->rows; i++ ) {
+        norm += (float)pow( (float)fabs( *(vec->data+i) ), p );
+      }
+      return (float)pow( norm, ( 1.0 / (float)p ) );
+    }
+
   }
 
-  float norm = 0.0;
-  for( ushort i=0; i<vec->rows; i++ ) {
-    norm += pow( fabs( *(vec->data+i) ), p );
-  }
-  norm = pow( norm, ( 1.0 / (float)p ) );
-
-  return norm;
 }
 
 
@@ -170,18 +202,6 @@ matrix* mat_proj ( matrix* u, matrix* v ) {
 
   return proj;
 }
-
-
-
-
-/*******************************************************************************
-* !!! REPLACED !!!   float mat_mag ( matrix* vec )
-* Returns the magnitude (Euclidean norm) of a column vector.
-*******************************************************************************/
-// float mat_mag ( matrix* vec ) {
-//   mat_err( vec->cols != 1, "Error (mat_mag): Input must be a column vector." );
-//   return mat_norm( vec, 2 );
-// }
 
 
 
