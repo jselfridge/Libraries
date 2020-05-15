@@ -52,8 +52,8 @@ int main ( void ) {
   MatInit();
   // MatPrint();
   // MatManip();
-  MatComplex();
-  //MatVec();
+  // MatComplex();
+  MatVec();
   //MatArith();
   //MatRoot();
   //MatProp();
