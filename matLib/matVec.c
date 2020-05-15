@@ -136,29 +136,20 @@ float mat_norm ( matrix* vec, uint p ) {
 * matrix* mat_uvec ( matrix* vec )
 * Returns an equivalent unit vector.
 *******************************************************************************/
-// matrix* mat_uvec ( matrix* vec ) {
+matrix* mat_uvec ( matrix* vec ) {
 
-//   mat_err( vec->cols != 1, "Error (mat_uvec): Input must be a column vector." );
+  mat_err( ( vec->cols != 1 ), "Error (mat_uvec): Input must be a column vector." );
 
-//   ushort i, r;
-//   float mag, val;
-//   matrix* uvec;
+  float mag = mat_mag(vec);
 
-//   r = vec->rows;
-//   mag = mat_mag(vec);
-//   uvec = mat_init(r,1);
+  if(!mag)  return vec;
 
-//   if( mag==0 )  return uvec;
-//   else {
-//     for( i=1; i<=r; i++ ) {
-//       val = mat_get( vec, i, 1 );
-//       val /= mag;
-//       mat_set( uvec, i, 1, val );
-//     }
-//   }
+  matrix* uvec = mat_init( vec->rows, 1 );
+  memcpy( uvec->data, vec->data, vec->rows * sizeof(float) );
+  for( ushort i=0; i<vec->rows; i++ )  *(uvec->data+i) /= mag;
 
-//   return uvec;
-// }
+  return uvec;
+}
 
 
 
