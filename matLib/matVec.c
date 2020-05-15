@@ -104,40 +104,30 @@ float mat_dot ( matrix* vecA, matrix* vecB ) {
 
 
 /*******************************************************************************
-* float mat_norm ( matrix* vec, ushort p )
+* float mat_norm ( matrix* vec, uint p )
 * Returns the norm of a vector of a specified degree (infinity norm when p=0).
 *******************************************************************************/
-// float mat_norm ( matrix* vec, ushort p ) {
+float mat_norm ( matrix* vec, uint p ) {
 
-//   mat_err( p < 0,          "Error (mat_norm): Degree of a norm must be positive." );
-//   mat_err( vec->cols != 1, "Error (mat_norm): Input must be a column vector."     );
+  mat_err( ( vec->cols != 1 ), "Error (mat_norm): Input must be a column vector."     );
 
-//   ushort i, r;
-//   float norm, val, root;
+  if( p==0 ) {
+    float norm = 0.0;
+    for( ushort i=0; i<vec->rows; i++ ) {
+      float val = fabs( *(vec->data+i) );
+      if( val > norm )  norm = val;
+    }
+    return norm;
+  }
 
-//   r = vec->rows;
-//   norm = 0.0f;
-//   val = 0.0f;
+  float norm = 0.0;
+  for( ushort i=0; i<vec->rows; i++ ) {
+    norm += pow( fabs( *(vec->data+i) ), p );
+  }
+  norm = pow( norm, ( 1.0 / (float)p ) );
 
-//   if( p==0 ) {
-//     for( i=1; i<=r; i++ ) {
-//       val = fabs( mat_get( vec, i, 1 ) );
-//       if( val > norm )  norm = val;
-//     }
-//   }
-
-//   else {
-//     for( i=1; i<=r; i++ ) {
-//       val = fabs( mat_get( vec, i, 1 ) );
-//       val = pow( val, p );
-//       norm += val;
-//     }
-//     root = 1.0f / (float) p;
-//     norm = pow( norm, root );
-//   }
-
-//   return norm;
-// }
+  return norm;
+}
 
 
 
