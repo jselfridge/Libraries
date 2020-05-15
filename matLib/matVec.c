@@ -15,50 +15,52 @@
 
 /*******************************************************************************
 * matrix* mat_skew ( matrix* vec )
-* Returns a skew symmetric matrix of a 3 element column vector.
+* Returns the cross product skew symmetric matrix of a 3 element column vector.
 *******************************************************************************/
-// matrix* mat_skew ( matrix* vec ) {
+matrix* mat_skew ( matrix* vec ) {
 
-//   mat_err( vec->rows != 3 || vec->cols != 1, "Error (mat_skew): Input vector must be [3x1]." );
-//   matrix* skew = mat_init(3,3);
+  mat_err( ( vec->rows != 3 || vec->cols != 1 ), "Error (mat_skew): Input vector must be [3x1]." );
+  matrix* skew = mat_init( 3, 3 );
 
-//   float x = mat_get( vec, 1, 1 );  mat_set( skew, 3, 2, x );  mat_set( skew, 2, 3, -x );
-//   float y = mat_get( vec, 2, 1 );  mat_set( skew, 1, 3, y );  mat_set( skew, 3, 1, -y );
-//   float z = mat_get( vec, 3, 1 );  mat_set( skew, 2, 1, z );  mat_set( skew, 1, 2, -z );
+  float* data = vec->data;
+  *( skew->data+7 ) = (*data);
+  *( skew->data+5 ) = (*data) * (-1.0);
+  data++;
+  *( skew->data+2 ) = (*data);
+  *( skew->data+6 ) = (*data) * (-1.0);
+  data++;
+  *( skew->data+3 ) = (*data);
+  *( skew->data+1 ) = (*data) * (-1.0);
 
-//   return skew;
-// }
+  return skew;
+}
 
 
 
 
 /*******************************************************************************
 * matrix* mat_sskew ( matrix* vec )
-* Returns a skew skew symmetric matrix of a 3 element column vector.
+* Returns the double cross product skew symmetric matrix of a 3 element column vector.
 *******************************************************************************/
-// matrix* mat_sskew ( matrix* vec ) {
+matrix* mat_sskew ( matrix* vec ) {
 
-//   mat_err( vec->rows != 3 || vec->cols != 1, "Error (mat_sskew): Input vector must be [3x1]." );
-//   matrix* sskew = mat_init(3,3);
+  mat_err( ( vec->rows != 3 || vec->cols != 1 ), "Error (mat_sskew): Input vector must be [3x1]." );
+  matrix* sskew = mat_init( 3, 3 );
 
-//   float x = mat_get( vec, 1, 1 );
-//   float y = mat_get( vec, 2, 1 );
-//   float z = mat_get( vec, 3, 1 );
+  float x2 = *(vec->data  ) * *(vec->data  );
+  float y2 = *(vec->data+1) * *(vec->data+1);
+  float z2 = *(vec->data+2) * *(vec->data+2);
 
-//   float x2 = x * x;
-//   float y2 = y * y;
-//   float z2 = z * z;
+  float xy = *(vec->data  ) * *(vec->data+1);
+  float xz = *(vec->data  ) * *(vec->data+2);
+  float yz = *(vec->data+1) * *(vec->data+2);
 
-//   float xy = x * y;
-//   float xz = x * z;
-//   float yz = y * z;
+  *(sskew->data  ) = -y2-z2;  *(sskew->data+1) =     xy;  *(sskew->data+2) =     xz;
+  *(sskew->data+3) =     xy;  *(sskew->data+4) = -x2-z2;  *(sskew->data+5) =     yz;
+  *(sskew->data+6) =     xz;  *(sskew->data+7) =     yz;  *(sskew->data+8) = -x2-y2;
 
-//   mat_set( sskew, 1, 1, -y2-z2 );  mat_set( sskew, 1, 2,     xy );  mat_set( sskew, 1, 3,     xz );
-//   mat_set( sskew, 2, 1,     xy );  mat_set( sskew, 2, 2, -x2-z2 );  mat_set( sskew, 2, 3,     yz );
-//   mat_set( sskew, 3, 1,     xz );  mat_set( sskew, 3, 2,     yz );  mat_set( sskew, 3, 3, -x2-y2 );
-
-//   return sskew;
-// }
+  return sskew;
+}
 
 
 
