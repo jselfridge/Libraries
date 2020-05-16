@@ -17,27 +17,19 @@
 * matrix* mat_add ( matrix* matA, matrix* matB )
 * Adds two matrices with indentical dimensions.
 *******************************************************************************/
-// matrix* mat_add ( matrix* matA, matrix* matB ) {
+matrix* mat_add ( matrix* matA, matrix* matB ) {
 
-//   mat_err( matA->rows != matB->rows, "Error (mat_add): Matrices must have same number of rows."    );
-//   mat_err( matA->cols != matB->cols, "Error (mat_add): Matrices must have same number of columns." );
+  mat_err( ( matA->rows != matB->rows ), "Error (mat_add): Matrices must have same number of rows."    );
+  mat_err( ( matA->cols != matB->cols ), "Error (mat_add): Matrices must have same number of columns." );
 
-//   ushort i, j;
-//   float a, b;
-//   ushort r = matA->rows;
-//   ushort c = matA->cols;
-//   matrix* add = mat_init(r,c);
+  matrix* add = mat_init( matA->rows, matA->cols );
+  for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(add->data+i) = *(matA->data+i) + *(matB->data+i);
+  return add;
 
-//   for( i=1; i<=r; i++ ) {
-//     for( j=1; j<=c; j++ ) {
-//       a = mat_get( matA, i, j );
-//       b = mat_get( matB, i, j );
-//       mat_set( add, i, j, a+b );
-//     }
-//   }
+  //for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(matA->data+i) += *(matB->data+i);
+  //retrun matA;
 
-//   return add;
-// }
+}
 
 
 
@@ -46,27 +38,19 @@
 * matrix* mat_sub ( matrix* matA, matrix* matB )
 * Subtracts two matrices with indentical dimensions.
 *******************************************************************************/
-// matrix* mat_sub ( matrix* matA, matrix* matB ) {
+matrix* mat_sub ( matrix* matA, matrix* matB ) {
 
-//   mat_err( matA->rows != matB->rows, "Error (mat_sub): Matrices must have same number of rows."    );
-//   mat_err( matA->cols != matB->cols, "Error (mat_sub): Matrices must have same number of columns." );
+  mat_err( ( matA->rows != matB->rows ), "Error (mat_sub): Matrices must have same number of rows."    );
+  mat_err( ( matA->cols != matB->cols ), "Error (mat_sub): Matrices must have same number of columns." );
 
-//   ushort i, j;
-//   float a, b;
-//   ushort r = matA->rows;
-//   ushort c = matA->cols;
-//   matrix* sub = mat_init(r,c);
+  matrix* sub = mat_init( matA->rows, matA->cols );
+  for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(sub->data+i) = *(matA->data+i) - *(matB->data+i);
+  return sub;
 
-//   for( i=1; i<=r; i++ ) {
-//     for( j=1; j<=c; j++ ) {
-//       a = mat_get( matA, i, j );
-//       b = mat_get( matB, i, j );
-//       mat_set( sub, i, j, a-b );
-//     }
-//   }
+  //for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(matA->data+i) -= *(matB->data+i);
+  //retrun matA;
 
-//   return sub;
-// }
+}
 
 
 
@@ -75,27 +59,19 @@
 * matrix* mat_emul ( matrix* matA, matrix* matB )
 * Element-wise multiplication of two matrices with identical dimensions.
 *******************************************************************************/
-// matrix* mat_emul ( matrix* matA, matrix* matB ) {
+matrix* mat_emul ( matrix* matA, matrix* matB ) {
 
-//   mat_err( matA->rows != matB->rows, "Error (mat_emul): Matrices must have same number of rows."    );
-//   mat_err( matA->cols != matB->cols, "Error (mat_emul): Matrices must have same number of columns." );
+  mat_err( ( matA->rows != matB->rows ), "Error (mat_emul): Matrices must have same number of rows."    );
+  mat_err( ( matA->cols != matB->cols ), "Error (mat_emul): Matrices must have same number of columns." );
 
-//   ushort i, j;
-//   float a, b;
-//   ushort r = matA->rows;
-//   ushort c = matA->cols;
-//   matrix* emul = mat_init(r,c);
+  matrix* emul = mat_init( matA->rows, matA->cols );
+  for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(emul->data+i) = *(matA->data+i) * *(matB->data+i);
+  return emul;
 
-//   for( i=1; i<=r; i++ ) {
-//     for( j=1; j<=c; j++ ) {
-//       a = mat_get( matA, i, j );
-//       b = mat_get( matB, i, j );
-//       mat_set( emul, i, j, a*b );
-//     }
-//   }
+  //for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(matA->data+i) *= *(matB->data+i);
+  //retrun matA;
 
-//   return emul;
-// }
+}
 
 
 
@@ -104,27 +80,19 @@
 * matrix* mat_ediv ( matrix* matA, matrix* matB )
 * Element-wise division of two matrices with identical dimensions.
 *******************************************************************************/
-// matrix* mat_ediv ( matrix* matA, matrix* matB ) {
+matrix* mat_ediv ( matrix* matA, matrix* matB ) {
 
-//   mat_err( matA->rows != matB->rows, "Error (mat_ediv): Matrices must have same number of rows."    );
-//   mat_err( matA->cols != matB->cols, "Error (mat_ediv): Matrices must have same number of columns." );
+  mat_err( ( matA->rows != matB->rows ), "Error (mat_ediv): Matrices must have same number of rows."    );
+  mat_err( ( matA->cols != matB->cols ), "Error (mat_ediv): Matrices must have same number of columns." );
 
-//   ushort i, j;
-//   float a, b;
-//   ushort r = matA->rows;
-//   ushort c = matA->cols;
-//   matrix* ediv = mat_init(r,c);
+  matrix* ediv = mat_init( matA->rows, matA->cols );
+  for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(ediv->data+i) = *(matA->data+i) / *(matB->data+i);
+  return ediv;
 
-//   for( i=1; i<=r; i++ ) {
-//     for( j=1; j<=c; j++ ) {
-//       a = mat_get( matA, i, j );
-//       b = mat_get( matB, i, j );
-//       mat_set( ediv, i, j, a/b );
-//     }
-//   }
+  //for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(matA->data+i) /= *(matB->data+i);
+  //retrun matA;
 
-//   return ediv;
-// }
+}
 
 
 
@@ -133,30 +101,24 @@
 * matrix* mat_mul ( matrix* matA, matrix* matB )
 * Multiplication of two matrices with proper dimensions.
 *******************************************************************************/
-// matrix* mat_mul ( matrix* matA, matrix* matB ) {
+matrix* mat_mul ( matrix* matA, matrix* matB ) {
 
-//   mat_err( matA->cols != matB->rows, "Error (mat_mul): Matrix dimensions do not agree." );
+  mat_err( ( matA->cols != matB->rows ), "Error (mat_mul): Matrix dimensions do not agree." );
 
-//   ushort i, j, k;
-//   float a, b, val;
-//   ushort r = matA->rows;
-//   ushort c = matB->cols;
-//   matrix* mul = mat_init(r,c);
+  matrix* mul = mat_init( matA->rows, matB->cols );
 
-//   for( i=1; i<=r; i++ ) {
-//     for( j=1; j<=c; j++ ) {
-//       val = 0.0f;
-//       for( k=1; k <= matA->cols; k++ ) {
-//         a = mat_get( matA, i, k );
-//         b = mat_get( matB, k, j );
-//         val += a * b;
-//       }
-//       mat_set( mul, i, j, val );
-//     }
-//   }
+  for( ushort i=0; i<matA->rows; i++ ) {
+    for( ushort j=0; j<matB->cols; j++ ) {
+      float val = 0.0;
+      for( ushort k=0; k<matA->cols; k++ ) {
+        val += *( matA->data + i*matA->cols + k ) * *( matB->data + k*matB->cols + j );
+      }
+      *( mul->data + i*mul->cols + j ) = val;
+    }
+  }
 
-//   return mul;
-// }
+  return mul;
+}
 
 
 
