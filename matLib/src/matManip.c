@@ -8,7 +8,7 @@
 * Source code for matrix manipulation functions within the 'matLib' library.
 *
 *******************************************************************************/
-#include "matLib.h"
+#include "../inc/matManip.h"
 
 
 
