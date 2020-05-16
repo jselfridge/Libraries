@@ -51,10 +51,10 @@ int main ( void ) {
   printf("\n   --- MatLib Debugging --- \n\n");
   MatInit();
   MatPrint();
-  // MatManip();
+  MatManip();
   // MatComplex();
   // MatVec();
-  MatArith();
+  // MatArith();
   //MatRoot();
   //MatProp();
   //MatDecomp();
@@ -333,7 +333,7 @@ void MatManip ( void ) {
   mat_set( R, 1, 1, -0.1000 );  mat_set( R, 1, 2,  0.0100 );
   mat_set( R, 2, 1,  0.0010 );  mat_set( R, 2, 2, -0.0001 );
   mat_print(R);
-  mat_rmtiny( &R, 0.01 );
+  mat_rmtiny( R, 1e-2 );
   mat_print(R);
 
   // Clear completed matrices

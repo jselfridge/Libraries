@@ -67,6 +67,7 @@ void mat_clear ( matrix* mat ) {
 void mat_print ( matrix* mat ) {
 
   printf( "[%dx%d]\n", mat->rows, mat->cols );
+
   for( uint i=1; i<=mat->rows; i++ ) {
     for( uint j=1; j<=mat->cols; j++ ) {
       printf( " %8.4f", mat_get( mat, i, j ) );
@@ -277,7 +278,7 @@ matrix* mat_eye ( uint n ) {
 
   matrix* out = mat_init( n, n );
 
-  for( float* ptr = out->data; ptr < out->data + ( out->rows * out->cols ); ptr += n+1 )  *ptr = 1.0;  
+  for( uint i=0; i<n*n; i+=(n+1) )  *(out->data+i) = 1.0;
 
   return out;
 }
@@ -296,7 +297,7 @@ matrix* mat_ones ( uint rows, uint cols ) {
 
   matrix* out = mat_init( rows, cols );
 
-  for( float* ptr = out->data; ptr < out->data + ( out->rows * out->cols ); ptr++ )  *ptr = 1.0;
+  for( uint i=0; i<rows*cols; i++ )  *(out->data+i) = 1.0;
 
   return out;
 }
@@ -314,7 +315,7 @@ matrix* mat_scale ( matrix* mat, float scale ) {
 
   memcpy( out->data, mat->data, out->rows * out->cols * sizeof(float) );
 
-  for( float* ptr = out->data; ptr < out->data + ( out->rows * out->cols ); ptr++ )  *ptr *= scale;
+  for( uint i=0; i < out->rows * out->cols; i++ )  *(out->data+i) *= scale;
 
   return out;
 }
@@ -411,15 +412,15 @@ matrix* mat_appc ( matrix* matL, matrix* matR ) {
 
 
 /*******************************************************************************
-* void mat_rmtiny ( matrix** mat, float tol )
+* void mat_rmtiny ( matrix* mat, float tol )
 * Matrix entries smaller than 'tol' are replaced with values of zero.
 *******************************************************************************/
-void mat_rmtiny ( matrix** mat, float tol ) {
+void mat_rmtiny ( matrix* mat, float tol ) {
 
   mat_err( ( tol < 0.0 ), "Error (mat_rmtiny): Tolerance must be nonnegative." );
 
-  for( float* ptr = (*mat)->data; ptr < (*mat)->data + ( (*mat)->rows * (*mat)->cols ); ptr++ ) {
-    if( fabs(*ptr) < tol )  *ptr = 0.0;
+  for( uint i=0; i < mat->rows * mat->cols; i++ ) {
+    if( fabs( *(mat->data+i) ) < tol )  *(mat->data+i) = 0.0;
   }
 
   return;
