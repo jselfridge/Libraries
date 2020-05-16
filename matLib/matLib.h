@@ -96,18 +96,19 @@ matrix*  mat_proj   ( matrix* u, matrix *v );
 
 
 // Functions within matArith
-matrix*  mat_add    ( matrix* matA, matrix* matB );
-matrix*  mat_sub    ( matrix* matA, matrix* matB );
-matrix*  mat_emul   ( matrix* matA, matrix* matB );
-matrix*  mat_ediv   ( matrix* matA, matrix* matB );
-matrix*  mat_mul    ( matrix* matA, matrix* matB );
-//matrix*  mat_inv    ( matrix* mat );
-//matrix*  mat_divL   ( matrix* matA, matrix* matB );
-//matrix*  mat_divR   ( matrix* matA, matrix* matB );
-matrix*  mat_epow   ( matrix* mat, float power );
-matrix*  mat_pow    ( matrix* mat, uint power );
-matrix*  mat_abs    ( matrix* mat );
-matrix*  mat_trans  ( matrix* mat );
+matrix*  mat_add      ( matrix* matA, matrix* matB );
+matrix*  mat_sub      ( matrix* matA, matrix* matB );
+matrix*  mat_emul     ( matrix* matA, matrix* matB );
+matrix*  mat_ediv     ( matrix* matA, matrix* matB );
+matrix*  mat_mul      ( matrix* matA, matrix* matB );
+//matrix*  mat_inv      ( matrix* mat );
+//matrix*  mat_divL     ( matrix* matA, matrix* matB );
+//matrix*  mat_divR     ( matrix* matA, matrix* matB );
+matrix*  mat_epow     ( matrix* mat, float power );
+matrix*  mat_pow      ( matrix* mat, uint power );
+matrix*  mat_abs      ( matrix* mat );
+matrix*  mat_trans    ( matrix* mat );
+matrix*  mat_reshape  ( matrix* mat, uint rows, uint cols );
 
 
 // // Functions within matRoot
