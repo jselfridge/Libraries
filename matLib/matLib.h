@@ -104,6 +104,7 @@ matrix*  mat_mul    ( matrix* matA, matrix* matB );
 //matrix*  mat_inv    ( matrix* mat );
 //matrix*  mat_divL   ( matrix* matA, matrix* matB );
 //matrix*  mat_divR   ( matrix* matA, matrix* matB );
+matrix*  mat_epow   ( matrix* mat, uint power );
 matrix*  mat_pow    ( matrix* mat, uint power );
 matrix*  mat_abs    ( matrix* mat );
 matrix*  mat_trans  ( matrix* mat );
