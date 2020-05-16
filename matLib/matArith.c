@@ -281,10 +281,29 @@ matrix* mat_trans ( matrix* mat ) {
   matrix* trans = mat_init( mat->cols, mat->rows );
 
   for( ushort i=0; i < mat->rows * mat->cols; i++ ) {
-    *( trans->data + i/trans->cols + i%trans->rows ) = *( mat->data + i/mat->cols + i%mat->cols );
+    *( trans->data + (i%mat->cols) * trans->cols + i/mat->cols ) = *( mat->data + (i/mat->cols) * mat->cols + i%mat->cols );
   }
 
   return trans;
+}
+
+
+
+
+/*******************************************************************************
+* matrix* mat_reshape ( matrix* mat, uint rows, uint cols )
+* Reshapes an existing matrix to fit within the specified dimensions.
+*******************************************************************************/
+matrix* mat_reshape ( matrix* mat, uint rows, uint cols ) {
+
+  mat_err( ( mat->rows * mat->cols != rows * cols ), "Error (mat_reshape): Number of elements do not match." );
+
+  matrix* reshape = mat_init( rows, cols );
+  for( ushort i=0; i < mat->rows * mat->cols; i++ ) {
+    *( reshape->data + (i/cols)*cols + i%cols ) = *( mat->data + (i/mat->cols)*mat->cols + i%mat->cols );
+  }
+
+  return reshape;
 }
 
 
