@@ -216,30 +216,41 @@ matrix* mat_divR ( matrix* matA, matrix* matB ) {
 
 
 /*******************************************************************************
-* matrix* mat_pow ( matrix* mat, ushort power )
-* Raises a square matrix to a specified power.
+* matrix* mat_epow ( matrix* mat, float power )
+* Element-wise operation which raises each entry to a specified power.
 *******************************************************************************/
-// matrix* mat_pow ( matrix* mat, ushort power ) {
+matrix* mat_epow ( matrix* mat, float power ) {
 
-//   mat_err( mat->rows != mat->cols, "Error (mat_pow): Matrix must be square."        );
-//   mat_err( power < 0,              "Error (mat_pow): Exponent must be nonnegative." );
+  matrix* epow = mat_init( mat->rows, mat->cols );
+  for( ushort i=0; i < mat->rows * mat->cols; i++ )  *(epow->data+i) = (float)pow( *(mat->data+i), power );
+  return pow;
 
-//   ushort i;
-//   ushort n = mat->rows;
-//   matrix* pow;
+  //for( ushort i=0; i < mat->rows * mat->cols; i++ )  *(mat->data+i) = (float)pow( *(mat->data+i), power );
+  //return mat;
+}
 
-//   if      ( power == 0 )  pow = mat_eye(n);
-//   else if ( power == 1 )  pow = mat_copy(mat);
-//   else {
-//     pow = mat_init(n,n);
-//     for( i=1; i <= power-1; i++ ) {
-//       if (i==1)  pow = mat_mul( mat, mat );
-//       else       pow = mat_mul( pow, mat );
-//     }
-//   }
 
-//   return pow;
-// }
+
+
+/*******************************************************************************
+* matrix* mat_pow ( matrix* mat, uint power )
+* Raises a square matrix to a specified integer power.
+*******************************************************************************/
+matrix* mat_pow ( matrix* mat, uint power ) {
+
+  mat_err( ( mat->rows != mat->cols ), "Error (mat_pow): Matrix must be square." );
+
+  switch( power ) {
+    case 0 : return mat_eye( mat->rows );
+    case 1 : return mat;
+    default : {
+      matrix* pow = mat_eye( mat->rows );
+      for( ushort i=0; i<power; i++ )  pow = mat_mul( pow, mat );
+      return pow;
+    }
+  }
+
+}
 
 
 
