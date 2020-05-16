@@ -259,25 +259,15 @@ matrix* mat_pow ( matrix* mat, uint power ) {
 * matrix* mat_abs ( matrix* mat )
 * Applies absolute value to all elements within a matrix.
 *******************************************************************************/
-// matrix* mat_abs ( matrix* mat ) {
+matrix* mat_abs ( matrix* mat ) {
 
-//   ushort i, j, r, c;
-//   float val;
-//   matrix* abs;
+  matrix* abs = mat_init( mat->rows, mat->cols );
+  for( ushort i=0; i < mat->rows * mat->cols; i++ )  *(abs->data+i) = (float)fabs( *(mat->data+i) );
+  return abs;
 
-//   r = mat->rows;
-//   c = mat->cols;
-//   abs = mat_init(r,c);
-
-//   for( i=1; i<=r; i++ ) {
-//     for( j=1; j<=c; j++ ) {
-//       val = fabs( mat_get( mat, i, j ) );
-//       mat_set( abs, i, j, val );
-//     }
-//   }
-
-//   return abs;
-// }
+  //for( ushort i=0; i < mat->rows * mat->cols; i++ )  *(mat->data+i) = (float)fabs( *(mat->data+i) );
+  //return mat;
+}
 
 
 
@@ -286,25 +276,16 @@ matrix* mat_pow ( matrix* mat, uint power ) {
 * matrix* mat_trans ( matrix* mat )
 * Returns the transpose of a rectangular matrix.
 *******************************************************************************/
-// matrix* mat_trans ( matrix* mat ) {
+matrix* mat_trans ( matrix* mat ) {
 
-//   ushort i, j, r, c;
-//   float val;
-//   matrix* trans;
+  matrix* trans = mat_init( mat->cols, mat->rows );
 
-//   r = mat->rows;
-//   c = mat->cols;
-//   trans = mat_init(c,r);
+  for( ushort i=0; i < mat->rows * mat->cols; i++ ) {
+    *( trans->data + i/trans->cols + i%trans->rows ) = *( mat->data + i/mat->cols + i%mat->cols );
+  }
 
-//   for( i=1; i<=r; i++ ) {
-//     for( j=1; j<=c; j++ ) {
-//       val = mat_get( mat, i, j );
-//       mat_set( trans, j, i, val );
-//     }
-//   }
-
-//   return trans;
-// }
+  return trans;
+}
 
 
 
