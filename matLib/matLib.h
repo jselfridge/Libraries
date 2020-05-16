@@ -121,8 +121,8 @@ matrixz*  mat_root  ( matrix* poly, float tol, uint max );
 // bool   mat_sym    ( matrix* mat, float tol );
 
 
-// // Functions within matDecomp
-// void     mat_LU      ( matrix* mat, matrix** L, matrix** U );
+// Functions within matDecomp
+void     mat_LU      ( matrix* mat, matrix* L, matrix* U );
 // void     mat_LDU     ( matrix* mat, matrix** L, matrix** D, matrix** U );
 // void     mat_QR      ( matrix* mat, matrix** Q, matrix** R );     //---  TODO: QR factorization on short matrices  ---//
 // //void     mat_chol    ( float a[], uint n, uint nn, float u[], uint* nullty, uint* ifault );

@@ -55,9 +55,9 @@ int main ( void ) {
   // MatComplex();
   // MatVec();
   // MatArith();
-  MatRoot();
+  // MatRoot();
   //MatProp();
-  //MatDecomp();
+  MatDecomp();
   MatClear();
   printf("   --- MatLib Complete --- \n\n");
 
@@ -783,26 +783,30 @@ void MatProp ( void ) {
 *******************************************************************************/
 void MatDecomp ( void ) {
 
-//   printf("Matrix decomposition functions \n");
+  printf("Matrix decomposition functions \n");
 
-// //   // LDU 1
-// //   printf("LDU 1: \n");
-// //   matrix* A1 = mat_init( 3, 3 );
-// //   mat_set( A1, 1, 1, -3 );  mat_set( A1, 1, 2, 1 );  mat_set( A1, 1, 3,  2 );  
-// //   mat_set( A1, 2, 1,  6 );  mat_set( A1, 2, 2, 2 );  mat_set( A1, 2, 3, -5 );  
-// //   mat_set( A1, 3, 1,  9 );  mat_set( A1, 3, 2, 5 );  mat_set( A1, 3, 3, -6 );  
-// //   mat_LU( A1, &L1, &U1 );
-// //   matrix* LU1 = mat_mul( L1, U1 );
+  // LDU 1
+  printf("LDU 1: \n");
+  matrix* A1 = mat_init( 3, 3 );
+  mat_set( A1, 1, 1, -3 );  mat_set( A1, 1, 2, 1 );  mat_set( A1, 1, 3,  2 );  
+  mat_set( A1, 2, 1,  6 );  mat_set( A1, 2, 2, 2 );  mat_set( A1, 2, 3, -5 );  
+  mat_set( A1, 3, 1,  9 );  mat_set( A1, 3, 2, 5 );  mat_set( A1, 3, 3, -6 );  
+  matrix* L1 = mat_init( A1->rows, A1->rows );
+  matrix* U1 = mat_init( A1->rows, A1->cols );
+  mat_LU( A1, L1, U1 );
+  matrix* LU1 = mat_mul( L1, U1 );
+  printf("A1: ");    mat_print(A1);    mat_clear(A1);
+  printf("L1: ");    mat_print(L1);    mat_clear(L1);
+  printf("U1: ");    mat_print(U1);    mat_clear(U1);
+  printf("LU1: ");   mat_print(LU1);   mat_clear(LU1);
+
+  //mat_LU( A1, &L1, &U1 );
 // //   mat_LDU( A1, &L1, &D1, &V1 );
 // //   matrix* LDU1 = mat_mul( mat_mul( L1, D1 ), V1 );
-// //   printf("A1: ");    mat_print(A1);    mat_clear(A1);
-// //   printf("L1: ");    mat_print(L1);    mat_clear(L1);
-// //   printf("U1: ");    mat_print(U1);    mat_clear(U1);
-// //   printf("LU1: ");   mat_print(LU1);   mat_clear(LU1);
 // //   printf("D1: ");    mat_print(D1);    mat_clear(D1);
 // //   printf("V1: ");    mat_print(V1);    mat_clear(V1);
 // //   printf("LDU1: ");  mat_print(LDU1);  mat_clear(LDU1);
-// //   printf("\n");
+  printf("\n");
 
 // //   // LDU 2
 // //   printf("LDU 2: \n");
@@ -1026,8 +1030,8 @@ void MatDecomp ( void ) {
 // //   printf("I3");      mat_print(I3);     mat_clear(I3);
 // //   */
 
-//   // Exit MatDecomp debugging
-//   printf("\n");
+  // Exit MatDecomp debugging
+  printf("\n");
 
   return;
 }

@@ -21,12 +21,12 @@ RM          := rm -f
 INSTALL     := install -o root -g root -m 4755
 INSTALLDIR  := install -d -m 755
 
-OBJ :=  matManip.o  matComplex.o  matVec.o  matArith.o  matRoot.o
+OBJ :=  matManip.o  matComplex.o  matVec.o  matArith.o  matRoot.o  matDecomp.o
 
 
 
 
-$(EXEC) : matDebug.o libmat.a
+$(EXEC) : matDebug.o $(LIB)
 	$(CC) -o $@ $< $(LFLAGS)
 	@echo "Finished compiling debug program."
 	@echo " "
@@ -54,7 +54,10 @@ matArith.o : matArith.c matLib.h
 matRoot.o : matRoot.c matLib.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
-matDebug.o : matDebug.c matLib.h
+matDecomp.o : matDecomp.c matLib.h
+	$(CC) $(CFLAGS) -I. -c $< -o $@
+
+matDebug.o : matDebug.c matLib.h $(LIB)
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 
