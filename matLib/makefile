@@ -9,73 +9,73 @@
 #******************************************************************************/
 
 
-LIB         := libmat.a
-EXEC        := debug
+#LIB         := libmat.a
+#EXEC        := debug
 
-CC          := gcc
-CFLAGS      := -c -Wall -Wconversion -fsingle-precision-constant -O2
-LFLAGS      := -L. -lm -lrt -lmat
+#CC          := gcc
+#CFLAGS      := -c -Wall -Wconversion -fsingle-precision-constant -O2
+#LFLAGS      := -L. -lm -lrt -lmat
 
-PREFIX      := /usr
-RM          := rm -f
-INSTALL     := install -o root -g root -m 4755
-INSTALLDIR  := install -d -m 755
+#PREFIX      := /usr
+#RM          := rm -f
+#INSTALL     := install -o root -g root -m 4755
+#INSTALLDIR  := install -d -m 755
 
-OBJ :=  matManip.o  matComplex.o  matVec.o  matArith.o  matRoot.o  matDecomp.o
-
-
-
-
-$(EXEC) : matDebug.o $(LIB)
-	$(CC) -o $@ $< $(LFLAGS)
-	@echo "Finished compiling debug program."
-	@echo " "
-
-$(LIB) : $(OBJ)
-	ar -cvq $@ $(OBJ)
-	@echo "Finished compiling matrix library."
-	@echo " "
+#OBJ :=  matManip.o  matComplex.o  matVec.o  matArith.o  matRoot.o  matDecomp.o
 
 
 
 
-matManip.o : matManip.c matLib.h
-	$(CC) $(CFLAGS) -I. -c $< -o $@
+#$(EXEC) : matDebug.o $(LIB)
+#	$(CC) -o $@ $< $(LFLAGS)
+#	@echo "Finished compiling debug program."
+#	@echo " "
 
-matComplex.o : matComplex.c matLib.h
-	$(CC) $(CFLAGS) -I. -c $< -o $@
-
-matVec.o : matVec.c matLib.h
-	$(CC) $(CFLAGS) -I. -c $< -o $@
-
-matArith.o : matArith.c matLib.h
-	$(CC) $(CFLAGS) -I. -c $< -o $@
-
-matRoot.o : matRoot.c matLib.h
-	$(CC) $(CFLAGS) -I. -c $< -o $@
-
-matDecomp.o : matDecomp.c matLib.h
-	$(CC) $(CFLAGS) -I. -c $< -o $@
-
-matDebug.o : matDebug.c matLib.h $(LIB)
-	$(CC) $(CFLAGS) -I. -c $< -o $@
+#$(LIB) : $(OBJ)
+#	ar -cvq $@ $(OBJ)
+#	@echo "Finished compiling matrix library."
+#	@echo " "
 
 
 
 
-lib:
-	$(MAKE) $(LIB) --no-print-directory
+#matManip.o : matManip.c matLib.h
+#	$(CC) $(CFLAGS) -I. -c $< -o $@
 
-install:
-	@$(MAKE) --no-print-directory
-	@$(INSTALLDIR) $(DESTDIR)$(PREFIX)/lib
-	@$(INSTALL) $(LIB) $(DESTDIR)$(PREFIX)/lib
-	@echo "$Library installation complete."
+#matComplex.o : matComplex.c matLib.h
+#	$(CC) $(CFLAGS) -I. -c $< -o $@
 
-clean:
-	@$(RM) $(EXEC) $(LIB) $(OBJ) matDebug.o
-	@echo "Finished cleaning directory."
-	@echo " "
+#matVec.o : matVec.c matLib.h
+#	$(CC) $(CFLAGS) -I. -c $< -o $@
+
+#matArith.o : matArith.c matLib.h
+#	$(CC) $(CFLAGS) -I. -c $< -o $@
+
+#matRoot.o : matRoot.c matLib.h
+#	$(CC) $(CFLAGS) -I. -c $< -o $@
+
+#matDecomp.o : matDecomp.c matLib.h
+#	$(CC) $(CFLAGS) -I. -c $< -o $@
+
+#matDebug.o : matDebug.c matLib.h $(LIB)
+#	$(CC) $(CFLAGS) -I. -c $< -o $@
+
+
+
+
+#lib:
+#	$(MAKE) $(LIB) --no-print-directory
+
+#install:
+#	@$(MAKE) --no-print-directory
+#	@$(INSTALLDIR) $(DESTDIR)$(PREFIX)/lib
+#	@$(INSTALL) $(LIB) $(DESTDIR)$(PREFIX)/lib
+#	@echo "$Library installation complete."
+
+#clean:
+#	@$(RM) $(EXEC) $(LIB) $(OBJ) matDebug.o
+#	@echo "Finished cleaning directory."
+#	@echo " "
 
 
 
