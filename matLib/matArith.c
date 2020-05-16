@@ -24,11 +24,8 @@ matrix* mat_add ( matrix* matA, matrix* matB ) {
 
   matrix* add = mat_init( matA->rows, matA->cols );
   for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(add->data+i) = *(matA->data+i) + *(matB->data+i);
+
   return add;
-
-  //for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(matA->data+i) += *(matB->data+i);
-  //retrun matA;
-
 }
 
 
@@ -45,11 +42,8 @@ matrix* mat_sub ( matrix* matA, matrix* matB ) {
 
   matrix* sub = mat_init( matA->rows, matA->cols );
   for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(sub->data+i) = *(matA->data+i) - *(matB->data+i);
+
   return sub;
-
-  //for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(matA->data+i) -= *(matB->data+i);
-  //retrun matA;
-
 }
 
 
@@ -66,11 +60,8 @@ matrix* mat_emul ( matrix* matA, matrix* matB ) {
 
   matrix* emul = mat_init( matA->rows, matA->cols );
   for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(emul->data+i) = *(matA->data+i) * *(matB->data+i);
+
   return emul;
-
-  //for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(matA->data+i) *= *(matB->data+i);
-  //retrun matA;
-
 }
 
 
@@ -87,11 +78,8 @@ matrix* mat_ediv ( matrix* matA, matrix* matB ) {
 
   matrix* ediv = mat_init( matA->rows, matA->cols );
   for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(ediv->data+i) = *(matA->data+i) / *(matB->data+i);
+
   return ediv;
-
-  //for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(matA->data+i) /= *(matB->data+i);
-  //retrun matA;
-
 }
 
 
@@ -216,17 +204,15 @@ matrix* mat_divR ( matrix* matA, matrix* matB ) {
 
 
 /*******************************************************************************
-* matrix* mat_epow ( matrix* mat, float power )
+* matrix* mat_epow ( matrix* mat, uint power )
 * Element-wise operation which raises each entry to a specified power.
 *******************************************************************************/
-matrix* mat_epow ( matrix* mat, float power ) {
+matrix* mat_epow ( matrix* mat, uint power ) {
 
   matrix* epow = mat_init( mat->rows, mat->cols );
   for( ushort i=0; i < mat->rows * mat->cols; i++ )  *(epow->data+i) = (float)pow( *(mat->data+i), power );
-  return pow;
 
-  //for( ushort i=0; i < mat->rows * mat->cols; i++ )  *(mat->data+i) = (float)pow( *(mat->data+i), power );
-  //return mat;
+  return epow;
 }
 
 
@@ -263,10 +249,8 @@ matrix* mat_abs ( matrix* mat ) {
 
   matrix* abs = mat_init( mat->rows, mat->cols );
   for( ushort i=0; i < mat->rows * mat->cols; i++ )  *(abs->data+i) = (float)fabs( *(mat->data+i) );
-  return abs;
 
-  //for( ushort i=0; i < mat->rows * mat->cols; i++ )  *(mat->data+i) = (float)fabs( *(mat->data+i) );
-  //return mat;
+  return abs;
 }
 
 
@@ -300,7 +284,7 @@ matrix* mat_reshape ( matrix* mat, uint rows, uint cols ) {
 
   matrix* reshape = mat_init( rows, cols );
   for( ushort i=0; i < mat->rows * mat->cols; i++ ) {
-    *( reshape->data + (i/cols)*cols + i%cols ) = *( mat->data + (i/mat->cols)*mat->cols + i%mat->cols );
+    *( reshape->data + (i/cols) * cols + i%cols ) = *( mat->data + (i/mat->cols) * mat->cols + i%mat->cols );
   }
 
   return reshape;

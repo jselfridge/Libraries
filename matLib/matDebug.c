@@ -53,8 +53,8 @@ int main ( void ) {
   MatPrint();
   // MatManip();
   // MatComplex();
-  MatVec();
-  //MatArith();
+  // MatVec();
+  MatArith();
   //MatRoot();
   //MatProp();
   //MatDecomp();
@@ -523,101 +523,119 @@ void MatVec ( void ) {
 *******************************************************************************/
 void MatArith ( void ) {
 
-//   printf("Matrix arithmetic functions \n");
+  printf("Matrix arithmetic functions \n");
 
-//   // Addition
-//   matrix* Vadd = mat_add( M31a, M31b );
-//   mat_print(Vadd);
-//   mat_clear(Vadd);
-//   matrix* Madd = mat_add( M33a, M33b );
-//   mat_print(Madd);
-//   mat_clear(Madd);
+  // Addition
+  matrix* Vadd = mat_add( M31a, M31b );
+  mat_print(Vadd);
+  mat_clear(Vadd);
+  matrix* Madd = mat_add( M33a, M33b );
+  mat_print(Madd);
+  mat_clear(Madd);
 
-//   // Subtraction
-//   matrix* Vsub = mat_sub( M31a, M31b );
-//   mat_print(Vsub);
-//   mat_clear(Vsub);
-//   matrix* Msub = mat_sub( M33a, M33b );
-//   mat_print(Msub);
-//   mat_clear(Msub);
+  // Subtraction
+  matrix* Vsub = mat_sub( M31a, M31b );
+  mat_print(Vsub);
+  mat_clear(Vsub);
+  matrix* Msub = mat_sub( M33a, M33b );
+  mat_print(Msub);
+  mat_clear(Msub);
 
-//   // Element-wise multiplication
-//   matrix* Vemul = mat_emul( M31a, M31b );
-//   mat_print(Vemul);
-//   mat_clear(Vemul);
-//   matrix* Memul = mat_emul( M33a, M33b );
-//   mat_print(Memul);
-//   mat_clear(Memul);
+  // Element-wise multiplication
+  matrix* Vemul = mat_emul( M31a, M31b );
+  mat_print(Vemul);
+  mat_clear(Vemul);
+  matrix* Memul = mat_emul( M33a, M33b );
+  mat_print(Memul);
+  mat_clear(Memul);
 
-//   // Element-wise division
-//   matrix* Vediv = mat_ediv( M31a, M31b );
-//   mat_print(Vediv);
-//   mat_clear(Vediv);
-//   matrix* Mediv = mat_ediv( M33a, M33b );
-//   mat_print(Mediv);
-//   mat_clear(Mediv);
+  // Element-wise division
+  matrix* Vediv = mat_ediv( M31a, M31b );
+  mat_print(Vediv);
+  mat_clear(Vediv);
+  matrix* Mediv = mat_ediv( M33a, M33b );
+  mat_print(Mediv);
+  mat_clear(Mediv);
 
-//   // Multiplication
-//   matrix* Mmul33 = mat_mul( M33a, M33b );
-//   mat_print(Mmul33);
-//   mat_clear(Mmul33);
-//   matrix* Mmul23 = mat_mul( M23, M33a );
-//   mat_print(Mmul23);
-//   mat_clear(Mmul23);
-//   matrix* Mmul4 = mat_mul( M44, M41 );
-//   mat_print(Mmul4);
-//   mat_clear(Mmul4);
+  // Multiplication
+  matrix* Mmul33 = mat_mul( M33a, M33b );
+  mat_print(Mmul33);
+  mat_clear(Mmul33);
+  matrix* Mmul23 = mat_mul( M23, M33a );
+  mat_print(Mmul23);
+  mat_clear(Mmul23);
+  matrix* Mmul4 = mat_mul( M44, M41 );
+  mat_print(Mmul4);
+  mat_clear(Mmul4);
 
-// //   // Left division
-// //   matrix* XL  = mat_divL( M33a, M32 );
-// //   matrix* AXL = mat_mul( M33a, XL );
-// //   mat_print(M33a);  mat_print(M32);
-// //   mat_print(XL);    mat_clear(XL);
-// //   mat_print(AXL);   mat_clear(AXL);
+//   // Left division
+//   matrix* XL  = mat_divL( M33a, M32 );
+//   matrix* AXL = mat_mul( M33a, XL );
+//   mat_print(M33a);  mat_print(M32);
+//   mat_print(XL);    mat_clear(XL);
+//   mat_print(AXL);   mat_clear(AXL);
 
-// //   // Matrix inverse
-// //   matrix* INV = mat_inv( M44 );
-// //   matrix* MIM = mat_mul( INV, M44 );
-// //   mat_print(INV);  mat_clear(INV);
-// //   mat_print(MIM);  mat_clear(MIM);
+//   // Matrix inverse
+//   matrix* INV = mat_inv( M44 );
+//   matrix* MIM = mat_mul( INV, M44 );
+//   mat_print(INV);  mat_clear(INV);
+//   mat_print(MIM);  mat_clear(MIM);
 
-// //   // Right division
-// //   matrix* XR  = mat_divR( M44, M14 );
-// //   matrix* XRA = mat_mul( XR, M44 );
-// //   mat_print(M44);  mat_print(M14);
-// //   mat_print(XR);   mat_clear(XR);
-// //   mat_print(XRA);  mat_clear(XRA);
+//   // Right division
+//   matrix* XR  = mat_divR( M44, M14 );
+//   matrix* XRA = mat_mul( XR, M44 );
+//   mat_print(M44);  mat_print(M14);
+//   mat_print(XR);   mat_clear(XR);
+//   mat_print(XRA);  mat_clear(XRA);
 
-//   // Matrix power
-//   ushort i;
-//   matrix* Mpow;
-//   for( i=0; i<=4; i++ ) {
-//     Mpow = mat_pow( M33a, i );
-//     mat_print(Mpow);
-//   }
-//   mat_clear(Mpow);
+  // Matrix element-wise power
+  matrix* Mepow;
+  for( ushort i=0; i<=4; i++ ) {
+    Mepow = mat_epow( M33a, i );
+    mat_print(Mepow);
+  }
+  mat_clear(Mepow);
 
-//   // Absolute value
-//   mat_print( mat_abs(M32) );
-//   mat_print( mat_abs(M44) );
-//   mat_print( mat_abs(M41) );
+  // Matrix power
+  matrix* Mpow;
+  for( ushort i=0; i<=4; i++ ) {
+    Mpow = mat_pow( M33a, i );
+    mat_print(Mpow);
+  }
+  mat_clear(Mpow);
 
-//   // Transpose
-//   matrix* T1 = mat_trans(M41);
-//   mat_print(T1);
-//   mat_clear(T1);
-//   matrix* T2 = mat_trans(M23);
-//   mat_print(T2);
-//   mat_clear(T2);
-//   matrix* T3 = mat_trans(M43);
-//   mat_print(T3);
-//   mat_clear(T3);
-//   matrix* T4 = mat_trans(M33a);
-//   mat_print(T4);
-//   mat_clear(T4);
+  // Absolute value
+  mat_print(M32);
+  mat_print( mat_abs(M32) );
+  mat_print(M44);
+  mat_print( mat_abs(M44) );
+  mat_print(M41);
+  mat_print( mat_abs(M41) );
 
-//   // Exit MatArith degugging
-//   printf("\n");
+  // Transpose
+  mat_print(M41);
+  mat_print( mat_trans(M41) );
+  mat_print(M14);
+  mat_print( mat_trans(M14) );
+  mat_print(M23);
+  mat_print( mat_trans(M23) );
+  mat_print(M32);
+  mat_print( mat_trans(M32) );
+  mat_print(M44);
+  mat_print( mat_trans(M44) );
+
+  // Reshape
+  mat_print(M41);
+  mat_print( mat_reshape( M41, 2, 2 ) );
+  mat_print(M14);
+  mat_print( mat_reshape( M14, 2, 2 ) );
+  mat_print(M23);
+  mat_print( mat_reshape( M23, 3, 2 ) );
+  mat_print(M44);
+  mat_print( mat_reshape( M44, 8, 2 ) );
+
+  // Exit MatArith degugging
+  printf("\n");
 
   return;
 }
