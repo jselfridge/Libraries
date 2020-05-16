@@ -23,7 +23,7 @@ matrix* mat_add ( matrix* matA, matrix* matB ) {
   mat_err( ( matA->cols != matB->cols ), "Error (mat_add): Matrices must have same number of columns." );
 
   matrix* add = mat_init( matA->rows, matA->cols );
-  for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(add->data+i) = *(matA->data+i) + *(matB->data+i);
+  for( uint i=0; i < matA->rows * matA->cols; i++ )  *(add->data+i) = *(matA->data+i) + *(matB->data+i);
 
   return add;
 }
@@ -41,7 +41,7 @@ matrix* mat_sub ( matrix* matA, matrix* matB ) {
   mat_err( ( matA->cols != matB->cols ), "Error (mat_sub): Matrices must have same number of columns." );
 
   matrix* sub = mat_init( matA->rows, matA->cols );
-  for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(sub->data+i) = *(matA->data+i) - *(matB->data+i);
+  for( uint i=0; i < matA->rows * matA->cols; i++ )  *(sub->data+i) = *(matA->data+i) - *(matB->data+i);
 
   return sub;
 }
@@ -59,7 +59,7 @@ matrix* mat_emul ( matrix* matA, matrix* matB ) {
   mat_err( ( matA->cols != matB->cols ), "Error (mat_emul): Matrices must have same number of columns." );
 
   matrix* emul = mat_init( matA->rows, matA->cols );
-  for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(emul->data+i) = *(matA->data+i) * *(matB->data+i);
+  for( uint i=0; i < matA->rows * matA->cols; i++ )  *(emul->data+i) = *(matA->data+i) * *(matB->data+i);
 
   return emul;
 }
@@ -77,7 +77,7 @@ matrix* mat_ediv ( matrix* matA, matrix* matB ) {
   mat_err( ( matA->cols != matB->cols ), "Error (mat_ediv): Matrices must have same number of columns." );
 
   matrix* ediv = mat_init( matA->rows, matA->cols );
-  for( ushort i=0; i < matA->rows * matA->cols; i++ )  *(ediv->data+i) = *(matA->data+i) / *(matB->data+i);
+  for( uint i=0; i < matA->rows * matA->cols; i++ )  *(ediv->data+i) = *(matA->data+i) / *(matB->data+i);
 
   return ediv;
 }
@@ -95,10 +95,10 @@ matrix* mat_mul ( matrix* matA, matrix* matB ) {
 
   matrix* mul = mat_init( matA->rows, matB->cols );
 
-  for( ushort i=0; i<matA->rows; i++ ) {
-    for( ushort j=0; j<matB->cols; j++ ) {
+  for( uint i=0; i<matA->rows; i++ ) {
+    for( uint j=0; j<matB->cols; j++ ) {
       float val = 0.0;
-      for( ushort k=0; k<matA->cols; k++ ) {
+      for( uint k=0; k<matA->cols; k++ ) {
         val += *( matA->data + i*matA->cols + k ) * *( matB->data + k*matB->cols + j );
       }
       *( mul->data + i*mul->cols + j ) = val;
@@ -143,7 +143,7 @@ matrix* mat_divL ( matrix* matA, matrix* matB ) {
   mat_err( matA->rows != matB->rows, "Error (mat_divL): A and B must be the same height." );
 
   // Local variables
-  ushort r, c, i, j, k;
+  uint r, c, i, j, k;
   float val;
 
   // Dimensions
@@ -210,7 +210,7 @@ matrix* mat_divR ( matrix* matA, matrix* matB ) {
 matrix* mat_epow ( matrix* mat, uint power ) {
 
   matrix* epow = mat_init( mat->rows, mat->cols );
-  for( ushort i=0; i < mat->rows * mat->cols; i++ )  *(epow->data+i) = (float)pow( *(mat->data+i), power );
+  for( uint i=0; i < mat->rows * mat->cols; i++ )  *(epow->data+i) = (float)pow( *(mat->data+i), power );
 
   return epow;
 }
@@ -231,7 +231,7 @@ matrix* mat_pow ( matrix* mat, uint power ) {
     case 1 : return mat;
     default : {
       matrix* pow = mat_eye( mat->rows );
-      for( ushort i=0; i<power; i++ )  pow = mat_mul( pow, mat );
+      for( uint i=0; i<power; i++ )  pow = mat_mul( pow, mat );
       return pow;
     }
   }
@@ -248,7 +248,7 @@ matrix* mat_pow ( matrix* mat, uint power ) {
 matrix* mat_abs ( matrix* mat ) {
 
   matrix* abs = mat_init( mat->rows, mat->cols );
-  for( ushort i=0; i < mat->rows * mat->cols; i++ )  *(abs->data+i) = (float)fabs( *(mat->data+i) );
+  for( uint i=0; i < mat->rows * mat->cols; i++ )  *(abs->data+i) = (float)fabs( *(mat->data+i) );
 
   return abs;
 }
@@ -264,7 +264,7 @@ matrix* mat_trans ( matrix* mat ) {
 
   matrix* trans = mat_init( mat->cols, mat->rows );
 
-  for( ushort i=0; i < mat->rows * mat->cols; i++ ) {
+  for( uint i=0; i < mat->rows * mat->cols; i++ ) {
     *( trans->data + (i%mat->cols) * trans->cols + i/mat->cols ) = *( mat->data + (i/mat->cols) * mat->cols + i%mat->cols );
   }
 
@@ -283,7 +283,7 @@ matrix* mat_reshape ( matrix* mat, uint rows, uint cols ) {
   mat_err( ( mat->rows * mat->cols != rows * cols ), "Error (mat_reshape): Number of elements do not match." );
 
   matrix* reshape = mat_init( rows, cols );
-  for( ushort i=0; i < mat->rows * mat->cols; i++ ) {
+  for( uint i=0; i < mat->rows * mat->cols; i++ ) {
     *( reshape->data + (i/cols) * cols + i%cols ) = *( mat->data + (i/mat->cols) * mat->cols + i%mat->cols );
   }
 

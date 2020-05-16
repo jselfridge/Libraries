@@ -95,7 +95,7 @@ float mat_dot ( matrix* vecA, matrix* vecB ) {
   mat_err( ( vecA->rows != vecB->rows ),           "Error (mat_dot): Vectors must be the same height." );
 
   float out = 0.0;
-  for( ushort i=0; i<vecA->rows; i++ )  out += *(vecA->data+i) * *(vecB->data+i);
+  for( uint i=0; i<vecA->rows; i++ )  out += *(vecA->data+i) * *(vecB->data+i);
 
   return out;
 }
@@ -112,7 +112,7 @@ float mat_mag ( matrix* vec ) {
   mat_err( ( vec->cols != 1 ), "Error (mat_mag): Input must be a column vector." );
 
   float mag = 0.0;
-  for( ushort i=0; i<vec->rows; i++ )  mag += *(vec->data+i) * *(vec->data+i);
+  for( uint i=0; i<vec->rows; i++ )  mag += *(vec->data+i) * *(vec->data+i);
 
   return (float)sqrt(mag);
 }
@@ -132,7 +132,7 @@ float mat_norm ( matrix* vec, uint p ) {
 
     case 0 : {
       float norm = 0.0;
-      for( ushort i=0; i<vec->rows; i++ ) {
+      for( uint i=0; i<vec->rows; i++ ) {
         float val = (float)fabs( *(vec->data+i) );
         if( val > norm )  norm = val;
       }
@@ -141,7 +141,7 @@ float mat_norm ( matrix* vec, uint p ) {
 
     case 1 : {
       float norm = 0.0;
-      for( ushort i=0; i<vec->rows; i++ )  norm += (float)fabs( *(vec->data+i) );
+      for( uint i=0; i<vec->rows; i++ )  norm += (float)fabs( *(vec->data+i) );
       return norm;
     }
 
@@ -151,7 +151,7 @@ float mat_norm ( matrix* vec, uint p ) {
 
     default : {
       float norm = 0.0;
-      for( ushort i=0; i<vec->rows; i++ ) {
+      for( uint i=0; i<vec->rows; i++ ) {
         norm += (float)pow( (float)fabs( *(vec->data+i) ), p );
       }
       return (float)pow( norm, ( 1.0 / (float)p ) );
@@ -178,7 +178,7 @@ matrix* mat_uvec ( matrix* vec ) {
 
   matrix* uvec = mat_init( vec->rows, 1 );
   memcpy( uvec->data, vec->data, vec->rows * sizeof(float) );
-  for( ushort i=0; i<vec->rows; i++ )  *(uvec->data+i) /= mag;
+  for( uint i=0; i<vec->rows; i++ )  *(uvec->data+i) /= mag;
 
   return uvec;
 }
