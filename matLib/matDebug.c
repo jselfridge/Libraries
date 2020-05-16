@@ -51,11 +51,11 @@ int main ( void ) {
   printf("\n   --- MatLib Debugging --- \n\n");
   MatInit();
   MatPrint();
-  MatManip();
+  // MatManip();
   // MatComplex();
   // MatVec();
   // MatArith();
-  //MatRoot();
+  MatRoot();
   //MatProp();
   //MatDecomp();
   MatClear();
@@ -649,81 +649,81 @@ void MatArith ( void ) {
 *******************************************************************************/
 void MatRoot ( void ) {
 
-//   printf("Matrix polynomial root function \n");
+  printf("Matrix polynomial root function \n");
 
-// //   // Routine values
-// //   double tol = 0.000002;
-// //   ushort max = 50000;
+  // Routine values
+  float tol = 0.001;
+  uint max = 50000;
 
-// //   // First polynomial matrix
-// //   matrix* poly1 = mat_init( 1, 4 );
-// //   mat_set( poly1, 1, 1,  1 );
-// //   mat_set( poly1, 1, 2, 10 );
-// //   mat_set( poly1, 1, 3, 31 );
-// //   mat_set( poly1, 1, 4, 30 );
-// //   printf("poly1: ");
-// //   mat_print(poly1);
-// //   matrixz* zero1 = mat_root( poly1, tol, max );
-// //   printf("zero1: ");
-// //   mat_printz(zero1);
+  // First polynomial matrix
+  matrix* poly1 = mat_init( 1, 4 );
+  mat_set( poly1, 1, 1,  1 );
+  mat_set( poly1, 1, 2, 10 );
+  mat_set( poly1, 1, 3, 31 );
+  mat_set( poly1, 1, 4, 30 );
+  printf("poly1: ");
+  mat_print(poly1);
+  matrixz* zero1 = mat_root( poly1, tol, max );
+  printf("zero1: ");
+  mat_printz(zero1);
 
-// //   // Second polynomial matrix
-// //   matrix* poly2 = mat_init( 1, 4 );
-// //   mat_set( poly2, 1, 1, 1 );
-// //   mat_set( poly2, 1, 2, 4 );
-// //   mat_set( poly2, 1, 3, 6 );
-// //   mat_set( poly2, 1, 4, 4 );
-// //   printf("poly2: ");
-// //   mat_print(poly2);
-// //   matrixz* zero2 = mat_root( poly2, tol, max );
-// //   printf("zero2: ");
-// //   mat_printz(zero2);
+  // Second polynomial matrix
+  matrix* poly2 = mat_init( 1, 4 );
+  mat_set( poly2, 1, 1, 1 );
+  mat_set( poly2, 1, 2, 4 );
+  mat_set( poly2, 1, 3, 6 );
+  mat_set( poly2, 1, 4, 4 );
+  printf("poly2: ");
+  mat_print(poly2);
+  matrixz* zero2 = mat_root( poly2, tol, max );
+  printf("zero2: ");
+  mat_printz(zero2);
 
-// //   // Third polynomial matrix
-// //   matrix* poly3 = mat_init( 1, 4 );
-// //   mat_set( poly3, 1, 1,  -3 );
-// //   mat_set( poly3, 1, 2, -12 );
-// //   mat_set( poly3, 1, 3, -18 );
-// //   mat_set( poly3, 1, 4, -12 );
-// //   printf("poly3: ");
-// //   mat_print(poly3);
-// //   matrixz* zero3 = mat_root( poly3, tol, max );
-// //   printf("zero3: ");
-// //   mat_printz(zero3);
+  // Third polynomial matrix
+  matrix* poly3 = mat_init( 1, 4 );
+  mat_set( poly3, 1, 1,  -3 );
+  mat_set( poly3, 1, 2, -12 );
+  mat_set( poly3, 1, 3, -18 );
+  mat_set( poly3, 1, 4, -12 );
+  printf("poly3: ");
+  mat_print(poly3);
+  matrixz* zero3 = mat_root( poly3, tol, max );
+  printf("zero3: ");
+  mat_printz(zero3);
 
-// //   // Fourth polynomial matrix
-// //   matrix* poly4 = mat_init( 1, 13 );
-// //   mat_set( poly4, 1,  1,      1 );
-// //   mat_set( poly4, 1,  2,      6 );
-// //   mat_set( poly4, 1,  3,    -19 );
-// //   mat_set( poly4, 1,  4,   -132 );
-// //   mat_set( poly4, 1,  5,    115 );
-// //   mat_set( poly4, 1,  6,    434 );
-// //   mat_set( poly4, 1,  7,  -4449 );
-// //   mat_set( poly4, 1,  8,  -8932 );
-// //   mat_set( poly4, 1,  9,  34484 );
-// //   mat_set( poly4, 1, 10, 164720 );
-// //   mat_set( poly4, 1, 11, 296748 );
-// //   mat_set( poly4, 1, 12, 268704 );
-// //   mat_set( poly4, 1, 13, 112320 );
-// //   printf("poly4: ");
-// //   mat_print(poly4);
-// //   matrixz* zero4 = mat_root( poly4, tol, max );
-// //   printf("zero4: ");
-// //   mat_printz(zero4);
+  // Fourth polynomial matrix
+  matrix* poly4 = mat_init( 1, 6 );
+  mat_set( poly4, 1,  1,      1 );
+  mat_set( poly4, 1,  2,      6 );
+  mat_set( poly4, 1,  3,    -19 );
+  mat_set( poly4, 1,  4,   -132 );
+  mat_set( poly4, 1,  5,    115 );
+  mat_set( poly4, 1,  6,    434 );
+  //mat_set( poly4, 1,  7,  -4449 );
+  // mat_set( poly4, 1,  8,  -8932 );
+  // mat_set( poly4, 1,  9,  34484 );
+  // mat_set( poly4, 1, 10, 164720 );
+  // mat_set( poly4, 1, 11, 296748 );
+  // mat_set( poly4, 1, 12, 268704 );
+  // mat_set( poly4, 1, 13, 112320 );
+  printf("poly4: ");
+  mat_print(poly4);
+  matrixz* zero4 = mat_root( poly4, tol, max );
+  printf("zero4: ");
+  mat_printz(zero4);
 
-// //   // Clear matrices
-// //   mat_clear(poly1);
-// //   mat_clear(poly2);
-// //   mat_clear(poly3);
-// //   mat_clear(poly4);
-// //   mat_clearz(zero1);
-// //   mat_clearz(zero2);
-// //   mat_clearz(zero3);
-// //   mat_clearz(zero4);
+  // Clear matrices
+  mat_clear(poly1);
+  mat_clear(poly2);
+  mat_clear(poly3);
+  mat_clear(poly4);
+  mat_clearz(zero1);
+  mat_clearz(zero2);
+  mat_clearz(zero3);
+  mat_clearz(zero4);
 
-//   // Exit MatRoot debugging
-//   printf("\n");
+  // Exit MatRoot debugging
+  printf("\n");
 
   return;
 }

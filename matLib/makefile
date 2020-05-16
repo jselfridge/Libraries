@@ -21,7 +21,7 @@ RM          := rm -f
 INSTALL     := install -o root -g root -m 4755
 INSTALLDIR  := install -d -m 755
 
-OBJ :=  matManip.o  matComplex.o  matVec.o  matArith.o
+OBJ :=  matManip.o  matComplex.o  matVec.o  matArith.o  matRoot.o
 
 
 
@@ -49,6 +49,9 @@ matVec.o : matVec.c matLib.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 matArith.o : matArith.c matLib.h
+	$(CC) $(CFLAGS) -I. -c $< -o $@
+
+matRoot.o : matRoot.c matLib.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 matDebug.o : matDebug.c matLib.h

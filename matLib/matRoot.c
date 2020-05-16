@@ -33,20 +33,15 @@ matrixz* mat_root ( matrix* poly, float tol, uint max ) {
 
   mat_err( ( poly->rows != 1 ), "Error (mat_root): Polynomial must be a row vector." );
 
-  //uint i, j, c, z;
-  //float m, b;
-  //c = poly->cols;
-  //z = c-1;
-
-  matrix*  coef = mat_init( poly->cols, 1 );
+  matrix*  coef = mat_init(  poly->cols,   1 );
   matrixz* zero = mat_initz( poly->cols-1, 1 );
 
   float m = *(poly->data);
   if( m != 1.0 )  poly = mat_scale( poly, 1.0/m );
 
-  for( ushort i=1; i<=c; i++ ) {
-    j = c + 1 - i;
-    mat_set( coef, j, 1, mat_get( poly, 1, i ) );
+  for( uint i=0; i<poly->cols; i++ ) {
+    uint j = poly->cols - 1 - i;
+    *(coef->data+j) = *(poly->data+i);
   }
 
   float b = B(coef);
@@ -66,16 +61,13 @@ matrixz* mat_root ( matrix* poly, float tol, uint max ) {
 *******************************************************************************/
 float B ( matrix* coef ) {
 
-  //ushort i, c;
-  //c = coef->rows;
-
-  float val, b = 0.0;
-  for( ushort i=1; i<=coef->rows; i++ ) {
-    val = (float)fabs( mat_get( coef, i, 1 ) );
+  float b = 0.0;
+  for( uint i=0; i<coef->rows; i++ ) {
+    float val = (float)fabs( *(coef->data+i) );
     if( val > b )  b = val;
   }
 
-  return b+1;
+  return b + 1.0;
 }
 
 
@@ -86,15 +78,9 @@ float B ( matrix* coef ) {
 *******************************************************************************/
 void Z ( matrixz* zero, float b ) {
 
-  //ushort i, z;
-  //float re, im, ratio;
-  //z = zero->rows;
-
-  for( ushort i=1; i<=zero->rows; i++ ) {
+  for( uint i=0; i<zero->rows; i++ ) {
     float ratio = (float)i / (float)zero->rows;
-    float re = cos( ratio * PI2 );
-    float im = sin( ratio * PI2 ) * b;
-    mat_setz( zero, i, 1, re, im );
+    *(zero->data+i) = (float)cos( ratio * M_PI ) + (float)sin( ratio * M_PI ) * b *I;
   }
 
   return;
@@ -108,27 +94,22 @@ void Z ( matrixz* zero, float b ) {
 *******************************************************************************/
 void L ( matrixz* zero, matrix* coef, float tol, uint max ) {
 
-  //ushort j, k, z;
-  //float q, qmax;
-  //float complex n, d, Q, Z;
-  //z = zero->rows;
-
-  for( ushort k=0; k<max; k++ ) {
+  for( uint k=0; k<max; k++ ) {
     float qmax = 0.0;
-    for( ushort j=1; j<=zero->rows; j++ ) {
+    for( uint j=0; j<zero->rows; j++ ) {
       float complex n = N( zero, coef, j );
       float complex d = D( zero, j );
       float complex Q = -n/d;
-      float q = cabs(Q);
-      float complex Z = mat_getre( zero, j, 1 ) + mat_getim( zero, j, 1 ) *I;
+      float q = cabsf(Q);
+      float complex Z = *(zero->data+j);
       Z += Q;
-      mat_setz( zero, j, 1, creal(Z), cimag(Z) );
+      *(zero->data+j) = crealf(Z) + cimagf(Z) *I;
       if( q > qmax )  qmax = q;
     }
-    if( qmax <= tol )  break;
+    if( qmax <= tol )  return;
   }
 
-  mat_err( ( k >= max ), "Error (mat_root): Exceeded maximum iterations." );
+  mat_err( (true), "Error (mat_root): Exceeded maximum iterations." );
 
   return;
 }
@@ -141,20 +122,12 @@ void L ( matrixz* zero, matrix* coef, float tol, uint max ) {
 *******************************************************************************/
 float complex N ( matrixz* zero, matrix* coef, uint j ) {
 
-  //ushort i, c, z;
-  //float re, im;
-  //float complex C, Z, n;
-  //c = coef->rows;
-  //z = zero->rows;
+  float complex n = *( coef->data + coef->rows-1 );
 
-  float complex n = mat_get( coef, coef->rows, 1 );
-
-  for( ushort i=zero->rows; i>=1; i-- ) {
-    float complex C = mat_get( coef, i, 1 );
-    float re = mat_getre( zero, j, 1 );
-    float im = mat_getim( zero, j, 1 );
-    float complex Z = re + im *I;
-    n = Z * n + C;
+  for( uint i=0; i<zero->rows; i++ ) {
+    float complex c = *( coef->data + zero->rows-1 - i );
+    float complex z = *( zero->data + j );
+    n = z * n + c;
   }
 
   return n;
@@ -168,15 +141,11 @@ float complex N ( matrixz* zero, matrix* coef, uint j ) {
 *******************************************************************************/
 float complex D ( matrixz* zero, uint j ) {
 
-  //ushort i, z;
-  //float complex zi, zj, d;
-  //z = zero->rows;
-
   float complex d = 1.0;
 
-  for( ushort i=1; i<=zero->rows; i++ ) {
-    float complex zi = mat_getre( zero, i, 1 ) + mat_getim( zero, i, 1) *I;
-    float complex zj = mat_getre( zero, j, 1 ) + mat_getim( zero, j, 1) *I;
+  for( uint i=0; i<zero->rows; i++ ) {
+    float complex zi = *(zero->data+i);
+    float complex zj = *(zero->data+j);
     if( i != j )  d *= zj - zi;
   }
 
