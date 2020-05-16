@@ -111,8 +111,8 @@ matrix*  mat_trans    ( matrix* mat );
 matrix*  mat_reshape  ( matrix* mat, uint rows, uint cols );
 
 
-// // Functions within matRoot
-// matrixz*  mat_root  ( matrix* poly, float tol, ushort max );
+// Functions within matRoot
+matrixz*  mat_root  ( matrix* poly, float tol, uint max );
 
 
 // // Functions within matProp
