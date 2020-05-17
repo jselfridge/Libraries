@@ -4,11 +4,11 @@
 * Gradient Consulting, LLC
 * jselfridge@gmail.com
 *
-* matArith.h
+* matArith.c
 * Source code for matrix arithmetic functions within the 'matLib' library.
 *
 *******************************************************************************/
-#include "matLib.h"
+#include "../inc/matArith.h"
 
 
 

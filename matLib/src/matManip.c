@@ -4,7 +4,7 @@
 * Gradient Consulting, LLC
 * jselfridge@gmail.com
 *
-* matManip.h
+* matManip.c
 * Source code for matrix manipulation functions within the 'matLib' library.
 *
 *******************************************************************************/

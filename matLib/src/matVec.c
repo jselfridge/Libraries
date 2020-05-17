@@ -4,11 +4,11 @@
 * Gradient Consulting, LLC
 * jselfridge@gmail.com
 *
-* matVec.h
+* matVec.c
 * Source code for matrix vector functions within the 'matLib' library.
 *
 *******************************************************************************/
-#include "matLib.h"
+#include "../inc/matVec.h"
 
 
 

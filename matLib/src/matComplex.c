@@ -5,10 +5,10 @@
 * jselfridge@gmail.com
 *
 * matComplex.c
-* Debugging program for tetsing the 'matComplex' library functions.
+* Source code for complex matrix functions within the 'matLib' library.
 *
 *******************************************************************************/
-#include "matLib.h"
+#include "../inc/matComplex.h"
 
 
 

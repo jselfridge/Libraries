@@ -8,7 +8,7 @@
 * Source code to find the roots of a polynomial stored as a vector.
 *
 *******************************************************************************/
-#include <matLib.h>
+#include "../inc/matRoot.h"
 
 
 

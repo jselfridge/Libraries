@@ -12,20 +12,16 @@
 #define MAT_MANIP_H
 
 
-// // Standard includes
-// #include <complex.h>
+// Standard includes
 #include <math.h>
-// #include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 
-// Library header file
-#include "matLib.h"
+// Library includes
+#include "matCommon.h"
 
 
-// Functions within matManip
+// Function declarations
 matrix*   mat_init    ( uint rows, uint cols );
 void      mat_clear   ( matrix* mat );
 void      mat_print   ( matrix* mat );
