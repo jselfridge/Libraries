@@ -35,23 +35,26 @@ float mat_det ( matrix* mat ) {
 }
 
 
-/**
- *  mat_trace
- *  Returns the trace of a square matrix (sum of main diagonal).
- */
-double mat_trace ( matrix *mat )  {
 
-  mat_err( mat->rows != mat->cols, "Error (mat_trace): Matrix must be square." );
 
-  uint i, n;
-  double sum;
+/*******************************************************************************
+* float mat_trace ( matrix* mat )
+* Returns the trace of a square matrix (sum of main diagonal).
+*******************************************************************************/
+float mat_trace ( matrix* mat ) {
 
-  n = mat->rows;
-  sum = 0.0;
-  for ( i=1; i<=n; i++ )  sum += mat_get( mat, i, i );
+  mat_err( ( mat->rows != mat->cols ), "Error (mat_trace): Matrix must be square." );
+
+  float sum = 0.0;
+  for( uint i=0; i < mat->rows * mat->cols; i += mat->cols+1 )  sum += *(mat->data+i);
 
   return sum;
 }
+
+
+
+
+
 
 
 /**
