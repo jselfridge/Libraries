@@ -1,25 +1,32 @@
+/*******************************************************************************
+*
+* Justin M Selfridge, PhD
+* Gradient Consulting, LLC
+* jselfridge@gmail.com
+*
+* matProp.c
+* Source code to determine matrix properties used within the 'matLib' library.
+*
+*******************************************************************************/
+#include "../inc/matProp.h"
 
 
-#include "matLib.h"
 
 
-/**
- *  mat_det
- *  Returns the determinant of a matrix.
- */
-double mat_det ( matrix *mat )  {
+/*******************************************************************************
+* float mat_det ( matrix* mat )
+* Returns the determinant of a matrix.
+*******************************************************************************/
+float mat_det ( matrix* mat ) {
 
-  mat_err( mat->rows != mat->cols, "Error (mat_det): Matrix must be square." );
+  mat_err( ( mat->rows != mat->cols ), "Error (mat_det): Matrix must be square." );
 
-  uint i, n;
+  matrix* L = NULL;
+  matrix* U = NULL;
+  mat_LU( mat, L, U );
+
   double product = 1.0;
-  matrix *L = NULL;
-  matrix *U = NULL;
-
-  mat_LU( mat, &L, &U );
-  n = mat->rows;
-
-  for ( i=1; i<=n; i++ )  product *= mat_get( U, i, i );
+  for( uint i=0; i < mat->rows * mat->cols; i += mat->cols+1 )  product *= *(U->data+i);
 
   mat_clear(L);
   mat_clear(U);
