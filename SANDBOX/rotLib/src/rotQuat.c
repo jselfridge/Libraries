@@ -14,6 +14,45 @@
 
 
 /*******************************************************************************
+* matrix* rot_qDef ( float rot, matrix* vec )
+* Creates a quaternion defined by a rotation by an angle around a vector.
+*******************************************************************************/
+matrix* rot_qDef ( float rot, matrix* vec ) {
+
+  float r = rot / 2.0;
+  matrix* quat = mat_init( 1, 4 );
+
+  *(quat->data  ) = cosf(r);
+  *(quat->data+1) = sinf(r) * *(vec->data  );
+  *(quat->data+2) = sinf(r) * *(vec->data+1);
+  *(quat->data+3) = sinf(r) * *(vec->data+2);
+
+  return mat_uvec(quat);
+}
+
+
+
+
+/*******************************************************************************
+* matrix* rot_qConj ( matrix* quat )
+* Returns the conjugate of a quaternion.
+*******************************************************************************/
+matrix* rot_qConj ( matrix* quat ) {
+
+  matrix* conj = mat_init( 1, 4 );
+
+  *(conj->data  ) =   *(quat->data  );
+  *(conj->data+1) = - *(quat->data+1);
+  *(conj->data+2) = - *(quat->data+2);
+  *(conj->data+3) = - *(quat->data+3);
+
+  return conj;
+}
+
+
+
+
+/*******************************************************************************
 * matrix* rot_e2q ( matrix* att )
 * Converts an Euler attitude vector into a quaternion vector.
 *******************************************************************************/
