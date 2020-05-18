@@ -21,14 +21,26 @@ float mat_det ( matrix* mat ) {
 
   mat_err( ( mat->rows != mat->cols ), "Error (mat_det): Matrix must be square." );
 
+  if( mat->rows == 1 )  return *(mat->data);
+  if( mat->rows == 2 )  return *(mat->data) * *(mat->data+3) - *(mat->data+1) * *(mat->data+2);
+  if( mat->rows == 3 )  return
+      *(mat->data+a) * *(mat->data+e) * *(mat->data+i)
+    + *(mat->data+b) * *(mat->data+f) * *(mat->data+g)
+    + *(mat->data+c) * *(mat->data+d) * *(mat->data+h)
+    - *(mat->data+c) * *(mat->data+e) * *(mat->data+g)
+    - *(mat->data+b) * *(mat->data+d) * *(mat->data+i)
+    - *(mat->data+a) * *(mat->data+f) * *(mat->data+h);
+
   matrix* L = NULL;
+  matrix* D = NULL;
   matrix* U = NULL;
-  mat_LU( mat, L, U );
+  mat_LU( mat, L, D, U );
 
   double product = 1.0;
-  for( uint i=0; i < mat->rows * mat->cols; i += mat->cols+1 )  product *= *(U->data+i);
+  for( uint i=0; i < mat->rows * mat->cols; i += mat->cols+1 )  product *= *(D->data+i);
 
   mat_clear(L);
+  mat_clear(D);
   mat_clear(U);
 
   return product;
