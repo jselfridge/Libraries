@@ -23,12 +23,17 @@ matrix*  rot_qConj   ( matrix* quat );
 matrix*  rot_e2q     ( matrix* att  );
 matrix*  rot_q2e     ( matrix* quat );
 matrix*  rot_q2dcm   ( matrix* quat );
+matrix*  rot_qProd   ( matrix* a, matrix* b );
+matrix*  rot_qDeriv  ( matrix* quat, matrix* ang );
+matrix*  rot_vec2q   ( matrix* a, matrix* b );
+matrix*  rot_dRqw    ( matrix* quat );
+matrix*  rot_dRqx    ( matrix* quat );
+matrix*  rot_dRqy    ( matrix* quat );
+matrix*  rot_dRqz    ( matrix* quat );
 
-matrix*  rot_vec2q   ( matrix* vecA, matrix* vecB );
-matrix*  rot_vec2e   ( matrix* vecA, matrix* vecB );
-matrix*  rot_qskew   ( matrix* quat );
-matrix*  rot_qmul    ( matrix* quatA, matrix* quatB );
-matrix*  rot_qderiv  ( matrix* quat );
+
+// Work in progress
+//matrix*  rot_dRot    ( matrix* quat );
 
 
 #endif
