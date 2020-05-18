@@ -216,7 +216,7 @@ void MatClear ( void ) {
 
 /*******************************************************************************
 * void MatManip ( void )
-* Debugs the MatManip file functions.
+* Debugs the 'matManip' file functions.
 *******************************************************************************/
 void MatManip ( void ) {
 
@@ -357,7 +357,7 @@ void MatManip ( void ) {
 
 /*******************************************************************************
 * void MatComplex ( void )
-* Debugs the MatComplex file functions.
+* Debugs the 'matComplex' file functions.
 *******************************************************************************/
 void MatComplex ( void ) {
 
@@ -419,7 +419,7 @@ void MatComplex ( void ) {
 
 /*******************************************************************************
 * void MatVec ( void )
-* Debugs the MatVec file functions.
+* Debugs the 'matVec' file functions.
 *******************************************************************************/
 void MatVec ( void ) {
 
@@ -520,7 +520,7 @@ void MatVec ( void ) {
 
 /*******************************************************************************
 * void MatArith ( void )
-* Debugs the MatArith file functions.
+* Debugs the 'matArith' file functions.
 *******************************************************************************/
 void MatArith ( void ) {
 
@@ -648,7 +648,7 @@ void MatArith ( void ) {
 
 /*******************************************************************************
 * void MatRoot ( void )
-* Debugs the MatRoot file functions.
+* Debugs the 'matRoot' file functions.
 *******************************************************************************/
 void MatRoot ( void ) {
 
@@ -736,7 +736,7 @@ void MatRoot ( void ) {
 
 /*******************************************************************************
 * void MatProp ( void )
-* Debugs the MatProp file functions.
+* Debugs the 'matProp' file functions.
 *******************************************************************************/
 void MatProp ( void ) {
 /*
@@ -784,7 +784,7 @@ void MatProp ( void ) {
 
 /*******************************************************************************
 * void MatDecomp ( void )
-* Debugs the MatDecomp file functions.
+* Debugs the 'matDecomp' file functions.
 *******************************************************************************/
 void MatDecomp ( void ) {
 /*
