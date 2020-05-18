@@ -19,26 +19,22 @@
 *******************************************************************************/
 matrix* rot_e2q ( matrix* att ) {
 
-  mat_err( att->rows!=3 || att->cols!=1, "Error (rot_e2q): Attitude is a 3 element column vector." );
+  mat_err( ( att->rows!=3 || att->cols!=1 ), "Error (rot_e2q): Attitude is a 3 element column vector." );
 
-  double  X, Y, Z;
-  double  Q1, Q2, Q3, Q4;
-  matrix* Q;
+  float cx = cosf( *(att->data  ) * 0.5 );
+  float cy = cosf( *(att->data+1) * 0.5 );
+  float cz = cosf( *(att->data+2) * 0.5 );
 
-  X = 0.5 * mat_get(att,1,1);
-  Y = 0.5 * mat_get(att,2,1);
-  Z = 0.5 * mat_get(att,3,1);
+  float sx = sinf( *(att->data  ) * 0.5 );
+  float sy = sinf( *(att->data+1) * 0.5 );
+  float sz = sinf( *(att->data+2) * 0.5 );
 
-  Q1 = cos(X) * cos(Y) * cos(Z) + sin(X) * sin(Y) * sin(Z);
-  Q2 = sin(X) * cos(Y) * cos(Z) - cos(X) * sin(Y) * sin(Z);
-  Q3 = cos(X) * sin(Y) * cos(Z) + sin(X) * cos(Y) * sin(Z);
-  Q4 = cos(X) * cos(Y) * sin(Z) - sin(X) * sin(Y) * cos(Z);
+  matrix* Q = mat_init( 4, 1 );
 
-  Q = mat_init(4,1);
-  mat_set(Q,1,1,Q1);
-  mat_set(Q,2,1,Q2);
-  mat_set(Q,3,1,Q3);
-  mat_set(Q,4,1,Q4);
+  *(Q->data  ) =  cx * cy * cz  +  sx * sy * sz;
+  *(Q->data+1) =  sx * cy * cz  -  cx * sy * sz;
+  *(Q->data+2) =  cx * sy * cz  +  sx * cy * sz;
+  *(Q->data+3) =  cx * cy * sz  -  sx * sy * cz;
 
   return mat_uvec(Q);
 }
