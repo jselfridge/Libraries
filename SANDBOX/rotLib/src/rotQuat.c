@@ -141,128 +141,203 @@ matrix* rot_q2dcm ( matrix* quat ) {
 
 
 /*******************************************************************************
-* matrix* rot_vec2q ( matrix* vecA, matrix* vecB )
-* Returns a quaternion which provides a rotation from VecA to VecB.
+* matrix* rot_qProd ( matrix* a, matrix* b )
+* Returns the quaternion product used for quaternion multiplication.
 *******************************************************************************/
-matrix* rot_vec2q ( matrix* vecA, matrix* vecB ) {
+matrix* rot_qProd ( matrix* a, matrix* b ) {
 
-  mat_err( vecA->rows!=3 || vecA->cols!=1, "Error (rot_vec2q): VecA must be a 3 element column vector." );
-  mat_err( vecB->rows!=3 || vecB->cols!=1, "Error (rot_vec2q): VecB must be a 3 element column vector." );
+  mat_err( ( a->rows!=4 || a->cols!=1 ), "Error (rot_qProd): Quaternion is a 4 element column vector." );
+  mat_err( ( b->rows!=4 || b->cols!=1 ), "Error (rot_qProd): Quaternion is a 4 element column vector." );
 
-  double angle;
-  matrix* Q; 
-  matrix* axis;
+  matrix* prod = mat_init( 4, 1 );
 
-  vecA = mat_uvec(vecA);
-  vecB = mat_uvec(vecB);
+  *(prod->data  ) = *(a->data) * *(b->data  )  - *(a->data+1) * *(b->data+1)  - *(a->data+2) * *(b->data+2)  - *(a->data+3) * *(b->data+3);
+  *(prod->data+1) = *(a->data) * *(b->data+1)  + *(a->data+1) * *(b->data  )  + *(a->data+2) * *(b->data+3)  - *(a->data+3) * *(b->data+2);
+  *(prod->data+2) = *(a->data) * *(b->data+2)  - *(a->data+1) * *(b->data+3)  + *(a->data+2) * *(b->data  )  + *(a->data+3) * *(b->data+1);
+  *(prod->data+3) = *(a->data) * *(b->data+3)  + *(a->data+1) * *(b->data+2)  - *(a->data+2) * *(b->data+1)  + *(a->data+3) * *(b->data  );
 
-  axis = mat_mul( mat_skew(vecA), vecB );
-  angle = 1.0 + mat_dot( vecA, vecB );
-
-  Q = mat_init(4,1);
-  mat_set( Q,1,1, angle );
-  mat_set( Q,2,1, mat_get(axis,1,1) );
-  mat_set( Q,3,1, mat_get(axis,2,1) );
-  mat_set( Q,4,1, mat_get(axis,3,1) );
-
-  mat_clear(axis);
-  return mat_uvec(Q);
+  return;
 }
 
 
 
 
 /*******************************************************************************
-* matrix* rot_vec2e ( matrix* vecA, matrix* vecB )
-* Returns Euler angles to rotate from VecA to VecB.
+* matrix* rot_qDeriv ( matrix* quat, matrix* ang )
+* Calculates the quaternion derivative given a quaternion and an angular rate vector.
 *******************************************************************************/
-matrix* rot_vec2e ( matrix* vecA, matrix* vecB ) {
+matrix* rot_qDeriv ( matrix* quat, matrix* ang ) {
 
-  mat_err( vecA->rows!=3 || vecA->cols!=1, "Error (rot_vec2e): VecA must be a 3 element column vector." );
-  mat_err( vecB->rows!=3 || vecB->cols!=1, "Error (rot_vec2e): VecB must be a 3 element column vector." );
+  mat_err( ( quat->rows!=4 || quat->cols!=1 ), "Error (rot_qDeriv): Quaternion must be a 4 element column vector."   );
+  mat_err( ( ang->rows !=3 || ang->cols !=1 ), "Error (rot_qDeriv): Angular rate must be a 3 element column vector." );
 
-  matrix* Q = rot_vec2q( vecA, vecB );
-  matrix* E = rot_q2e(Q);
+  matrix* qd = mat_init( 4, 1 );
 
-  rot_wrappi(E);
+  *(qd->data  ) = 0.5 * ( - *(quat->data+1) * *(ang->data) - *(quat->data+2) * *(ang->data+1) - *(quat->data+3) * *(ang->data+2) );
+  *(qd->data+1) = 0.5 * (   *(quat->data  ) * *(ang->data) - *(quat->data+3) * *(ang->data+1) + *(quat->data+2) * *(ang->data+2) );
+  *(qd->data+2) = 0.5 * (   *(quat->data+3) * *(ang->data) + *(quat->data  ) * *(ang->data+1) - *(quat->data+1) * *(ang->data+2) );
+  *(qd->data+3) = 0.5 * ( - *(quat->data+2) * *(ang->data) + *(quat->data+1) * *(ang->data+1) + *(quat->data  ) * *(ang->data+2) );
 
-  mat_clear(Q);
-  return E;
+  return qd;
 }
 
 
 
 
 /*******************************************************************************
-* matrix* rot_qskew ( matrix* quat )
-* Takes a quaternion and returns a matrix used for quat multiplication.
+* matrix* rot_vec2q ( matrix* a, matrix* b )
+* Returns a quaternion which provides a rotation from vector 'a' to vector 'b'.
+* b = rot_q2dcm(q) * a
 *******************************************************************************/
-matrix* rot_qskew ( matrix* quat ) {
+matrix* rot_vec2q ( matrix* a, matrix* b ) {
 
-  mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_qskew): Quaternion must be a 4 element column vector." );
+  mat_err( ( a->rows!=3 || a->cols!=1 ), "Error (rot_vec2q): Vector 'a' must be a 3 element column vector." );
+  mat_err( ( b->rows!=3 || b->cols!=1 ), "Error (rot_vec2q): Vector 'b' must be a 3 element column vector." );
 
-  double W, X, Y, Z;
-  matrix* qskew;
+  // Normalize input vectors
+  a = mat_uvec(a);  // DO I NEED THIS ??
+  b = mat_uvec(b);  // DO I NEED THIS ??
 
-  W = mat_get(quat,1,1);
-  X = mat_get(quat,2,1);
-  Y = mat_get(quat,3,1);
-  Z = mat_get(quat,4,1);
+  // Find rotation axis
+  matrix* axis = mat_uvec( mat_skew(b) * a );
 
-  qskew = mat_init(4,4);
-  mat_set( qskew,1,1, W );  mat_set( qskew,1,2, -X );  mat_set( qskew,1,3, -Y );  mat_set( qskew,1,4, -Z );
-  mat_set( qskew,2,1, X );  mat_set( qskew,2,2,  W );  mat_set( qskew,2,3, -Z );  mat_set( qskew,2,4,  Y );
-  mat_set( qskew,3,1, Y );  mat_set( qskew,3,2,  Z );  mat_set( qskew,3,3,  W );  mat_set( qskew,3,4, -X );
-  mat_set( qskew,4,1, Z );  mat_set( qskew,4,2, -Y );  mat_set( qskew,4,3,  X );  mat_set( qskew,4,4,  W );
+  // Find dot product
+  float dot = mat_dot( a, b );
 
-  return qskew;
+  // Remove numerical error when parallel
+  if( dot >= 1.0 - 1e-10 );
+    matrix* q = mat_init( 4, 1 );
+    *(q->data) = 1.0;
+    return q;
+  end;
+
+  // Remove numerical error when opposite
+  if( dot <= -1.0 + 1e-10 );
+    matrix* q = mat_init( 4, 1 );
+    *(q->data+3) = 1.0;
+    return q;
+  end;
+
+  // Find angle between unit vectors
+  float angle = acosf(dot);
+
+  // Assemble quaternion
+  matrix* q = rot_qDef( angle, axis );
+
+  return q;
 }
 
 
 
 
 /*******************************************************************************
-* matrix* rot_qmul ( matrix* quatA, matrix* quatB )
-* Performs quaternion multiplication.
+* matrix* rot_dRqw ( matrix* quat )
+* Returns the partial derivatives of a DCM wrt quat_w.
 *******************************************************************************/
-matrix* rot_qmul ( matrix* quatA, matrix* quatB ) {
+matrix* rot_dRqw ( matrix* quat ) {
 
-  mat_err( quatA->rows!=4 || quatA->cols!=1, "Error (rot_qmul): QuatA must be a 4 element column vector." );
-  mat_err( quatB->rows!=4 || quatB->cols!=1, "Error (rot_qmul): QuatB must be a 4 element column vector." );
+  float w = *(quat->data  ) * 4.0;
+  float x = *(quat->data+1) * 2.0;
+  float y = *(quat->data+2) * 2.0;
+  float z = *(quat->data+3) * 2.0;
 
-  matrix* Q = mat_init(4,1);
-  Q = mat_mul( rot_qskew(quatA), quatB );
+  matrix* qw = mat_init( 3, 3 );
 
-  return Q;
+  *(qw->data  ) =  w;    *(qw->data+1) =  z;    *(qw->data+2) = -y;
+  *(qw->data+3) = -z;    *(qw->data+4) =  w;    *(qw->data+5) =  x;
+  *(qw->data+6) =  y;    *(qw->data+7) = -x;    *(qw->data+8) =  w;
+
+  return qw;
 }
 
 
 
 
 /*******************************************************************************
-* matrix* rot_qderiv ( matrix* quat )
-* Matrix to determine quaternion derivatives for a given angular rate.
+* matrix* rot_dRqx ( matrix* quat )
+* Returns the partial derivatives of a DCM wrt a quat_x.
 *******************************************************************************/
-matrix* rot_qderiv ( matrix* quat ) {
+matrix* rot_dRqx ( matrix* quat ) {
 
-  mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_qderiv): Quaternion must be a 4 element column vector." );
+  float w = *(quat->data  ) * 2.0;
+  float x = *(quat->data+1) * 4.0;
+  float y = *(quat->data+2) * 2.0;
+  float z = *(quat->data+3) * 2.0;
 
-  double W, X, Y, Z;
-  matrix* mat;
+  matrix* qx = mat_init( 3, 3 );
 
-  W = mat_get(quat,1,1);
-  X = mat_get(quat,2,1);
-  Y = mat_get(quat,3,1);
-  Z = mat_get(quat,4,1);
+  *(qx->data  ) =  x;    *(qx->data+1) =  y;    *(qx->data+2) =  z;
+  *(qx->data+3) =  y;    *(qx->data+4) =  0;    *(qx->data+5) =  w;
+  *(qx->data+6) =  z;    *(qx->data+7) = -w;    *(qx->data+8) =  0;
 
-  mat = mat_init(4,3);
-  mat_set( mat,1,1, -X );  mat_set( mat,1,2, -Y );  mat_set( mat,1,3, -Z );
-  mat_set( mat,2,1,  W );  mat_set( mat,2,2,  Z );  mat_set( mat,2,3, -Y );
-  mat_set( mat,3,1, -Z );  mat_set( mat,3,2,  W );  mat_set( mat,3,3,  X );
-  mat_set( mat,4,1,  Y );  mat_set( mat,4,2, -X );  mat_set( mat,4,3,  W );
-
-  return mat_scale(mat,0.5);
+  return qx;
 }
+
+
+
+
+/*******************************************************************************
+* matrix* rot_dRqy ( matrix* quat )
+* Returns the partial derivatives of a DCM wrt a quat_y.
+*******************************************************************************/
+matrix* rot_dRqy ( matrix* quat ) {
+
+  float w = *(quat->data  ) * 2.0;
+  float x = *(quat->data+1) * 2.0;
+  float y = *(quat->data+2) * 4.0;
+  float z = *(quat->data+3) * 2.0;
+
+  matrix* qy = mat_init( 3, 3 );
+
+  *(qy->data  ) =  0;    *(qy->data+1) =  x;    *(qy->data+2) = -w;
+  *(qy->data+3) =  x;    *(qy->data+4) =  y;    *(qy->data+5) =  z;
+  *(qy->data+6) =  w;    *(qy->data+7) =  z;    *(qy->data+8) =  0;
+
+  return qy;
+}
+
+
+
+
+/*******************************************************************************
+* matrix* rot_dRqz ( matrix* quat )
+* Returns the partial derivatives of a DCM wrt a quat_z.
+*******************************************************************************/
+matrix* rot_dRqz ( matrix* quat ) {
+
+  float w = *(quat->data  ) * 2.0;
+  float x = *(quat->data+1) * 2.0;
+  float y = *(quat->data+2) * 2.0;
+  float z = *(quat->data+3) * 4.0;
+
+  matrix* qz = mat_init( 3, 3 );
+
+  *(qz->data  ) =  0;    *(qz->data+1) =  w;    *(qz->data+2) =  x;
+  *(qz->data+3) = -w;    *(qz->data+4) =  0;    *(qz->data+5) =  y;
+  *(qz->data+6) =  x;    *(qz->data+7) =  y;    *(qz->data+8) =  z;
+
+  return qz;
+}
+
+
+
+
+/*******************************************************************************
+* matrix* rot_dRot ( matrix* quat )
+* Returns the partial derivatives of a DCM wrt a quaterion input.
+*******************************************************************************/
+// matrix* rot_dRot ( matrix* quat ) {
+
+//   float w = *(quat->data  ) * 2.0;
+//   float x = *(quat->data+1) * 2.0;
+//   float y = *(quat->data+2) * 2.0;
+//   float z = *(quat->data+3) * 2.0;
+
+//   matrix* dRot = mat_init( 3, 4 );
+
+//   return ???;
+// }
+
 
 
 
