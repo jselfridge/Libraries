@@ -48,27 +48,20 @@ matrix* rot_e2q ( matrix* att ) {
 *******************************************************************************/
 matrix* rot_q2e ( matrix* quat ) {
 
-  mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_q2e): Quaternion is a 4 element column vector." );
+  mat_err( ( quat->rows!=4 || quat->cols!=1 ), "Error (rot_q2e): Quaternion is a 4 element column vector." );
 
-  double  W, X, Y, Z;
-  double  E1, E2, E3;
-  matrix* E;
+  float W = *(quat->data  );
+  float X = *(quat->data+1);
+  float Y = *(quat->data+2);
+  float Z = *(quat->data+3);
 
-  W = mat_get(quat,1,1);
-  X = mat_get(quat,2,1);
-  Y = mat_get(quat,3,1);
-  Z = mat_get(quat,4,1);
+  matrix* eul = mat_init( 3, 1 );
 
-  E1 = atan2( ( 2*(W*X+Y*Z) ), ( 1-2*(pow(X,2)+pow(Y,2)) ) );
-  E2 = asin ( 2*(W*Y-Z*X) );
-  E3 = atan2( ( 2*(W*Z+X*Y) ), ( 1-2*(pow(Y,2)+pow(Z,2)) ) );
+  *(eul->data  ) = atan2f( ( 2.0* (Y*Z+W*X) ), ( 2.0* ( powf(W,2) + powf(Z,2) ) -1.0 ) );
+  *(eul->data+1) = -asinf  ( 2.0* (Z*X-W*Y) );
+  *(eul->data+2) = atan2f( ( 2.0* (X*Y+W*Z) ), ( 2.0* ( powf(W,2) + powf(X,2) ) -1.0 ) );
 
-  E = mat_init(3,1);
-  mat_set(E,1,1,E1);
-  mat_set(E,2,1,E2);
-  mat_set(E,3,1,E3);
-
-  return E;
+  return eul;
 }
 
 
