@@ -51,13 +51,13 @@ int main ( void ) {
 
   printf("\n   --- MatLib Debugging --- \n\n");
   MatInit();
-  MatPrint();
-  MatManip();
-  MatComplex();
-  MatVec();
-  MatArith();
-  MatRoot();
-  MatProp();
+  // MatPrint();
+  // MatManip();
+  // MatComplex();
+  // MatVec();
+  // MatArith();
+  // MatRoot();
+  // MatProp();
   MatDecomp();
   MatClear();
   printf("   --- MatLib Complete --- \n\n");
@@ -787,7 +787,7 @@ void MatProp ( void ) {
 * Debugs the 'matDecomp' file functions.
 *******************************************************************************/
 void MatDecomp ( void ) {
-/*
+
   printf("Matrix decomposition functions \n");
 
   // LDU 1
@@ -795,22 +795,22 @@ void MatDecomp ( void ) {
   mat_set( A1, 1, 1, -3 );  mat_set( A1, 1, 2, 1 );  mat_set( A1, 1, 3,  2 );
   mat_set( A1, 2, 1,  6 );  mat_set( A1, 2, 2, 2 );  mat_set( A1, 2, 3, -5 );
   mat_set( A1, 3, 1,  9 );  mat_set( A1, 3, 2, 5 );  mat_set( A1, 3, 3, -6 );
-  matrix* L1 = mat_init( A1->rows, A1->rows );  // NULL;
-  matrix* U1 = mat_init( A1->rows, A1->cols );  // NULL;
-  mat_LU( A1, L1, U1 );
+  matrix* L1 = NULL;
+  matrix* U1 = NULL;
+  mat_LU( A1, &L1, &U1 );
   matrix* LU1 = mat_mul( L1, U1 );
-  matrix* D1 = mat_init( A1->?, A1->? );  // NULL;
-  matrix* V1 = mat_init( A1->?, A1->? );  // NULL;
-  mat_LDU( A1, L1, D1, V1 );
-  matrix* LDU1 = mat_mul( mat_mul( L1, D1 ), V1 );
-  printf("LDU 1: \n");
+  // matrix* D1 = mat_init( A1->?, A1->? );  // NULL;
+  // matrix* V1 = mat_init( A1->?, A1->? );  // NULL;
+  // mat_LDU( A1, L1, D1, V1 );
+  // matrix* LDU1 = mat_mul( mat_mul( L1, D1 ), V1 );
+  // printf("LDU 1: \n");
   printf("A1: ");    mat_print(A1);    mat_clear(A1);
   printf("L1: ");    mat_print(L1);    mat_clear(L1);
   printf("U1: ");    mat_print(U1);    mat_clear(U1);
   printf("LU1: ");   mat_print(LU1);   mat_clear(LU1);
-  printf("D1: ");    mat_print(D1);    mat_clear(D1);
-  printf("V1: ");    mat_print(V1);    mat_clear(V1);
-  printf("LDU1: ");  mat_print(LDU1);  mat_clear(LDU1);
+  // printf("D1: ");    mat_print(D1);    mat_clear(D1);
+  // printf("V1: ");    mat_print(V1);    mat_clear(V1);
+  // printf("LDU1: ");  mat_print(LDU1);  mat_clear(LDU1);
   printf("\n");
 
   // LDU 2
@@ -819,21 +819,21 @@ void MatDecomp ( void ) {
   mat_set( A2, 1, 1,  2 );  mat_set( A2, 1, 2,  8 );  mat_set( A2, 1, 3,   0 );
   mat_set( A2, 2, 1,  4 );  mat_set( A2, 2, 2, 18 );  mat_set( A2, 2, 3,  -4 );
   mat_set( A2, 3, 1, -2 );  mat_set( A2, 3, 2, -2 );  mat_set( A2, 3, 3, -13 );
-  matrix* L2 = mat_init( A2->?, A2->? );  // NULL;
-  matrix* U2 = mat_init( A2->?, A2->? );  // NULL;
-  mat_LU( A2, L2, U2 );
-  LU2 = mat_mul( L2, U2 );
-  matrix* D2 = mat_init( A2->?, A2->? );  // NULL;
-  matrix* V2 = mat_init( A2->?, A2->? );  // NULL;
-  mat_LDU( A2, L2, D2, V2 );
-  LDU2 = mat_mul( mat_mul( L2, D2 ), V2 );
+  matrix* L2 = NULL;
+  matrix* U2 = NULL;
+  mat_LU( A2, &L2, &U2 );
+  matrix* LU2 = mat_mul( L2, U2 );
+  // matrix* D2 = mat_init( A2->?, A2->? );  // NULL;
+  // matrix* V2 = mat_init( A2->?, A2->? );  // NULL;
+  // mat_LDU( A2, L2, D2, V2 );
+  // LDU2 = mat_mul( mat_mul( L2, D2 ), V2 );
   printf("A2: ");    mat_print(A2);    mat_clear(A2);
   printf("L2: ");    mat_print(L2);    mat_clear(L2);
   printf("U2: ");    mat_print(U2);    mat_clear(U2);
   printf("LU2: ");   mat_print(LU2);   mat_clear(LU2);
-  printf("D2: ");    mat_print(D2);    mat_clear(D2);
-  printf("V2: ");    mat_print(V2);    mat_clear(V2);
-  printf("LDU2: ");  mat_print(LDU2);  mat_clear(LDU2);
+  // printf("D2: ");    mat_print(D2);    mat_clear(D2);
+  // printf("V2: ");    mat_print(V2);    mat_clear(V2);
+  // printf("LDU2: ");  mat_print(LDU2);  mat_clear(LDU2);
   printf("\n");
 
   // LDU 3
@@ -843,21 +843,21 @@ void MatDecomp ( void ) {
   mat_set( A3, 2, 1, -4 );  mat_set( A3, 2, 2, -3 );  mat_set( A3, 2, 3,  5 );  mat_set( A3, 2, 4, -10 );
   mat_set( A3, 3, 1,  6 );  mat_set( A3, 3, 2,  4 );  mat_set( A3, 3, 3, -8 );  mat_set( A3, 3, 4,  17 );
   mat_set( A3, 4, 1,  2 );  mat_set( A3, 4, 2, -3 );  mat_set( A3, 4, 3, 29 );  mat_set( A3, 4, 4,  -9 );
-  matrix* L3 = mat_init( A3->?, A3->? );  // NULL;
-  matrix* U3 = mat_init( A3->?, A3->? );  // NULL;
-  mat_LU( A3, L3, U3 );
-  LU3 = mat_mul( L3, U3 );
-  matrix* D3 = mat_init( A3->?, A3->? );  // NULL;
-  matrix* V3 = mat_init( A3->?, A3->? );  // NULL;
-  mat_LDU( A3, L3, D3, V3 );
-  LDU3 = mat_mul( mat_mul( L3, D3 ), V3 );
+  matrix* L3 = NULL;
+  matrix* U3 = NULL;
+  mat_LU( A3, &L3, &U3 );
+  matrix* LU3 = mat_mul( L3, U3 );
+  // matrix* D3 = mat_init( A3->?, A3->? );  // NULL;
+  // matrix* V3 = mat_init( A3->?, A3->? );  // NULL;
+  // mat_LDU( A3, L3, D3, V3 );
+  // LDU3 = mat_mul( mat_mul( L3, D3 ), V3 );
   printf("A3: ");    mat_print(A3);    mat_clear(A3);
   printf("L3: ");    mat_print(L3);    mat_clear(L3);
   printf("U3: ");    mat_print(U3);    mat_clear(U3);
   printf("LU3: ");   mat_print(LU3);   mat_clear(LU3);
-  printf("D3: ");    mat_print(D3);    mat_clear(D3);
-  printf("V3: ");    mat_print(V3);    mat_clear(V3);
-  printf("LDU3: ");  mat_print(LDU3);  mat_clear(LDU3);
+  // printf("D3: ");    mat_print(D3);    mat_clear(D3);
+  // printf("V3: ");    mat_print(V3);    mat_clear(V3);
+  // printf("LDU3: ");  mat_print(LDU3);  mat_clear(LDU3);
   printf("\n");
 
   // LDU 4
@@ -866,21 +866,21 @@ void MatDecomp ( void ) {
   mat_set( A4, 1, 1,   4 );  mat_set( A4, 1, 2,  -3 );  mat_set( A4, 1, 3,  -1 );  mat_set( A4, 1, 4,   5 );  mat_set( A4, 1, 5,  2 );
   mat_set( A4, 2, 1, -16 );  mat_set( A4, 2, 2,  12 );  mat_set( A4, 2, 3,   2 );  mat_set( A4, 2, 4, -17 );  mat_set( A4, 2, 5, -7 );
   mat_set( A4, 3, 1,   8 );  mat_set( A4, 3, 2,  -6 );  mat_set( A4, 3, 3, -12 );  mat_set( A4, 3, 4,  22 );  mat_set( A4, 3, 5, 10 );
-  matrix* L4 = mat_init( A4->?, A4->? );  // NULL;
-  matrix* U4 = mat_init( A4->?, A4->? );  // NULL;
-  mat_LU( A4, L4, U4 );
-  LU4 = mat_mul( L4, U4 );
-  matrix* D4 = mat_init( A4->?, A4->? );  // NULL;
-  matrix* V4 = mat_init( A4->?, A4->? );  // NULL;
-  mat_LDU( A4, L4, D4, V4 );
-  LDU4 = mat_mul( mat_mul( L4, D4 ), V4 );
+  matrix* L4 = NULL;
+  matrix* U4 = NULL;
+  mat_LU( A4, &L4, &U4 );
+  matrix* LU4 = mat_mul( L4, U4 );
+  // matrix* D4 = mat_init( A4->?, A4->? );  // NULL;
+  // matrix* V4 = mat_init( A4->?, A4->? );  // NULL;
+  // mat_LDU( A4, L4, D4, V4 );
+  // LDU4 = mat_mul( mat_mul( L4, D4 ), V4 );
   printf("A4: ");    mat_print(A4);    mat_clear(A4);
   printf("L4: ");    mat_print(L4);    mat_clear(L4);
   printf("U4: ");    mat_print(U4);    mat_clear(U4);
   printf("LU4: ");   mat_print(LU4);   mat_clear(LU4);
-  printf("D4: ");    mat_print(D4);    mat_clear(D4);
-  printf("V4: ");    mat_print(V4);    mat_clear(V4);
-  printf("LDU4: ");  mat_print(LDU4);  mat_clear(LDU4);
+  // printf("D4: ");    mat_print(D4);    mat_clear(D4);
+  // printf("V4: ");    mat_print(V4);    mat_clear(V4);
+  // printf("LDU4: ");  mat_print(LDU4);  mat_clear(LDU4);
   printf("\n");
 
   // LDU 5
@@ -891,33 +891,34 @@ void MatDecomp ( void ) {
   mat_set( A5, 3, 1, 15 );  mat_set( A5, 3, 2, -1 );  mat_set( A5, 3, 3, 10 );
   mat_set( A5, 4, 1, -6 );  mat_set( A5, 4, 2,  2 );  mat_set( A5, 4, 3, -4 );
   mat_set( A5, 5, 1, -3 );  mat_set( A5, 5, 2, -3 );  mat_set( A5, 5, 3, 10 );
-  matrix* L5 = mat_init( A5->?, A5->? );  // NULL;
-  matrix* U5 = mat_init( A5->?, A5->? );  // NULL;
-  mat_LU( A5, L5, U5 );
-  LU5 = mat_mul( L5, U5 );
-  matrix* D5 = mat_init( A5->?, A5->? );  // NULL;
-  matrix* V5 = mat_init( A5->?, A5->? );  // NULL;
-  mat_LDU( A5, L5, D5, V5 );
-  LDU5 = mat_mul( mat_mul( L5, D5 ), V5 );
+  matrix* L5 = NULL;
+  matrix* U5 = NULL;
+  mat_LU( A5, &L5, &U5 );
+  matrix* LU5 = mat_mul( L5, U5 );
+  // matrix* D5 = mat_init( A5->?, A5->? );  // NULL;
+  // matrix* V5 = mat_init( A5->?, A5->? );  // NULL;
+  // mat_LDU( A5, L5, D5, V5 );
+  // LDU5 = mat_mul( mat_mul( L5, D5 ), V5 );
   printf("A5: ");    mat_print(A5);    mat_clear(A5);
   printf("L5: ");    mat_print(L5);    mat_clear(L5);
   printf("U5: ");    mat_print(U5);    mat_clear(U5);
   printf("LU5: ");   mat_print(LU5);   mat_clear(LU5);
-  printf("D5: ");    mat_print(D5);    mat_clear(D5);
-  printf("V5: ");    mat_print(V5);    mat_clear(V5);
-  printf("LDU5: ");  mat_print(LDU5);  mat_clear(LDU5);
+  // printf("D5: ");    mat_print(D5);    mat_clear(D5);
+  // printf("V5: ");    mat_print(V5);    mat_clear(V5);
+  // printf("LDU5: ");  mat_print(LDU5);  mat_clear(LDU5);
   printf("\n");
 
-  // LDU 6: No solution
+  /*/ LDU 6: No solution
   printf("LDU 6: \n");
   matrix* A6 = mat_init( 3, 3 );
   mat_set( A6, 1, 1,  2 );  mat_set( A6, 1, 2,  1 );  mat_set( A6, 1, 3, -1 );
   mat_set( A6, 2, 1, -4 );  mat_set( A6, 2, 2, -2 );  mat_set( A6, 2, 3,  5 );
   mat_set( A6, 3, 1,  6 );  mat_set( A6, 3, 2,  2 );  mat_set( A6, 3, 3, 11 );
-  matrix* L6 = mat_init( A6->?, A6->? );  // NULL;
-  matrix* U6 = mat_init( A6->?, A6->? );  // NULL;
-  mat_LU( A6, L6, U6 );
+  matrix* L6 = NULL;
+  matrix* U6 = NULL;
+  mat_LU( A6, &L6, &U6 );  */
 
+/*
   // QR 1
   printf("QR 1: \n");
   matrix* a1 = mat_init( 3, 3 );
@@ -1056,10 +1057,11 @@ void MatDecomp ( void ) {
   printf("PSD:");   mat_print(PSD);   mat_clear(PSD);
   printf("PSDi:");  mat_print(PSDi);  mat_clear(PSDi);
   printf("I3");     mat_print(I3);    mat_clear(I3);
+*/
 
   // Exit MatDecomp debugging
   printf("\n");
-*/
+
   return;
 }
 

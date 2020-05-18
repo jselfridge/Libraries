@@ -4,58 +4,41 @@
 * Gradient Consulting, LLC
 * jselfridge@gmail.com
 *
-* matDecomp.h
+* matDecomp.c
 * Source code for performing matrix decompositions within the 'matLib' library.
 *
 *******************************************************************************/
-#include "matLib.h"
+#include "../inc/matDecomp.h"
 
 
 
 
 /*******************************************************************************
-* ??? mat_??? ( ??? )
-* Insert description here...
-*******************************************************************************/
-
-
-
-
-/*******************************************************************************
-* void mat_LU ( matrix* mat, matrix* L, matrix* U )
+* void mat_LU ( matrix* mat, matrix** L, matrix** U )
 * Solves for the LU decomposition of a matrix (if it exists).
 *******************************************************************************/
-void mat_LU ( matrix* mat, matrix* L, matrix* U ) {
+void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
 
-  mat_set( L,1,1,1 );
-  mat_set( U,3,3,3 );
-/*
-  uint i, j, k, n, m, p, r, c;
-  float pivot, val, scale;
-  matrix *row;
+  *U = mat_copy(mat);
+  *L = mat_init( mat->rows, mat->rows );
 
-  r = mat->rows;
-  c = mat->cols;
+  matrix* row = mat_init( 1, mat->cols );
 
-  n = r<c ? r : c;
-  row = mat_init( 1, c );
+  uint n = mat->rows < mat->cols ? mat->rows : mat->cols;
 
-  i = 1;
-  j = 1;
-  m = 0;
+  uint i = 1;
+  uint j = 1;
+  uint m = 0;
 
-  U = mat_copy(mat);
-  L = mat_init( r, r );
+  for( uint p=1; p<=n; p++ ) {
 
-  for ( p=1; p<=n; p++ )  {
-
-    pivot = mat_get( U, i, j );
+    float pivot = mat_get( *U, i, j );
 
     if(!pivot) {
 
-      for ( k=i+1; k<=r; k++ )  {
-        val = mat_get( U, k, j );
-        mat_err( val != 0, "Error (mat_LU): The LU decomposition does not exist." );
+      for( uint k=i+1; k<=mat->rows; k++ ) {
+        float val = mat_get( *U, k, j );
+        mat_err( ( val != 0 ), "Error (mat_LU): The LU decomposition does not exist." );
       }
 
       j++;
@@ -66,29 +49,30 @@ void mat_LU ( matrix* mat, matrix* L, matrix* U ) {
 
     else {
 
-      for ( k=i; k<=r; k++ )  {
-        val = mat_get( U, k, j ) / pivot;
-        mat_set( L, k, j-m, val );
+      for( uint k=i; k<=mat->rows; k++ ) {
+        float val = mat_get( *U, k, j ) / pivot;
+        mat_set( *L, k, j-m, val );
       }
 
-      for ( k=i+1; k<=r; k++ )  {
-        scale = -mat_get( U, k, j) / pivot;
-        row = mat_getr( U, i );
+      for( uint k=i+1; k<=mat->rows; k++ ) {
+        float scale = -mat_get( *U, k, j) / pivot;
+        row = mat_getr( *U, i );
         row = mat_scale( row, scale );
-        row = mat_add( row, mat_getr( U, k ) );
-        mat_setr( U, k, row );
+        row = mat_add( row, mat_getr( *U, k ) );
+        mat_setr( *U, k, row );
       }
 
       i++;
       j++;
 
     }
+
   }
 
-  while ( p<=r ) {  mat_set( L, p, p, 1.0 );  p++;  }
+  for( uint p=1; p<=mat->rows; p++ )  mat_set( *L, p, p, 1.0 );
 
   mat_clear(row);
-*/
+
   return;
 }
 
