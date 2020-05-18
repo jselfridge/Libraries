@@ -14,29 +14,10 @@
 
 
 /*******************************************************************************
-* matrix* rot_? ( ? )
-* Description
+* matrix* rot_xaxis ( float angle ) {
+* Generates a rotation matrix around the X-axis.
 *******************************************************************************/
-
-
-
-
-
-
-
-//============================================================
-//  rotEuler.c
-//  Justin M Selfridge
-//============================================================
-//#include "rotLib.h"
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_xaxis
-//  Generates a rotation matrix around the X-axis.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
-matrix* rot_xaxis ( double angle )  {
+matrix* rot_xaxis ( float angle ) {
 
   matrix* R = mat_init(3,3);
   double  S = sin(angle);
@@ -48,14 +29,15 @@ matrix* rot_xaxis ( double angle )  {
 
   return R;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_yaxis
-//  Generates a rotation matrix around the Y-axis.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
-matrix* rot_yaxis ( double angle )  {
+
+
+
+/*******************************************************************************
+* matrix* rot_yaxis ( float angle ) {
+* Generates a rotation matrix around the Y-axis.
+*******************************************************************************/
+matrix* rot_yaxis ( float angle ) {
 
   matrix* R = mat_init(3,3);
   double  S = sin(angle);
@@ -67,14 +49,15 @@ matrix* rot_yaxis ( double angle )  {
 
   return R;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_zaxis
-//  Generates a rotation matrix around the Z-axis.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
-matrix* rot_zaxis ( double angle )  {
+
+
+
+/*******************************************************************************
+* matrix* rot_zaxis ( float angle ) {
+* Generates a rotation matrix around the Z-axis.
+*******************************************************************************/
+matrix* rot_zaxis ( float angle ) {
 
   matrix* R = mat_init(3,3);
   double  S = sin(angle);
@@ -86,17 +69,18 @@ matrix* rot_zaxis ( double angle )  {
 
   return R;
 }
-*/
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  rot_eul
-//  Rotation matrix that transforms from local (body) frame to 
-//  global (inertial) frame.  The transpose of this matrix 
-//  reverses the relationship.
-//  Xi = R * Xb , Xb = R' * Xi
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/*
-matrix* rot_eul ( matrix* att )  {
+
+
+
+/*******************************************************************************
+* matrix* rot_eul ( matrix* att ) {
+* Rotation matrix that transforms from local (body) frame to 
+* global (inertial) frame.  The transpose of this matrix 
+* reverses the relationship.
+* Xi = R * Xb , Xb = R' * Xi
+*******************************************************************************/
+matrix* rot_eul ( matrix* att ) {
 
   mat_err( att->rows!=3 || att->cols!=1, "Error (rot_eul): Attitude must be a 3 element column vector." );
 
@@ -110,6 +94,6 @@ matrix* rot_eul ( matrix* att )  {
 
   return R;
 }
-*/
+
 
 
