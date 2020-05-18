@@ -16,16 +16,19 @@
 /*******************************************************************************
 * matrix* rot_xaxis ( float angle ) {
 * Generates a rotation matrix around the X-axis.
+* Xb = Rx(a) * Xi
 *******************************************************************************/
 matrix* rot_xaxis ( float angle ) {
 
-  matrix* R = mat_init(3,3);
-  double  S = sin(angle);
-  double  C = cos(angle);
+  matrix* R = mat_init( 3, 3 );
+  float S = sinf(angle);
+  float C = cosf(angle);
 
-  mat_set( R,1,1, 1.0 );  mat_set( R,1,2, 0.0 );  mat_set( R,1,3, 0.0 );
-  mat_set( R,2,1, 0.0 );  mat_set( R,2,2,  C  );  mat_set( R,2,3, -S  );
-  mat_set( R,3,1, 0.0 );  mat_set( R,3,2,  S  );  mat_set( R,3,3,  C  );
+  *(R->data  ) = 1.0;
+  *(R->data+4) =   C;
+  *(R->data+5) =   S;
+  *(R->data+7) =  -S;
+  *(R->data+8) =   C;
 
   return R;
 }
@@ -36,16 +39,19 @@ matrix* rot_xaxis ( float angle ) {
 /*******************************************************************************
 * matrix* rot_yaxis ( float angle ) {
 * Generates a rotation matrix around the Y-axis.
+* Xb = Ry(a) * Xi
 *******************************************************************************/
 matrix* rot_yaxis ( float angle ) {
 
-  matrix* R = mat_init(3,3);
-  double  S = sin(angle);
-  double  C = cos(angle);
+  matrix* R = mat_init( 3, 3 );
+  float S = sinf(angle);
+  float C = cosf(angle);
 
-  mat_set( R,1,1,  C  );  mat_set( R,1,2, 0.0 );  mat_set( R,1,3,  S );
-  mat_set( R,2,1, 0.0 );  mat_set( R,2,2, 1.0 );  mat_set( R,2,3, 0.0 );
-  mat_set( R,3,1, -S  );  mat_set( R,3,2, 0.0 );  mat_set( R,3,3,  C  );
+  *(R->data  ) =   C;
+  *(R->data+2) =  -S;
+  *(R->data+4) = 1.0;
+  *(R->data+6) =   S;
+  *(R->data+8) =   C;
 
   return R;
 }
@@ -56,16 +62,19 @@ matrix* rot_yaxis ( float angle ) {
 /*******************************************************************************
 * matrix* rot_zaxis ( float angle ) {
 * Generates a rotation matrix around the Z-axis.
+* Xb = Rz(a) * Xi
 *******************************************************************************/
 matrix* rot_zaxis ( float angle ) {
 
-  matrix* R = mat_init(3,3);
-  double  S = sin(angle);
-  double  C = cos(angle);
+  matrix* R = mat_init( 3, 3 );
+  float S = sinf(angle);
+  float C = cosf(angle);
 
-  mat_set( R,1,1,  C  );  mat_set( R,1,2, -S  );  mat_set( R,1,3, 0.0 );
-  mat_set( R,2,1,  S  );  mat_set( R,2,2,  C  );  mat_set( R,2,3, 0.0 );
-  mat_set( R,3,1, 0.0 );  mat_set( R,3,2, 0.0 );  mat_set( R,3,3, 1.0 );
+  *(R->data  ) =   C;
+  *(R->data+1) =   S;
+  *(R->data+3) =  -S;
+  *(R->data+4) =   C;
+  *(R->data+8) = 1.0;
 
   return R;
 }
@@ -78,21 +87,13 @@ matrix* rot_zaxis ( float angle ) {
 * Rotation matrix that transforms from local (body) frame to 
 * global (inertial) frame.  The transpose of this matrix 
 * reverses the relationship.
-* Xi = R * Xb , Xb = R' * Xi
+* Xb = R * Xi    Xi = R' * Xb
 *******************************************************************************/
 matrix* rot_eul ( matrix* att ) {
 
-  mat_err( att->rows!=3 || att->cols!=1, "Error (rot_eul): Attitude must be a 3 element column vector." );
+  mat_err( ( att->rows!=3 || att->cols!=1 ), "Error (rot_eul): Attitude must be a 3 element column vector." );
 
-  matrix* R = mat_init(3,3);
-  double  X = mat_get(att,1,1);
-  double  Y = mat_get(att,2,1);
-  double  Z = mat_get(att,3,1);
-
-  R =  mat_mul( rot_zaxis(Z), rot_yaxis(Y) ); 
-  R =  mat_mul( R, rot_xaxis(X) ); 
-
-  return R;
+  return mat_mul( rot_xaxis( *(att->data) ), mat_mul( rot_yaxis( *(att->data+1) ), rot_zaxis( *(att->data+2) ) ) );
 }
 
 
