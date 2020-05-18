@@ -73,34 +73,27 @@ matrix* rot_q2e ( matrix* quat ) {
 *******************************************************************************/
 matrix* rot_q2dcm ( matrix* quat ) {
 
-  mat_err( quat->rows!=4 || quat->cols!=1, "Error (rot_q2dcm): Quaternion is a 4 element column vector." );
+  mat_err( ( quat->rows!=4 || quat->cols!=1 ), "Error (rot_q2dcm): Quaternion is a 4 element column vector." );
 
-  double  r;
-  double  W,  X,  Y,  Z;
-  double  W2, X2, Y2, Z2;
-  matrix* R = mat_init(3,3);
+  float W = *(quat->data  );
+  float X = *(quat->data+1);
+  float Y = *(quat->data+2);
+  float Z = *(quat->data+3);
 
-  W = mat_get(quat,1,1);
-  X = mat_get(quat,2,1);
-  Y = mat_get(quat,3,1);
-  Z = mat_get(quat,4,1);
+  float WW = 2.0 * powf(W,2);
+  float XX = 2.0 * powf(X,2);
+  float YY = 2.0 * powf(Y,2);
+  float ZZ = 2.0 * powf(Z,2);
+  
+  float XY = 2.0 * X * Y;
+  float XZ = 2.0 * X * Z;
+  float YZ = 2.0 * Y * Z;
 
-  W2 = pow(W,2);
-  X2 = pow(X,2);
-  Y2 = pow(Y,2);
-  Z2 = pow(Z,2);
+  matrix* R = mat_init( 3, 3 );
 
-  r = W2 + X2 - Y2 - Z2;  mat_set(R,1,1,r);
-  r = 2 * ( X*Y - Z*W );  mat_set(R,1,2,r);
-  r = 2 * ( X*Z + Y*W );  mat_set(R,1,3,r);
-
-  r = 2 * ( Y*X + Z*W );  mat_set(R,2,1,r);
-  r = W2 - X2 + Y2 - Z2;  mat_set(R,2,2,r);
-  r = 2 * ( Y*Z - X*W );  mat_set(R,2,3,r);
-
-  r = 2 * ( Z*X - Y*W );  mat_set(R,3,1,r);
-  r = 2 * ( Z*Y + X*W );  mat_set(R,3,2,r);
-  r = W2 - X2 - Y2 + Z2;  mat_set(R,3,3,r);
+  *(R->data  ) = WW + XX -1.0;    *(R->data+1) = XY + WZ;         *(R->data+2) = XZ - WY;
+  *(R->data+3) = XY - WZ;         *(R->data+4) = WW + YY -1.0;    *(R->data+5) = YZ + WX;
+  *(R->data+6) = XZ + WY;         *(R->data+7) = YZ - WX;         *(R->data+8) = WW + ZZ -1.0;
 
   return R;
 }
