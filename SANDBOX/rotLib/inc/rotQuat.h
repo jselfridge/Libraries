@@ -18,9 +18,12 @@
 
 
 // Function declarations
+matrix*  rot_qDef    ( float rot, matrix* vec );
+matrix*  rot_qConj   ( matrix* quat );
 matrix*  rot_e2q     ( matrix* att  );
 matrix*  rot_q2e     ( matrix* quat );
 matrix*  rot_q2dcm   ( matrix* quat );
+
 matrix*  rot_vec2q   ( matrix* vecA, matrix* vecB );
 matrix*  rot_vec2e   ( matrix* vecA, matrix* vecB );
 matrix*  rot_qskew   ( matrix* quat );
