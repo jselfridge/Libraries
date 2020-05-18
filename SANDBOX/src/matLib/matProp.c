@@ -54,43 +54,34 @@ float mat_trace ( matrix* mat ) {
 
 
 
+/*******************************************************************************
+* bool mat_sym ( matrix* mat, float tol )
+* Evaluates whether a matrix is symmetric within a prescribed tolerance.
+*******************************************************************************/
+bool mat_sym ( matrix* mat, float tol ) {
 
-
-
-/**
- *  mat_sym
- *  Evaluates whether a matrix is symmetric within a prescribed tolerance.
- */
-bool mat_sym ( matrix *mat, double tol )  {
-
-  mat_err( mat->rows != mat->cols, "Error (mat_sym): A symmetric matrix must be square." );
-
-  uint r, c;
-  double u, l;
-  double diff, val;
-  bool sym = true;
+  mat_err( ( mat->rows != mat->cols ), "Error (mat_sym): A symmetric matrix must be square." );
 
   // Loop through lower triangle
-  for ( r=1; r <= mat->rows; r++ )  {
-    for ( c=1; c<r; c++ )  {
+  for( uint r=0; r<mat->rows; r++ ) {
+    for( uint c=0; c<=r; c++ ) {
 
-      // Get upper and lower elements 
-      l = mat_get( mat, r, c );
-      u = mat_get( mat, c, r );
+      // Get upper and lower elements
+      float l = *( mat->data + r*mat->cols + c );
+      float u = *( mat->data + c*mat->cols + r );
 
       // Compare the absolute difference to the tolerance
-      diff = fabs( l - u );
-      if ( diff >= tol )  sym = false;
+      if( fabs(l-u) >= tol )  return false;
 
-      // Average the two values 
-      val = ( l + u ) / 2.0;
-      mat_set( mat, r, c, val );
-      mat_set( mat, c, r, val );
+      // Set the average of the two values
+      float val = (l+u) / 2.0;
+      *( mat->data + r*mat->cols + c ) = val;
+      *( mat->data + c*mat->cols + r ) = val;
 
     }
   }
 
-  return sym;
+  return true;
 }
 
 
