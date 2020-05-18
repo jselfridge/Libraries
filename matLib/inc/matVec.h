@@ -22,7 +22,7 @@
 #include "matManip.h"
 
 
-// Function within matVec
+// Function declarations
 matrix*  mat_skew   ( matrix* vec );
 matrix*  mat_sskew  ( matrix* vec );
 matrix*  mat_cross  ( matrix* vecA, matrix* vecB );
