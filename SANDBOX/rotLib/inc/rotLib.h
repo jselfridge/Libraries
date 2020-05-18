@@ -1,42 +1,46 @@
+/*******************************************************************************
+*
+* Justin M Selfridge, PhD
+* Gradient Consulting, LLC
+* jselfridge@gmail.com
+*
+* rotLib.h
+* All inclusive header file for the 'rotLib' library.
+*
+*******************************************************************************/
+#ifndef ROT_LIB_H
+#define ROT_LIB_H
 
 
-//#ifndef ROTLIB_H
-//#define ROTLIB_H
+// Library header includes
+#include "../inc/rotConv.h"
+#include "../inc/rotEul.h"
+#include "../inc/rotQuat.h"
 
 
-//  Standard includes
+//~~
+
+
+// Standard includes
 //#include <math.h>
 //#include <stdio.h>
 
 
-// Custom includes
-//#include <matLib.h>
-
-
-// Define statements
-//#define PI  M_PI
-//#define PI2 (2.0*PI)
-//#define PIH (PI/2.0)
-//#define PIQ (PI/4.0)
-//#define PIE (PI/8.0)
-//#define PIS (PI/16.0)
-
-
-// RotConv functions
-//matrix*  rot_d2r      ( matrix *deg );
-//matrix*  rot_r2d      ( matrix *rad );
+// Function declarations
+//matrix*  rot_deg2rad  ( matrix *deg );
+//matrix*  rot_rad2deg  ( matrix *rad );
 //void     rot_wrappi   ( matrix *rad );
 //void     rot_wrap2pi  ( matrix *rad );
 
 
-// RotEuler functions
+// Function declarations
 //matrix*  rot_xaxis    ( double angle );
 //matrix*  rot_yaxis    ( double angle );
 //matrix*  rot_zaxis    ( double angle );
 //matrix*  rot_eul      ( matrix *att  );
 
 
-// RotQuat functions
+// Function declarations
 //matrix*  rot_e2q      ( matrix *att  );
 //matrix*  rot_q2e      ( matrix *quat );
 //matrix*  rot_q2dcm    ( matrix *quat );
