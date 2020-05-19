@@ -79,60 +79,55 @@ void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
 
 
 
+/*******************************************************************************
+* void mat_LDU ( matrix* mat, matrix** L, matrix** U )
+* Solves for the LDU decomposition of a matrix (if it exists).
+*******************************************************************************/
+void mat_LDU ( matrix *mat, matrix **L, matrix **D, matrix **U ) {
+
+  mat_LU( mat, &*L, &*U );
+  *D = mat_init( mat->rows, mat->rows );
+
+  matrix* row = mat_init( 1, mat->cols );
+
+  uint i = 1;
+  uint j = 1;
+
+  for( uint k=1; k<=mat->rows; k++ ) {
+
+    if( k>mat->cols ) {
+      while( k<=mat->rows ) {  mat_set( *D, k, k, 1.0 );  k++;  }
+      break;
+    }
+
+    float pivot = mat_get( *U, i, j );
+
+    while(!pivot) {
+      j++;
+      pivot = mat_get( *U, i, j );
+    }
+
+    row = mat_getr( *U, i );
+    row = mat_scale( row, 1.0/pivot );
+
+    mat_setr( *U, i, row );
+    mat_set( *D, k, k, pivot );
+
+    i++;
+    j++;
+
+  }
+
+  mat_clear(row);
+
+  return;
+}
 
 
 
 
 
-// /**
-// *  mat_LDU
-// *  Solves for the LDU decomposition of a matrix (if it exists).
-// */
-// void mat_LDU ( matrix *mat, matrix **L, matrix **D, matrix **U )  {
 
-//   uint i, j, k, r, c;
-//   double pivot;
-//   matrix *row;
-
-//   r = mat->rows;
-//   c = mat->cols;
-//   row = mat_init( 1, c );
-
-//   mat_LU( mat, &*L, &*U );
-//   *D = mat_init( r, r );
-
-//   i = 1;
-//   j = 1;
-
-//   for ( k=1; k<=r; k++ )  {
-
-//     if ( k>c )  {
-//       while ( k<=r ) {  mat_set( *D, k, k, 1 );  k++;  }
-//       break;
-//     }
-
-//     pivot = mat_get( *U, i, j );
-
-//     while (!pivot)  {
-//       j++;
-//       pivot = mat_get( *U, i, j );
-//     }
-
-//     row = mat_getr( *U, i );
-//     row = mat_scale( row, 1/pivot );
-
-//     mat_setr( *U, i, row );
-//     mat_set( *D, k, k, pivot );
-
-//     i++;
-//     j++;
-
-//   }
-
-//   mat_clear(row);
-
-//   return;
-// }
 
 
 // /**
