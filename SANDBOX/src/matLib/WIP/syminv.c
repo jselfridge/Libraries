@@ -12,6 +12,11 @@ void syminv ( double a[], int n, double c[], double w[], int *nullty,
 
 /******************************************************************************/
 /*
+
+  Original source:
+    Parent directory:    https://people.sc.fsu.edu/~jburkardt/c_src/c_src.html
+    Full URL:            https://people.sc.fsu.edu/~jburkardt/c_src/asa007/syminv.c
+
   Purpose:
 
     SYMINV computes the inverse of a symmetric matrix.
