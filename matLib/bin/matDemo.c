@@ -1064,7 +1064,7 @@ void MatDecomp ( void ) {
   a[4] = mat_get( PDS1, 3, 2 );
   a[5] = mat_get( PDS1, 3, 3 );
   int nullity, ifault;
-  cholesky ( a, 3, 6, u, &nullity, &ifault );
+  mat_chol( a, 3, 6, u, &nullity, &ifault );
   printf( "null: %d    fault: %d \n", nullity, ifault );
   matrix* P1 = mat_init( 3, 3 );
   mat_set( P1, 1, 1, (float)u[0] );
