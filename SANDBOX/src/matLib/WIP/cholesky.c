@@ -12,6 +12,11 @@ void cholesky ( double a[], int n, int nn, double u[], int *nullty,
 
 /******************************************************************************/
 /*
+
+  Original source:
+    Parent directory:    https://people.sc.fsu.edu/~jburkardt/c_src/c_src.html
+    Full URL:            https://people.sc.fsu.edu/~jburkardt/c_src/asa006/cholesky.c
+
   Purpose:
 
     CHOLESKY computes the Cholesky factorization of a PDS matrix.
