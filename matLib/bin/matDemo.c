@@ -1038,7 +1038,6 @@ void MatDecomp ( void ) {
   printf("Tri:");  mat_print(tri1);  mat_clear(tri1);
   printf("Vec:");  mat_print(vec1);  mat_clear(vec1);
 
-/*
   // Vector to triangle
   printf("Vector to triangle: \n");
   matrix* vec2 = mat_init( 6, 1 );
@@ -1052,6 +1051,7 @@ void MatDecomp ( void ) {
   printf("Vec:");  mat_print(vec2);  mat_clear(vec2);
   printf("Tri:");  mat_print(tri2);  mat_clear(tri2);
 
+/*
   // Symmetric PSD
   printf("Symmetric PSD: \n");
   matrix* PSD = mat_init( 3, 3 );

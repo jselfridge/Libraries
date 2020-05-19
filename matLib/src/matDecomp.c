@@ -187,6 +187,37 @@ matrix* mat_tri2vec ( matrix* tri ) {
 
 
 
+/*******************************************************************************
+* void mat_vec2tri ( matrix* vec )
+* Maps a vector array into the lower triangular elements of a matrix.
+*******************************************************************************/
+matrix* mat_vec2tri ( matrix* vec ) {
+
+  uint d = 0;
+  uint n = 0;
+  while( n<vec->rows ) {
+    d++;
+    n = ( d * (d+1) ) / 2;
+    mat_err( ( n>vec->rows ), "Error (mat_vec2tri): Vector must satisfy n=(d*(d+1))/2 relationship." );
+  }
+
+  matrix* tri = mat_init( d, d );
+
+  float* i = vec->data;
+  for( uint r=0; r<d; r++ ) {
+    for( uint c=0; c<=r; c++ ) {
+      *( tri->data + r*d + c ) = *(i++);
+    }
+  }
+
+  return tri;
+}
+
+
+
+
+
+
 
 
 // /**
@@ -401,34 +432,6 @@ matrix* mat_tri2vec ( matrix* tri ) {
 
 
 
-// /**
-// *  mat_vec2tri
-// *  Maps the elements of a vector array into a lower triangular matrix.
-// */
-// matrix* mat_vec2tri ( matrix *vec )  {
-
-//   uint r, c, i;
-//   uint n, d = 1;
-
-//   for ( ; ; )  {
-//     n = ( d * ( d + 1 ) ) / 2;
-//     if ( n <  vec->rows )  d++;
-//     if ( n == vec->rows )  break;
-//     mat_err( n > vec->rows, "Error (mat_vec2tri): Vector must satisfy n=(d*(d+1))/2 relationship." );
-//   }
-
-//   matrix *tri; 
-//   tri = mat_init( d, d );
-
-//   r = 1;  c = 1;
-//   for ( i=1; i<=n; i++ )  {
-//     mat_set( tri, r, c, mat_get( vec, i, 1 ) );
-//     if (r==c)  {  r++;  c = 1;  }
-//     else c++;
-//   }
-  
-//   return tri;
-// }
 
 
 
