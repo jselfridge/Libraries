@@ -319,6 +319,9 @@ matrix* mat_vec2tri ( matrix* vec ) {
 // }
 // */
 
+
+
+
 // /**
 // *  mat_syminv
 // *  Computes the inverse of a symmetric PSD matrix.
@@ -429,9 +432,6 @@ matrix* mat_vec2tri ( matrix* vec ) {
 //   return;
 // }
 // */
-
-
-
 
 
 

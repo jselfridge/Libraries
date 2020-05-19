@@ -12,15 +12,6 @@
 #define MAT_DECOMP_H
 
 
-// Standard includes
-// #include <complex.h>
-// #include <math.h>
-// #include <stdbool.h>
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <string.h>
-
-
 // Library includes
 #include "matCommon.h"
 #include "matManip.h"

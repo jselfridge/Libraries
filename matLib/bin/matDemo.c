@@ -55,10 +55,10 @@ int main ( void ) {
   // MatManip();
   // MatComplex();
   // MatVec();
-  // MatArith();
+  MatArith();
   // MatRoot();
   // MatProp();
-  MatDecomp();
+  // MatDecomp();
   MatClear();
   printf("   --- MatLib Complete --- \n\n");
 
@@ -569,27 +569,27 @@ void MatArith ( void ) {
   mat_print(Mmul4);
   mat_clear(Mmul4);
 
-  /*/ Left division
-  matrix* XL  = mat_divL( M33a, M32 );
-  matrix* AXL = mat_mul( M33a, XL );
-  mat_print(M33a);  mat_print(M32);
+  // Left division
+  matrix* XL  = mat_divL( M33b, M32 );
+  matrix* AXL = mat_mul( M33b, XL );
+  mat_print(M33b);  mat_print(M32);
   mat_print(XL);    mat_clear(XL);
-  mat_print(AXL);   mat_clear(AXL);*/
+  mat_print(AXL);   mat_clear(AXL);
 
-  /*/ Matrix inverse
+  // Matrix inverse
   matrix* INV = mat_inv(M44);
   matrix* MI  = mat_mul( M44, INV );
   matrix* IM  = mat_mul( INV, M44 );
   mat_print(INV);  mat_clear(INV);
   mat_print(MI);   mat_clear(MI);
-  mat_print(IM);   mat_clear(IM);*/
+  mat_print(IM);   mat_clear(IM);
 
-  /*/ Right division
-  matrix* XR  = mat_divR( M44, M14 );
-  matrix* XRA = mat_mul( XR, M44 );
-  mat_print(M44);  mat_print(M14);
+  // Right division
+  matrix* XR  = mat_divR( M33a, M23 );
+  matrix* XRA = mat_mul( XR, M33a );
+  mat_print(M33a);  mat_print(M23);
   mat_print(XR);   mat_clear(XR);
-  mat_print(XRA);  mat_clear(XRA);*/
+  mat_print(XRA);  mat_clear(XRA);
 
   // Matrix element-wise power
   matrix* Mepow;
