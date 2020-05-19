@@ -58,7 +58,7 @@ int main ( void ) {
   // MatArith();
   // MatRoot();
   // MatProp();
-  // MatDecomp();
+  MatDecomp();
   MatClear();
   printf("   --- MatLib Complete --- \n\n");
 
@@ -1050,31 +1050,42 @@ void MatDecomp ( void ) {
   printf("Vec:");  mat_print(vec2);  mat_clear(vec2);
   printf("Tri:");  mat_print(tri2);  mat_clear(tri2);
 
-/*
-  // Symmetric PSD
-  printf("Symmetric PSD: \n");
-  matrix* PSD = mat_init( 3, 3 );
-  mat_set( PSD, 1, 1, 4 );  mat_set( PSD, 1, 2, 0 );  mat_set( PSD, 1, 3, 1 );
-  mat_set( PSD, 2, 1, 0 );  mat_set( PSD, 2, 2, 2 );  mat_set( PSD, 2, 3, 1 );
-  mat_set( PSD, 3, 1, 1 );  mat_set( PSD, 3, 2, 1 );  mat_set( PSD, 3, 3, 2 );
-  float a[6], c[6], w[6];
-  a[0] = mat_get( PSD1, 1, 1 );
-  a[1] = mat_get( PSD1, 2, 1 );
-  a[2] = mat_get( PSD1, 2, 2 );
-  a[3] = mat_get( PSD1, 3, 1 );
-  a[4] = mat_get( PSD1, 3, 2 );
-  a[5] = mat_get( PSD1, 3, 3 );
-  uint nullity, ifault;
-  mat_syminv( a, 3, c, w, &nullity, &ifault );
-  matrix* PSDi = mat_init( 3, 3 );
-  mat_set( PSDi, 1, 1, c[0] );  mat_set( PSDi, 1, 2, c[1] );  mat_set( PSDi, 1, 3, c[3] );
-  mat_set( PSDi, 2, 1, c[1] );  mat_set( PSDi, 2, 2, c[2] );  mat_set( PSDi, 2, 3, c[4] );
-  mat_set( PSDi, 3, 1, c[3] );  mat_set( PSDi, 3, 2, c[4] );  mat_set( PSDi, 3, 3, c[5] );
-  matrix* I3 = mat_mul( PSDi, PSD );
-  printf("PSD:");   mat_print(PSD);   mat_clear(PSD);
-  printf("PSDi:");  mat_print(PSDi);  mat_clear(PSDi);
-  printf("I3");     mat_print(I3);    mat_clear(I3);
-*/
+  // PDS 1
+  printf("PosDefSym 1: \n");
+  matrix* PDS1 = mat_init( 3, 3 );
+  mat_set( PDS1, 1, 1, 4 );  mat_set( PDS1, 1, 2, 0 );  mat_set( PDS1, 1, 3, 1 );
+  mat_set( PDS1, 2, 1, 0 );  mat_set( PDS1, 2, 2, 2 );  mat_set( PDS1, 2, 3, 1 );
+  mat_set( PDS1, 3, 1, 1 );  mat_set( PDS1, 3, 2, 1 );  mat_set( PDS1, 3, 3, 2 );
+  double a[6], u[6];
+  a[0] = mat_get( PDS1, 1, 1 );
+  a[1] = mat_get( PDS1, 2, 1 );
+  a[2] = mat_get( PDS1, 2, 2 );
+  a[3] = mat_get( PDS1, 3, 1 );
+  a[4] = mat_get( PDS1, 3, 2 );
+  a[5] = mat_get( PDS1, 3, 3 );
+  int nullity, ifault;
+  cholesky ( a, 3, 6, u, &nullity, &ifault );
+  printf( "null: %d    fault: %d \n", nullity, ifault );
+  matrix* P1 = mat_init( 3, 3 );
+  mat_set( P1, 1, 1, (float)u[0] );
+  mat_set( P1, 2, 1, (float)u[1] );
+  mat_set( P1, 2, 2, (float)u[2] );
+  mat_set( P1, 3, 1, (float)u[3] );
+  mat_set( P1, 3, 2, (float)u[4] );
+  mat_set( P1, 3, 3, (float)u[5] );
+  matrix* PPT1 = mat_mul( P1, mat_trans(P1) );
+  //float c[6], w[6];
+  // mat_syminv( a, 3, c, w, &nullity, &ifault );
+  // matrix* PSDi = mat_init( 3, 3 );
+  // mat_set( PSDi, 1, 1, c[0] );  mat_set( PSDi, 1, 2, c[1] );  mat_set( PSDi, 1, 3, c[3] );
+  // mat_set( PSDi, 2, 1, c[1] );  mat_set( PSDi, 2, 2, c[2] );  mat_set( PSDi, 2, 3, c[4] );
+  // mat_set( PSDi, 3, 1, c[3] );  mat_set( PSDi, 3, 2, c[4] );  mat_set( PSDi, 3, 3, c[5] );
+  // matrix* I3 = mat_mul( PSDi, PSD );
+  printf("PDS1:");   mat_print(PDS1);   mat_clear(PDS1);
+  printf("P1:");     mat_print(P1);     mat_clear(P1);
+  printf("PPT1:");   mat_print(PPT1);   mat_clear(PPT1);
+  // printf("PSDi:");  mat_print(PSDi);  mat_clear(PSDi);
+  // printf("I3");     mat_print(I3);    mat_clear(I3);
 
   // Exit MatDecomp debugging
   printf("\n");

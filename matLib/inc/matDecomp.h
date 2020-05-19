@@ -28,6 +28,9 @@ matrix*  mat_vec2tri  ( matrix* vec );
 
 
 // Under development
+void cholesky ( double a[], int n, int nn, double u[], int *nullty, int *ifault );
+
+
 // void     mat_chol    ( float a[], uint n, uint nn, float u[], uint* nullty, uint* ifault );
 // void     mat_syminv  ( float a[], uint n, float c[], float w[], uint* nullty, uint* ifault );
 
