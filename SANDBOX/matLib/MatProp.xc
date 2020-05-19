@@ -3,7 +3,6 @@
 //  MatProp.c
 //  Justin M Selfridge
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include "MatLib.h"
 
 
 // WORK IN PROGRESS !!!

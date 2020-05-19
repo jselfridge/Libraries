@@ -13,11 +13,6 @@ MatDebug.c WIP
 void MatProp() {
   printf("Matrix properties \n");
 
-  // Trace
-  double T33 = mat_trace(M33a);  printf( "Trace of M33a: %f \n", T33 );
-  double T34 = mat_trace(M34);   printf( "Trace of M34:  %f \n", T34 );
-  double T43 = mat_trace(M43);   printf( "Trace of M43:  %f \n", T43 );
-
   // Rank
   int rank = mat_rank(M44);
   printf( "Rank: %d \n", rank );
@@ -67,116 +62,6 @@ void MatProp() {
 }
 */
 
-
-
-/*
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  MatDecomp
-//  Debugs the MatDecomp file functions.
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void MatDecomp() {
-  printf("Matrix decomposition \n");
-
-  // LU decomposition [3x3]
-  matrix* L3 = NULL;
-  matrix* U3 = NULL;
-  mat_LU( M33a, &L3, &U3 );
-  matrix* LU3 = mat_mul( L3, U3 );
-  mat_print(L3);
-  mat_print(U3);
-  mat_print(LU3);
-  mat_clear(L3);
-  mat_clear(U3);
-  mat_clear(LU3);
-
-  // LU decomposition [4x4]
-  matrix* L4 = NULL;
-  matrix* U4 = NULL;
-  mat_LU( M44, &L4, &U4 );
-  matrix* LU4 = mat_mul( L4, U4 );
-  mat_print(L4);
-  mat_print(U4);
-  mat_print(LU4);
-  mat_clear(L4);
-  mat_clear(U4);
-  mat_clear(LU4);
-
-  // QR Decomposition
-  matrix* Q = NULL;
-  matrix* R = NULL;
-
-  matrix* A = mat_init(2,4);
-  mat_set(A,1,1,1);  mat_set(A,1,2,0);  mat_set(A,1,3,-3);  mat_set(A,1,4,0);
-  mat_set(A,2,1,0);  mat_set(A,2,2,2);  mat_set(A,2,3,-1);  mat_set(A,2,4,1);
-  //mat_set(A,3,1,1);  mat_set(A,3,2,0);  mat_set(A,3,3, 1);  mat_set(A,3,4,3);
-  //mat_set(A,4,1,1);  mat_set(A,4,2,3);  mat_set(A,4,3, 5);  mat_set(A,4,4,2);
-  printf("A: ");  mat_print(A);
-
-  mat_QR( A, &Q, &R );
-
-  printf("Q:   ");  mat_print(Q);
-  printf("R:   ");  mat_print(R);
-  printf("Q'Q: ");  mat_print(mat_mul(mat_trans(Q),Q));
-  printf("QQ': ");  mat_print(mat_mul(Q,mat_trans(Q)));
-  printf("QR:  ");  mat_print(mat_mul(Q,R));
-
-  mat_clear(A);
-  mat_clear(Q);
-  mat_clear(R);
-
-  // Determinant
-  double det3 = mat_det(M33a);
-  printf( "det3: %f \n", det3 );
-  double det4 = mat_det(M44);
-  printf( "det4: %f \n", det4 );
-
-  // Left division
-  //Mat_DivL( M33a, V3a );
-
-  // Left division
-  matrix* xL31 = mat_divL( M33a, V3a );
-  mat_print(xL31);
-  mat_print( mat_mul(M33a,xL31) );
-  mat_clear(xL31);
-  matrix* xL32 = mat_divL( M33a, M32 );
-  mat_print(xL32);
-  mat_print( mat_mul(M33a,xL32) );
-  mat_clear(xL32);
-  matrix* xL41 = mat_divL( M44, V4 );
-  mat_print(xL41);
-  mat_print( mat_mul(M44,xL41) );
-  mat_clear(xL41);
-
-  // Right division
-  matrix* xR33 = mat_divR( M33b, M33a );
-  mat_print(xR33);
-  mat_print( mat_mul(xR33,M33a) );
-  mat_clear(xR33);
-  matrix* xR23 = mat_divR( M23, M33a );
-  mat_print(xR23);
-  mat_print( mat_mul(xR23,M33a) );
-  mat_clear(xR23);
-  matrix* xR14 = mat_divR( mat_trans(V4), M44 );
-  mat_print(xR14);
-  mat_print( mat_mul(xR14,M44) );
-  mat_clear(xR14);
-
-
-  // Matrix inverse
-  matrix* Minv3 = mat_inv(M33a);
-  mat_print(Minv3);
-  mat_print( mat_mul( Minv3, M33a ) );
-  mat_print( mat_mul( M33a, Minv3 ) );
-  mat_clear(Minv3);
-  matrix* Minv4 = mat_inv(M44);
-  mat_print(Minv4);
-  mat_clear(Minv4);
-
-
-  printf("\n");
-  return;
-}
-*/
 
 
 
