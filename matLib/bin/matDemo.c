@@ -1028,7 +1028,6 @@ void MatDecomp ( void ) {
   printf("QTQ6: ");  mat_print(QTQ6);  mat_clear(QTQ6);
   printf("\n");
 
-/*
   // Triangle to vector
   printf("Triangle to vector: \n");
   matrix* tri1 = mat_init( 3, 3 );
@@ -1039,6 +1038,7 @@ void MatDecomp ( void ) {
   printf("Tri:");  mat_print(tri1);  mat_clear(tri1);
   printf("Vec:");  mat_print(vec1);  mat_clear(vec1);
 
+/*
   // Vector to triangle
   printf("Vector to triangle: \n");
   matrix* vec2 = mat_init( 6, 1 );

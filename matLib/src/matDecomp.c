@@ -164,6 +164,25 @@ void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
 
 
 
+/*******************************************************************************
+* void mat_tri2vec ( matrix* tri )
+* Maps the lower triangular elements of a matrix into a vector array.
+*******************************************************************************/
+matrix* mat_tri2vec ( matrix* tri ) {
+
+  mat_err( ( tri->rows != tri->cols ), "Error (mat_tri2vec): Matrix must be square." );
+
+  matrix* vec = mat_init( ( tri->rows * (tri->rows+1) ) / 2, 1 );
+
+  float* i = vec->data;
+  for( uint r=0; r<tri->rows; r++ ) {
+    for( uint c=0; c<=r; c++ ) {
+      *(i++) = *( tri->data + r*tri->cols + c );
+    }
+  }
+
+  return vec;
+}
 
 
 
@@ -380,34 +399,6 @@ void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
 // }
 // */
 
-// /**
-// *  mat_tri2vec
-// *  Maps the lower triangular elements of a matrix into a vector array. 
-// */
-// matrix* mat_tri2vec ( matrix *tri )  {
-
-//   mat_err( tri->rows != tri->cols, "Error (mat_tri2vec): Matrix must be square." );
-
-//   uint d, n;
-//   uint r, c;
-//   uint i;
-//   matrix *vec;
-
-//   d = tri->rows;
-//   n = ( d * ( d + 1 ) ) / 2;
-
-//   vec = mat_init( n, 1 );
-
-//   i = 1;
-//   for ( r=1; r <= tri->rows; r++ )  {
-//     for ( c=1; c<=r; c++ )  {
-//       mat_set( vec, i, 1, mat_get( tri, r, c ) );
-//       i++;
-//     }
-//   }
-
-//   return vec;
-// }
 
 
 // /**
