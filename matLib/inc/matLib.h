@@ -18,6 +18,7 @@
 #include "../inc/matVec.h"
 #include "../inc/matArith.h"
 #include "../inc/matRoot.h"
+#include "../inc/matProp.h"
 #include "../inc/matDecomp.h"
 
 

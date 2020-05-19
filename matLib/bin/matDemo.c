@@ -55,7 +55,7 @@ int main ( void ) {
   // MatManip();
   // MatComplex();
   // MatVec();
-  MatArith();
+  // MatArith();
   // MatRoot();
   // MatProp();
   // MatDecomp();
@@ -739,20 +739,20 @@ void MatRoot ( void ) {
 * Debugs the 'matProp' file functions.
 *******************************************************************************/
 void MatProp ( void ) {
-/*
+
   printf("Matrix properties functions \n");
 
   // Determinant
-  mat_print(M33a);
-  float det3 = mat_det(M33a);
+  mat_print(M33b);
+  float det3 = mat_det(M33b);
   printf( "det3: %f \n", det3 );
   mat_print(M44);
   float det4 = mat_det(M44);
   printf( "det4: %f \n", det4 );
 
   // Trace of a matrix
-  mat_print(M33a);
-  float trace3 = mat_trace(M33a);
+  mat_print(M33b);
+  float trace3 = mat_trace(M33b);
   printf( "trace3: %f \n", trace3 );
   mat_print(M44);
   float trace4 = mat_trace(M44);
@@ -760,13 +760,12 @@ void MatProp ( void ) {
 
   // Symmetric matrix
   printf("Symmetric matrix \n");
-  matrix* sym;
-  bool issym;
+  bool issym = false;
   float tol = 0.01;
-  sym = mat_init( 3, 3 );
-  mat_set( sym, 1, 1, 4.00 );  mat_set( sym, 1, 2, 0.30 );  mat_set( sym, 1, 3, 0.00 );
+  matrix* sym = mat_init( 3, 3 );
+  mat_set( sym, 1, 1, 4.00 );  mat_set( sym, 1, 2, 0.31 );  mat_set( sym, 1, 3, 1.001 );
   mat_set( sym, 2, 1, 0.30 );  mat_set( sym, 2, 2, 3.00 );  mat_set( sym, 2, 3, 0.00 );
-  mat_set( sym, 3, 1, 0.01 );  mat_set( sym, 3, 2, 0.00 );  mat_set( sym, 3, 3, 2.00 );
+  mat_set( sym, 3, 1, 0.99 );  mat_set( sym, 3, 2, 0.00 );  mat_set( sym, 3, 3, 2.00 );
   printf("Sym:");
   mat_print(sym);
   issym = mat_sym( sym, tol );
@@ -775,7 +774,7 @@ void MatProp ( void ) {
 
   // Exit MatProp debugging
   printf("\n");
-*/
+
   return;
 }
 
