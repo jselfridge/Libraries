@@ -918,18 +918,17 @@ void MatDecomp ( void ) {
   matrix* U6 = NULL;
   mat_LU( A6, &L6, &U6 );  */
 
-/*
   // QR 1
   printf("QR 1: \n");
   matrix* a1 = mat_init( 3, 3 );
   mat_set( a1, 1, 1, -3 );  mat_set( a1, 1, 2, 1 );  mat_set( a1, 1, 3,  2 );
   mat_set( a1, 2, 1,  6 );  mat_set( a1, 2, 2, 2 );  mat_set( a1, 2, 3, -5 );
   mat_set( a1, 3, 1,  9 );  mat_set( a1, 3, 2, 5 );  mat_set( a1, 3, 3, -6 );
-  matrix* Q1 = mat_init( a1->?, a1->? );  // NULL;
-  matrix* R1 = mat_init( a1->?, a1->? );  // NULL;
-  mat_QR( a1, Q1, R1 );
-  QR1  = mat_mul( Q1, R1 );
-  QTQ1 = mat_mul( mat_trans(Q1), Q1 );
+  matrix* Q1 = NULL;
+  matrix* R1 = NULL;
+  mat_QR( a1, &Q1, &R1 );
+  matrix* QR1 = mat_mul( Q1, R1 );
+  matrix* QTQ1 = mat_mul( mat_trans(Q1), Q1 );
   printf("a1: ");    mat_print(a1);    mat_clear(a1);
   printf("Q1: ");    mat_print(Q1);    mat_clear(Q1);
   printf("R1: ");    mat_print(R1);    mat_clear(R1);
@@ -943,11 +942,11 @@ void MatDecomp ( void ) {
   mat_set( a2, 1, 1,  2 );  mat_set( a2, 1, 2,  8 );  mat_set( a2, 1, 3,   0 );
   mat_set( a2, 2, 1,  4 );  mat_set( a2, 2, 2, 18 );  mat_set( a2, 2, 3,  -4 );
   mat_set( a2, 3, 1, -2 );  mat_set( a2, 3, 2, -2 );  mat_set( a2, 3, 3, -13 );
-  matrix* Q2 = mat_init( a2->?, a2->? );  // NULL;
-  matrix* R2 = mat_init( a2->?, a2->? );  // NULL;
-  mat_QR( a2, Q2, R2 );
-  QR2  = mat_mul( Q2, R2 );
-  QTQ2 = mat_mul( mat_trans(Q2), Q2 );
+  matrix* Q2 = NULL;
+  matrix* R2 = NULL;
+  mat_QR( a2, &Q2, &R2 );
+  matrix* QR2 = mat_mul( Q2, R2 );
+  matrix* QTQ2 = mat_mul( mat_trans(Q2), Q2 );
   printf("a2: ");    mat_print(a2);    mat_clear(a2);
   printf("Q2: ");    mat_print(Q2);    mat_clear(Q2);
   printf("R2: ");    mat_print(R2);    mat_clear(R2);
@@ -962,11 +961,11 @@ void MatDecomp ( void ) {
   mat_set( a3, 2, 1, -4 );  mat_set( a3, 2, 2, -3 );  mat_set( a3, 2, 3,  5 );  mat_set( a3, 2, 4, -10 );
   mat_set( a3, 3, 1,  6 );  mat_set( a3, 3, 2,  4 );  mat_set( a3, 3, 3, -8 );  mat_set( a3, 3, 4,  17 );
   mat_set( a3, 4, 1,  2 );  mat_set( a3, 4, 2, -3 );  mat_set( a3, 4, 3, 29 );  mat_set( a3, 4, 4,  -9 );
-  matrix* Q3 = mat_init( a3->?, a3->? );  // NULL;
-  matrix* R3 = mat_init( a3->?, a3->? );  // NULL;
-  mat_QR( a3, Q3, R3 );
-  QR3  = mat_mul( Q3, R3 );
-  QTQ3 = mat_mul( mat_trans(Q3), Q3 );
+  matrix* Q3 = NULL;
+  matrix* R3 = NULL;
+  mat_QR( a3, &Q3, &R3 );
+  matrix* QR3 = mat_mul( Q3, R3 );
+  matrix* QTQ3 = mat_mul( mat_trans(Q3), Q3 );
   printf("a3: ");    mat_print(a3);    mat_clear(a3);
   printf("Q3: ");    mat_print(Q3);    mat_clear(Q3);
   printf("R3: ");    mat_print(R3);    mat_clear(R3);
@@ -981,11 +980,11 @@ void MatDecomp ( void ) {
   mat_set( a4, 3, 1, 15 );  mat_set( a4, 3, 2, -1 );  mat_set( a4, 3, 3, 10 );
   mat_set( a4, 4, 1, -6 );  mat_set( a4, 4, 2,  2 );  mat_set( a4, 4, 3, -4 );
   mat_set( a4, 5, 1, -3 );  mat_set( a4, 5, 2, -3 );  mat_set( a4, 5, 3, 10 );
-  matrix* Q4 = mat_init( a4->?, a4->? );  // NULL;
-  matrix* R4 = mat_init( a4->?, a4->? );  // NULL;
-  mat_QR( a4, Q4, R4 );
-  QR4  = mat_mul( Q4, R4 );
-  QTQ4 = mat_mul( mat_trans(Q4), Q4 );
+  matrix* Q4 = NULL;
+  matrix* R4 = NULL;
+  mat_QR( a4, &Q4, &R4 );
+  matrix* QR4 = mat_mul( Q4, R4 );
+  matrix* QTQ4 = mat_mul( mat_trans(Q4), Q4 );
   printf("a4: ");    mat_print(a4);    mat_clear(a4);
   printf("Q4: ");    mat_print(Q4);    mat_clear(Q4);
   printf("R4: ");    mat_print(R4);    mat_clear(R4);
@@ -993,24 +992,43 @@ void MatDecomp ( void ) {
   printf("QTQ4: ");  mat_print(QTQ4);  mat_clear(QTQ4);
   printf("\n");
 
-  // QR 5
+  /*/ QR 5: Currently only works on square or tall matrices
   printf("QR 5: \n");
   matrix* a5 = mat_init( 3, 5 );
   mat_set( a5, 1, 1,   4 );  mat_set( a5, 1, 2,  -3 );  mat_set( a5, 1, 3,  -1 );  mat_set( a5, 1, 4,   5 );  mat_set( a5, 1, 5,  2 );
   mat_set( a5, 2, 1, -16 );  mat_set( a5, 2, 2,  12 );  mat_set( a5, 2, 3,   2 );  mat_set( a5, 2, 4, -17 );  mat_set( a5, 2, 5, -7 );
   mat_set( a5, 3, 1,   8 );  mat_set( a5, 3, 2,  -6 );  mat_set( a5, 3, 3, -12 );  mat_set( a5, 3, 4,  22 );  mat_set( a5, 3, 5, 10 );
-  matrix* Q5 = mat_init( a5->?, a5->? );  // NULL;
-  matrix* R5 = mat_init( a5->?, a5->? );  // NULL;
-  mat_QR( a5, Q5, R5 );
-  QR5  = mat_mul( Q5, R5 );
-  QTQ5 = mat_mul( mat_trans(Q5), Q5 );
+  matrix* Q5 = NULL;
+  matrix* R5 = NULL;
+  mat_QR( a5, &Q5, &R5 );
+  matrix* QR5 = mat_mul( Q5, R5 );
+  matrix* QTQ5 = mat_mul( mat_trans(Q5), Q5 );
   printf("a5: ");    mat_print(a5);    mat_clear(a5);
   printf("Q5: ");    mat_print(Q5);    mat_clear(Q5);
   printf("R5: ");    mat_print(R5);    mat_clear(R5);
   printf("QR5: ");   mat_print(QR5);   mat_clear(QR5);
   printf("QTQ5: ");  mat_print(QTQ5);  mat_clear(QTQ5);
+  printf("\n");*/
+
+  // QR 6: Works when LU does not
+  printf("QR 6: \n");
+  matrix* a6 = mat_init( 3, 3 );
+  mat_set( a6, 1, 1,  2 );  mat_set( a6, 1, 2,  1 );  mat_set( a6, 1, 3, -1 );
+  mat_set( a6, 2, 1, -4 );  mat_set( a6, 2, 2, -2 );  mat_set( a6, 2, 3,  5 );
+  mat_set( a6, 3, 1,  6 );  mat_set( a6, 3, 2,  2 );  mat_set( a6, 3, 3, 11 );
+  matrix* Q6 = NULL;
+  matrix* R6 = NULL;
+  mat_QR( a6, &Q6, &R6 );
+  matrix* QR6 = mat_mul( Q6, R6 );
+  matrix* QTQ6 = mat_mul( mat_trans(Q6), Q6 );
+  printf("a6: ");    mat_print(a6);    mat_clear(a6);
+  printf("Q6: ");    mat_print(Q6);    mat_clear(Q6);
+  printf("R6: ");    mat_print(R6);    mat_clear(R6);
+  printf("QR6: ");   mat_print(QR6);   mat_clear(QR6);
+  printf("QTQ6: ");  mat_print(QTQ6);  mat_clear(QTQ6);
   printf("\n");
 
+/*
   // Triangle to vector
   printf("Triangle to vector: \n");
   matrix* tri1 = mat_init( 3, 3 );

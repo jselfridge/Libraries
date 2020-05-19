@@ -126,51 +126,48 @@ void mat_LDU ( matrix *mat, matrix **L, matrix **D, matrix **U ) {
 
 
 
+/*******************************************************************************
+* void mat_QR ( matrix* mat, matrix** Q, matrix** R )
+* Solves for the QR decomposition of a matrix.
+*******************************************************************************/
+void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
+
+  mat_err( ( mat->rows < mat->cols ), "Error (mat_QR): Input matrix must be square or tall." );
+
+  *Q = mat_init( mat->rows, mat->cols );
+  *R = mat_init( mat->cols, mat->cols );
+
+  matrix* A    = mat_copy(mat);
+  matrix* Acol = mat_init( mat->rows, 1 );
+  matrix* Qcol = mat_init( mat->rows, 1 );
+
+  for( uint i=1; i<=mat->cols; i++ ) {
+
+    Acol = mat_getc( A, i );
+    Qcol = mat_copy(Acol);
+
+    for( uint j=1; j<i; j++ )  Qcol = mat_sub( Qcol, mat_proj( Acol, mat_getc( *Q, j ) ) );
+
+    mat_setc( *Q, i, mat_uvec(Qcol) );
+
+  }
+
+  *R = mat_mul( mat_trans(*Q), A );
+
+  mat_clear(A);
+  mat_clear(Acol);
+  mat_clear(Qcol);
+
+  return;
+}
 
 
 
 
-// /**
-// *  mat_QR
-// *  Solves for the QR decomposition of a matrix.
-// */
-// void mat_QR ( matrix *mat, matrix **Q, matrix **R )  {
 
-//   mat_err( mat->rows < mat->cols, "Error (mat_QR): Input matrix must be square or tall." );
 
-//   uint i, j, r, c;
-//   matrix *A, *Acol, *Qcol;
 
-//   if ( mat->rows < mat->cols )  mat = mat_trans(mat); 
 
-//   r = mat->rows;
-//   c = mat->cols;
-//   A    = mat_copy(mat);
-//   Acol = mat_init(r,1);
-//   Qcol = mat_init(r,1);
-
-//   *Q = mat_init(r,c);
-//   *R = mat_init(c,c);
-
-//   for ( i=1; i<=c; i++ )  {
-
-//     Acol = mat_getc(A,i);
-//     Qcol = mat_copy(Acol);
-
-//     for ( j=1; j<i; j++ )  {  Qcol = mat_sub( Qcol, mat_proj( Acol, mat_getc(*Q,j) ) );  }
-
-//     mat_setc( *Q, i, mat_uvec(Qcol) );
-
-//   }
-
-//   *R = mat_mul( mat_trans(*Q), A );
-
-//   mat_clear(A);
-//   mat_clear(Acol);
-//   mat_clear(Qcol);
-
-//   return;
-// }
 
 
 // /**
