@@ -14,6 +14,58 @@
 
 
 /*******************************************************************************
+* matrix* mat_tri2vec ( matrix* tri )
+* Maps the lower triangular elements of a matrix into a vector array.
+*******************************************************************************/
+matrix* mat_tri2vec ( matrix* tri ) {
+
+  mat_err( ( tri->rows != tri->cols ), "Error (mat_tri2vec): Matrix must be square." );
+
+  matrix* vec = mat_init( ( tri->rows * (tri->rows+1) ) / 2, 1 );
+
+  float* i = vec->data;
+  for( uint r=0; r<tri->rows; r++ ) {
+    for( uint c=0; c<=r; c++ ) {
+      *(i++) = *( tri->data + r*tri->cols + c );
+    }
+  }
+
+  return vec;
+}
+
+
+
+
+/*******************************************************************************
+* matrix* mat_vec2tri ( matrix* vec )
+* Maps a vector array into the lower triangular elements of a matrix.
+*******************************************************************************/
+matrix* mat_vec2tri ( matrix* vec ) {
+
+  uint d = 0;
+  uint n = 0;
+  while( n<vec->rows ) {
+    d++;
+    n = ( d * (d+1) ) / 2;
+    mat_err( ( n>vec->rows ), "Error (mat_vec2tri): Vector must satisfy n=(d*(d+1))/2 relationship." );
+  }
+
+  matrix* tri = mat_init( d, d );
+
+  float* i = vec->data;
+  for( uint r=0; r<d; r++ ) {
+    for( uint c=0; c<=r; c++ ) {
+      *( tri->data + r*d + c ) = *(i++);
+    }
+  }
+
+  return tri;
+}
+
+
+
+
+/*******************************************************************************
 * void mat_LU ( matrix* mat, matrix** L, matrix** U )
 * Solves for the LU decomposition of a matrix (if it exists).
 *******************************************************************************/
@@ -165,124 +217,67 @@ void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
 
 
 /*******************************************************************************
-* matrix* mat_tri2vec ( matrix* tri )
-* Maps the lower triangular elements of a matrix into a vector array.
-*******************************************************************************/
-matrix* mat_tri2vec ( matrix* tri ) {
-
-  mat_err( ( tri->rows != tri->cols ), "Error (mat_tri2vec): Matrix must be square." );
-
-  matrix* vec = mat_init( ( tri->rows * (tri->rows+1) ) / 2, 1 );
-
-  float* i = vec->data;
-  for( uint r=0; r<tri->rows; r++ ) {
-    for( uint c=0; c<=r; c++ ) {
-      *(i++) = *( tri->data + r*tri->cols + c );
-    }
-  }
-
-  return vec;
-}
-
-
-
-
-/*******************************************************************************
-* matrix* mat_vec2tri ( matrix* vec )
-* Maps a vector array into the lower triangular elements of a matrix.
-*******************************************************************************/
-matrix* mat_vec2tri ( matrix* vec ) {
-
-  uint d = 0;
-  uint n = 0;
-  while( n<vec->rows ) {
-    d++;
-    n = ( d * (d+1) ) / 2;
-    mat_err( ( n>vec->rows ), "Error (mat_vec2tri): Vector must satisfy n=(d*(d+1))/2 relationship." );
-  }
-
-  matrix* tri = mat_init( d, d );
-
-  float* i = vec->data;
-  for( uint r=0; r<d; r++ ) {
-    for( uint c=0; c<=r; c++ ) {
-      *( tri->data + r*d + c ) = *(i++);
-    }
-  }
-
-  return tri;
-}
-
-
-
-
-/*******************************************************************************
-* void mat_chol ( matrix* a, int n, int nn, matrix** u, int *nullty, int *ifault )
+* void mat_chol ( matrix* A, uint n, matrix** U, uint *nullty, uint *ifault )
 * Determines the cholesky decomposition for a positive definite symmetric matrix.
 *******************************************************************************/
-void mat_chol ( matrix* a, int n, int nn, matrix** u, int *nullty, int *ifault ) {
+void mat_chol ( matrix* A, uint n, matrix** U, uint *nullty, uint *ifault ) {
 
-  mat_err( (n<=0), "Error (mat_chol): Matrix size must be positive." );
-
-  if( nn < ( n * (n+1) ) / 2 ) {
-    *ifault = 3;
-    return;
-  }
-
-  const float eps = 6.0E-08;    // Based on float precision
+  mat_err( (!n),                       "Error (mat_chol): Matrix size must be positive." );
+  mat_err( ( A->rows != (n*(n+1))/2 ), "Error (mat_chol): Inconsistent dimensions."      );
 
   *ifault = 0;
   *nullty = 0;
 
+  const float eps = 6.0E-08;
+
+  uint i = 0;
   uint j = 0;
-  uint k = 0;
-  uint s = 0;
 
-  // Loop through each column
-  for( uint c=0; c<n; c++ ) {
+  // Loop through each row
+  for( uint r=0; r<n; r++ ) {
 
-    s += c;
-    float tol = eps * eps * mat_get(a,s+1,1); /*a[s]*/;
+    j += r;
+    float tol = eps * eps * *(A->data+j);
     float w = 0.0;
     uint l = 0;
 
-    // Loop through each row within column
-    for( uint r=0; r<=c; r++ ) {
+    // Loop through each column within row
+    for( uint c=0; c<=r; c++ ) {
 
       uint m = j;
-      w = mat_get(a,k+1,1); /*a[k]*/;
-      k++;
+      w = *(A->data+i);
+      i++;
 
       // Iterate through each element within row
-      for( uint i=0; i<r; i++ ) {
-        w -= mat_get(*u,l+1,1) /*u[l]*/ * mat_get(*u,m+1,1) /*u[m]*/;
+      for( uint k=0; k<c; k++ ) {
+
+        w -= *((*U)->data+l) * *((*U)->data+m);
         l++;
         m++;
+
       }
 
       if( r == c )  break;
-      
-      if( mat_get(*u,l+1,1) /*u[l]*/ != 0.0 ) {  mat_set(*u,k,1, /*u[k-1] =*/ w / mat_get(*u,l+1,1)/*u[l]*/ );  }
+
+      if( *((*U)->data+l) != 0.0 ) {  *((*U)->data+i-1) = w / *((*U)->data+l);  }
       else {
-        mat_set(*u,k,1,0.0);  /*u[k-1] = 0.0;*/
-        if( fabs( tol * mat_get(a,k,1) /*a[k-1]*/ ) < w*w ) {  *ifault = 2;  return;  }
+        *((*U)->data+i-1) = 0.0;
+        if( fabs( tol * *(A->data+i-1) ) < w*w ) {  *ifault = 2;  return;  }
       }
 
       l++;
-      
+
     }
 
     //End of row, estimate relative accuracy of diagonal element
-    if( fabs(w) <= fabs( eps * mat_get(a,k,1) /*a[k-1]*/ ) ) {
-      mat_set(*u,k,1,0.0); /*u[k-1] = 0.0;*/
-      *nullty = *nullty +1;
+    if( fabs(w) <= fabs( eps * *(A->data+i-1) ) ) {
+      *((*U)->data+i-1) = 0.0;
+      (*nullty)++;
     }
     else {
       if ( w<0.0 ) {  *ifault = 2;  return;  }
-      mat_set(*u,k,1,sqrtf(w));  /*u[k-1] = sqrt(w);*/
+      *((*U)->data+i-1) = sqrtf(w);
     }
-
-    j += c+1;
 
   }
 

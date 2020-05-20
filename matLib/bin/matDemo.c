@@ -1115,8 +1115,8 @@ void MatPDS ( void ) {
   mat_set( A1, 3, 1, 1 );  mat_set( A1, 3, 2, 1 );  mat_set( A1, 3, 3, 2 );
   matrix* a1 = mat_tri2vec(A1);
   matrix* u1 = mat_init( 6, 1 );
-  int nullity1, ifault1;
-  mat_chol( a1, 3, 6, &u1, &nullity1, &ifault1 );
+  uint nullity1, ifault1;
+  mat_chol( a1, 3, &u1, &nullity1, &ifault1 );
   matrix* U1 = mat_vec2tri(u1);
   matrix* UUT1 = mat_mul( U1, mat_trans(U1) );
   printf( "null: %d    fault: %d \n", nullity1, ifault1 );
@@ -1142,8 +1142,8 @@ void MatPDS ( void ) {
   mat_set( A2, 4, 1, 0.5 );  mat_set( A2, 4, 2, 1.3 );  mat_set( A2, 4, 3, 5.4 );  mat_set( A2, 4, 4, 9.9 );
   matrix* a2 = mat_tri2vec(A2);
   matrix* u2 = mat_init( 10, 1 );
-  int nullity2, ifault2;
-  mat_chol( a2, 4, 10, &u2, &nullity2, &ifault2 );
+  uint nullity2, ifault2;
+  mat_chol( a2, 4, &u2, &nullity2, &ifault2 );
   matrix* U2 = mat_vec2tri(u2);
   matrix* UUT2 = mat_mul( U2, mat_trans(U2) );
   printf( "null: %d    fault: %d \n", nullity2, ifault2 );
