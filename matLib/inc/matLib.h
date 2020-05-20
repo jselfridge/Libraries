@@ -13,13 +13,13 @@
 
 
 // Library header includes
-#include "../inc/matManip.h"
-#include "../inc/matComplex.h"
-#include "../inc/matVec.h"
-#include "../inc/matArith.h"
-#include "../inc/matRoot.h"
-#include "../inc/matProp.h"
-#include "../inc/matDecomp.h"
+// #include "../inc/matManip.h"
+// #include "../inc/matComplex.h"
+// #include "../inc/matVec.h"
+// #include "../inc/matArith.h"
+// #include "../inc/matRoot.h"
+// #include "../inc/matProp.h"
+// #include "../inc/matDecomp.h"
 
 
 #endif

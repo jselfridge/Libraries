@@ -19,18 +19,18 @@
 
 // Library includes
 #include "matCommon.h"
-#include "matManip.h"
+// #include "matManip.h"
 
 
 // Function declarations
-matrix*  mat_skew   ( matrix* vec );
-matrix*  mat_sskew  ( matrix* vec );
-matrix*  mat_cross  ( matrix* vecA, matrix* vecB );
-float    mat_dot    ( matrix* vecA, matrix* vecB );
-float    mat_mag    ( matrix* vec );
-float    mat_norm   ( matrix* vec, uint p );
-matrix*  mat_uvec   ( matrix* vec );
-matrix*  mat_proj   ( matrix* u, matrix *v );
+matrix*  mat_skew   ( matrix* V );
+matrix*  mat_sskew  ( matrix* V );
+matrix*  mat_cross  ( matrix* A, matrix* B );
+float    mat_dot    ( matrix* A, matrix* B );
+float    mat_mag    ( matrix* V );
+float    mat_norm   ( matrix* V, uint p );
+matrix*  mat_uvec   ( matrix* V );
+matrix*  mat_proj   ( matrix* U, matrix* V );
 
 
 #endif

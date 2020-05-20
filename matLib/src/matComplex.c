@@ -14,24 +14,24 @@
 
 
 /*******************************************************************************
-* matrixz* mat_initz ( uint rows, uint cols )
+* matrixz* mat_initz ( uint r, uint c )
 * Initializes a new complex matrix with the specified dimensions,
 * and sets the elements to complex values of zero.
 *******************************************************************************/
-matrixz* mat_initz ( uint rows, uint cols ) {
+matrixz* mat_initz ( uint r, uint c ) {
 
-  mat_err( ( !rows || !cols ), "Error (mat_initz): Matrix dimensions must be positive." );
+  mat_err( ( !r || !c ), "Error (mat_initz): Matrix dimensions must be positive." );
 
-  matrixz* out = (matrixz*) malloc( sizeof(matrixz) );
-  mat_err( ( out == NULL ), "Error (mat_initz): Matrix structure returned NULL." );
+  matrixz* N = (matrixz*) malloc( sizeof(matrixz) );
+  mat_err( ( N == NULL ), "Error (mat_initz): Matrix structure returned NULL." );
 
-  out->rows = rows;
-  out->cols = cols;
+  N->r = r;
+  N->c = c;
 
-  out->data = (float complex*) malloc( rows * cols * sizeof(float complex) );
-  mat_err( ( out->data == NULL ), "Error (mat_initz): Matrix data returned NULL." );
+  N->e = (float complex*) malloc( r * c * sizeof(float complex) );
+  mat_err( ( N->e == NULL ), "Error (mat_initz): Matrix data returned NULL." );
 
-  memset( out->data, 0.0, rows * cols * sizeof(float complex) );
+  memset( N->e, 0.0, r * c * sizeof(float complex) );
 
   return out;
 }
@@ -40,18 +40,18 @@ matrixz* mat_initz ( uint rows, uint cols ) {
 
 
 /*******************************************************************************
-* void mat_clearz ( matrixz* mat )
+* void mat_clearz ( matrixz* M )
 * Destroys an existing complex matrix and frees the memory.
 *******************************************************************************/
-void mat_clearz ( matrixz* mat ) {
+void mat_clearz ( matrixz* M ) {
 
-  if( mat != NULL ) {
-    if( mat->data != NULL ) {
-      free(mat->data);
-      mat->data = NULL;
+  if( M != NULL ) {
+    if( M->e != NULL ) {
+      free(M->e);
+      M->e = NULL;
     }
-    free(mat);
-    mat = NULL;
+    free(M);
+    M = NULL;
   }
 
   return;
@@ -61,16 +61,16 @@ void mat_clearz ( matrixz* mat ) {
 
 
 /*******************************************************************************
-* void mat_printz ( matrixz* mat )
+* void mat_printz ( matrixz* M )
 * Display a complex matrix in the terminal.
 *******************************************************************************/
-void mat_printz ( matrixz* mat ) {
+void mat_printz ( matrixz* M ) {
 
-  printf( "[%dx%d]\n", mat->rows, mat->cols );
-  for( uint i=1; i<=mat->rows; i++ ) {
-    for( uint j=1; j<=mat->cols; j++ ) {
-      float re = mat_getre( mat, i, j );
-      float im = mat_getim( mat, i, j );
+  printf( "[%dx%d]\n", M->r, M->c );
+  for( uint i=1; i<=M->r; i++ ) {
+    for( uint j=1; j<=M->c; j++ ) {
+      float re = mat_getre( M, i, j );
+      float im = mat_getim( M, i, j );
       char sign;
       if(im<0)  sign = '-';
       else      sign = '+';
@@ -108,14 +108,15 @@ matrixz* mat_readz ( char* file ) {
   scan = fscanf( f, "%u", &c );
   mat_err( ( scan == EOF ), "Error (mat_readz): Failed to read 'cols' from file." );
 
-  matrixz* out = mat_initz( r, c );
-  float complex* data = out->data;
+  matrixz* M = mat_initz( r, c );
+//  float complex* data = M->e;
 
   for( uint i=0; i<r*c; i++ ) {
     scan = fscanf( f, "%f %c %f i", &re, &sign, &im );
     mat_err( ( scan == EOF ), "Error (mat_readz): Matrix is missing elements." );
     if( sign == '-' )  im *= -1.0;
-    *(data++) = re + im*I;
+//    *(data++) = re + im*I;
+    *((M->e)++) = re + im*I;
   }
 
   scan = fscanf( f, "%f %c %f i", &re, &sign, &im );
@@ -130,10 +131,10 @@ matrixz* mat_readz ( char* file ) {
 
 
 /*******************************************************************************
-* void mat_writez ( matrixz* mat, char* file )
+* void mat_writez ( matrixz* M, char* file )
 * Writes a complex matrix to a file.
 *******************************************************************************/
-void mat_writez ( matrixz* mat, char* file ) {
+void mat_writez ( matrixz* M, char* file ) {
 
   float re, im;
   char sign;
@@ -141,11 +142,11 @@ void mat_writez ( matrixz* mat, char* file ) {
   FILE* f = fopen( file, "w" );
   mat_err( ( f == NULL ), "Error (mat_writez): Cannot open file.\n" );
 
-  fprintf( f, "# %d %d \n", mat->rows, mat->cols );
-  for( uint i=1; i<=mat->rows; i++ ) {
-    for( uint j=1; j<=mat->cols; j++ ) {
-      re = mat_getre( mat, i, j );
-      im = mat_getim( mat, i, j );
+  fprintf( f, "# %d %d \n", M->r, M->c );
+  for( uint i=1; i<=M->r; i++ ) {
+    for( uint j=1; j<=M->c; j++ ) {
+      re = mat_getre( M, i, j );
+      im = mat_getim( M, i, j );
       if(im<0)  sign = '-';
       else      sign = '+';
       fprintf( f, " %e %c%e i\t", re, sign, fabs(im) );
@@ -162,81 +163,81 @@ void mat_writez ( matrixz* mat, char* file ) {
 
 
 /*******************************************************************************
-* float mat_getre ( matrixz* mat, uint row, uint col )
+* float mat_getre ( matrixz* M, uint r, uint c )
 * Returns the real part of a complex matrix element.
 *******************************************************************************/
-float mat_getre ( matrixz* mat, uint row, uint col ) {
+float mat_getre ( matrixz* M, uint r, uint c ) {
 
-  mat_err( ( !row || row > mat->rows ), "Error (mat_getre): Row index exceeds matrix dimensions."    );
-  mat_err( ( !col || col > mat->cols ), "Error (mat_getre): Column index exceeds matrix dimensions." );
+  mat_err( ( !r || r > M->r ), "Error (mat_getre): Row index exceeds matrix dimensions."    );
+  mat_err( ( !c || c > M->c ), "Error (mat_getre): Column index exceeds matrix dimensions." );
 
-  return (float)creal( *( mat->data + (row-1) * (mat->cols) + (col-1) ) );
+  return (float)creal( *( M->e + (r-1) * M->c + (c-1) ) );
 }
 
 
 
 
 /*******************************************************************************
-* float mat_getim ( matrixz* mat, uint row, uint col )
+* float mat_getim ( matrixz* M, uint r, uint c )
 * Returns the imaginary part of a complex matrix element.
 *******************************************************************************/
-float mat_getim ( matrixz* mat, uint row, uint col ) {
+float mat_getim ( matrixz* M, uint r, uint c ) {
 
-  mat_err( ( !row || row > mat->rows ), "Error (mat_getim): Row index exceeds matrix dimensions."    );
-  mat_err( ( !col || col > mat->cols ), "Error (mat_getim): Column index exceeds matrix dimensions." );
+  mat_err( ( !r || r > M->r ), "Error (mat_getim): Row index exceeds matrix dimensions."    );
+  mat_err( ( !c || c > M->c ), "Error (mat_getim): Column index exceeds matrix dimensions." );
 
-  return (float)cimag( *( mat->data + (row-1) * (mat->cols) + (col-1) ) );
+  return (float)cimag( *( M->e + (r-1) * M->c + (c-1) ) );
 }
 
 
 
 
 /*******************************************************************************
-* matrixz* mat_getrz ( matrixz* mat, uint row ) {
+* matrixz* mat_getrz ( matrixz* M, uint r ) {
 * Returns the specified complex row vector of a matrix.
 *******************************************************************************/
-matrixz* mat_getrz ( matrixz* mat, uint row ) {
+matrixz* mat_getrz ( matrixz* M, uint r ) {
 
-  mat_err( ( !row || row > mat->rows ), "Error (mat_getrz): Row index exceeds matrix dimensions." );
+  mat_err( ( !r || r > M->r ), "Error (mat_getrz): Row index exceeds matrix dimensions." );
 
-  matrixz* out = mat_initz( 1, mat->cols );
+  matrixz* N = mat_initz( 1, M->c );
 
-  for( uint i=0; i<mat->cols; i++ )  *(out->data+i) = *( mat->data + (row-1) * mat->cols + i );
+  for( uint i=0; i<M->c; i++ )  *(N->e+i) = *( M->e + (r-1) * M->c + i );
 
-  return out;
+  return N;
 }
 
 
 
 
 /*******************************************************************************
-* matrixz* mat_getcz ( matrixz* mat, uint col )
+* matrixz* mat_getcz ( matrixz* M, uint c )
 * Returns the specified complex column vector of a matrix.
 *******************************************************************************/
-matrixz* mat_getcz ( matrixz* mat, uint col ) {
+matrixz* mat_getcz ( matrixz* M, uint c ) {
 
-  mat_err( ( !col || col > mat->cols ), "Error (mat_getcz): Column index exceeds matrix dimensions." );
+  mat_err( ( !c || c > M->c ), "Error (mat_getcz): Column index exceeds matrix dimensions." );
 
-  matrixz* out = mat_initz( mat->rows, 1 );
+  matrixz* N = mat_initz( M->r, 1 );
 
-  for( uint i=0; i<mat->rows; i++ )  *(out->data+i) = *( mat->data + ( i * mat->cols ) + (col-1) );
+  for( uint i=0; i<M->r; i++ )  *(N->e+i) = *( M->e + i * M->c + (c-1) );
 
-  return out;
+  return N;
 }
 
 
 
 
 /*******************************************************************************
-* void mat_setz ( matrixz* mat, uint row, uint col, float re, float im )
+* void mat_setz ( matrixz* M, uint r, uint c, float re, float im )
 * Assigns a complex number into a matrix element.
 *******************************************************************************/
-void mat_setz ( matrixz* mat, uint row, uint col, float re, float im ) {
+void mat_setz ( matrixz* M, uint r, uint c, float re, float im ) {
 
-  mat_err( ( !row || row > mat->rows ), "Error (mat_setz): Row index exceeds matrix dimensions."    );
-  mat_err( ( !col || col > mat->cols ), "Error (mat_setz): Column index exceeds matrix dimensions." );
+  mat_err( ( !r || r > M->r ), "Error (mat_setz): Row index exceeds matrix dimensions."    );
+  mat_err( ( !c || c > M->c ), "Error (mat_setz): Column index exceeds matrix dimensions." );
 
-  *( mat->data + (row-1) * (mat->cols) + (col-1) ) = re + im *I;
+  *( M->e + (r-1) * M->c + (c-1) ) = re + im *I;
 
   return;
 }
@@ -245,16 +246,16 @@ void mat_setz ( matrixz* mat, uint row, uint col, float re, float im ) {
 
 
 /*******************************************************************************
-* void mat_setrz ( matrixz* mat, uint row, matrixz* vec )
+* void mat_setrz ( matrixz* M, uint r, matrixz* V )
 * Replaces a row of a complex matrix with the specified vector.
 *******************************************************************************/
-void mat_setrz ( matrixz* mat, uint row, matrixz* vec ) {
+void mat_setrz ( matrixz* M, uint r, matrixz* V ) {
 
-  mat_err( ( !row || row > mat->rows ), "Error (mat_setrz): Row index exceeds matrix dimensions."           );
-  mat_err( ( vec->rows !=1 ),           "Error (mat_setrz): Input array must be a row vector."              );
-  mat_err( ( mat->cols != vec->cols ),  "Error (mat_setrz): Input array and matrix must be the same width." );
+  mat_err( ( !r || r > M->r ), "Error (mat_setrz): Row index exceeds matrix dimensions."           );
+  mat_err( ( V->r !=1 ),       "Error (mat_setrz): Input array must be a row vector."              );
+  mat_err( ( M->c != M->c ),   "Error (mat_setrz): Input array and matrix must be the same width." );
 
-  for( uint i=0; i<mat->cols; i++ )  *( mat->data + (row-1) * (mat->cols) + i ) = *( vec->data+i );
+  for( uint i=0; i<M->c; i++ )  *( M->e + (r-1) * M->c + i ) = *(V->e+i);
 
   return;
 }
@@ -263,16 +264,16 @@ void mat_setrz ( matrixz* mat, uint row, matrixz* vec ) {
 
 
 /*******************************************************************************
-* void mat_setcz ( matrixz* mat, uint col, matrixz* vec )
+* void mat_setcz ( matrixz* M, uint c, matrixz* V )
 * Replaces a column of a complex matrix with the specified vector.
 *******************************************************************************/
-void mat_setcz ( matrixz* mat, uint col, matrixz* vec ) {
+void mat_setcz ( matrixz* M, uint c, matrixz* V ) {
 
-  mat_err( ( !col || col > mat->cols ), "Error (mat_setcz): Column index exceeds matrix dimensions."         );
-  mat_err( ( vec->cols !=1 ),           "Error (mat_setcz): Input array must be a column vector."            );
-  mat_err( ( mat->rows != vec->rows ),  "Error (mat_setcz): Input array and matrix must be the same height." );
+  mat_err( ( !c || c > M->c ), "Error (mat_setcz): Column index exceeds matrix dimensions."         );
+  mat_err( ( V->c !=1 ),       "Error (mat_setcz): Input array must be a column vector."            );
+  mat_err( ( M->r != V->r ),   "Error (mat_setcz): Input array and matrix must be the same height." );
 
-  for( uint i=0; i<mat->rows; i++ )  *( mat->data + ( i * mat->cols ) + (col-1) ) = *( vec->data+i );
+  for( uint i=0; i<M->r; i++ )  *( M->e + i * M->c + (c-1) ) = *(V->e+i);
 
   return;
 }

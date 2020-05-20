@@ -22,26 +22,26 @@
 
 
 // Function declarations
-matrix*   mat_init    ( uint rows, uint cols );
-void      mat_clear   ( matrix* mat );
-void      mat_print   ( matrix* mat );
+matrix*   mat_init    ( uint r, uint c );
+void      mat_clear   ( matrix* M );
+void      mat_print   ( matrix* M );
 matrix*   mat_read    ( char* file );
-void      mat_write   ( matrix* mat, char* file );
-float     mat_get     ( matrix* mat, uint row, uint col );
-matrix*   mat_getr    ( matrix* mat, uint row );
-matrix*   mat_getc    ( matrix* mat, uint col );
-void      mat_set     ( matrix* mat, uint row, uint col, float val );
-void      mat_setr    ( matrix* mat, uint row, matrix* vec );
-void      mat_setc    ( matrix* mat, uint col, matrix* vec );
-matrix*   mat_copy    ( matrix* mat );
+void      mat_write   ( matrix* M, char* file );
+float     mat_get     ( matrix* M, uint r, uint c );
+matrix*   mat_getr    ( matrix* M, uint r );
+matrix*   mat_getc    ( matrix* M, uint c );
+void      mat_set     ( matrix* M, uint r, uint c, float val );
+void      mat_setr    ( matrix* M, uint r, matrix* V );
+void      mat_setc    ( matrix* M, uint c, matrix* V );
+matrix*   mat_copy    ( matrix* M );
 matrix*   mat_eye     ( uint n );
-matrix*   mat_ones    ( uint rows, uint cols );
-matrix*   mat_scale   ( matrix* mat, float scale );
-void      mat_swapr   ( matrix* mat, uint p, uint q );
-void      mat_swapc   ( matrix* mat, uint p, uint q );
-matrix*   mat_appr    ( matrix* matT, matrix* matB );
-matrix*   mat_appc    ( matrix* matL, matrix* matR );
-void      mat_rmtiny  ( matrix* mat, float tol );
+matrix*   mat_ones    ( uint r, uint c );
+matrix*   mat_scale   ( matrix* M, float scale );
+void      mat_swapr   ( matrix* M, uint p, uint q );
+void      mat_swapc   ( matrix* M, uint p, uint q );
+matrix*   mat_appr    ( matrix* T, matrix* B );
+matrix*   mat_appc    ( matrix* L, matrix* R );
+void      mat_rmtiny  ( matrix* M, float tol );
 
 
 #endif

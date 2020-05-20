@@ -14,70 +14,70 @@
 
 
 /*******************************************************************************
-* matrix* mat_skew ( matrix* vec )
+* matrix* mat_skew ( matrix* V )
 * Returns the cross product skew symmetric matrix of a 3 element column vector.
 *******************************************************************************/
-matrix* mat_skew ( matrix* vec ) {
+matrix* mat_skew ( matrix* V ) {
 
-  mat_err( ( vec->rows != 3 || vec->cols != 1 ), "Error (mat_skew): Input vector must be [3x1]." );
-  matrix* skew = mat_init( 3, 3 );
+  mat_err( ( V->r != 3 || V->c != 1 ), "Error (mat_skew): Input vector must be [3x1]." );
+  matrix* W = mat_init( 3, 3 );
 
-  float* data = vec->data;
-  *( skew->data+7 ) = (*data);
-  *( skew->data+5 ) = (*data) * (-1.0);
-  data++;
-  *( skew->data+2 ) = (*data);
-  *( skew->data+6 ) = (*data) * (-1.0);
-  data++;
-  *( skew->data+3 ) = (*data);
-  *( skew->data+1 ) = (*data) * (-1.0);
+  float* i = V->e;
+  *(W->e+7) = (*i);
+  *(W->e+5) = (*i) * (-1.0);
+  i++;
+  *(W->e+2) = (*i);
+  *(W->e+6) = (*i) * (-1.0);
+  i++;
+  *(W->e+3) = (*i);
+  *(W->e+1) = (*i) * (-1.0);
 
-  return skew;
+  return W;
 }
 
 
 
 
 /*******************************************************************************
-* matrix* mat_sskew ( matrix* vec )
+* matrix* mat_sskew ( matrix* V )
 * Returns the double cross product skew symmetric matrix of a 3 element column vector.
 *******************************************************************************/
-matrix* mat_sskew ( matrix* vec ) {
+matrix* mat_sskew ( matrix* V ) {
 
-  mat_err( ( vec->rows != 3 || vec->cols != 1 ), "Error (mat_sskew): Input vector must be [3x1]." );
-  matrix* sskew = mat_init( 3, 3 );
+  mat_err( ( V->r != 3 || V->c != 1 ), "Error (mat_sskew): Input vector must be [3x1]." );
+  matrix* W = mat_init( 3, 3 );
 
-  float x2 = *(vec->data  ) * *(vec->data  );
-  float y2 = *(vec->data+1) * *(vec->data+1);
-  float z2 = *(vec->data+2) * *(vec->data+2);
+  float x2 = *(V->e  ) * *(V->e  );
+  float y2 = *(V->e+1) * *(V->e+1);
+  float z2 = *(V->e+2) * *(V->e+2);
 
-  float xy = *(vec->data  ) * *(vec->data+1);
-  float xz = *(vec->data  ) * *(vec->data+2);
-  float yz = *(vec->data+1) * *(vec->data+2);
+  float xy = *(V->e  ) * *(V->e+1);
+  float xz = *(V->e  ) * *(V->e+2);
+  float yz = *(V->e+1) * *(V->e+2);
 
-  *(sskew->data  ) = -y2-z2;  *(sskew->data+1) =     xy;  *(sskew->data+2) =     xz;
-  *(sskew->data+3) =     xy;  *(sskew->data+4) = -x2-z2;  *(sskew->data+5) =     yz;
-  *(sskew->data+6) =     xz;  *(sskew->data+7) =     yz;  *(sskew->data+8) = -x2-y2;
+  *(W->e  ) = -y2-z2;  *(W->e+1) =     xy;  *(W->e+2) =     xz;
+  *(W->e+3) =     xy;  *(W->e+4) = -x2-z2;  *(W->e+5) =     yz;
+  *(W->e+6) =     xz;  *(W->e+7) =     yz;  *(W->e+8) = -x2-y2;
 
-  return sskew;
+  return W;
 }
 
 
 
 
 /*******************************************************************************
-* matrix* mat_cross ( matrix* vecA, matrix* vecB )
+* matrix* mat_cross ( matrix* A, matrix* B )
 * Returns the cross product of two three-element vectors.
 *******************************************************************************/
-matrix* mat_cross ( matrix* vecA, matrix* vecB ) {
+matrix* mat_cross ( matrix* A, matrix* B ) {
 
-  mat_err( ( vecA->rows != 3 || vecA->cols != 1 ), "Error (mat_cross): Vector A must be [3x1]." );
-  mat_err( ( vecB->rows != 3 || vecB->cols != 1 ), "Error (mat_cross): Vector B must be [3x1]." );
+  mat_err( ( A->r != 3 || A->c != 1 ), "Error (mat_cross): Vector A must be [3x1]." );
+  mat_err( ( B->r != 3 || B->c != 1 ), "Error (mat_cross): Vector B must be [3x1]." );
 
-  matrix* out = mat_init( 3, 1 );
-  *(out->data  ) = *(vecA->data+1) * *(vecB->data+2) - *(vecA->data+2) * *(vecB->data+1);
-  *(out->data+1) = *(vecA->data+2) * *(vecB->data  ) - *(vecA->data  ) * *(vecB->data+2);
-  *(out->data+2) = *(vecA->data  ) * *(vecB->data+1) - *(vecA->data+1) * *(vecB->data  );
+  matrix* W = mat_init( 3, 1 );
+  *(W->e  ) = *(A->e+1) * *(B->e+2) - *(A->e+2) * *(B->e+1);
+  *(W->e+1) = *(A->e+2) * *(B->e  ) - *(A->e  ) * *(B->e+2);
+  *(W->e+2) = *(A->e  ) * *(B->e+1) - *(A->e+1) * *(B->e  );
 
   return out;
 }
@@ -86,54 +86,54 @@ matrix* mat_cross ( matrix* vecA, matrix* vecB ) {
 
 
 /*******************************************************************************
-* float mat_dot ( matrix* vecA, matrix* vecB )
+* float mat_dot ( matrix* A, matrix* B )
 * Returns the dot product of two arbitrary length vectors.
 *******************************************************************************/
-float mat_dot ( matrix* vecA, matrix* vecB ) {
+float mat_dot ( matrix* A, matrix* B ) {
 
-  mat_err( ( vecA->cols != 1 || vecB->cols != 1 ), "Error (mat_dot): Requires column vector inputs."   );
-  mat_err( ( vecA->rows != vecB->rows ),           "Error (mat_dot): Vectors must be the same height." );
+  mat_err( ( A->c != 1 || B->c != 1 ), "Error (mat_dot): Requires column vector inputs."   );
+  mat_err( ( A->r != B->r ),           "Error (mat_dot): Vectors must be the same height." );
 
-  float out = 0.0;
-  for( uint i=0; i<vecA->rows; i++ )  out += *(vecA->data+i) * *(vecB->data+i);
+  float dot = 0.0;
+  for( uint i=0; i<A->r; i++ )  dot += *(A->e+i) * *(B->e+i);
 
-  return out;
+  return dot;
 }
 
 
 
 
 /*******************************************************************************
-* float mat_mag ( matrix* vec )
+* float mat_mag ( matrix* V )
 * Returns the magnitude (Euclidean norm) of a column vector.
 *******************************************************************************/
-float mat_mag ( matrix* vec ) {
+float mat_mag ( matrix* V ) {
 
-  mat_err( ( vec->cols != 1 ), "Error (mat_mag): Input must be a column vector." );
+  mat_err( ( V->c != 1 ), "Error (mat_mag): Input must be a column vector." );
 
   float mag = 0.0;
-  for( uint i=0; i<vec->rows; i++ )  mag += *(vec->data+i) * *(vec->data+i);
+  for( uint i=0; i<V->r; i++ )  mag += *(V->e+i) * *(V->e+i);
 
-  return (float)sqrt(mag);
+  return sqrtf(mag);
 }
 
 
 
 
 /*******************************************************************************
-* float mat_norm ( matrix* vec, uint p )
+* float mat_norm ( matrix* V, uint p )
 * Returns the norm of a vector of a specified degree (infinity norm when p=0).
 *******************************************************************************/
-float mat_norm ( matrix* vec, uint p ) {
+float mat_norm ( matrix* V, uint p ) {
 
-  mat_err( ( vec->cols != 1 ), "Error (mat_norm): Input must be a column vector."     );
+  mat_err( ( V->c != 1 ), "Error (mat_norm): Input must be a column vector."     );
 
   switch(p) {
 
     case 0 : {
       float norm = 0.0;
-      for( uint i=0; i<vec->rows; i++ ) {
-        float val = (float)fabs( *(vec->data+i) );
+      for( uint i=0; i<V->r; i++ ) {
+        float val = fabsf( *(V->e+i) );
         if( val > norm )  norm = val;
       }
       return norm;
@@ -141,7 +141,7 @@ float mat_norm ( matrix* vec, uint p ) {
 
     case 1 : {
       float norm = 0.0;
-      for( uint i=0; i<vec->rows; i++ )  norm += (float)fabs( *(vec->data+i) );
+      for( uint i=0; i<V->r; i++ )  norm += fabsf( *(V->e+i) );
       return norm;
     }
 
@@ -151,10 +151,10 @@ float mat_norm ( matrix* vec, uint p ) {
 
     default : {
       float norm = 0.0;
-      for( uint i=0; i<vec->rows; i++ ) {
-        norm += (float)pow( (float)fabs( *(vec->data+i) ), p );
+      for( uint i=0; i<V->r; i++ ) {
+        norm += powf( fabsf( *(V->e+i) ), p );
       }
-      return (float)pow( norm, ( 1.0 / (float)p ) );
+      return powf( norm, ( 1.0 / (float)p ) );
     }
 
   }
@@ -165,20 +165,20 @@ float mat_norm ( matrix* vec, uint p ) {
 
 
 /*******************************************************************************
-* matrix* mat_uvec ( matrix* vec )
+* matrix* mat_uvec ( matrix* V )
 * Returns an equivalent unit vector.
 *******************************************************************************/
-matrix* mat_uvec ( matrix* vec ) {
+matrix* mat_uvec ( matrix* V ) {
 
-  mat_err( ( vec->cols != 1 ), "Error (mat_uvec): Input must be a column vector." );
+  mat_err( ( V->c != 1 ), "Error (mat_uvec): Input must be a column vector." );
 
-  float mag = mat_mag(vec);
+  float mag = mat_mag(V);
 
-  if(!mag)  return vec;
+  if(!mag)  return V;
 
-  matrix* uvec = mat_init( vec->rows, 1 );
-  memcpy( uvec->data, vec->data, vec->rows * sizeof(float) );
-  for( uint i=0; i<vec->rows; i++ )  *(uvec->data+i) /= mag;
+  matrix* uvec = mat_init( V->r, 1 );
+  memcpy( uvec->e, V->e, V->r * sizeof(float) );
+  for( uint i=0; i<V->r; i++ )  *(uvec->e+i) /= mag;
 
   return uvec;
 }
@@ -187,18 +187,18 @@ matrix* mat_uvec ( matrix* vec ) {
 
 
 /*******************************************************************************
-* matrix* mat_proj ( matrix* u, matrix* v )
-* Returns the projection of vector u onto vector v.
+* matrix* mat_proj ( matrix* U, matrix* V )
+* Returns the projection of vector U onto vector V.
 *******************************************************************************/
-matrix* mat_proj ( matrix* u, matrix* v ) {
+matrix* mat_proj ( matrix* U, matrix* V ) {
 
-  mat_err( ( u->cols != 1 || v->cols != 1 ), "Error (mat_proj): Inputs must be column vectors."         );
-  mat_err( ( u->rows != v->rows ),           "Error (mat_proj): Input vectors must be the same height." );
+  mat_err( ( U->c != 1 || V->c != 1 ), "Error (mat_proj): Inputs must be column vectors."         );
+  mat_err( ( U->r != V->r ),           "Error (mat_proj): Input vectors must be the same height." );
 
-  if( !mat_mag(v) )  return v;
+  if( !mat_mag(V) )  return V;
 
-  matrix* proj = mat_init( v->rows, 1 );
-  proj = mat_scale( v, ( mat_dot( u, v ) / mat_dot( v, v ) ) );
+  matrix* proj = mat_init( V->r, 1 );
+  proj = mat_scale( V, ( mat_dot( U, V ) / mat_dot( V, V ) ) );
 
   return proj;
 }
