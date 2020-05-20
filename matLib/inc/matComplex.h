@@ -22,18 +22,18 @@
 
 
 // Function declarations
-matrixz*  mat_initz   ( uint rows, uint cols );
-void      mat_clearz  ( matrixz* mat );
-void      mat_printz  ( matrixz* mat );
+matrixz*  mat_initz   ( uint r, uint c );
+void      mat_clearz  ( matrixz* M );
+void      mat_printz  ( matrixz* M );
 matrixz*  mat_readz   ( char* file );
-void      mat_writez  ( matrixz* mat, char* file );
-float     mat_getre   ( matrixz* mat, uint row, uint col );
-float     mat_getim   ( matrixz* mat, uint row, uint col );
-matrixz*  mat_getrz   ( matrixz* mat, uint row );
-matrixz*  mat_getcz   ( matrixz* mat, uint col );
-void      mat_setz    ( matrixz* mat, uint row, uint col, float re, float im );
-void      mat_setrz   ( matrixz* mat, uint row, matrixz* vec );
-void      mat_setcz   ( matrixz* mat, uint col, matrixz* vec );
+void      mat_writez  ( matrixz* M, char* file );
+float     mat_getre   ( matrixz* M, uint r, uint c );
+float     mat_getim   ( matrixz* M, uint r, uint c );
+matrixz*  mat_getrz   ( matrixz* M, uint r );
+matrixz*  mat_getcz   ( matrixz* M, uint c );
+void      mat_setz    ( matrixz* M, uint r, uint c, float re, float im );
+void      mat_setrz   ( matrixz* M, uint r, matrixz* V );
+void      mat_setcz   ( matrixz* M, uint c, matrixz* V );
 
 
 #endif
