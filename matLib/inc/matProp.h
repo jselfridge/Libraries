@@ -19,13 +19,13 @@
 
 // Library includes
 #include "matCommon.h"
-#include "matDecomp.h"
+// #include "matDecomp.h"
 
 
 // Function declarations
-float  mat_det    ( matrix* mat );
-float  mat_trace  ( matrix* mat );
-bool   mat_sym    ( matrix* mat, float tol );
+float  mat_det    ( matrix* M );
+float  mat_trace  ( matrix* M );
+bool   mat_sym    ( matrix** M, float tol );
 
 
 #endif
