@@ -230,8 +230,8 @@ void MatManip ( void ) {
 
   // File operations
   matrix* A = mat_init( 5, 2 );
-  printf( "Rows: %d \n", A->rows );
-  printf( "Cols: %d \n", A->cols );
+  printf( "Rows: %d \n", A->r );
+  printf( "Cols: %d \n", A->c );
   mat_set( A, 3, 1, 1.2 );
   mat_set( A, 5, 2, 2.1 );
   mat_set( A, 1, 2, 0.0000012345 );
@@ -285,7 +285,7 @@ void MatManip ( void ) {
   mat_setc( M44, 1, M41 );
   mat_print(M44);
 
-  // Swap Rows [2x2]
+  // Swap rows [2x2]
   mat_print(M22);
   mat_swapr( M22, 1, 2 );
   mat_print(M22);
@@ -316,7 +316,7 @@ void MatManip ( void ) {
   mat_swapc( M23, 3, 1 );
   mat_print(M23);
 
-  // Swap col [4x3]
+  // Swap cols [4x3]
   mat_print(M43);
   mat_swapc( M43, 1, 1 );
   mat_print(M43);
@@ -330,7 +330,7 @@ void MatManip ( void ) {
   mat_print( mat_appr( M13,  M33a ) );
   mat_print( mat_appr( M44,  M14  ) );
 
-  // Append columns
+  // Append cols
   mat_print( mat_appc( M31b, M32  ) );
   mat_print( mat_appc( M33a, M33b ) );
   mat_print( mat_appc( M44,  M41  ) );
@@ -393,8 +393,8 @@ void MatComplex ( void ) {
 
   // Initialize complex matrix
   matrixz* Mz = mat_initz( 4, 2 );
-  printf( "Rows: %d \n", Mz->rows );
-  printf( "Cols: %d \n", Mz->cols );
+  printf( "Rows: %d \n", Mz->r );
+  printf( "Cols: %d \n", Mz->c );
 
   // Set and get columns and rows
   mat_setrz( Mz, 1, Rz );
