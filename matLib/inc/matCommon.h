@@ -20,17 +20,17 @@
 
 // Matrix (real) structure
 typedef struct matrix {
-  uint    rows;
-  uint    cols;
-  float*  data;
+  uint    r;    // rows
+  uint    c;    // columns
+  float*  e;    // elements
 } matrix;
 
 
 // Matrix (complex) structure
 typedef struct matrixz {
-  uint            rows;
-  uint            cols;
-  float complex*  data;
+  uint            r;    // rows
+  uint            c;    // columns
+  float complex*  e;    // elements
 } matrixz;
 
 
