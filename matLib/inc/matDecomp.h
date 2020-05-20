@@ -28,7 +28,7 @@ matrix*  mat_vec2tri  ( matrix* vec );
 
 
 // Under development
-void mat_chol ( double a[], int n, int nn, double u[], int *nullty, int *ifault );
+void mat_chol ( matrix* a, int n, int nn, matrix** u, int *nullty, int *ifault );
 
 
 // void     mat_chol    ( float a[], uint n, uint nn, float u[], uint* nullty, uint* ifault );

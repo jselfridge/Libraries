@@ -217,22 +217,22 @@ matrix* mat_vec2tri ( matrix* vec ) {
 
 
 /*******************************************************************************
-* void mat_chol ( double a[], int n, int nn, double u[], int *nullty, int *ifault )
+* void mat_chol ( matrix* a, int n, int nn, matrix** u, int *nullty, int *ifault )
 * Determines the cholesky decomposition for a positive definite symmetric matrix.
 *******************************************************************************/
-void mat_chol ( double a[], int n, int nn, double u[], int *nullty, int *ifault ) {
+void mat_chol ( matrix* a, int n, int nn, matrix** u, int *nullty, int *ifault ) {
 
   mat_err( (n<=0), "Error (mat_chol): Matrix size must be positive." );
-
-  const float eps = 6.0E-08;    // Based on float precision
-
-  *ifault = 0;
-  *nullty = 0;
 
   if( nn < ( n * (n+1) ) / 2 ) {
     *ifault = 3;
     return;
   }
+
+  const float eps = 6.0E-08;    // Based on float precision
+
+  *ifault = 0;
+  *nullty = 0;
 
   uint j = 0;
   uint k = 0;
@@ -242,30 +242,30 @@ void mat_chol ( double a[], int n, int nn, double u[], int *nullty, int *ifault 
   for( uint c=0; c<n; c++ ) {
 
     s += c;
-    double tol = eps * eps * a[s];
-    double w = 0.0;
+    float tol = eps * eps * mat_get(a,s+1,1); /*a[s]*/;
+    float w = 0.0;
     uint l = 0;
 
     // Loop through each row within column
     for( uint r=0; r<=c; r++ ) {
 
       uint m = j;
-      w = a[k];
+      w = mat_get(a,k+1,1); /*a[k]*/;
       k++;
 
       // Iterate through each element within row
       for( uint i=0; i<r; i++ ) {
-        w -= u[l] * u[m];
+        w -= mat_get(*u,l+1,1) /*u[l]*/ * mat_get(*u,m+1,1) /*u[m]*/;
         l++;
         m++;
       }
 
       if( r == c )  break;
       
-      if( u[l] != 0.0 ) {  u[k-1] = w / u[l];  }
+      if( mat_get(*u,l+1,1) /*u[l]*/ != 0.0 ) {  mat_set(*u,k,1, /*u[k-1] =*/ w / mat_get(*u,l+1,1)/*u[l]*/ );  }
       else {
-        u[k-1] = 0.0;
-        if( fabs( tol * a[k-1] ) < w*w ) {  *ifault = 2;  return;  }
+        mat_set(*u,k,1,0.0);  /*u[k-1] = 0.0;*/
+        if( fabs( tol * mat_get(a,k,1) /*a[k-1]*/ ) < w*w ) {  *ifault = 2;  return;  }
       }
 
       l++;
@@ -273,13 +273,13 @@ void mat_chol ( double a[], int n, int nn, double u[], int *nullty, int *ifault 
     }
 
     //End of row, estimate relative accuracy of diagonal element
-    if( fabs(w) <= fabs( eps * a[k-1] ) ) {
-      u[k-1] = 0.0;
+    if( fabs(w) <= fabs( eps * mat_get(a,k,1) /*a[k-1]*/ ) ) {
+      mat_set(*u,k,1,0.0); /*u[k-1] = 0.0;*/
       *nullty = *nullty +1;
     }
     else {
       if ( w<0.0 ) {  *ifault = 2;  return;  }
-      u[k-1] = sqrt(w);
+      mat_set(*u,k,1,sqrtf(w));  /*u[k-1] = sqrt(w);*/
     }
 
     j += c+1;
