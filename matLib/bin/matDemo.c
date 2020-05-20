@@ -22,7 +22,10 @@ void  MatVec      ( void );
 void  MatArith    ( void );
 void  MatRoot     ( void );
 void  MatProp     ( void );
-void  MatDecomp   ( void );
+void  MatTriVec   ( void );
+void  MatLDU      ( void );
+void  MatQR       ( void );
+void  MatPDS      ( void );
 
 
 // Global variables
@@ -58,7 +61,10 @@ int main ( void ) {
   // MatArith();
   // MatRoot();
   // MatProp();
-  MatDecomp();
+  // MatTriVec();
+  // MatLDU();
+  // MatQR();
+  MatPDS();
   MatClear();
   printf("   --- MatLib Complete --- \n\n");
 
@@ -782,12 +788,52 @@ void MatProp ( void ) {
 
 
 /*******************************************************************************
-* void MatDecomp ( void )
-* Debugs the 'matDecomp' file functions.
+* void MatTriVec ( void )
+* Debugs the triangle to vector functions within 'matDecomp'.
 *******************************************************************************/
-void MatDecomp ( void ) {
+void MatTriVec ( void ) {
 
-  printf("Matrix decomposition functions \n");
+  printf("Matrix triangle to vector functions. \n");
+
+  // Triangle to vector
+  printf("Triangle to vector: \n");
+  matrix* tri1 = mat_init( 3, 3 );
+  mat_set( tri1, 1, 1, 1.00 );  mat_set( tri1, 1, 2, 0.00 );  mat_set( tri1, 1, 3, 0.00 );
+  mat_set( tri1, 2, 1, 0.20 );  mat_set( tri1, 2, 2, 0.03 );  mat_set( tri1, 2, 3, 0.00 );
+  mat_set( tri1, 3, 1, 4.00 );  mat_set( tri1, 3, 2, 0.50 );  mat_set( tri1, 3, 3, 0.06 );
+  matrix* vec1 = mat_tri2vec(tri1);
+  printf("Tri:");  mat_print(tri1);  mat_clear(tri1);
+  printf("Vec:");  mat_print(vec1);  mat_clear(vec1);
+
+  // Vector to triangle
+  printf("Vector to triangle: \n");
+  matrix* vec2 = mat_init( 6, 1 );
+  mat_set( vec2, 1, 1, 0.01 );
+  mat_set( vec2, 2, 1, 0.20 );
+  mat_set( vec2, 3, 1, 3.00 );
+  mat_set( vec2, 4, 1, 0.04 );
+  mat_set( vec2, 5, 1, 0.50 );
+  mat_set( vec2, 6, 1, 6.00 );
+  matrix* tri2 = mat_vec2tri(vec2);
+  printf("Vec:");  mat_print(vec2);  mat_clear(vec2);
+  printf("Tri:");  mat_print(tri2);  mat_clear(tri2);
+
+  // Exit MatTriVec debugging
+  printf("\n");
+
+  return;
+}
+
+
+
+
+/*******************************************************************************
+* void MatLDU ( void )
+* Debugs the LDU decomposition functions within 'matDecomp'.
+*******************************************************************************/
+void MatLDU ( void ) {
+
+  printf("Matrix LDU decompositions \n");
 
   // LDU 1
   matrix* A1 = mat_init( 3, 3 );
@@ -917,18 +963,35 @@ void MatDecomp ( void ) {
   matrix* U6 = NULL;
   mat_LU( A6, &L6, &U6 );  */
 
+  // Exit MatLDU debugging
+  printf("\n");
+
+  return;
+}
+
+
+
+
+/*******************************************************************************
+* void MatQR ( void )
+* Debugs the QR factorization functions within 'matDecomp'.
+*******************************************************************************/
+void MatQR ( void ) {
+
+  printf("Matrix QR decompositions \n");
+
   // QR 1
   printf("QR 1: \n");
-  matrix* a1 = mat_init( 3, 3 );
-  mat_set( a1, 1, 1, -3 );  mat_set( a1, 1, 2, 1 );  mat_set( a1, 1, 3,  2 );
-  mat_set( a1, 2, 1,  6 );  mat_set( a1, 2, 2, 2 );  mat_set( a1, 2, 3, -5 );
-  mat_set( a1, 3, 1,  9 );  mat_set( a1, 3, 2, 5 );  mat_set( a1, 3, 3, -6 );
+  matrix* A1 = mat_init( 3, 3 );
+  mat_set( A1, 1, 1, -3 );  mat_set( A1, 1, 2, 1 );  mat_set( A1, 1, 3,  2 );
+  mat_set( A1, 2, 1,  6 );  mat_set( A1, 2, 2, 2 );  mat_set( A1, 2, 3, -5 );
+  mat_set( A1, 3, 1,  9 );  mat_set( A1, 3, 2, 5 );  mat_set( A1, 3, 3, -6 );
   matrix* Q1 = NULL;
   matrix* R1 = NULL;
-  mat_QR( a1, &Q1, &R1 );
+  mat_QR( A1, &Q1, &R1 );
   matrix* QR1 = mat_mul( Q1, R1 );
   matrix* QTQ1 = mat_mul( mat_trans(Q1), Q1 );
-  printf("a1: ");    mat_print(a1);    mat_clear(a1);
+  printf("A1: ");    mat_print(A1);    mat_clear(A1);
   printf("Q1: ");    mat_print(Q1);    mat_clear(Q1);
   printf("R1: ");    mat_print(R1);    mat_clear(R1);
   printf("QR1: ");   mat_print(QR1);   mat_clear(QR1);
@@ -937,16 +1000,16 @@ void MatDecomp ( void ) {
 
   // QR 2
   printf("QR 2: \n");
-  matrix* a2 = mat_init( 3, 3 );
-  mat_set( a2, 1, 1,  2 );  mat_set( a2, 1, 2,  8 );  mat_set( a2, 1, 3,   0 );
-  mat_set( a2, 2, 1,  4 );  mat_set( a2, 2, 2, 18 );  mat_set( a2, 2, 3,  -4 );
-  mat_set( a2, 3, 1, -2 );  mat_set( a2, 3, 2, -2 );  mat_set( a2, 3, 3, -13 );
+  matrix* A2 = mat_init( 3, 3 );
+  mat_set( A2, 1, 1,  2 );  mat_set( A2, 1, 2,  8 );  mat_set( A2, 1, 3,   0 );
+  mat_set( A2, 2, 1,  4 );  mat_set( A2, 2, 2, 18 );  mat_set( A2, 2, 3,  -4 );
+  mat_set( A2, 3, 1, -2 );  mat_set( A2, 3, 2, -2 );  mat_set( A2, 3, 3, -13 );
   matrix* Q2 = NULL;
   matrix* R2 = NULL;
-  mat_QR( a2, &Q2, &R2 );
+  mat_QR( A2, &Q2, &R2 );
   matrix* QR2 = mat_mul( Q2, R2 );
   matrix* QTQ2 = mat_mul( mat_trans(Q2), Q2 );
-  printf("a2: ");    mat_print(a2);    mat_clear(a2);
+  printf("A2: ");    mat_print(A2);    mat_clear(A2);
   printf("Q2: ");    mat_print(Q2);    mat_clear(Q2);
   printf("R2: ");    mat_print(R2);    mat_clear(R2);
   printf("QR2: ");   mat_print(QR2);   mat_clear(QR2);
@@ -955,17 +1018,17 @@ void MatDecomp ( void ) {
 
   // QR 3
   printf("QR 3: \n");
-  matrix* a3 = mat_init( 4, 4 );
-  mat_set( a3, 1, 1,  2 );  mat_set( a3, 1, 2,  1 );  mat_set( a3, 1, 3,  0 );  mat_set( a3, 1, 4,   4 );
-  mat_set( a3, 2, 1, -4 );  mat_set( a3, 2, 2, -3 );  mat_set( a3, 2, 3,  5 );  mat_set( a3, 2, 4, -10 );
-  mat_set( a3, 3, 1,  6 );  mat_set( a3, 3, 2,  4 );  mat_set( a3, 3, 3, -8 );  mat_set( a3, 3, 4,  17 );
-  mat_set( a3, 4, 1,  2 );  mat_set( a3, 4, 2, -3 );  mat_set( a3, 4, 3, 29 );  mat_set( a3, 4, 4,  -9 );
+  matrix* A3 = mat_init( 4, 4 );
+  mat_set( A3, 1, 1,  2 );  mat_set( A3, 1, 2,  1 );  mat_set( A3, 1, 3,  0 );  mat_set( A3, 1, 4,   4 );
+  mat_set( A3, 2, 1, -4 );  mat_set( A3, 2, 2, -3 );  mat_set( A3, 2, 3,  5 );  mat_set( A3, 2, 4, -10 );
+  mat_set( A3, 3, 1,  6 );  mat_set( A3, 3, 2,  4 );  mat_set( A3, 3, 3, -8 );  mat_set( A3, 3, 4,  17 );
+  mat_set( A3, 4, 1,  2 );  mat_set( A3, 4, 2, -3 );  mat_set( A3, 4, 3, 29 );  mat_set( A3, 4, 4,  -9 );
   matrix* Q3 = NULL;
   matrix* R3 = NULL;
-  mat_QR( a3, &Q3, &R3 );
+  mat_QR( A3, &Q3, &R3 );
   matrix* QR3 = mat_mul( Q3, R3 );
   matrix* QTQ3 = mat_mul( mat_trans(Q3), Q3 );
-  printf("a3: ");    mat_print(a3);    mat_clear(a3);
+  printf("A3: ");    mat_print(A3);    mat_clear(A3);
   printf("Q3: ");    mat_print(Q3);    mat_clear(Q3);
   printf("R3: ");    mat_print(R3);    mat_clear(R3);
   printf("QR3: ");   mat_print(QR3);   mat_clear(QR3);
@@ -973,18 +1036,18 @@ void MatDecomp ( void ) {
   printf("\n");
 
   printf("QR 4: \n");
-  matrix* a4 = mat_init( 5, 3 );
-  mat_set( a4, 1, 1,  3 );  mat_set( a4, 1, 2, -1 );  mat_set( a4, 1, 3,  4 );
-  mat_set( a4, 2, 1,  9 );  mat_set( a4, 2, 2, -5 );  mat_set( a4, 2, 3, 15 );
-  mat_set( a4, 3, 1, 15 );  mat_set( a4, 3, 2, -1 );  mat_set( a4, 3, 3, 10 );
-  mat_set( a4, 4, 1, -6 );  mat_set( a4, 4, 2,  2 );  mat_set( a4, 4, 3, -4 );
-  mat_set( a4, 5, 1, -3 );  mat_set( a4, 5, 2, -3 );  mat_set( a4, 5, 3, 10 );
+  matrix* A4 = mat_init( 5, 3 );
+  mat_set( A4, 1, 1,  3 );  mat_set( A4, 1, 2, -1 );  mat_set( A4, 1, 3,  4 );
+  mat_set( A4, 2, 1,  9 );  mat_set( A4, 2, 2, -5 );  mat_set( A4, 2, 3, 15 );
+  mat_set( A4, 3, 1, 15 );  mat_set( A4, 3, 2, -1 );  mat_set( A4, 3, 3, 10 );
+  mat_set( A4, 4, 1, -6 );  mat_set( A4, 4, 2,  2 );  mat_set( A4, 4, 3, -4 );
+  mat_set( A4, 5, 1, -3 );  mat_set( A4, 5, 2, -3 );  mat_set( A4, 5, 3, 10 );
   matrix* Q4 = NULL;
   matrix* R4 = NULL;
-  mat_QR( a4, &Q4, &R4 );
+  mat_QR( A4, &Q4, &R4 );
   matrix* QR4 = mat_mul( Q4, R4 );
   matrix* QTQ4 = mat_mul( mat_trans(Q4), Q4 );
-  printf("a4: ");    mat_print(a4);    mat_clear(a4);
+  printf("A4: ");    mat_print(A4);    mat_clear(A4);
   printf("Q4: ");    mat_print(Q4);    mat_clear(Q4);
   printf("R4: ");    mat_print(R4);    mat_clear(R4);
   printf("QR4: ");   mat_print(QR4);   mat_clear(QR4);
@@ -993,16 +1056,16 @@ void MatDecomp ( void ) {
 
   /*/ QR 5: Currently only works on square or tall matrices
   printf("QR 5: \n");
-  matrix* a5 = mat_init( 3, 5 );
-  mat_set( a5, 1, 1,   4 );  mat_set( a5, 1, 2,  -3 );  mat_set( a5, 1, 3,  -1 );  mat_set( a5, 1, 4,   5 );  mat_set( a5, 1, 5,  2 );
-  mat_set( a5, 2, 1, -16 );  mat_set( a5, 2, 2,  12 );  mat_set( a5, 2, 3,   2 );  mat_set( a5, 2, 4, -17 );  mat_set( a5, 2, 5, -7 );
-  mat_set( a5, 3, 1,   8 );  mat_set( a5, 3, 2,  -6 );  mat_set( a5, 3, 3, -12 );  mat_set( a5, 3, 4,  22 );  mat_set( a5, 3, 5, 10 );
+  matrix* A5 = mat_init( 3, 5 );
+  mat_set( A5, 1, 1,   4 );  mat_set( A5, 1, 2,  -3 );  mat_set( A5, 1, 3,  -1 );  mat_set( A5, 1, 4,   5 );  mat_set( A5, 1, 5,  2 );
+  mat_set( A5, 2, 1, -16 );  mat_set( A5, 2, 2,  12 );  mat_set( A5, 2, 3,   2 );  mat_set( A5, 2, 4, -17 );  mat_set( A5, 2, 5, -7 );
+  mat_set( A5, 3, 1,   8 );  mat_set( A5, 3, 2,  -6 );  mat_set( A5, 3, 3, -12 );  mat_set( A5, 3, 4,  22 );  mat_set( A5, 3, 5, 10 );
   matrix* Q5 = NULL;
   matrix* R5 = NULL;
-  mat_QR( a5, &Q5, &R5 );
+  mat_QR( A5, &Q5, &R5 );
   matrix* QR5 = mat_mul( Q5, R5 );
   matrix* QTQ5 = mat_mul( mat_trans(Q5), Q5 );
-  printf("a5: ");    mat_print(a5);    mat_clear(a5);
+  printf("A5: ");    mat_print(A5);    mat_clear(A5);
   printf("Q5: ");    mat_print(Q5);    mat_clear(Q5);
   printf("R5: ");    mat_print(R5);    mat_clear(R5);
   printf("QR5: ");   mat_print(QR5);   mat_clear(QR5);
@@ -1011,69 +1074,63 @@ void MatDecomp ( void ) {
 
   // QR 6: Works when LU does not
   printf("QR 6: \n");
-  matrix* a6 = mat_init( 3, 3 );
-  mat_set( a6, 1, 1,  2 );  mat_set( a6, 1, 2,  1 );  mat_set( a6, 1, 3, -1 );
-  mat_set( a6, 2, 1, -4 );  mat_set( a6, 2, 2, -2 );  mat_set( a6, 2, 3,  5 );
-  mat_set( a6, 3, 1,  6 );  mat_set( a6, 3, 2,  2 );  mat_set( a6, 3, 3, 11 );
+  matrix* A6 = mat_init( 3, 3 );
+  mat_set( A6, 1, 1,  2 );  mat_set( A6, 1, 2,  1 );  mat_set( A6, 1, 3, -1 );
+  mat_set( A6, 2, 1, -4 );  mat_set( A6, 2, 2, -2 );  mat_set( A6, 2, 3,  5 );
+  mat_set( A6, 3, 1,  6 );  mat_set( A6, 3, 2,  2 );  mat_set( A6, 3, 3, 11 );
   matrix* Q6 = NULL;
   matrix* R6 = NULL;
-  mat_QR( a6, &Q6, &R6 );
+  mat_QR( A6, &Q6, &R6 );
   matrix* QR6 = mat_mul( Q6, R6 );
   matrix* QTQ6 = mat_mul( mat_trans(Q6), Q6 );
-  printf("a6: ");    mat_print(a6);    mat_clear(a6);
+  printf("A6: ");    mat_print(A6);    mat_clear(A6);
   printf("Q6: ");    mat_print(Q6);    mat_clear(Q6);
   printf("R6: ");    mat_print(R6);    mat_clear(R6);
   printf("QR6: ");   mat_print(QR6);   mat_clear(QR6);
   printf("QTQ6: ");  mat_print(QTQ6);  mat_clear(QTQ6);
   printf("\n");
 
-  // Triangle to vector
-  printf("Triangle to vector: \n");
-  matrix* tri1 = mat_init( 3, 3 );
-  mat_set( tri1, 1, 1, 1.00 );  mat_set( tri1, 1, 2, 0.00 );  mat_set( tri1, 1, 3, 0.00 );
-  mat_set( tri1, 2, 1, 0.20 );  mat_set( tri1, 2, 2, 0.03 );  mat_set( tri1, 2, 3, 0.00 );
-  mat_set( tri1, 3, 1, 4.00 );  mat_set( tri1, 3, 2, 0.50 );  mat_set( tri1, 3, 3, 0.06 );
-  matrix* vec1 = mat_tri2vec(tri1);
-  printf("Tri:");  mat_print(tri1);  mat_clear(tri1);
-  printf("Vec:");  mat_print(vec1);  mat_clear(vec1);
+  // Exit MatQR debugging
+  printf("\n");
 
-  // Vector to triangle
-  printf("Vector to triangle: \n");
-  matrix* vec2 = mat_init( 6, 1 );
-  mat_set( vec2, 1, 1, 0.01 );
-  mat_set( vec2, 2, 1, 0.20 );
-  mat_set( vec2, 3, 1, 3.00 );
-  mat_set( vec2, 4, 1, 0.04 );
-  mat_set( vec2, 5, 1, 0.50 );
-  mat_set( vec2, 6, 1, 6.00 );
-  matrix* tri2 = mat_vec2tri(vec2);
-  printf("Vec:");  mat_print(vec2);  mat_clear(vec2);
-  printf("Tri:");  mat_print(tri2);  mat_clear(tri2);
+  return;
+}
+
+
+
+
+/*******************************************************************************
+* void MatPDS ( void )
+* Debugs the positive definite symmetric functions within 'matDecomp'.
+*******************************************************************************/
+void MatPDS ( void ) {
+
+  printf("Positive definite symmetric matrix decomposition functions \n");
 
   // PDS 1
-  printf("PosDefSym 1: \n");
-  matrix* PDS1 = mat_init( 3, 3 );
-  mat_set( PDS1, 1, 1, 4 );  mat_set( PDS1, 1, 2, 0 );  mat_set( PDS1, 1, 3, 1 );
-  mat_set( PDS1, 2, 1, 0 );  mat_set( PDS1, 2, 2, 2 );  mat_set( PDS1, 2, 3, 1 );
-  mat_set( PDS1, 3, 1, 1 );  mat_set( PDS1, 3, 2, 1 );  mat_set( PDS1, 3, 3, 2 );
-  double a[6], u[6];
-  a[0] = mat_get( PDS1, 1, 1 );
-  a[1] = mat_get( PDS1, 2, 1 );
-  a[2] = mat_get( PDS1, 2, 2 );
-  a[3] = mat_get( PDS1, 3, 1 );
-  a[4] = mat_get( PDS1, 3, 2 );
-  a[5] = mat_get( PDS1, 3, 3 );
-  int nullity, ifault;
-  mat_chol( a, 3, 6, u, &nullity, &ifault );
-  printf( "null: %d    fault: %d \n", nullity, ifault );
-  matrix* P1 = mat_init( 3, 3 );
-  mat_set( P1, 1, 1, (float)u[0] );
-  mat_set( P1, 2, 1, (float)u[1] );
-  mat_set( P1, 2, 2, (float)u[2] );
-  mat_set( P1, 3, 1, (float)u[3] );
-  mat_set( P1, 3, 2, (float)u[4] );
-  mat_set( P1, 3, 3, (float)u[5] );
-  matrix* PPT1 = mat_mul( P1, mat_trans(P1) );
+  // printf("PosDefSym 1: \n");
+  matrix* A1 = mat_init( 3, 3 );
+  mat_set( A1, 1, 1, 6 );  mat_set( A1, 1, 2, 3 );  mat_set( A1, 1, 3, 1 );
+  mat_set( A1, 2, 1, 3 );  mat_set( A1, 2, 2, 2 );  mat_set( A1, 2, 3, 1 );
+  mat_set( A1, 3, 1, 1 );  mat_set( A1, 3, 2, 1 );  mat_set( A1, 3, 3, 2 );
+  double a1[6], u1[6];
+  a1[0] = mat_get( A1, 1, 1 );
+  a1[1] = mat_get( A1, 2, 1 );
+  a1[2] = mat_get( A1, 2, 2 );
+  a1[3] = mat_get( A1, 3, 1 );
+  a1[4] = mat_get( A1, 3, 2 );
+  a1[5] = mat_get( A1, 3, 3 );
+  int nullity1, ifault1;
+  mat_chol( a1, 3, 6, u1, &nullity1, &ifault1 );
+  // printf( "null: %d    fault: %d \n", nullity1, ifault1 );
+  matrix* U1 = mat_init( 3, 3 );
+  mat_set( U1, 1, 1, (float)u1[0] );
+  mat_set( U1, 2, 1, (float)u1[1] );
+  mat_set( U1, 2, 2, (float)u1[2] );
+  mat_set( U1, 3, 1, (float)u1[3] );
+  mat_set( U1, 3, 2, (float)u1[4] );
+  mat_set( U1, 3, 3, (float)u1[5] );
+  matrix* UUT1 = mat_mul( U1, mat_trans(U1) );
   //float c[6], w[6];
   // mat_syminv( a, 3, c, w, &nullity, &ifault );
   // matrix* PSDi = mat_init( 3, 3 );
@@ -1081,13 +1138,51 @@ void MatDecomp ( void ) {
   // mat_set( PSDi, 2, 1, c[1] );  mat_set( PSDi, 2, 2, c[2] );  mat_set( PSDi, 2, 3, c[4] );
   // mat_set( PSDi, 3, 1, c[3] );  mat_set( PSDi, 3, 2, c[4] );  mat_set( PSDi, 3, 3, c[5] );
   // matrix* I3 = mat_mul( PSDi, PSD );
-  printf("PDS1:");   mat_print(PDS1);   mat_clear(PDS1);
-  printf("P1:");     mat_print(P1);     mat_clear(P1);
-  printf("PPT1:");   mat_print(PPT1);   mat_clear(PPT1);
+  // printf("A1:");    mat_print(A1);    mat_clear(A1);
+  // printf("U1:");    mat_print(U1);    mat_clear(U1);
+  printf("UUT1:");  mat_print(UUT1);  mat_clear(UUT1);
   // printf("PSDi:");  mat_print(PSDi);  mat_clear(PSDi);
   // printf("I3");     mat_print(I3);    mat_clear(I3);
 
-  // Exit MatDecomp debugging
+  // PDS 2
+  // printf("PosDefSym 2: \n");
+  matrix* A2 = mat_init( 4, 4 );
+  mat_set( A2, 1, 1, 8.9 );  mat_set( A2, 1, 2, 5.1 );  mat_set( A2, 1, 3, 2.7 );  mat_set( A2, 1, 4, 0.5 );
+  mat_set( A2, 2, 1, 5.1 );  mat_set( A2, 2, 2, 9.0 );  mat_set( A2, 2, 3, 4.1 );  mat_set( A2, 2, 4, 1.3 );
+  mat_set( A2, 3, 1, 2.7 );  mat_set( A2, 3, 2, 4.1 );  mat_set( A2, 3, 3, 9.2 );  mat_set( A2, 3, 4, 5.4 );
+  mat_set( A2, 4, 1, 0.5 );  mat_set( A2, 4, 2, 1.3 );  mat_set( A2, 4, 3, 5.4 );  mat_set( A2, 4, 4, 9.9 );
+  double a2[10], u2[10];
+  a2[0] = mat_get( A2, 1, 1 );
+  a2[1] = mat_get( A2, 2, 1 );
+  a2[2] = mat_get( A2, 2, 2 );
+  a2[3] = mat_get( A2, 3, 1 );
+  a2[4] = mat_get( A2, 3, 2 );
+  a2[5] = mat_get( A2, 3, 3 );
+  a2[6] = mat_get( A2, 4, 1 );
+  a2[7] = mat_get( A2, 4, 2 );
+  a2[8] = mat_get( A2, 4, 3 );
+  a2[9] = mat_get( A2, 4, 4 );
+  int nullity2, ifault2;
+  mat_chol( a2, 4, 10, u2, &nullity2, &ifault2 );
+  // printf( "null: %d    fault: %d \n", nullity2, ifault2 );
+  matrix* U2 = mat_init( 4, 4 );
+  mat_set( U2, 1, 1, (float)u2[0] );
+  mat_set( U2, 2, 1, (float)u2[1] );
+  mat_set( U2, 2, 2, (float)u2[2] );
+  mat_set( U2, 3, 1, (float)u2[3] );
+  mat_set( U2, 3, 2, (float)u2[4] );
+  mat_set( U2, 3, 3, (float)u2[5] );
+  mat_set( U2, 4, 1, (float)u2[6] );
+  mat_set( U2, 4, 2, (float)u2[7] );
+  mat_set( U2, 4, 3, (float)u2[8] );
+  mat_set( U2, 4, 4, (float)u2[9] );
+  matrix* UUT2 = mat_mul( U2, mat_trans(U2) );
+
+  // printf("A2:");    mat_print(A2);    mat_clear(A2);
+  // printf("U2:");    mat_print(U2);    mat_clear(U2);
+  printf("UUT2:");  mat_print(UUT2);  mat_clear(UUT2);
+
+  // Exit MatPDS debugging
   printf("\n");
 
   return;

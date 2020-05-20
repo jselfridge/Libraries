@@ -229,47 +229,46 @@ void mat_chol ( double a[], int n, int nn, double u[], int *nullty, int *ifault 
   *ifault = 0;
   *nullty = 0;
 
-  if( nn < ( n * ( n + 1 ) ) / 2 ) {
+  if( nn < ( n * (n+1) ) / 2 ) {
     *ifault = 3;
     return;
   }
 
-  uint j  = 1;
-  uint k  = 0;
-  uint ii = 0;
+  uint j = 0;
+  uint k = 0;
+  uint s = 0;
 
-  // Factorize column by column, ICOL = column number
-  for( uint icol=1; icol<=n; icol++ ) {
+  // Loop through each column
+  for( uint c=0; c<n; c++ ) {
 
-    ii += icol;
-    double x = eps * eps * a[ii-1];
+    s += c;
+    double tol = eps * eps * a[s];
     double w = 0.0;
     uint l = 0;
-    uint kk = 0;
 
-    // IROW = row number within column ICOL
-    for( uint irow=1; irow<=icol; irow++ ) {
+    // Loop through each row within column
+    for( uint r=0; r<=c; r++ ) {
 
-      kk += irow;
-      k++;
-      w = a[k-1];
       uint m = j;
+      w = a[k];
+      k++;
 
-      for( uint i=1; i<irow; i++ ) {
+      // Iterate through each element within row
+      for( uint i=0; i<r; i++ ) {
+        w -= u[l] * u[m];
         l++;
-        w -= u[l-1] * u[m-1];
         m++;
       }
 
-      l++;
-
-      if( irow == icol )  break;
-
-      if( u[l-1] != 0.0 ) {  u[k-1] = w / u[l-1];  }
+      if( r == c )  break;
+      
+      if( u[l] != 0.0 ) {  u[k-1] = w / u[l];  }
       else {
         u[k-1] = 0.0;
-        if( fabs( x * a[k-1] ) < w * w ) {  *ifault = 2;  return;  }
+        if( fabs( tol * a[k-1] ) < w*w ) {  *ifault = 2;  return;  }
       }
+
+      l++;
       
     }
 
@@ -283,7 +282,7 @@ void mat_chol ( double a[], int n, int nn, double u[], int *nullty, int *ifault 
       u[k-1] = sqrt(w);
     }
 
-    j += icol;
+    j += c+1;
 
   }
 
