@@ -22,10 +22,10 @@ matrix* mat_add ( matrix* A, matrix* B ) {
   mat_err( ( A->r != B->r ), "Error (mat_add): Matrices must have same number of rows."    );
   mat_err( ( A->c != B->c ), "Error (mat_add): Matrices must have same number of columns." );
 
-  matrix* add = mat_init( A->r, A->c );
-  for( uint i=0; i < A->r * A->c; i++ )  *(add->e+i) = *(A->e+i) + *(B->e+i);
+  matrix* N = mat_init( A->r, A->c );
+  for( uint i=0; i < A->r * A->c; i++ )  *(N->e+i) = *(A->e+i) + *(B->e+i);
 
-  return add;
+  return N;
 }
 
 
@@ -40,10 +40,10 @@ matrix* mat_sub ( matrix* A, matrix* B ) {
   mat_err( ( A->r != B->r ), "Error (mat_sub): Matrices must have same number of rows."    );
   mat_err( ( A->c != B->c ), "Error (mat_sub): Matrices must have same number of columns." );
 
-  matrix* sub = mat_init( A->r, A->c );
-  for( uint i=0; i < A->r * A->c; i++ )  *(sub->e+i) = *(A->e+i) - *(B->e+i);
+  matrix* N = mat_init( A->r, A->c );
+  for( uint i=0; i < A->r * A->c; i++ )  *(N->e+i) = *(A->e+i) - *(B->e+i);
 
-  return sub;
+  return N;
 }
 
 
@@ -58,10 +58,10 @@ matrix* mat_emul ( matrix* A, matrix* B ) {
   mat_err( ( A->r != B->r ), "Error (mat_emul): Matrices must have same number of rows."    );
   mat_err( ( A->c != B->c ), "Error (mat_emul): Matrices must have same number of columns." );
 
-  matrix* emul = mat_init( A->r, A->c );
-  for( uint i=0; i < A->r * A->c; i++ )  *(emul->e+i) = *(A->e+i) * *(B->e+i);
+  matrix* N = mat_init( A->r, A->c );
+  for( uint i=0; i < A->r * A->c; i++ )  *(N->e+i) = *(A->e+i) * *(B->e+i);
 
-  return emul;
+  return N;
 }
 
 
@@ -76,10 +76,10 @@ matrix* mat_ediv ( matrix* A, matrix* B ) {
   mat_err( ( A->r != B->r ), "Error (mat_ediv): Matrices must have same number of rows."    );
   mat_err( ( A->c != B->c ), "Error (mat_ediv): Matrices must have same number of columns." );
 
-  matrix* ediv = mat_init( A->r, A->c );
-  for( uint i=0; i < A->r * A->c; i++ )  *(ediv->e+i) = *(A->e+i) / *(B->e+i);
+  matrix* N = mat_init( A->r, A->c );
+  for( uint i=0; i < A->r * A->c; i++ )  *(N->e+i) = *(A->e+i) / *(B->e+i);
 
-  return ediv;
+  return N;
 }
 
 
@@ -93,7 +93,7 @@ matrix* mat_mul ( matrix* A, matrix* B ) {
 
   mat_err( ( A->c != B->r ), "Error (mat_mul): Matrix dimensions do not agree." );
 
-  matrix* mul = mat_init( A->r, B->c );
+  matrix* N = mat_init( A->r, B->c );
 
   for( uint i=0; i<A->r; i++ ) {
     for( uint j=0; j<B->c; j++ ) {
@@ -101,11 +101,11 @@ matrix* mat_mul ( matrix* A, matrix* B ) {
       for( uint k=0; k<A->c; k++ ) {
         val += *( A->e + i*A->c + k ) * *( B->e + k*B->c + j );
       }
-      *( mul->e + i*mul->c + j ) = val;
+      *( N->e + i*N->c + j ) = val;
     }
   }
 
-  return mul;
+  return N;
 }
 
 
@@ -119,12 +119,7 @@ matrix* mat_inv ( matrix* M ) {
 
   mat_err( ( M->r != M->c ), "Error (mat_inv): Matrix must be square." );
 
-  matrix* eye = mat_eye( M->r );
-  matrix* inv = mat_divL( M, eye );
-
-  mat_clear(eye);
-
-  return inv;
+  return mat_divL( M, mat_eye( M->r ) );
 }
 
 
@@ -177,11 +172,7 @@ matrix* mat_divR ( matrix* A, matrix* B ) {
   mat_err( ( A->r != A->c ), "Error (mat_divR): A matrix must be square.       " );
   mat_err( ( A->c != B->c ), "Error (mat_divR): A and B must be the same width." );
 
-  matrix* X = mat_init( B->r, B->c );
-
-  X = mat_mul( B, mat_inv(A) );
-
-  return X;
+  return mat_mul( B, mat_inv(A) );
 }
 
 
@@ -193,30 +184,30 @@ matrix* mat_divR ( matrix* A, matrix* B ) {
 *******************************************************************************/
 matrix* mat_epow ( matrix* M, uint power ) {
 
-  matrix* epow = mat_init( M->r, M->c );
-  for( uint i=0; i < M->r * M->c; i++ )  *(epow->e+i) = (float)pow( *(M->e+i), power );
+  matrix* N = mat_init( M->r, M->c );
+  for( uint i=0; i < M->r * M->c; i++ )  *(N->e+i) = (float)pow( *(M->e+i), power );
 
-  return epow;
+  return N;
 }
 
 
 
 
 /*******************************************************************************
-* matrix* mat_pow ( matrix* M, uint power )
+* matrix* mat_pow ( matrix* M, uint p )
 * Raises a square matrix to a specified integer power.
 *******************************************************************************/
-matrix* mat_pow ( matrix* M, uint power ) {
+matrix* mat_pow ( matrix* M, uint p ) {
 
   mat_err( ( M->r != M->c ), "Error (mat_pow): Matrix must be square." );
 
-  switch( power ) {
-    case 0 : return mat_eye( M->r );
-    case 1 : return mat;
+  switch(p) {
+    case 0 : return mat_eye(M->r);
+    case 1 : return M;
     default : {
-      matrix* pow = mat_eye( M->r );
-      for( uint i=0; i<power; i++ )  pow = mat_mul( pow, M );
-      return pow;
+      matrix* N = mat_eye(M->r);
+      for( uint i=0; i<p; i++ )  N = mat_mul( N, M );
+      return N;
     }
   }
 
@@ -231,10 +222,10 @@ matrix* mat_pow ( matrix* M, uint power ) {
 *******************************************************************************/
 matrix* mat_abs ( matrix* M ) {
 
-  matrix* abs = mat_init( M->r, M->c );
-  for( uint i=0; i < M->r * M->c; i++ )  *(abs->e+i) = fabsf( *(M->e+i) );
+  matrix* N = mat_init( M->r, M->c );
+  for( uint i=0; i < M->r * M->c; i++ )  *(N->e+i) = fabsf( *(M->e+i) );
 
-  return abs;
+  return N;
 }
 
 
@@ -246,32 +237,31 @@ matrix* mat_abs ( matrix* M ) {
 *******************************************************************************/
 matrix* mat_trans ( matrix* M ) {
 
-  matrix* trans = mat_init( M->c, M->r );
+  matrix* N = mat_init( M->c, M->r );
 
-  for( uint i=0; i < M->r * M->c; i++ ) {
-    *( trans->e + (i%M->c) * trans->c + i/M->c ) = *( M->e + (i/M->c) * M->c + i%M->c );
-  }
+  for( uint i=0; i < M->r * M->c; i++ )
+    *( N->e + (i%M->c) * N->c + i/M->c ) = *( M->e + (i/M->c) * M->c + i%M->c );
 
-  return trans;
+  return N;
 }
 
 
 
 
 /*******************************************************************************
-* matrix* mat_reshape ( matrix* M, uint rows, uint cols )
+* matrix* mat_reshape ( matrix* M, uint r, uint c )
 * Reshapes an existing matrix to fit within the specified dimensions.
 *******************************************************************************/
-matrix* mat_reshape ( matrix* M, uint rows, uint cols ) {
+matrix* mat_reshape ( matrix* M, uint r, uint c ) {
 
-  mat_err( ( M->r * M->c != rows * cols ), "Error (mat_reshape): Number of elements do not match." );
+  mat_err( ( M->r * M->c != r * c ), "Error (mat_reshape): Number of elements do not match." );
 
-  matrix* reshape = mat_init( rows, cols );
+  matrix* N = mat_init( r, c );
   for( uint i=0; i < M->r * M->c; i++ ) {
-    *( reshape->e + (i/cols) * cols + i%cols ) = *( M->e + (i/M->c) * M->c + i%M->c );
+    *( N->e + (i/c) * c + i%c ) = *( M->e + (i/M->c) * M->c + i%M->c );
   }
 
-  return reshape;
+  return N;
 }
 
 
