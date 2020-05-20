@@ -14,30 +14,30 @@
 
 
 /*******************************************************************************
-* float mat_det ( matrix* mat )
+* float mat_det ( matrix* M )
 * Returns the determinant of a matrix.
 *******************************************************************************/
-float mat_det ( matrix* mat ) {
+float mat_det ( matrix* M ) {
 
-  mat_err( ( mat->rows != mat->cols ), "Error (mat_det): Matrix must be square." );
+  mat_err( ( M->r != M->c ), "Error (mat_det): Matrix must be square." );
 
-  if( mat->rows == 1 )  return *(mat->data);
-  if( mat->rows == 2 )  return *(mat->data) * *(mat->data+3) - *(mat->data+1) * *(mat->data+2);
-  if( mat->rows == 3 )  return
-      *(mat->data  ) * *(mat->data+4) * *(mat->data+8)
-    + *(mat->data+1) * *(mat->data+5) * *(mat->data+6)
-    + *(mat->data+2) * *(mat->data+3) * *(mat->data+7)
-    - *(mat->data+2) * *(mat->data+4) * *(mat->data+6)
-    - *(mat->data+1) * *(mat->data+3) * *(mat->data+8)
-    - *(mat->data  ) * *(mat->data+5) * *(mat->data+7);
+  if( M->r == 1 )  return *(M->e);
+  if( M->r == 2 )  return *(M->e) * *(M->e+3) - *(M->e+1) * *(M->e+2);
+  if( M->r == 3 )  return
+      *(M->e  ) * *(M->e+4) * *(M->e+8)
+    + *(M->e+1) * *(M->e+5) * *(M->e+6)
+    + *(M->e+2) * *(m->e+3) * *(M->e+7)
+    - *(M->e+2) * *(M->e+4) * *(M->e+6)
+    - *(M->e+1) * *(M->e+3) * *(M->e+8)
+    - *(M->e  ) * *(M->e+5) * *(M->e+7);
 
   matrix* L = NULL;
   matrix* D = NULL;
   matrix* U = NULL;
-  mat_LDU( mat, &L, &D, &U );
+  mat_LDU( M, &L, &D, &U );
 
   float product = 1.0;
-  for( uint i=0; i < mat->rows * mat->cols; i += mat->cols+1 )  product *= *(D->data+i);
+  for( uint i=0; i < M->r * M->c; i += M->c+1 )  product *= *(D->e+i);
 
   mat_clear(L);
   mat_clear(D);
@@ -50,15 +50,15 @@ float mat_det ( matrix* mat ) {
 
 
 /*******************************************************************************
-* float mat_trace ( matrix* mat )
+* float mat_trace ( matrix* M )
 * Returns the trace of a square matrix (sum of main diagonal).
 *******************************************************************************/
-float mat_trace ( matrix* mat ) {
+float mat_trace ( matrix* M ) {
 
-  mat_err( ( mat->rows != mat->cols ), "Error (mat_trace): Matrix must be square." );
+  mat_err( ( M->r != M->c ), "Error (mat_trace): Matrix must be square." );
 
   float sum = 0.0;
-  for( uint i=0; i < mat->rows * mat->cols; i += mat->cols+1 )  sum += *(mat->data+i);
+  for( uint i=0; i < M->r * M->c; i += M->c+1 )  sum += *(M->e+i);
 
   return sum;
 }
@@ -67,18 +67,23 @@ float mat_trace ( matrix* mat ) {
 
 
 /*******************************************************************************
-* bool mat_sym ( matrix* mat, float tol )
+* bool mat_sym ( matrix** M, float tol )
 * Evaluates whether a matrix is symmetric within a prescribed tolerance.
 *******************************************************************************/
-bool mat_sym ( matrix* mat, float tol ) {
+bool mat_sym ( matrix** M, float tol ) {
 
-  mat_err( ( mat->rows != mat->cols ), "Error (mat_sym): A symmetric matrix must be square." );
+  mat_err( ( (*M)->r != (*M)->c ), "Error (mat_sym): A symmetric matrix must be square." );
 
-  for( uint r=0; r<mat->rows; r++ ) {
+  for( uint r=0; r<(*M)->r; r++ ) {
     for( uint c=0; c<=r; c++ ) {
-      float l = *( mat->data + r*mat->cols + c );
-      float u = *( mat->data + c*mat->cols + r );
+      float l = *( (*M)->e + r*(*M)->c + c );
+      float u = *( (*M)->e + c*(*M)->c + r );
       if( fabs(l-u) >= tol )  return false;
+      else {
+        float val = (l+u) / 2.0;
+        *( (*M)->e + r * (*M)->c + c ) = val;
+        *( (*M)->e + c * (*M)->c + r ) = val;
+      }
     }
   }
 
