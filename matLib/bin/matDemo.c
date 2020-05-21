@@ -62,7 +62,7 @@ int main ( void ) {
   // MatTri();
   // MatLDU();
   // MatQR();
-  // MatPDS();
+  MatPDS();
   MatClear();
   printf("   --- MatLib Complete --- \n\n");
 
@@ -1038,16 +1038,25 @@ void MatPDS ( void ) {
   mat_set( A1, 3, 1, 1 );  mat_set( A1, 3, 2, 1 );  mat_set( A1, 3, 3, 2 );
   float* a1 = mat_tri2arr(A1);
   float u1[6];
-  uint nullity1, err1;
-  mat_chol( a1, 3, u1, &nullity1, &err1 );
+  uint null1, err1;
+  mat_chol( a1, 3, u1, &null1, &err1 );
   matrix* U1 = mat_arr2tri( u1, 3 );
   matrix* UUT1 = mat_mul( U1, mat_trans(U1) );
-  printf( "null: %d    err: %d \n", nullity1, err1 );
+  float c1[6], w1[6];
+  mat_syminv( a1, 3, c1, w1, &null1, &err1 );
+  matrix* C1 = mat_arr2tri( c1, 3 );
+  // matrix* W1 = mat_arr2tri( w1, 3 );
+  // matrix* A1C1 = mat_mul( A1, mat_trans(C1) );
+
+
+  printf( "null: %d    err: %d \n", null1, err1 );
   printf("A1:");    mat_print(A1);    mat_clear(A1);
   printf("U1:");    mat_print(U1);    mat_clear(U1);
   printf("UUT1:");  mat_print(UUT1);  mat_clear(UUT1);
-  // float c[6], w[6];
-  // mat_syminv( a, 3, c, w, &nullity, &ifault );
+  printf("C1:");    mat_print(C1);    mat_clear(C1);
+  // printf("W1:");    mat_print(W1);    mat_clear(W1);
+  // printf("A1C1:");  mat_print(A1C1);  mat_clear(A1C1);
+
   // matrix* PSDi = mat_init( 3, 3 );
   // mat_set( PSDi, 1, 1, c[0] );  mat_set( PSDi, 1, 2, c[1] );  mat_set( PSDi, 1, 3, c[3] );
   // mat_set( PSDi, 2, 1, c[1] );  mat_set( PSDi, 2, 2, c[2] );  mat_set( PSDi, 2, 3, c[4] );
@@ -1056,23 +1065,23 @@ void MatPDS ( void ) {
   // printf("PSDi:");  mat_print(PSDi);  mat_clear(PSDi);
   // printf("I3");     mat_print(I3);    mat_clear(I3);
 
-  // PDS 2
-  printf("PosDefSym 2: \n");
-  matrix* A2 = mat_init( 4, 4 );
-  mat_set( A2, 1, 1, 8.9 );  mat_set( A2, 1, 2, 5.1 );  mat_set( A2, 1, 3, 2.7 );  mat_set( A2, 1, 4, 0.5 );
-  mat_set( A2, 2, 1, 5.1 );  mat_set( A2, 2, 2, 9.0 );  mat_set( A2, 2, 3, 4.1 );  mat_set( A2, 2, 4, 1.3 );
-  mat_set( A2, 3, 1, 2.7 );  mat_set( A2, 3, 2, 4.1 );  mat_set( A2, 3, 3, 9.2 );  mat_set( A2, 3, 4, 5.4 );
-  mat_set( A2, 4, 1, 0.5 );  mat_set( A2, 4, 2, 1.3 );  mat_set( A2, 4, 3, 5.4 );  mat_set( A2, 4, 4, 9.9 );
-  float* a2 = mat_tri2arr(A2);
-  float u2[10];
-  uint nullity2, err2;
-  mat_chol( a2, 4, u2, &nullity2, &err2 );
-  matrix* U2 = mat_arr2tri( u2, 4 );
-  matrix* UUT2 = mat_mul( U2, mat_trans(U2) );
-  printf( "null: %d    err: %d \n", nullity2, err2 );
-  printf("A2:");    mat_print(A2);    mat_clear(A2);
-  printf("U2:");    mat_print(U2);    mat_clear(U2);
-  printf("UUT2:");  mat_print(UUT2);  mat_clear(UUT2);
+  // // PDS 2
+  // printf("PosDefSym 2: \n");
+  // matrix* A2 = mat_init( 4, 4 );
+  // mat_set( A2, 1, 1, 8.9 );  mat_set( A2, 1, 2, 5.1 );  mat_set( A2, 1, 3, 2.7 );  mat_set( A2, 1, 4, 0.5 );
+  // mat_set( A2, 2, 1, 5.1 );  mat_set( A2, 2, 2, 9.0 );  mat_set( A2, 2, 3, 4.1 );  mat_set( A2, 2, 4, 1.3 );
+  // mat_set( A2, 3, 1, 2.7 );  mat_set( A2, 3, 2, 4.1 );  mat_set( A2, 3, 3, 9.2 );  mat_set( A2, 3, 4, 5.4 );
+  // mat_set( A2, 4, 1, 0.5 );  mat_set( A2, 4, 2, 1.3 );  mat_set( A2, 4, 3, 5.4 );  mat_set( A2, 4, 4, 9.9 );
+  // float* a2 = mat_tri2arr(A2);
+  // float u2[10];
+  // uint nullity2, err2;
+  // mat_chol( a2, 4, u2, &nullity2, &err2 );
+  // matrix* U2 = mat_arr2tri( u2, 4 );
+  // matrix* UUT2 = mat_mul( U2, mat_trans(U2) );
+  // printf( "null: %d    err: %d \n", nullity2, err2 );
+  // printf("A2:");    mat_print(A2);    mat_clear(A2);
+  // printf("U2:");    mat_print(U2);    mat_clear(U2);
+  // printf("UUT2:");  mat_print(UUT2);  mat_clear(UUT2);
 
   // Exit MatPDS debugging
   printf("\n");

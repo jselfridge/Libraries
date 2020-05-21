@@ -262,14 +262,14 @@ void mat_QR ( matrix* A, matrix** Q, matrix** R ) {
 
 
 /*******************************************************************************
-* void mat_chol ( float a[], uint n, float u[], uint *nullity, uint *err )
+* void mat_chol ( float a[], uint n, float u[], uint *null, uint *err )
 * Determines the cholesky decomposition for a positive definite symmetric matrix.
 *******************************************************************************/
-void mat_chol ( float a[], uint n, float u[], uint *nullity, uint *err ) {
+void mat_chol ( float a[], uint n, float u[], uint *null, uint *err ) {
 
   mat_err( (!n), "Error (mat_chol): Matrix size must be positive." );
 
-  *nullity = 0;
+  *null = 0;
   *err = 0;
 
   const float eps = 6.0E-08;
@@ -316,7 +316,7 @@ void mat_chol ( float a[], uint n, float u[], uint *nullity, uint *err ) {
     //End of row, estimate relative accuracy of diagonal element
     if( fabs(w) <= fabs( eps * a[i-1] ) ) {
       u[i-1] = 0.0;
-      (*nullity)++;
+      (*null)++;
     }
     else {
       if ( w<0.0 ) {  *err = 2;  return;  }
@@ -325,6 +325,119 @@ void mat_chol ( float a[], uint n, float u[], uint *nullity, uint *err ) {
 
   }
 
+  return;
+}
+
+
+
+
+/*******************************************************************************
+* void mat_syminv ( float a[], uint n, float c[], float w[], uint *null, uint *err )
+* Finds a matrix inverse of a PDS matrix using the cholesky decomposition.
+*******************************************************************************/
+void mat_syminv ( float a[], uint n, float c[], float w[], uint *null, uint *err ) {
+
+  int i;
+  int icol;
+  int irow;
+  int j;
+  int jcol;
+  int k;
+  int l;
+  int mdiag;
+  int ndiag;
+  // int nn;
+  int nrow;
+  double x;
+
+  *err = 0;
+
+  nrow = n;
+
+  uint nn = ( n * ( n + 1 ) ) / 2;
+
+  mat_chol( a, n, c, null, err );
+
+  if ( *err != 0 )
+  {
+    return;
+  }
+
+  irow = nrow;
+  ndiag = nn;
+
+  for ( ; ; )
+  {
+    if ( c[ndiag-1] == 0.0 )
+    {
+      l = ndiag;
+      for ( j = irow; j <= nrow; j++ )
+      {
+        c[l-1] = 0.0;
+        l += j;
+      }
+    }
+    else
+    {
+      l = ndiag;
+      for ( i = irow; i <= nrow; i++ )
+      {
+        w[i-1] = c[l-1];
+        l += i;
+      }
+
+      icol = nrow;
+      jcol = nn;
+      mdiag = nn;
+
+      for ( ; ; )
+      {
+        l = jcol;
+ 
+        if ( icol == irow )
+        {
+          x = 1.0 / w[irow-1];
+        }
+        else
+        {
+          x = 0.0;
+        }
+
+        k = nrow;
+
+        while ( irow < k )
+        {
+          x -= w[k-1] * c[l-1];
+          k--;
+          l--;
+
+          if ( mdiag < l )
+          {
+            l -= (k-1);
+          }
+        }
+
+        c[l-1] = x / w[irow-1];
+
+        if ( icol <= irow )
+        {
+          break;
+        }
+        mdiag -= icol;
+        icol--;    // !!!
+        jcol--;    // !!!
+      }
+    }
+
+    ndiag -= irow;
+    irow--;
+
+    if ( irow <= 0 )    // !!!
+    {
+      break;
+    }
+  }
+  
   return;
 }
 

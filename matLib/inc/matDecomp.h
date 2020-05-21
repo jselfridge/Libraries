@@ -27,7 +27,10 @@ matrix*  mat_arr2tri  ( float*  arr, uint n );
 void     mat_LU       ( matrix* A, matrix** L, matrix** U );  // optimize, debug non-existance check
 void     mat_LDU      ( matrix* A, matrix** L, matrix** D, matrix** U );  // optimize
 void     mat_QR       ( matrix* A, matrix** Q, matrix** R );  // optimize, develop short matrices
-void     mat_chol     ( float a[], uint n, float u[], uint* nullity, uint* err );
+void     mat_chol     ( float a[], uint n, float u[], uint* null, uint* err );
+
+
+void mat_syminv ( float a[], uint n, float c[], float w[], uint *null, uint *err );
 
 
 #endif
