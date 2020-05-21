@@ -17,7 +17,7 @@
 #include "../inc/matComplex.h"
 #include "../inc/matVec.h"
 #include "../inc/matArith.h"
-// #include "../inc/matProp.h"
+#include "../inc/matProp.h"
 #include "../inc/matDecomp.h"
 
 

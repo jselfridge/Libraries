@@ -57,7 +57,7 @@ int main ( void ) {
   // MatManip();
   // MatComplex();
   // MatVec();
-  MatArith();
+  // MatArith();
   // MatProp();
   // MatTri();
   // MatLDU();
@@ -654,7 +654,7 @@ void MatArith ( void ) {
 * void MatProp ( void )
 * Debugs the 'matProp' file functions.
 *******************************************************************************/
-/*void MatProp ( void ) {
+void MatProp ( void ) {
 
   printf("Matrix properties functions \n");
 
@@ -677,22 +677,23 @@ void MatArith ( void ) {
   // Symmetric matrix
   printf("Symmetric matrix \n");
   bool issym = false;
-  float tol = 0.01;
+  float tol = 0.02;
   matrix* sym = mat_init( 3, 3 );
-  mat_set( sym, 1, 1, 4.00 );  mat_set( sym, 1, 2, 0.31 );  mat_set( sym, 1, 3, 1.001 );
-  mat_set( sym, 2, 1, 0.30 );  mat_set( sym, 2, 2, 3.00 );  mat_set( sym, 2, 3, 0.00 );
-  mat_set( sym, 3, 1, 0.99 );  mat_set( sym, 3, 2, 0.00 );  mat_set( sym, 3, 3, 2.00 );
+  mat_set( sym, 1, 1, 4.00 );  mat_set( sym, 1, 2, 0.31 );  mat_set( sym, 1, 3, 1.01 );
+  mat_set( sym, 2, 1, 0.30 );  mat_set( sym, 2, 2, 3.00 );  mat_set( sym, 2, 3, 0.04 );
+  mat_set( sym, 3, 1, 1.00 );  mat_set( sym, 3, 2, 0.02 );  mat_set( sym, 3, 3, 2.00 );
   printf("Sym:");
   mat_print(sym);
-  issym = mat_sym( sym, tol );
+  issym = mat_sym( &sym, tol );
   printf("Is the matrix symmetric?  ");  issym ? printf("yes\n") : printf("no\n");
+  if(issym)  mat_print(sym);
   mat_clear(sym);
 
   // Exit MatProp debugging
   printf("\n");
 
   return;
-}*/
+}
 
 
 
