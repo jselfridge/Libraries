@@ -226,21 +226,20 @@ void mat_LDU ( matrix* A, matrix** L, matrix** D, matrix** U ) {
 
 
 /*******************************************************************************
-* void mat_QR ( matrix* mat, matrix** Q, matrix** R )
+* void mat_QR ( matrix* A, matrix** Q, matrix** R )
 * Solves for the QR decomposition of a matrix.
 *******************************************************************************/
-/*void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
+void mat_QR ( matrix* A, matrix** Q, matrix** R ) {
 
-  mat_err( ( mat->rows < mat->cols ), "Error (mat_QR): Input matrix must be square or tall." );
+  mat_err( ( A->r < A->c ), "Error (mat_QR): Input matrix must be square or tall." );
 
-  *Q = mat_init( mat->rows, mat->cols );
-  *R = mat_init( mat->cols, mat->cols );
+  *Q = mat_init( A->r, A->c );
+  *R = mat_init( A->c, A->c );
 
-  matrix* A    = mat_copy(mat);
-  matrix* Acol = mat_init( mat->rows, 1 );
-  matrix* Qcol = mat_init( mat->rows, 1 );
+  matrix* Acol = mat_init( A->r, 1 );
+  matrix* Qcol = mat_init( A->r, 1 );
 
-  for( uint i=1; i<=mat->cols; i++ ) {
+  for( uint i=1; i<=A->c; i++ ) {
 
     Acol = mat_getc( A, i );
     Qcol = mat_copy(Acol);
@@ -253,27 +252,26 @@ void mat_LDU ( matrix* A, matrix** L, matrix** D, matrix** U ) {
 
   *R = mat_mul( mat_trans(*Q), A );
 
-  mat_clear(A);
   mat_clear(Acol);
   mat_clear(Qcol);
 
   return;
-}*/
+}
 
 
 
 
 /*******************************************************************************
-* void mat_chol ( matrix* A, uint n, matrix** U, uint *nullty, uint *ifault )
+* void mat_chol ( matrix* A, uint n, matrix** U, uint *nullity, uint *err )
 * Determines the cholesky decomposition for a positive definite symmetric matrix.
 *******************************************************************************/
-/*void mat_chol ( matrix* A, uint n, matrix** U, uint *nullty, uint *ifault ) {
+void mat_chol ( matrix* A, uint n, matrix** U, uint *nullity, uint *err ) {
 
-  mat_err( (!n),                       "Error (mat_chol): Matrix size must be positive." );
-  mat_err( ( A->rows != (n*(n+1))/2 ), "Error (mat_chol): Inconsistent dimensions."      );
+  mat_err( (!n),                    "Error (mat_chol): Matrix size must be positive." );
+  mat_err( ( A->r != (n*(n+1))/2 ), "Error (mat_chol): Inconsistent dimensions."      );
 
-  *ifault = 0;
-  *nullty = 0;
+  *nullity = 0;
+  *err = 0;
 
   const float eps = 6.0E-08;
 
@@ -284,7 +282,7 @@ void mat_LDU ( matrix* A, matrix** L, matrix** D, matrix** U ) {
   for( uint r=0; r<n; r++ ) {
 
     j += r;
-    float tol = eps * eps * *(A->data+j);
+    float tol = eps * eps * *(A->e+j);
     float w = 0.0;
     uint l = 0;
 
@@ -292,13 +290,13 @@ void mat_LDU ( matrix* A, matrix** L, matrix** D, matrix** U ) {
     for( uint c=0; c<=r; c++ ) {
 
       uint m = j;
-      w = *(A->data+i);
+      w = *(A->e+i);
       i++;
 
       // Iterate through each element within row
       for( uint k=0; k<c; k++ ) {
 
-        w -= *((*U)->data+l) * *((*U)->data+m);
+        w -= *((*U)->e+l) * *((*U)->e+m);
         l++;
         m++;
 
@@ -306,10 +304,10 @@ void mat_LDU ( matrix* A, matrix** L, matrix** D, matrix** U ) {
 
       if( r == c )  break;
 
-      if( *((*U)->data+l) != 0.0 ) {  *((*U)->data+i-1) = w / *((*U)->data+l);  }
+      if( *((*U)->e+l) != 0.0 ) {  *((*U)->e+i-1) = w / *((*U)->e+l);  }
       else {
-        *((*U)->data+i-1) = 0.0;
-        if( fabs( tol * *(A->data+i-1) ) < w*w ) {  *ifault = 2;  return;  }
+        *((*U)->e+i-1) = 0.0;
+        if( fabs( tol * *(A->e+i-1) ) < w*w ) {  *err = 2;  return;  }
       }
 
       l++;
@@ -317,19 +315,19 @@ void mat_LDU ( matrix* A, matrix** L, matrix** D, matrix** U ) {
     }
 
     //End of row, estimate relative accuracy of diagonal element
-    if( fabs(w) <= fabs( eps * *(A->data+i-1) ) ) {
-      *((*U)->data+i-1) = 0.0;
-      (*nullty)++;
+    if( fabs(w) <= fabs( eps * *(A->e+i-1) ) ) {
+      *((*U)->e+i-1) = 0.0;
+      (*nullity)++;
     }
     else {
-      if ( w<0.0 ) {  *ifault = 2;  return;  }
-      *((*U)->data+i-1) = sqrtf(w);
+      if ( w<0.0 ) {  *err = 2;  return;  }
+      *((*U)->e+i-1) = sqrtf(w);
     }
 
   }
 
   return;
-}*/
+}
 
 
 

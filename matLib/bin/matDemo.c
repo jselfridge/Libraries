@@ -20,11 +20,11 @@ void  MatManip    ( void );
 void  MatComplex  ( void );
 void  MatVec      ( void );
 void  MatArith    ( void );
-// void  MatProp     ( void );
-// void  MatTri      ( void );
+void  MatProp     ( void );
+void  MatTri      ( void );
 void  MatLDU      ( void );
-// void  MatQR       ( void );
-// void  MatPDS      ( void );
+void  MatQR       ( void );
+void  MatPDS      ( void );
 
 
 // Global variables
@@ -60,9 +60,9 @@ int main ( void ) {
   // MatArith();
   // MatProp();
   // MatTri();
-  MatLDU();
+  // MatLDU();
   // MatQR();
-  // MatPDS();
+  MatPDS();
   MatClear();
   printf("   --- MatLib Complete --- \n\n");
 
@@ -898,7 +898,7 @@ void MatLDU ( void ) {
 * void MatQR ( void )
 * Debugs the QR factorization functions within 'matDecomp'.
 *******************************************************************************/
-/*void MatQR ( void ) {
+void MatQR ( void ) {
 
   printf("Matrix QR decompositions \n");
 
@@ -975,25 +975,25 @@ void MatLDU ( void ) {
   printf("QR4: ");   mat_print(QR4);   mat_clear(QR4);
   printf("QTQ4: ");  mat_print(QTQ4);  mat_clear(QTQ4);
   printf("\n");
-*/
-  /*/ QR 5: Currently only works on square or tall matrices
-  printf("QR 5: \n");
-  matrix* A5 = mat_init( 3, 5 );
-  mat_set( A5, 1, 1,   4 );  mat_set( A5, 1, 2,  -3 );  mat_set( A5, 1, 3,  -1 );  mat_set( A5, 1, 4,   5 );  mat_set( A5, 1, 5,  2 );
-  mat_set( A5, 2, 1, -16 );  mat_set( A5, 2, 2,  12 );  mat_set( A5, 2, 3,   2 );  mat_set( A5, 2, 4, -17 );  mat_set( A5, 2, 5, -7 );
-  mat_set( A5, 3, 1,   8 );  mat_set( A5, 3, 2,  -6 );  mat_set( A5, 3, 3, -12 );  mat_set( A5, 3, 4,  22 );  mat_set( A5, 3, 5, 10 );
-  matrix* Q5 = NULL;
-  matrix* R5 = NULL;
-  mat_QR( A5, &Q5, &R5 );
-  matrix* QR5 = mat_mul( Q5, R5 );
-  matrix* QTQ5 = mat_mul( mat_trans(Q5), Q5 );
-  printf("A5: ");    mat_print(A5);    mat_clear(A5);
-  printf("Q5: ");    mat_print(Q5);    mat_clear(Q5);
-  printf("R5: ");    mat_print(R5);    mat_clear(R5);
-  printf("QR5: ");   mat_print(QR5);   mat_clear(QR5);
-  printf("QTQ5: ");  mat_print(QTQ5);  mat_clear(QTQ5);
-  printf("\n");*/
-/*
+
+  // QR 5: Currently only works on square or tall matrices
+  // printf("QR 5: \n");
+  // matrix* A5 = mat_init( 3, 5 );
+  // mat_set( A5, 1, 1,   4 );  mat_set( A5, 1, 2,  -3 );  mat_set( A5, 1, 3,  -1 );  mat_set( A5, 1, 4,   5 );  mat_set( A5, 1, 5,  2 );
+  // mat_set( A5, 2, 1, -16 );  mat_set( A5, 2, 2,  12 );  mat_set( A5, 2, 3,   2 );  mat_set( A5, 2, 4, -17 );  mat_set( A5, 2, 5, -7 );
+  // mat_set( A5, 3, 1,   8 );  mat_set( A5, 3, 2,  -6 );  mat_set( A5, 3, 3, -12 );  mat_set( A5, 3, 4,  22 );  mat_set( A5, 3, 5, 10 );
+  // matrix* Q5 = NULL;
+  // matrix* R5 = NULL;
+  // mat_QR( A5, &Q5, &R5 );
+  // matrix* QR5 = mat_mul( Q5, R5 );
+  // matrix* QTQ5 = mat_mul( mat_trans(Q5), Q5 );
+  // printf("A5: ");    mat_print(A5);    mat_clear(A5);
+  // printf("Q5: ");    mat_print(Q5);    mat_clear(Q5);
+  // printf("R5: ");    mat_print(R5);    mat_clear(R5);
+  // printf("QR5: ");   mat_print(QR5);   mat_clear(QR5);
+  // printf("QTQ5: ");  mat_print(QTQ5);  mat_clear(QTQ5);
+  // printf("\n");
+
   // QR 6: Works when LU does not
   printf("QR 6: \n");
   matrix* A6 = mat_init( 3, 3 );
@@ -1016,7 +1016,7 @@ void MatLDU ( void ) {
   printf("\n");
 
   return;
-}*/
+}
 
 
 
@@ -1025,7 +1025,7 @@ void MatLDU ( void ) {
 * void MatPDS ( void )
 * Debugs the positive definite symmetric functions within 'matDecomp'.
 *******************************************************************************/
-/*void MatPDS ( void ) {
+void MatPDS ( void ) {
 
   printf("Positive definite symmetric matrix decomposition functions \n");
 
@@ -1077,7 +1077,7 @@ void MatLDU ( void ) {
   printf("\n");
 
   return;
-}*/
+}
 
 
 
