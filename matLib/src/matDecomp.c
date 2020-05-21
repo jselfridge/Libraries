@@ -15,18 +15,18 @@
 
 /*******************************************************************************
 * matrix* mat_tri2vec ( matrix* tri )
-* Maps the lower triangular elements of a matrix into a vector array.
+* Maps the lower triangular elements of a matrix into a vector structure.
 *******************************************************************************/
 matrix* mat_tri2vec ( matrix* tri ) {
 
-  mat_err( ( tri->rows != tri->cols ), "Error (mat_tri2vec): Matrix must be square." );
+  mat_err( ( tri->r != tri->c ), "Error (mat_tri2vec): Matrix must be square." );
 
-  matrix* vec = mat_init( ( tri->rows * (tri->rows+1) ) / 2, 1 );
+  matrix* vec = mat_init( ( tri->r * (tri->r+1) ) / 2, 1 );
 
-  float* i = vec->data;
-  for( uint r=0; r<tri->rows; r++ ) {
+  float* i = vec->e;
+  for( uint r=0; r<tri->r; r++ ) {
     for( uint c=0; c<=r; c++ ) {
-      *(i++) = *( tri->data + r*tri->cols + c );
+      *(i++) = *( tri->e + r*tri->c + c );
     }
   }
 
@@ -37,25 +37,70 @@ matrix* mat_tri2vec ( matrix* tri ) {
 
 
 /*******************************************************************************
+* float* mat_tri2arr ( matrix* tri )
+* Maps the lower triangular elements of a matrix into a standard array.
+*******************************************************************************/
+float* mat_tri2arr ( matrix* tri ) {
+
+  mat_err( ( tri->r != tri->c ), "Error (mat_tri2arr): Matrix must be square." );
+
+  const uint d = ( tri->r * (tri->r+1) ) / 2;  
+  float* arr = (float*) malloc( d * sizeof(float) );
+
+  float* p = arr;
+  for( uint r=0; r<tri->r; r++ ) {
+    for( uint c=0; c<=r; c++ ) {
+      *(p++) = *( tri->e + r*tri->c + c );
+    }
+  }
+
+  return arr;
+}
+
+
+
+
+/*******************************************************************************
 * matrix* mat_vec2tri ( matrix* vec )
-* Maps a vector array into the lower triangular elements of a matrix.
+* Maps a vector structure into the lower triangular elements of a matrix.
 *******************************************************************************/
 matrix* mat_vec2tri ( matrix* vec ) {
 
-  uint d = 0;
   uint n = 0;
-  while( n<vec->rows ) {
-    d++;
-    n = ( d * (d+1) ) / 2;
-    mat_err( ( n>vec->rows ), "Error (mat_vec2tri): Vector must satisfy n=(d*(d+1))/2 relationship." );
+  uint d = 0;
+  while( d<vec->r ) {
+    n++;
+    d = ( n * (n+1) ) / 2;
+    mat_err( ( d>vec->r ), "Error (mat_vec2tri): Vector must satisfy d=(n*(n+1))/2 relationship." );
   }
 
-  matrix* tri = mat_init( d, d );
+  matrix* tri = mat_init( n, n );
 
-  float* i = vec->data;
-  for( uint r=0; r<d; r++ ) {
+  float* i = vec->e;
+  for( uint r=0; r<n; r++ ) {
     for( uint c=0; c<=r; c++ ) {
-      *( tri->data + r*d + c ) = *(i++);
+      *( tri->e + r*n + c ) = *(i++);
+    }
+  }
+
+  return tri;
+}
+
+
+
+
+/*******************************************************************************
+* matrix* mat_arr2tri ( float* arr, unit n )
+* Maps a standard array into the lower triangular elements of a matrix.
+*******************************************************************************/
+matrix* mat_arr2tri ( float* arr, uint n ) {
+
+  matrix* tri = mat_init( n, n );
+
+  float* p = arr;
+  for( uint r=0; r<n; r++ ) {
+    for( uint c=0; c<=r; c++ ) {
+      *( tri->e + r*n + c ) = *(p++);
     }
   }
 
@@ -69,7 +114,7 @@ matrix* mat_vec2tri ( matrix* vec ) {
 * void mat_LU ( matrix* mat, matrix** L, matrix** U )
 * Solves for the LU decomposition of a matrix (if it exists).
 *******************************************************************************/
-void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
+/*void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
 
   *U = mat_copy(mat);
   *L = mat_init( mat->rows, mat->rows );
@@ -126,7 +171,7 @@ void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
   mat_clear(row);
 
   return;
-}
+}*/
 
 
 
@@ -135,7 +180,7 @@ void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
 * void mat_LDU ( matrix* mat, matrix** L, matrix** U )
 * Solves for the LDU decomposition of a matrix (if it exists).
 *******************************************************************************/
-void mat_LDU ( matrix *mat, matrix **L, matrix **D, matrix **U ) {
+/*void mat_LDU ( matrix *mat, matrix **L, matrix **D, matrix **U ) {
 
   mat_LU( mat, &*L, &*U );
   *D = mat_init( mat->rows, mat->rows );
@@ -173,7 +218,7 @@ void mat_LDU ( matrix *mat, matrix **L, matrix **D, matrix **U ) {
   mat_clear(row);
 
   return;
-}
+}*/
 
 
 
@@ -182,7 +227,7 @@ void mat_LDU ( matrix *mat, matrix **L, matrix **D, matrix **U ) {
 * void mat_QR ( matrix* mat, matrix** Q, matrix** R )
 * Solves for the QR decomposition of a matrix.
 *******************************************************************************/
-void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
+/*void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
 
   mat_err( ( mat->rows < mat->cols ), "Error (mat_QR): Input matrix must be square or tall." );
 
@@ -211,7 +256,7 @@ void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
   mat_clear(Qcol);
 
   return;
-}
+}*/
 
 
 
@@ -220,7 +265,7 @@ void mat_QR ( matrix* mat, matrix** Q, matrix** R ) {
 * void mat_chol ( matrix* A, uint n, matrix** U, uint *nullty, uint *ifault )
 * Determines the cholesky decomposition for a positive definite symmetric matrix.
 *******************************************************************************/
-void mat_chol ( matrix* A, uint n, matrix** U, uint *nullty, uint *ifault ) {
+/*void mat_chol ( matrix* A, uint n, matrix** U, uint *nullty, uint *ifault ) {
 
   mat_err( (!n),                       "Error (mat_chol): Matrix size must be positive." );
   mat_err( ( A->rows != (n*(n+1))/2 ), "Error (mat_chol): Inconsistent dimensions."      );
@@ -282,7 +327,7 @@ void mat_chol ( matrix* A, uint n, matrix** U, uint *nullty, uint *ifault ) {
   }
 
   return;
-}
+}*/
 
 
 

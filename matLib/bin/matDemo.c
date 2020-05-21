@@ -12,36 +12,35 @@
 #include "../inc/matLib.h"
 
 
-// // Function prototypes
-// void  MatInit     ( void );
-// void  MatPrint    ( void );
-// void  MatClear    ( void );
-// void  MatManip    ( void );
-// void  MatComplex  ( void );
-// void  MatVec      ( void );
-// void  MatArith    ( void );
-// void  MatRoot     ( void );
+// Function prototypes
+void  MatInit     ( void );
+void  MatPrint    ( void );
+void  MatClear    ( void );
+void  MatManip    ( void );
+void  MatComplex  ( void );
+void  MatVec      ( void );
+void  MatArith    ( void );
 // void  MatProp     ( void );
-// void  MatTriVec   ( void );
+void  MatTri      ( void );
 // void  MatLDU      ( void );
 // void  MatQR       ( void );
 // void  MatPDS      ( void );
 
 
-// // Global variables
-// matrix* M13;
-// matrix* M14;
-// matrix* M31a;
-// matrix* M31b;
-// matrix* M41;
-// matrix* M22;
-// matrix* M23;
-// matrix* M32;
-// matrix* M33a;
-// matrix* M33b;
-// matrix* M34;
-// matrix* M43;
-// matrix* M44;
+// Global variables
+matrix* M13;
+matrix* M14;
+matrix* M31a;
+matrix* M31b;
+matrix* M41;
+matrix* M22;
+matrix* M23;
+matrix* M32;
+matrix* M33a;
+matrix* M33b;
+matrix* M34;
+matrix* M43;
+matrix* M44;
 
 
 
@@ -53,19 +52,18 @@
 int main ( void ) {
 
   printf("\n   --- MatLib Debugging --- \n\n");
-  // MatInit();
-  // MatPrint();
+  MatInit();
+  MatPrint();
   // MatManip();
   // MatComplex();
   // MatVec();
   // MatArith();
-  // MatRoot();
   // MatProp();
-  // MatTriVec();
+  MatTri();
   // MatLDU();
   // MatQR();
   // MatPDS();
-  // MatClear();
+  MatClear();
   printf("   --- MatLib Complete --- \n\n");
 
   return 0;
@@ -78,7 +76,7 @@ int main ( void ) {
 * void MatInit ( void )
 * Initializes the debugging matrices.
 *******************************************************************************/
-/*void MatInit ( void ) {
+void MatInit ( void ) {
 
   // Define 1x3 vector
   M13 = mat_init( 1, 3 );
@@ -161,7 +159,7 @@ int main ( void ) {
   mat_set( M44, 4, 1, -4.5 );  mat_set( M44, 4, 2, -8.1 );  mat_set( M44, 4, 3,  0.1);  mat_set( M44, 4, 4,  2.7 );
 
   return;
-}*/
+}
 
 
 
@@ -170,7 +168,7 @@ int main ( void ) {
 * void MatPrint ( void )
 * Prints the debugging matrices.
 *******************************************************************************/
-/*void MatPrint ( void ) {
+void MatPrint ( void ) {
 
   printf("General purpose debugging matrices \n");
   mat_print(M13);
@@ -189,7 +187,7 @@ int main ( void ) {
   printf("\n");
 
   return;
-}*/
+}
 
 
 
@@ -198,7 +196,7 @@ int main ( void ) {
 * void MatClear ( void )
 * Clears the debugging matrices.
 *******************************************************************************/
-/*void MatClear ( void ) {
+void MatClear ( void ) {
 
   mat_clear(M13);
   mat_clear(M14);
@@ -215,7 +213,7 @@ int main ( void ) {
   mat_clear(M44);
 
   return;
-}*/
+}
 
 
 
@@ -224,7 +222,7 @@ int main ( void ) {
 * void MatManip ( void )
 * Debugs the 'matManip' file functions.
 *******************************************************************************/
-/*void MatManip ( void ) {
+void MatManip ( void ) {
 
   printf("Matrix manipulation functions \n");
 
@@ -340,7 +338,7 @@ int main ( void ) {
   mat_set( R, 1, 1, -0.1000 );  mat_set( R, 1, 2,  0.0100 );
   mat_set( R, 2, 1,  0.0010 );  mat_set( R, 2, 2, -0.0001 );
   mat_print(R);
-  mat_rmtiny( R, 1e-2 );
+  mat_rmtiny( R, 1.0001e-4 );
   mat_print(R);
 
   // Clear completed matrices
@@ -356,7 +354,7 @@ int main ( void ) {
   printf("\n");
 
   return;
-}*/
+}
 
 
 
@@ -365,7 +363,7 @@ int main ( void ) {
 * void MatComplex ( void )
 * Debugs the 'matComplex' file functions.
 *******************************************************************************/
-/*void MatComplex ( void ) {
+void MatComplex ( void ) {
 
   printf("Matrix complex manipulation functions \n");
 
@@ -409,8 +407,8 @@ int main ( void ) {
   mat_printz(Tz);
 
   // Clear complex matrices
-  mat_clearz(Cz); 
-  mat_clearz(Rz); 
+  mat_clearz(Cz);
+  mat_clearz(Rz);
   mat_clearz(Mz);
   mat_clearz(Tz);
 
@@ -418,7 +416,7 @@ int main ( void ) {
   printf("\n");
 
   return;
-}*/
+}
 
 
 
@@ -427,7 +425,7 @@ int main ( void ) {
 * void MatVec ( void )
 * Debugs the 'matVec' file functions.
 *******************************************************************************/
-/*void MatVec ( void ) {
+void MatVec ( void ) {
 
   printf("Matrix vector functions \n");
 
@@ -519,7 +517,7 @@ int main ( void ) {
   printf("\n");
 
   return;
-}*/
+}
 
 
 
@@ -528,7 +526,7 @@ int main ( void ) {
 * void MatArith ( void )
 * Debugs the 'matArith' file functions.
 *******************************************************************************/
-/*void MatArith ( void ) {
+void MatArith ( void ) {
 
   printf("Matrix arithmetic functions \n");
 
@@ -575,27 +573,27 @@ int main ( void ) {
   mat_print(Mmul4);
   mat_clear(Mmul4);
 
-  // Left division
-  matrix* XL  = mat_divL( M33b, M32 );
-  matrix* AXL = mat_mul( M33b, XL );
-  mat_print(M33b);  mat_print(M32);
-  mat_print(XL);    mat_clear(XL);
-  mat_print(AXL);   mat_clear(AXL);
+  // // Left division
+  // matrix* XL  = mat_divL( M33b, M32 );
+  // matrix* AXL = mat_mul( M33b, XL );
+  // mat_print(M33b);  mat_print(M32);
+  // mat_print(XL);    mat_clear(XL);
+  // mat_print(AXL);   mat_clear(AXL);
 
-  // Matrix inverse
-  matrix* INV = mat_inv(M44);
-  matrix* MI  = mat_mul( M44, INV );
-  matrix* IM  = mat_mul( INV, M44 );
-  mat_print(INV);  mat_clear(INV);
-  mat_print(MI);   mat_clear(MI);
-  mat_print(IM);   mat_clear(IM);
+  // // Matrix inverse
+  // matrix* INV = mat_inv(M44);
+  // matrix* MI  = mat_mul( M44, INV );
+  // matrix* IM  = mat_mul( INV, M44 );
+  // mat_print(INV);  mat_clear(INV);
+  // mat_print(MI);   mat_clear(MI);
+  // mat_print(IM);   mat_clear(IM);
 
-  // Right division
-  matrix* XR  = mat_divR( M33a, M23 );
-  matrix* XRA = mat_mul( XR, M33a );
-  mat_print(M33a);  mat_print(M23);
-  mat_print(XR);   mat_clear(XR);
-  mat_print(XRA);  mat_clear(XRA);
+  // // Right division
+  // matrix* XR  = mat_divR( M33a, M23 );
+  // matrix* XRA = mat_mul( XR, M33a );
+  // mat_print(M33a);  mat_print(M23);
+  // mat_print(XR);   mat_clear(XR);
+  // mat_print(XRA);  mat_clear(XRA);
 
   // Matrix element-wise power
   matrix* Mepow;
@@ -647,95 +645,7 @@ int main ( void ) {
   printf("\n");
 
   return;
-}*/
-
-
-
-
-/*******************************************************************************
-* void MatRoot ( void )
-* Debugs the 'matRoot' file functions.
-*******************************************************************************/
-/*void MatRoot ( void ) {
-
-  printf("Matrix polynomial root function \n");
-
-  // Routine values
-  float tol = 0.001;
-  uint max = 50000;
-
-  // First polynomial matrix
-  matrix* poly1 = mat_init( 1, 4 );
-  mat_set( poly1, 1, 1,  1 );
-  mat_set( poly1, 1, 2, 10 );
-  mat_set( poly1, 1, 3, 31 );
-  mat_set( poly1, 1, 4, 30 );
-  printf("poly1: ");
-  mat_print(poly1);
-  matrixz* zero1 = mat_root( poly1, tol, max );
-  printf("zero1: ");
-  mat_printz(zero1);
-
-  // Second polynomial matrix
-  matrix* poly2 = mat_init( 1, 4 );
-  mat_set( poly2, 1, 1, 1 );
-  mat_set( poly2, 1, 2, 4 );
-  mat_set( poly2, 1, 3, 6 );
-  mat_set( poly2, 1, 4, 4 );
-  printf("poly2: ");
-  mat_print(poly2);
-  matrixz* zero2 = mat_root( poly2, tol, max );
-  printf("zero2: ");
-  mat_printz(zero2);
-
-  // Third polynomial matrix
-  matrix* poly3 = mat_init( 1, 4 );
-  mat_set( poly3, 1, 1,  -3 );
-  mat_set( poly3, 1, 2, -12 );
-  mat_set( poly3, 1, 3, -18 );
-  mat_set( poly3, 1, 4, -12 );
-  printf("poly3: ");
-  mat_print(poly3);
-  matrixz* zero3 = mat_root( poly3, tol, max );
-  printf("zero3: ");
-  mat_printz(zero3);
-
-  // Fourth polynomial matrix
-  matrix* poly4 = mat_init( 1, 6 );
-  mat_set( poly4, 1,  1,      1 );
-  mat_set( poly4, 1,  2,      6 );
-  mat_set( poly4, 1,  3,    -19 );
-  mat_set( poly4, 1,  4,   -132 );
-  mat_set( poly4, 1,  5,    115 );
-  mat_set( poly4, 1,  6,    434 );
-  //mat_set( poly4, 1,  7,  -4449 );
-  //mat_set( poly4, 1,  8,  -8932 );
-  //mat_set( poly4, 1,  9,  34484 );
-  //mat_set( poly4, 1, 10, 164720 );
-  //mat_set( poly4, 1, 11, 296748 );
-  //mat_set( poly4, 1, 12, 268704 );
-  //mat_set( poly4, 1, 13, 112320 );
-  printf("poly4: ");
-  mat_print(poly4);
-  matrixz* zero4 = mat_root( poly4, tol, max );
-  printf("zero4: ");
-  mat_printz(zero4);
-
-  // Clear matrices
-  mat_clear(poly1);
-  mat_clear(poly2);
-  mat_clear(poly3);
-  mat_clear(poly4);
-  mat_clearz(zero1);
-  mat_clearz(zero2);
-  mat_clearz(zero3);
-  mat_clearz(zero4);
-
-  // Exit MatRoot debugging
-  printf("\n");
-
-  return;
-}*/
+}
 
 
 
@@ -788,41 +698,48 @@ int main ( void ) {
 
 
 /*******************************************************************************
-* void MatTriVec ( void )
-* Debugs the triangle to vector functions within 'matDecomp'.
+* void MatTri ( void )
+* Debugs the triangle matrix reshaping functions within 'matDecomp'.
 *******************************************************************************/
-/*void MatTriVec ( void ) {
+void MatTri ( void ) {
 
-  printf("Matrix triangle to vector functions. \n");
+  printf("Matrix triangle matrix functions. \n");
 
-  // Triangle to vector
-  printf("Triangle to vector: \n");
-  matrix* tri1 = mat_init( 3, 3 );
-  mat_set( tri1, 1, 1, 1.00 );  mat_set( tri1, 1, 2, 0.00 );  mat_set( tri1, 1, 3, 0.00 );
-  mat_set( tri1, 2, 1, 0.20 );  mat_set( tri1, 2, 2, 0.03 );  mat_set( tri1, 2, 3, 0.00 );
-  mat_set( tri1, 3, 1, 4.00 );  mat_set( tri1, 3, 2, 0.50 );  mat_set( tri1, 3, 3, 0.06 );
-  matrix* vec1 = mat_tri2vec(tri1);
-  printf("Tri:");  mat_print(tri1);  mat_clear(tri1);
-  printf("Vec:");  mat_print(vec1);  mat_clear(vec1);
+  // Triangle to vector/array
+  printf("Triangle to vector/array: \n");
+  matrix* tri_in = mat_init( 3, 3 );
+  mat_set( tri_in, 1, 1, 1.00 );  mat_set( tri_in, 1, 2, 0.00 );  mat_set( tri_in, 1, 3, 0.00 );
+  mat_set( tri_in, 2, 1, 0.20 );  mat_set( tri_in, 2, 2, 0.03 );  mat_set( tri_in, 2, 3, 0.00 );
+  mat_set( tri_in, 3, 1, 4.00 );  mat_set( tri_in, 3, 2, 0.50 );  mat_set( tri_in, 3, 3, 0.06 );
+  matrix* vec_out = mat_tri2vec(tri_in);
+  float*  arr_out = mat_tri2arr(tri_in);
+  printf("Tri:");  mat_print(tri_in);
+  printf("Vec:");  mat_print(vec_out);
+  printf("Arr:");  for( ushort i=0; i<6; i++ )  printf("\n  %f",arr_out[i]);  printf("\n");
 
-  // Vector to triangle
-  printf("Vector to triangle: \n");
-  matrix* vec2 = mat_init( 6, 1 );
-  mat_set( vec2, 1, 1, 0.01 );
-  mat_set( vec2, 2, 1, 0.20 );
-  mat_set( vec2, 3, 1, 3.00 );
-  mat_set( vec2, 4, 1, 0.04 );
-  mat_set( vec2, 5, 1, 0.50 );
-  mat_set( vec2, 6, 1, 6.00 );
-  matrix* tri2 = mat_vec2tri(vec2);
-  printf("Vec:");  mat_print(vec2);  mat_clear(vec2);
-  printf("Tri:");  mat_print(tri2);  mat_clear(tri2);
+  // Vector/Array to triangle
+  printf("Vector/Array to triangle: \n");
+  matrix* vec_in  = mat_scale( vec_out, 10.0 );
+  matrix* tri_vec = mat_vec2tri(vec_in);
+  float arr_in[6];  for( ushort i=0; i<6; i++ )  arr_in[i] = 0.1 * arr_out[i];
+  matrix* tri_arr = mat_arr2tri( arr_in, 3 );
+  printf("Vec:");  mat_print(vec_in);
+  printf("Tri:");  mat_print(tri_vec);
+  printf("Arr:"); for( ushort i=0; i<6; i++ )  printf("\n  %f",arr_in[i]);  printf("\n");
+  printf("Tri:");  mat_print(tri_arr);
+
+  // Clear matrices
+  mat_clear(tri_in);
+  mat_clear(tri_vec);
+  mat_clear(tri_arr);
+  mat_clear(vec_in);
+  mat_clear(vec_out);
 
   // Exit MatTriVec debugging
   printf("\n");
 
   return;
-}*/
+}
 
 
 

@@ -15,8 +15,8 @@
 
 /*******************************************************************************
 * matrix* mat_init ( uint r, uint c )
-* Initializes a new matrix with the specified dimensions,
-* and sets the elements to values of zero.
+* Initializes a new matrix with the specified dimensions, and sets the elements
+* to values of zero.
 *******************************************************************************/
 matrix* mat_init ( uint r, uint c ) {
 
@@ -51,7 +51,7 @@ void mat_clear ( matrix* M ) {
       M->e = NULL;
     }
     free(M);
-    mat = NULL;
+    M = NULL;
   }
 
   return;
@@ -68,9 +68,9 @@ void mat_print ( matrix* M ) {
 
   printf( "[%dx%d]\n", M->r, M->c );
 
-  for( uint i=1; i<=M->r; i++ ) {
-    for( uint j=1; j<=M->c; j++ ) {
-      printf( " %8.4f", mat_get( M, i, j ) );
+  for( uint i=0; i<M->r; i++ ) {
+    for( uint j=0; j<M->c; j++ ) {
+      printf( " %8.4f", *( M->e + i*M->c + j ) );
     }
     printf("\n");
   }
@@ -103,14 +103,13 @@ matrix* mat_read ( char* file ) {
   scan = fscanf( f, "%u", &c );
   mat_err( ( scan == EOF ), "Error (mat_read): Failed to read 'cols' from file." );
 
-  matrix* M = mat_init( r, c );
-//  float* data = out->e;
+  matrix* N = mat_init( r, c );
+  float* p = N->e;
 
   for( uint i=0; i<r*c; i++ ) {
     scan = fscanf( f, "%f", &val );
     mat_err( ( scan == EOF ), "Error (mat_read): Matrix is missing elements." );
-//    *(data++) = val;
-    *((M->e)++) = val;
+    *(p++) = val;
   }
 
   scan = fscanf( f, "%f", &val );
@@ -118,7 +117,7 @@ matrix* mat_read ( char* file ) {
 
   fclose(f);
 
-  return out;
+  return N;
 }
 
 
@@ -134,9 +133,9 @@ void mat_write ( matrix* M, char* file ) {
   mat_err( ( f == NULL ), "Error (mat_write): Cannot open file.\n" );
 
   fprintf( f, "# %d %d \n", M->r, M->c );
-  for( uint i=1; i<=M->r; i++ ) {
-    for( uint j=1; j<=M->c; j++ ) {
-      fprintf( f, " %e", mat_get( M, i, j ) );
+  for( uint i=0; i<M->r; i++ ) {
+    for( uint j=0; j<M->c; j++ ) {
+      fprintf( f, " %e", *( M->e + i*M->c + j ) );
     }
     fprintf( f, "\n" );
   }
@@ -176,7 +175,7 @@ matrix* mat_getr ( matrix* M, uint r ) {
 
   for( uint i=0; i<M->c; i++ )  *(N->e+i) = *( M->e + (r-1) * M->c + i );
 
-  return out;
+  return N;
 }
 
 
@@ -194,7 +193,7 @@ matrix* mat_getc ( matrix* M, uint c ) {
 
   for( uint i=0; i<M->r; i++ )  *(N->e+i) = *( M->e + i * M->c + (c-1) );
 
-  return out;
+  return N;
 }
 
 
@@ -262,7 +261,7 @@ matrix* mat_copy ( matrix* M ) {
   matrix* N = mat_init( M->r, M->c );
 
   memcpy( N->e, M->e, M->r * M->c * sizeof(float) );
-  
+
   return N;
 }
 
@@ -300,7 +299,7 @@ matrix* mat_ones ( uint r, uint c ) {
 
   for( uint i=0; i<r*c; i++ )  *(N->e+i) = 1.0;
 
-  return out;
+  return N;
 }
 
 
@@ -361,9 +360,9 @@ void mat_swapc ( matrix* M, uint p, uint q ) {
   if ( p == q )  return;
 
   for( uint i=0; i<M->r; i++ ) {
-    float tmp = *( M->e + ( i * M->c ) + (p-1) );
-    *( M->e + ( i * M->c ) + (p-1) ) = *( M->e + ( i * M->c ) + (q-1) );
-    *( M->e + ( i * M->c ) + (q-1) ) = tmp;
+    float tmp = *( M->e + i*M->c + (p-1) );
+    *( M->e + i*M->c + (p-1) ) = *( M->e + i*M->c + (q-1) );
+    *( M->e + i*M->c + (q-1) ) = tmp;
   }
 
   return;
@@ -402,11 +401,11 @@ matrix* mat_appc ( matrix* L, matrix* R ) {
   matrix* N = mat_init( L->r, L->c + R->c );
 
   for( uint i=0; i<L->r; i++ ) {
-    memcpy( N->e + i * N->c,          L->e + i * L->c, L->c * sizeof(float) );
-    memcpy( N->e + i * N->c, + L->c , R->e + i * R->c, R->c * sizeof(float) );    
+    memcpy( N->e + i*N->c,         L->e + i*L->c, L->c * sizeof(float) );
+    memcpy( N->e + i*N->c + L->c , R->e + i*R->c, R->c * sizeof(float) );
   }
 
-  return out;
+  return N;
 }
 
 

@@ -20,6 +20,7 @@
 matrix* mat_skew ( matrix* V ) {
 
   mat_err( ( V->r != 3 || V->c != 1 ), "Error (mat_skew): Input vector must be [3x1]." );
+
   matrix* W = mat_init( 3, 3 );
 
   float* i = V->e;
@@ -45,6 +46,7 @@ matrix* mat_skew ( matrix* V ) {
 matrix* mat_sskew ( matrix* V ) {
 
   mat_err( ( V->r != 3 || V->c != 1 ), "Error (mat_sskew): Input vector must be [3x1]." );
+
   matrix* W = mat_init( 3, 3 );
 
   float x2 = *(V->e  ) * *(V->e  );
@@ -75,11 +77,12 @@ matrix* mat_cross ( matrix* A, matrix* B ) {
   mat_err( ( B->r != 3 || B->c != 1 ), "Error (mat_cross): Vector B must be [3x1]." );
 
   matrix* W = mat_init( 3, 1 );
+
   *(W->e  ) = *(A->e+1) * *(B->e+2) - *(A->e+2) * *(B->e+1);
   *(W->e+1) = *(A->e+2) * *(B->e  ) - *(A->e  ) * *(B->e+2);
   *(W->e+2) = *(A->e  ) * *(B->e+1) - *(A->e+1) * *(B->e  );
 
-  return out;
+  return W;
 }
 
 
@@ -146,13 +149,13 @@ float mat_norm ( matrix* V, uint p ) {
     }
 
     case 2 : {
-      return mat_mag(vec);
+      return mat_mag(V);
     }
 
     default : {
       float norm = 0.0;
       for( uint i=0; i<V->r; i++ ) {
-        norm += powf( fabsf( *(V->e+i) ), p );
+        norm += powf( fabsf( *(V->e+i) ), (float)p );
       }
       return powf( norm, ( 1.0 / (float)p ) );
     }
@@ -177,6 +180,7 @@ matrix* mat_uvec ( matrix* V ) {
   if(!mag)  return V;
 
   matrix* uvec = mat_init( V->r, 1 );
+
   memcpy( uvec->e, V->e, V->r * sizeof(float) );
   for( uint i=0; i<V->r; i++ )  *(uvec->e+i) /= mag;
 
@@ -197,10 +201,10 @@ matrix* mat_proj ( matrix* U, matrix* V ) {
 
   if( !mat_mag(V) )  return V;
 
-  matrix* proj = mat_init( V->r, 1 );
-  proj = mat_scale( V, ( mat_dot( U, V ) / mat_dot( V, V ) ) );
+  matrix* W = mat_init( V->r, 1 );
+  W = mat_scale( V, ( mat_dot( U, V ) / mat_dot( V, V ) ) );
 
-  return proj;
+  return W;
 }
 
 

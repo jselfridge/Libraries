@@ -33,7 +33,7 @@ matrixz* mat_initz ( uint r, uint c ) {
 
   memset( N->e, 0.0, r * c * sizeof(float complex) );
 
-  return out;
+  return N;
 }
 
 
@@ -67,10 +67,10 @@ void mat_clearz ( matrixz* M ) {
 void mat_printz ( matrixz* M ) {
 
   printf( "[%dx%d]\n", M->r, M->c );
-  for( uint i=1; i<=M->r; i++ ) {
-    for( uint j=1; j<=M->c; j++ ) {
-      float re = mat_getre( M, i, j );
-      float im = mat_getim( M, i, j );
+  for( uint i=0; i<M->r; i++ ) {
+    for( uint j=0; j<M->c; j++ ) {
+      float re = crealf( *( M->e + i*M->c + j ) );
+      float im = cimagf( *( M->e + i*M->c + j ) );
       char sign;
       if(im<0)  sign = '-';
       else      sign = '+';
@@ -108,15 +108,14 @@ matrixz* mat_readz ( char* file ) {
   scan = fscanf( f, "%u", &c );
   mat_err( ( scan == EOF ), "Error (mat_readz): Failed to read 'cols' from file." );
 
-  matrixz* M = mat_initz( r, c );
-//  float complex* data = M->e;
+  matrixz* N = mat_initz( r, c );
+  float complex* p = N->e;
 
   for( uint i=0; i<r*c; i++ ) {
     scan = fscanf( f, "%f %c %f i", &re, &sign, &im );
     mat_err( ( scan == EOF ), "Error (mat_readz): Matrix is missing elements." );
     if( sign == '-' )  im *= -1.0;
-//    *(data++) = re + im*I;
-    *((M->e)++) = re + im*I;
+    *(p++) = re + im*I;
   }
 
   scan = fscanf( f, "%f %c %f i", &re, &sign, &im );
@@ -124,7 +123,7 @@ matrixz* mat_readz ( char* file ) {
 
   fclose(f);
 
-  return out;
+  return N;
 }
 
 
@@ -136,19 +135,17 @@ matrixz* mat_readz ( char* file ) {
 *******************************************************************************/
 void mat_writez ( matrixz* M, char* file ) {
 
-  float re, im;
-  char sign;
-
   FILE* f = fopen( file, "w" );
   mat_err( ( f == NULL ), "Error (mat_writez): Cannot open file.\n" );
 
   fprintf( f, "# %d %d \n", M->r, M->c );
-  for( uint i=1; i<=M->r; i++ ) {
-    for( uint j=1; j<=M->c; j++ ) {
-      re = mat_getre( M, i, j );
-      im = mat_getim( M, i, j );
-      if(im<0)  sign = '-';
-      else      sign = '+';
+  for( uint i=0; i<M->r; i++ ) {
+    for( uint j=0; j<M->c; j++ ) {
+      float re = crealf( *( M->e + i*M->c + j ) );
+      float im = cimagf( *( M->e + i*M->c + j ) );
+      char sign;
+      if( im < 0.0 )  sign = '-';
+      else            sign = '+';
       fprintf( f, " %e %c%e i\t", re, sign, fabs(im) );
     }
     fprintf( f, "\n" );
@@ -171,7 +168,7 @@ float mat_getre ( matrixz* M, uint r, uint c ) {
   mat_err( ( !r || r > M->r ), "Error (mat_getre): Row index exceeds matrix dimensions."    );
   mat_err( ( !c || c > M->c ), "Error (mat_getre): Column index exceeds matrix dimensions." );
 
-  return (float)creal( *( M->e + (r-1) * M->c + (c-1) ) );
+  return crealf( *( M->e + (r-1) * M->c + (c-1) ) );
 }
 
 
@@ -186,7 +183,7 @@ float mat_getim ( matrixz* M, uint r, uint c ) {
   mat_err( ( !r || r > M->r ), "Error (mat_getim): Row index exceeds matrix dimensions."    );
   mat_err( ( !c || c > M->c ), "Error (mat_getim): Column index exceeds matrix dimensions." );
 
-  return (float)cimag( *( M->e + (r-1) * M->c + (c-1) ) );
+  return cimagf( *( M->e + (r-1) * M->c + (c-1) ) );
 }
 
 
@@ -220,7 +217,7 @@ matrixz* mat_getcz ( matrixz* M, uint c ) {
 
   matrixz* N = mat_initz( M->r, 1 );
 
-  for( uint i=0; i<M->r; i++ )  *(N->e+i) = *( M->e + i * M->c + (c-1) );
+  for( uint i=0; i<M->r; i++ )  *(N->e+i) = *( M->e + i*M->c + (c-1) );
 
   return N;
 }
@@ -273,7 +270,7 @@ void mat_setcz ( matrixz* M, uint c, matrixz* V ) {
   mat_err( ( V->c !=1 ),       "Error (mat_setcz): Input array must be a column vector."            );
   mat_err( ( M->r != V->r ),   "Error (mat_setcz): Input array and matrix must be the same height." );
 
-  for( uint i=0; i<M->r; i++ )  *( M->e + i * M->c + (c-1) ) = *(V->e+i);
+  for( uint i=0; i<M->r; i++ )  *( M->e + i*M->c + (c-1) ) = *(V->e+i);
 
   return;
 }

@@ -19,7 +19,7 @@
 
 // Library includes
 #include "matCommon.h"
-// #include "matManip.h"
+#include "matManip.h"
 
 
 // Function declarations
