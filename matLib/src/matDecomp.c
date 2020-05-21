@@ -262,13 +262,12 @@ void mat_QR ( matrix* A, matrix** Q, matrix** R ) {
 
 
 /*******************************************************************************
-* void mat_chol ( matrix* A, uint n, matrix** U, uint *nullity, uint *err )
+* void mat_chol ( float a[], uint n, float u[], uint *nullity, uint *err )
 * Determines the cholesky decomposition for a positive definite symmetric matrix.
 *******************************************************************************/
-void mat_chol ( matrix* A, uint n, matrix** U, uint *nullity, uint *err ) {
+void mat_chol ( float a[], uint n, float u[], uint *nullity, uint *err ) {
 
-  mat_err( (!n),                    "Error (mat_chol): Matrix size must be positive." );
-  mat_err( ( A->r != (n*(n+1))/2 ), "Error (mat_chol): Inconsistent dimensions."      );
+  mat_err( (!n), "Error (mat_chol): Matrix size must be positive." );
 
   *nullity = 0;
   *err = 0;
@@ -282,7 +281,7 @@ void mat_chol ( matrix* A, uint n, matrix** U, uint *nullity, uint *err ) {
   for( uint r=0; r<n; r++ ) {
 
     j += r;
-    float tol = eps * eps * *(A->e+j);
+    float tol = eps * eps * a[j];
     float w = 0.0;
     uint l = 0;
 
@@ -290,13 +289,13 @@ void mat_chol ( matrix* A, uint n, matrix** U, uint *nullity, uint *err ) {
     for( uint c=0; c<=r; c++ ) {
 
       uint m = j;
-      w = *(A->e+i);
+      w = a[i];
       i++;
 
       // Iterate through each element within row
       for( uint k=0; k<c; k++ ) {
 
-        w -= *((*U)->e+l) * *((*U)->e+m);
+        w -= u[l] * u[m];
         l++;
         m++;
 
@@ -304,10 +303,10 @@ void mat_chol ( matrix* A, uint n, matrix** U, uint *nullity, uint *err ) {
 
       if( r == c )  break;
 
-      if( *((*U)->e+l) != 0.0 ) {  *((*U)->e+i-1) = w / *((*U)->e+l);  }
+      if( u[l] != 0.0 ) {  u[i-1] = w / u[l];  }
       else {
-        *((*U)->e+i-1) = 0.0;
-        if( fabs( tol * *(A->e+i-1) ) < w*w ) {  *err = 2;  return;  }
+        u[i-1] = 0.0;
+        if( fabs( tol * a[i-1] ) < w*w ) {  *err = 2;  return;  }
       }
 
       l++;
@@ -315,13 +314,13 @@ void mat_chol ( matrix* A, uint n, matrix** U, uint *nullity, uint *err ) {
     }
 
     //End of row, estimate relative accuracy of diagonal element
-    if( fabs(w) <= fabs( eps * *(A->e+i-1) ) ) {
-      *((*U)->e+i-1) = 0.0;
+    if( fabs(w) <= fabs( eps * a[i-1] ) ) {
+      u[i-1] = 0.0;
       (*nullity)++;
     }
     else {
       if ( w<0.0 ) {  *err = 2;  return;  }
-      *((*U)->e+i-1) = sqrtf(w);
+      u[i-1] = sqrtf(w);
     }
 
   }
