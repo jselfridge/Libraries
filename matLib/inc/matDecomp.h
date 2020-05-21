@@ -24,10 +24,10 @@ matrix*  mat_tri2vec  ( matrix* tri );
 float*   mat_tri2arr  ( matrix* tri );
 matrix*  mat_vec2tri  ( matrix* vec );
 matrix*  mat_arr2tri  ( float*  arr, uint n );
-// void     mat_LU       ( matrix* mat, matrix** L, matrix** U );                  // optimize
-// void     mat_LDU      ( matrix* mat, matrix** L, matrix** D, matrix** U );      // optimize
-// void     mat_QR       ( matrix* mat, matrix** Q, matrix** R );                  // optimize and short matrices
-// void     mat_chol     ( matrix* A, uint n, matrix** U, uint *nullty, uint *ifault );
+void     mat_LU       ( matrix* A, matrix** L, matrix** U );  // optimize, debug non-existance check
+void     mat_LDU      ( matrix* A, matrix** L, matrix** D, matrix** U );  // optimize
+// void     mat_QR       ( matrix* A, matrix* Q, matrix* R );                   // optimize and short matrices
+// void     mat_chol     ( matrix* A, uint n, matrix* U, uint* nullity, uint* err );
 
 
 #endif

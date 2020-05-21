@@ -44,7 +44,7 @@ float* mat_tri2arr ( matrix* tri ) {
 
   mat_err( ( tri->r != tri->c ), "Error (mat_tri2arr): Matrix must be square." );
 
-  const uint d = ( tri->r * (tri->r+1) ) / 2;  
+  const uint d = ( tri->r * (tri->r+1) ) / 2;
   float* arr = (float*) malloc( d * sizeof(float) );
 
   float* p = arr;
@@ -111,30 +111,32 @@ matrix* mat_arr2tri ( float* arr, uint n ) {
 
 
 /*******************************************************************************
-* void mat_LU ( matrix* mat, matrix** L, matrix** U )
+* void mat_LU ( matrix* A, matrix** L, matrix** U )
 * Solves for the LU decomposition of a matrix (if it exists).
 *******************************************************************************/
-/*void mat_LU ( matrix* mat, matrix** L, matrix** U ) {
+void mat_LU ( matrix* A, matrix** L, matrix** U ) {
 
-  *U = mat_copy(mat);
-  *L = mat_init( mat->rows, mat->rows );
+  *U = mat_copy(A);
+  *L = mat_init( A->r, A->r );
 
-  matrix* row = mat_init( 1, mat->cols );
+  matrix* row = mat_init( 1, A->c );
 
-  uint n = mat->rows < mat->cols ? mat->rows : mat->cols;
+  uint n = A->r < A->c ? A->r : A->c;
 
-  uint i = 1;
-  uint j = 1;
+  const float eps = 1.0E-30;
+
+  uint i = 0;
+  uint j = 0;
   uint m = 0;
 
-  for( uint p=1; p<=n; p++ ) {
+  for( uint p=0; p<n; p++ ) {
 
-    float pivot = mat_get( *U, i, j );
+    float pivot = *( (*U)->e + i*(*U)->c + j );
 
-    if(!pivot) {
+    if( fabsf(pivot) < eps ) {
 
-      for( uint k=i+1; k<=mat->rows; k++ ) {
-        float val = mat_get( *U, k, j );
+      for( uint k=i; k<A->r-1; k++ ) {
+        float val = *( (*U)->e + k*(*U)->c + j );
         mat_err( ( val != 0 ), "Error (mat_LU): The LU decomposition does not exist." );
       }
 
@@ -146,17 +148,17 @@ matrix* mat_arr2tri ( float* arr, uint n ) {
 
     else {
 
-      for( uint k=i; k<=mat->rows; k++ ) {
-        float val = mat_get( *U, k, j ) / pivot;
-        mat_set( *L, k, j-m, val );
+      for( uint k=i; k<A->r; k++ ) {
+        float val = *( (*U)->e + k*(*U)->c + j ) / pivot;
+        *( (*L)->e + k*(*L)->c + j-m ) = val;
       }
 
-      for( uint k=i+1; k<=mat->rows; k++ ) {
-        float scale = -mat_get( *U, k, j) / pivot;
-        row = mat_getr( *U, i );
+      for( uint k=i+1; k<A->r; k++ ) {
+        float scale = - *( (*U)->e + k*(*U)->c + j ) / pivot;
+        row = mat_getr( *U, i+1 );
         row = mat_scale( row, scale );
-        row = mat_add( row, mat_getr( *U, k ) );
-        mat_setr( *U, k, row );
+        row = mat_add( row, mat_getr( *U, k+1 ) );
+        mat_setr( *U, k+1, row );
       }
 
       i++;
@@ -166,34 +168,34 @@ matrix* mat_arr2tri ( float* arr, uint n ) {
 
   }
 
-  for( uint p=1; p<=mat->rows; p++ )  mat_set( *L, p, p, 1.0 );
+  for( uint p=0; p<A->r; p++ )  *( (*L)->e + p*(*L)->c + p ) = 1.0;
 
   mat_clear(row);
 
   return;
-}*/
+}
 
 
 
 
 /*******************************************************************************
-* void mat_LDU ( matrix* mat, matrix** L, matrix** U )
+* void mat_LDU ( matrix* A, matrix** L, matrix** D, matrix** U )
 * Solves for the LDU decomposition of a matrix (if it exists).
 *******************************************************************************/
-/*void mat_LDU ( matrix *mat, matrix **L, matrix **D, matrix **U ) {
+void mat_LDU ( matrix* A, matrix** L, matrix** D, matrix** U ) {
 
-  mat_LU( mat, &*L, &*U );
-  *D = mat_init( mat->rows, mat->rows );
+  mat_LU( A, &*L, &*U );
+  *D = mat_init( A->r, A->r );
 
-  matrix* row = mat_init( 1, mat->cols );
+  matrix* row = mat_init( 1, A->c );
 
   uint i = 1;
   uint j = 1;
 
-  for( uint k=1; k<=mat->rows; k++ ) {
+  for( uint k=1; k<=A->r; k++ ) {
 
-    if( k>mat->cols ) {
-      while( k<=mat->rows ) {  mat_set( *D, k, k, 1.0 );  k++;  }
+    if( k>A->c ) {
+      while( k<=A->r ) {  mat_set( *D, k, k, 1.0 );  k++;  }
       break;
     }
 
@@ -218,7 +220,7 @@ matrix* mat_arr2tri ( float* arr, uint n ) {
   mat_clear(row);
 
   return;
-}*/
+}
 
 
 

@@ -66,6 +66,8 @@ void mat_clear ( matrix* M ) {
 *******************************************************************************/
 void mat_print ( matrix* M ) {
 
+  mat_err( ( M == NULL ), "Error (mat_print): Matrix is NULL." );
+
   printf( "[%dx%d]\n", M->r, M->c );
 
   for( uint i=0; i<M->r; i++ ) {

@@ -21,8 +21,8 @@ void  MatComplex  ( void );
 void  MatVec      ( void );
 void  MatArith    ( void );
 // void  MatProp     ( void );
-void  MatTri      ( void );
-// void  MatLDU      ( void );
+// void  MatTri      ( void );
+void  MatLDU      ( void );
 // void  MatQR       ( void );
 // void  MatPDS      ( void );
 
@@ -59,8 +59,8 @@ int main ( void ) {
   // MatVec();
   // MatArith();
   // MatProp();
-  MatTri();
-  // MatLDU();
+  // MatTri();
+  MatLDU();
   // MatQR();
   // MatPDS();
   MatClear();
@@ -748,7 +748,7 @@ void MatTri ( void ) {
 * void MatLDU ( void )
 * Debugs the LDU decomposition functions within 'matDecomp'.
 *******************************************************************************/
-/*void MatLDU ( void ) {
+void MatLDU ( void ) {
 
   printf("Matrix LDU decompositions \n");
 
@@ -869,8 +869,8 @@ void MatTri ( void ) {
   printf("V5: ");    mat_print(V5);    mat_clear(V5);
   printf("LDU5: ");  mat_print(LDU5);  mat_clear(LDU5);
   printf("\n");
-*/
-  /*/ LDU 6: No solution
+
+  // LDU 6:
   printf("LDU 6: \n");
   matrix* A6 = mat_init( 3, 3 );
   mat_set( A6, 1, 1,  2 );  mat_set( A6, 1, 2,  1 );  mat_set( A6, 1, 3, -1 );
@@ -878,13 +878,18 @@ void MatTri ( void ) {
   mat_set( A6, 3, 1,  6 );  mat_set( A6, 3, 2,  2 );  mat_set( A6, 3, 3, 11 );
   matrix* L6 = NULL;
   matrix* U6 = NULL;
-  mat_LU( A6, &L6, &U6 );  */
-/*
+  mat_LU( A6, &L6, &U6 );
+  matrix* LU6 = mat_mul( L6, U6 );
+  printf("A6: ");    mat_print(A6);    mat_clear(A6);
+  printf("L6: ");    mat_print(L6);    mat_clear(L6);
+  printf("U6: ");    mat_print(U6);    mat_clear(U6);
+  printf("LU6: ");   mat_print(LU6);   mat_clear(LU6);
+
   // Exit MatLDU debugging
   printf("\n");
 
   return;
-}*/
+}
 
 
 
